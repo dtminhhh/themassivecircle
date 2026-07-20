@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__BRAND_NAME__ — Thanh toán</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EDE6D8; --surface: #FFFFFF; --text: #24352A; --text-muted: rgba(36,53,42,.65);
+    --accent: #C9A657; --accent-deep: #8B7355; --border: rgba(36,53,42,.14);
+    --font-h: 'Poppins', sans-serif; --font-b: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-b); background: #1B2C20; color: var(--text); line-height: 1.6; padding: 40px 20px; }
+  .container { max-width: 560px; margin: 0 auto; background: var(--surface); padding: 32px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+  .brand { font-family: var(--font-h); font-weight: 700; font-size: 0.9rem; color: var(--accent-deep); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-family: var(--font-h); font-size: 22px; margin-bottom: 4px; color: var(--text); }
+  .lead { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
+  .bumps { background: #FAF7F0; border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+  .bump { display: flex; align-items: flex-start; padding: 10px 0; cursor: pointer; }
+  .bump input { margin-right: 12px; margin-top: 4px; }
+  .bump-info { flex: 1; }
+  .bump-name { font-weight: 600; font-size: 14px; }
+  .bump-price { color: var(--accent-deep); font-weight: 700; font-size: 14px; }
+  .bump-desc { font-size: 13px; color: var(--text-muted); }
+  .summary { background: #1B2C20; color: #F2EDE3; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+  .summary-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
+  .summary-total { font-size: 22px; font-weight: 800; font-family: var(--font-h); color: var(--accent); padding-top: 12px; border-top: 1px solid rgba(242,237,227,.15); margin-top: 8px; }
+  .qr-section { text-align: center; padding: 20px 0; }
+  .qr-section img { max-width: 280px; border: 4px solid #FAF7F0; border-radius: 10px; }
+  .info-box { background: #FAF3E0; border: 1px solid #E3CB8E; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
+  .info-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
+  .info-row strong { font-family: monospace; font-size: 15px; }
+  .status { padding: 14px; text-align: center; border-radius: 10px; font-weight: 600; font-size: 15px; margin-top: 16px; }
+  .status.pending { background: #F5E6E0; color: #8B4A3A; }
+  .status.paid { background: #E4EEE0; color: #3A5540; }
+  .pulse { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: currentColor; margin-right: 8px; vertical-align: middle; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">EDD Foundation™</div>
+  <h1>Hoàn tất thanh toán</h1>
+  <p class="lead">Chuyển khoản theo thông tin dưới đây — đơn được xác nhận tự động trong 30 giây.</p>
+
+  <div class="bumps" id="bumpsSection">
+    <div class="bump" data-bump="1" style="display:none">
+      <input type="checkbox" id="bump1">
+      <div class="bump-info">
+        <div><span class="bump-name">__BUMP1_NAME__</span> · <span class="bump-price">+__BUMP1_DISPLAY__đ</span></div>
+        <div class="bump-desc">Tài liệu bổ sung — chỉ thêm vào đơn này</div>
+      </div>
+    </div>
+    <div class="bump" data-bump="2" style="display:none">
+      <input type="checkbox" id="bump2">
+      <div class="bump-info">
+        <div><span class="bump-name">__BUMP2_NAME__</span> · <span class="bump-price">+__BUMP2_DISPLAY__đ</span></div>
+        <div class="bump-desc">Tài liệu bổ sung — chỉ thêm vào đơn này</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="summary-row"><span>__PRODUCT_NAME__</span><span id="base">__PRICE_DISPLAY__đ</span></div>
+    <div class="summary-row" id="bump1Row" style="display:none"><span>__BUMP1_NAME__</span><span>+__BUMP1_DISPLAY__đ</span></div>
+    <div class="summary-row" id="bump2Row" style="display:none"><span>__BUMP2_NAME__</span><span>+__BUMP2_DISPLAY__đ</span></div>
+    <div class="summary-row summary-total"><span>Tổng</span><span id="total">__PRICE_DISPLAY__đ</span></div>
+  </div>
+
+  <div class="qr-section">
+    <img id="qrImg" alt="QR thanh toán">
+  </div>
+
+  <div class="info-box">
+    <div class="info-row"><span>Ngân hàng</span><strong>__BANK_NAME__</strong></div>
+    <div class="info-row"><span>Số TK</span><strong>__ACCOUNT_NUMBER__</strong></div>
+    <div class="info-row"><span>Chủ TK</span><strong>__ACCOUNT_HOLDER__</strong></div>
+    <div class="info-row"><span>Nội dung CK</span><strong id="ckContent">—</strong></div>
+    <div class="info-row"><span>Số tiền</span><strong id="amount">—</strong></div>
+  </div>
+
+  <div class="status pending" id="statusBox">
+    <span class="pulse"></span><span id="statusText">Đang chờ giao dịch...</span>
+  </div>
+</div>
+
+<script>
+  const GAS_URL = '__GAS_URL__';
+  const BASE_PRICE = __PRODUCT_PRICE__;
+  const BUMP1_PRICE = __BUMP1_PRICE__;
+  const BUMP2_PRICE = __BUMP2_PRICE__;
+
+  const order = JSON.parse(sessionStorage.getItem('order') || '{}');
+  if (!order.orderId) { window.location.href = '/dang-ky'; }
+
+  // Show bumps if configured
+  if (BUMP1_PRICE > 0) document.querySelector('[data-bump="1"]').style.display = 'flex';
+  if (BUMP2_PRICE > 0) document.querySelector('[data-bump="2"]').style.display = 'flex';
+
+  document.getElementById('ckContent').textContent = order.ckContent;
+
+  function formatVnd(n) { return Number(n).toLocaleString('en-US').replace(/,/g, '.'); }
+
+  function calcTotal() {
+    let total = BASE_PRICE;
+    const b1 = document.getElementById('bump1').checked;
+    const b2 = document.getElementById('bump2').checked;
+    if (b1) total += BUMP1_PRICE;
+    if (b2) total += BUMP2_PRICE;
+    return { total, b1, b2 };
+  }
+
+  function updateQR(amount) {
+    const url = 'https://qr.sepay.vn/img?acc=__ACCOUNT_NUMBER__&bank=__BANK__&amount=' + amount + '&des=' + encodeURIComponent(order.ckContent);
+    document.getElementById('qrImg').src = url;
+    document.getElementById('amount').textContent = formatVnd(amount) + 'đ';
+    document.getElementById('total').textContent = formatVnd(amount) + 'đ';
+  }
+
+  async function updateOrderAPI(b1, b2, total) {
+    try {
+      await fetch(GAS_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'updateOrder',
+          orderId: order.orderId,
+          data: { bump1: b1, bump2: b2, totalAmount: total }
+        })
+      });
+    } catch (err) { console.error('updateOrder failed', err); }
+  }
+
+  ['bump1', 'bump2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => {
+      const { total, b1, b2 } = calcTotal();
+      document.getElementById('bump1Row').style.display = b1 ? 'flex' : 'none';
+      document.getElementById('bump2Row').style.display = b2 ? 'flex' : 'none';
+      updateQR(total);
+      updateOrderAPI(b1, b2, total);
+    });
+  });
+
+  updateQR(BASE_PRICE);
+
+  // Poll status every 5s
+  async function pollStatus() {
+    try {
+      const res = await fetch(GAS_URL + '?action=getStatus&orderId=' + encodeURIComponent(order.orderId));
+      const json = await res.json();
+      if (json.status === 'PAID') {
+        const box = document.getElementById('statusBox');
+        box.className = 'status paid';
+        document.getElementById('statusText').textContent = '✓ Đã nhận giao dịch · Đang chuyển trang...';
+        setTimeout(() => { window.location.href = '/xac-nhan'; }, 1500);
+        return;
+      }
+    } catch (err) { console.error('poll failed', err); }
+    setTimeout(pollStatus, 5000);
+  }
+  pollStatus();
+</script>
+</body>
+</html>

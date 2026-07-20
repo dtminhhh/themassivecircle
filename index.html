@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDD Foundation™ — Thẩm Định Năng Lượng, Làm Chủ Bản Đồ Kinh Doanh</title>
+<meta name="description" content="EDD Foundation™ — Hành trình 7 ngày kết hợp E-learning và báo cáo phân tích cá nhân bằng Bát Tự, giúp Founder/C-level ra quyết định đúng Thời điểm. Học thử miễn phí 5 ngày, giá 790.000đ.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="EDD Foundation™ — Làm Chủ Bản Đồ Kinh Doanh">
+<meta property="og:description" content="Học thử miễn phí 5 ngày đầu tiên — sở hữu tấm bản đồ thịnh vượng đã có sẵn từ khi bạn sinh ra.">
+<meta property="og:image" content="assets/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root {
+  --accent: #C9A657;
+  --accent-soft: rgba(201, 166, 87, 0.16);
+  --accent-deep: #8B7355;
+  --radius: 14px;
+  --max-w: 1120px;
+  --max-w-narrow: 760px;
+  --section-py: clamp(56px, 9vw, 112px);
+  --font-h: 'Montserrat', sans-serif;
+  --font-b: 'Inter', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+}
+
+.theme-dark {
+  --bg: #1B2C20;
+  --surface: #22352A;
+  --surface-2: #263D30;
+  --text: #F2EDE3;
+  --text-muted: rgba(242, 237, 227, 0.68);
+  --border: rgba(242, 237, 227, 0.12);
+  --btn-ink: #1B2C20;
+}
+.theme-light {
+  --bg: #EDE6D8;
+  --surface: #F7F3EA;
+  --surface-2: #FFFFFF;
+  --text: #24352A;
+  --text-muted: rgba(36, 53, 42, 0.65);
+  --border: rgba(36, 53, 42, 0.12);
+  --btn-ink: #1B2C20;
+}
+
+/* =========================================================
+   RESET + BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-b);
+  background: #1B2C20;
+  color: #F2EDE3;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul, ol { list-style: none; }
+
+h1, h2, h3, h4 { font-family: var(--font-h); line-height: 1.2; font-weight: 900; color: var(--text); }
+h1 { font-size: clamp(2.1rem, 5.5vw, 3.9rem); letter-spacing: -0.02em; }
+h2 {
+  font-size: clamp(1.65rem, 3.6vw, 2.5rem); letter-spacing: -0.02em;
+  text-transform: uppercase; font-weight: 900;
+}
+h2 .h2-rule { display: block; width: 56px; height: 4px; border-radius: 2px; background: var(--accent); margin-bottom: 18px; }
+h3 { font-size: clamp(1.2rem, 2.4vw, 1.5rem); font-weight: 800; }
+p { color: var(--text-muted); }
+
+/* ── Icon utility ── */
+.icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; flex-shrink: 0; color: var(--accent);
+}
+.icon svg { width: 100%; height: 100%; }
+.icon-lg { width: 30px; height: 30px; }
+
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.container-narrow { max-width: var(--max-w-narrow); margin: 0 auto; padding: 0 24px; }
+.section { padding: var(--section-py) 0; background: var(--bg); color: var(--text); position: relative; }
+.text-center { text-align: center; }
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--text-muted); }
+.mt-2 { margin-top: 8px; } .mt-4 { margin-top: 16px; } .mt-6 { margin-top: 24px; }
+.mt-8 { margin-top: 32px; } .mt-10 { margin-top: 40px; } .mt-12 { margin-top: 48px; } .mt-16 { margin-top: 64px; }
+
+/* =========================================================
+   COMPONENTS
+   ========================================================= */
+.eyebrow {
+  display: inline-block; font-family: var(--font-h); font-size: 0.85rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+  font-weight: 600; margin-bottom: 18px;
+}
+.eyebrow::before { content: "✦  "; }
+
+.badge {
+  display: inline-block; padding: 8px 18px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em;
+  border: 1px solid var(--border);
+}
+
+.btn-primary {
+  display: inline-block; padding: 18px 36px;
+  background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+  color: #1B2C20; border-radius: 999px;
+  font-weight: 700; font-size: 1.05rem; font-family: var(--font-h);
+  transition: all 0.2s; box-shadow: 0 8px 28px rgba(201, 166, 87, 0.28);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(201, 166, 87, 0.4); }
+.btn-secondary {
+  display: inline-block; padding: 16px 32px;
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border); border-radius: 999px; font-weight: 600;
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+}
+
+/* ── Nav ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(27, 44, 32, 0.9); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(242, 237, 227, 0.1);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+.nav-logo { font-family: var(--font-h); font-weight: 700; font-size: 1.05rem; color: #F2EDE3; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: rgba(242,237,227,.75); }
+.nav-links a:hover { color: var(--accent); }
+@media (max-width: 700px) { .nav-links { display: none; } }
+
+/* ── Hero ── */
+.hero {
+  padding: clamp(72px, 12vw, 128px) 0 var(--section-py);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,166,87,0.16) 0%, transparent 60%),
+    linear-gradient(180deg, #1B2C20 0%, #16221B 100%);
+  text-align: center;
+}
+.hero .highlight-box {
+  background: var(--accent); color: #1B2C20;
+  padding: 2px 14px; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+.hero h1 { max-width: 1080px; margin: 0 auto; font-size: clamp(1.7rem, 4.6vw, 3.35rem); }
+.hero .subhead { font-size: clamp(0.95rem, 1.6vw, 1.15rem); max-width: 900px; margin: 20px auto 0; color: rgba(242,237,227,.82); }
+.hero .lede { font-size: 1.02rem; max-width: 680px; margin: 20px auto 0; }
+.rating-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 28px; font-size: 0.95rem; color: rgba(242,237,227,.7); }
+.stars { color: var(--accent); letter-spacing: 2px; }
+
+/* ── Testimonial strip ── */
+.testimonial-card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 30px 28px;
+}
+.avatar-placeholder {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-h); font-size: 1.3rem; font-weight: 700; color: #1B2C20;
+  margin-bottom: 16px;
+}
+.testimonial-name { font-family: var(--font-h); font-weight: 700; }
+.testimonial-role { color: var(--accent); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; margin-bottom: 14px; }
+.testimonial-card p.quote { font-size: 1.02rem; color: var(--text); font-style: italic; }
+
+/* ── Problem ── */
+.mistake {
+  background: var(--surface); border-left: 3px solid var(--accent);
+  border-radius: var(--radius); padding: 32px 30px; margin-bottom: 20px;
+}
+.mistake-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-h); font-weight: 800; font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+.pull-quote {
+  font-family: var(--font-serif); font-style: italic; font-size: 1.15rem;
+  color: var(--accent); border-left: 2px solid var(--accent);
+  padding-left: 20px; margin: 20px 0;
+}
+
+/* ── Outcomes grid (4 lớp phân tích) ── */
+.outcome-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 28px 26px; border-radius: var(--radius);
+}
+.outcome-card .tag {
+  display: inline-block; font-family: var(--font-h); font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.06em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+}
+
+/* ── Report Preview ── */
+.report-preview-grid {
+  display: grid; grid-template-columns: 380px 1fr; gap: 48px; align-items: start;
+}
+@media (max-width: 860px) { .report-preview-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .report-preview-grid h3 { font-size: 1.1rem; } }
+
+.report-mock {
+  background: linear-gradient(165deg, #1C2A22 0%, #15201A 100%);
+  border: 1px solid rgba(201,166,87,0.3);
+  border-radius: 10px; padding: 0; overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+.report-mock-topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 24px; border-bottom: 1px solid rgba(242,237,227,.1);
+}
+.report-mock-logo { font-family: var(--font-b); font-size: 8.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,237,227,.55); }
+.report-mock-conf {
+  font-size: 8.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(201,166,87,.85); border: 1px solid rgba(201,166,87,.4); padding: 3px 8px; border-radius: 4px;
+}
+.report-mock-body { padding: 40px 28px 32px; }
+.report-mock-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: rgba(160,210,170,.75); display: block; margin-bottom: 22px; }
+.report-mock-rule { width: 32px; height: 1px; background: rgba(201,166,87,.55); margin-bottom: 20px; }
+.report-mock-title { font-family: var(--font-serif); font-weight: 400; font-size: 30px; color: rgba(242,237,227,.95); line-height: 1.08; display: block; }
+.report-mock-title-italic { font-family: var(--font-serif); font-weight: 400; font-style: italic; font-size: 20px; color: rgba(242,237,227,.65); display: block; margin-top: 4px; }
+.report-mock-divider { height: 1px; background: linear-gradient(90deg, rgba(242,237,227,.18) 0%, transparent 80%); margin: 28px 0 20px; }
+.report-mock-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.report-mock-field-label { font-size: 8px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(242,237,227,.4); display: block; margin-bottom: 4px; }
+.report-mock-field-val { font-size: 12.5px; color: rgba(242,237,227,.85); }
+
+/* ── Report mock: multi-page slider ── */
+.report-mock-viewport { position: relative; overflow: hidden; height: 420px; touch-action: pan-y; }
+.report-mock-track { display: flex; height: 100%; transition: transform .5s cubic-bezier(.25,1,.5,1); }
+.report-mock-slide { flex: 0 0 100%; width: 100%; min-width: 0; }
+.report-mock-slide .report-mock-body { padding: 36px 28px 20px; }
+
+.report-mock-chart { position: relative; height: 130px; margin-bottom: 22px; border-radius: 8px; background: linear-gradient(180deg, rgba(201,166,87,.08) 0%, transparent 90%); overflow: hidden; }
+.report-mock-chart-line {
+  position: absolute; left: 0; right: 0; top: 58%; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,166,87,.7) 30%, rgba(201,166,87,.95) 62%, rgba(201,166,87,.25) 100%);
+  filter: drop-shadow(0 0 6px rgba(201,166,87,.5));
+}
+.report-mock-pulse-dot {
+  position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: #C9A657;
+  box-shadow: 0 0 0 4px rgba(201,166,87,.22);
+  animation: reportMockPulse 1.8s ease-in-out infinite;
+}
+@keyframes reportMockPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .55; } }
+.report-mock-chart-caption { font-size: 12.5px; color: rgba(242,237,227,.75); line-height: 1.7; }
+.report-mock-caption-muted { margin-top: 10px; opacity: .8; }
+.report-mock-glow-gold { color: #C9A657; font-weight: 700; }
+
+.report-mock-radar { position: relative; width: 128px; height: 128px; margin: 4px auto 22px; }
+.report-mock-radar-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(201,166,87,.18); }
+.report-mock-radar-ring.r2 { inset: 22px; }
+.report-mock-radar-ring.r3 { inset: 44px; }
+.report-mock-radar-sweep {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  background: conic-gradient(from 0deg, rgba(201,166,87,.4) 0deg, transparent 70deg, transparent 360deg);
+  filter: blur(2px);
+  animation: reportMockRadarSpin 4s linear infinite;
+}
+@keyframes reportMockRadarSpin { to { transform: rotate(360deg); } }
+.report-mock-radar-core {
+  position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%; background: #C9A657; box-shadow: 0 0 10px rgba(201,166,87,.8);
+}
+
+.report-mock-gauge { position: relative; height: 8px; border-radius: 6px; background: rgba(242,237,227,.08); margin: 10px 0 12px; overflow: hidden; }
+.report-mock-gauge-fill {
+  position: absolute; inset: 0; width: 80%; border-radius: 6px;
+  background: linear-gradient(90deg, rgba(224,160,112,.35), rgba(224,160,112,.9));
+  box-shadow: 0 0 10px rgba(224,160,112,.5);
+  animation: reportMockGaugePulse 2.4s ease-in-out infinite;
+}
+@keyframes reportMockGaugePulse { 0%, 100% { opacity: .8; } 50% { opacity: 1; } }
+.report-mock-gauge-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #E0A070; }
+
+.report-mock-blur-fill { position: relative; margin-top: 20px; }
+.report-mock-blur-fill-tight { margin-top: 12px; }
+.report-mock-blur-fill-tight .report-mock-blur-lines p { margin-bottom: 0; }
+.report-mock-blur-lines { filter: blur(4px); user-select: none; }
+.report-mock-blur-lines p { font-size: 12px; color: rgba(242,237,227,.55); line-height: 1.7; margin-bottom: 12px; }
+.report-mock-blur-badge {
+  position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin: 0 auto; padding: 10px 16px; max-width: 250px;
+  background: rgba(21,32,26,.92); border: 1px solid #C9A657; border-radius: 20px;
+  font-size: 11px; font-weight: 700; color: #C9A657; text-align: center; line-height: 1.4;
+  box-shadow: 0 10px 25px rgba(0,0,0,.35);
+}
+.report-mock-blur-badge svg { flex-shrink: 0; }
+
+.report-mock-zones { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.report-mock-zones li {
+  display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: rgba(242,237,227,.85); line-height: 1.4;
+  padding: 12px 14px; border: 1px solid rgba(201,166,87,.25); border-radius: 8px; background: rgba(201,166,87,.05);
+}
+.report-mock-zone-num { font-family: var(--font-h); font-weight: 800; font-size: 14px; color: #C9A657; flex-shrink: 0; }
+
+.report-mock-locked { position: relative; }
+.report-mock-locked-content { filter: blur(5px); user-select: none; }
+.report-mock-lock-badge {
+  position: absolute; left: 28px; right: 28px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  background: rgba(21,32,26,.94); border: 1px solid #C9A657; border-radius: 10px;
+  padding: 20px 18px; text-align: center; font-size: 11.5px; font-weight: 700; line-height: 1.6;
+  color: #C9A657; box-shadow: 0 20px 40px rgba(0,0,0,.4);
+}
+.report-mock-lock-badge svg { color: #C9A657; flex-shrink: 0; }
+
+.report-mock-insights { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.report-mock-insights li { font-size: 12.5px; color: rgba(242,237,227,.75); line-height: 1.7; }
+.report-mock-insights-compact { gap: 8px; }
+.report-mock-insights-compact li { font-size: 11.5px; line-height: 1.5; }
+.report-mock-insights-compact .report-mock-laser { margin-top: 0; margin-left: 2px; }
+.report-mock-laser {
+  position: relative; display: inline-block; overflow: hidden; margin-top: 6px;
+  color: #C9A657; font-weight: 700; font-size: 11px; letter-spacing: .04em; text-transform: uppercase;
+  padding: 4px 10px; border-left: 2px solid #C9A657; background: rgba(201,166,87,.1);
+}
+.report-mock-laser.alert { color: #E0A070; border-left-color: #E0A070; background: rgba(224,160,112,.1); }
+.report-mock-laser.neutral { color: rgba(242,237,227,.6); border-left-color: rgba(242,237,227,.4); background: rgba(242,237,227,.06); }
+.report-mock-laser.positive { color: #8FBF8A; border-left-color: #8FBF8A; background: rgba(143,191,138,.1); }
+.report-mock-laser::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  animation: reportMockLaserSweep 3s infinite;
+}
+@keyframes reportMockLaserSweep { 0% { left: -100%; } 50%, 100% { left: 150%; } }
+
+.report-mock-dots { display: flex; justify-content: center; gap: 8px; padding: 16px 0 22px; }
+.report-mock-dots .dot {
+  width: 6px; height: 6px; padding: 0; border: none; border-radius: 50%;
+  background: rgba(242,237,227,.25); transition: all .3s ease; cursor: pointer;
+}
+.report-mock-dots .dot.is-active { background: #C9A657; width: 18px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .report-mock-pulse-dot, .report-mock-laser::after { animation: none; }
+  .report-mock-track { transition: none; }
+}
+
+.report-toc { list-style: none; }
+.report-toc li {
+  padding: 16px 0 16px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.report-toc li:last-child { border-bottom: none; }
+.report-toc .toc-badge {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-h); font-weight: 800; font-size: 0.9rem;
+}
+.report-toc .toc-desc { color: var(--text-muted); font-size: 0.95rem; padding-top: 4px; }
+.report-toc .toc-desc strong { color: var(--text); font-family: var(--font-h); font-weight: 700; display: block; margin-bottom: 2px; }
+.report-caption {
+  margin-top: 28px; padding: 18px 22px; border-radius: 10px;
+  background: var(--surface); border: 1px dashed var(--accent-deep);
+  font-style: italic; font-size: 0.95rem; color: var(--text);
+}
+
+/* ── Stats bar ── */
+.stats-bar { background: linear-gradient(135deg, var(--accent-deep) 0%, #1B2C20 75%); }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px; text-align: center; }
+.stat-num { font-family: var(--font-h); font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.2rem); color: var(--accent); }
+.stat-label { font-size: 0.9rem; color: rgba(242,237,227,.75); margin-top: 6px; letter-spacing: 0.03em; }
+
+/* ── Curriculum ── */
+.session {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px;
+}
+.session-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; background: var(--accent); color: #1B2C20;
+  border-radius: 50%; font-family: var(--font-h); font-weight: 800; font-size: 1.3rem;
+  margin-bottom: 18px;
+}
+.session-day { color: var(--accent); font-weight: 700; font-family: var(--font-h); margin-bottom: 14px; font-size: 0.95rem; }
+.session ul li { padding: 8px 0 8px 26px; position: relative; color: var(--text); font-size: 0.95rem; }
+.session ul li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.session.day7 { border: 1px solid var(--accent); background: linear-gradient(135deg, var(--surface-2) 0%, var(--accent-soft) 150%); }
+
+/* ── Bonus cards ── */
+.bonus-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px 24px;
+}
+.bonus-card .bonus-num { font-family: var(--font-h); font-weight: 800; color: var(--accent); font-size: 0.85rem; }
+.bonus-card .bonus-value {
+  display: inline-block; margin-top: 10px; font-size: 0.78rem; font-weight: 600;
+  color: var(--accent-deep); background: var(--accent-soft); padding: 3px 10px; border-radius: 999px;
+}
+
+/* ── Comparison table ── */
+.compare-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.compare-table th, .compare-table td { padding: 16px 18px; text-align: left; font-size: 0.92rem; vertical-align: top; border: 1px solid var(--border); }
+.compare-table th { font-family: var(--font-h); background: var(--surface-2); color: var(--text); font-size: 0.85rem; }
+.compare-table td { color: var(--text-muted); background: var(--surface); }
+.compare-table th.highlight, .compare-table td.highlight { background: var(--accent-soft); color: var(--text); font-weight: 500; }
+.table-scroll { overflow-x: auto; }
+
+/* ── Comparison: true CSS Grid so rows align across columns; EDD column raised as a dominant card ── */
+.comparison-table-wrapper {
+  display: grid; grid-template-columns: 1fr 1fr 1.15fr;
+  align-items: stretch; column-gap: 24px; row-gap: 0;
+  max-width: 1100px; margin-left: auto; margin-right: auto; padding: 0; position: relative;
+}
+.edd-card-bg {
+  grid-column: 3; grid-row: 1 / 5;
+  background: #22352A; border: 1px solid var(--accent); border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0,0,0,.35); transform: scale(1.02);
+  z-index: 1; pointer-events: none;
+}
+/* has-label-col variant carries one extra content row (5 total vs 4) */
+.comparison-table-wrapper.has-label-col .edd-card-bg { grid-row: 1 / 6; }
+.compare-col-title, .compare-row { position: relative; z-index: 2; }
+.gc1 { grid-column: 1; } .gc2 { grid-column: 2; } .gc3 { grid-column: 3; }
+
+.title-competitor, .title-label {
+  font-family: var(--font-h); font-weight: 800; font-size: 0.92rem; color: var(--text);
+  padding: 24px 20px 14px 0; border-bottom: 1px solid rgba(139,115,85,.3);
+}
+.row-competitor, .row-label {
+  padding: 16px 20px 16px 0; border-bottom: 1px solid rgba(139,115,85,.15);
+  font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; opacity: 0.75;
+}
+.title-label { color: var(--text); }
+.row-label { color: var(--text); font-weight: 700; opacity: 1; }
+.row-competitor.last, .row-label.last { border-bottom: none; }
+
+.title-edd {
+  font-family: var(--font-h); font-weight: 800; font-size: 0.95rem; color: var(--accent);
+  padding: 28px 26px 14px; border-bottom: 1px solid rgba(242,237,227,.18);
+}
+.row-edd {
+  padding: 16px 26px; border-bottom: 1px solid rgba(242,237,227,.1);
+  font-size: 0.9rem; color: rgba(242,237,227,.82); line-height: 1.6;
+}
+.row-edd.last { padding-bottom: 28px; border-bottom: none; }
+.row-edd strong { color: var(--accent); font-family: var(--font-h); }
+.row-label-inline { display: none; }
+
+/* ── Variant: comparison table with a short label column (e.g. "Hạng Mục") ── */
+.comparison-table-wrapper.has-label-col { grid-template-columns: 0.6fr 1fr 1.15fr; }
+
+@media (max-width: 900px) {
+  /* Cells carry explicit inline grid-row/grid-column (desktop layout) for a true grid.
+     On mobile we drop the grid entirely and re-flow as a column of stacked group-cards,
+     reordering by column via the inline grid-column so each group (competitor 1,
+     competitor 2, EDD) prints as one contiguous block instead of interleaved rows. */
+  .comparison-table-wrapper { display: flex; flex-direction: column; row-gap: 0; max-width: 480px; }
+  .edd-card-bg { display: none; }
+
+  .comparison-table-wrapper > [style*="grid-column:1"] { order: 1; }
+  .comparison-table-wrapper > [style*="grid-column:2"] { order: 2; }
+  .comparison-table-wrapper > [style*="grid-column:3"] { order: 3; }
+
+  .title-competitor, .row-competitor, .title-label, .row-label {
+    background: rgba(139,115,85,.08);
+    border-left: 1px solid rgba(139,115,85,.15); border-right: 1px solid rgba(139,115,85,.15);
+    padding-left: 18px; padding-right: 18px;
+  }
+  .title-competitor, .title-label {
+    border-top: 1px solid rgba(139,115,85,.15);
+    border-radius: 12px 12px 0 0; margin-top: 24px; padding-top: 20px;
+  }
+  .row-competitor.last, .row-label.last { border-radius: 0 0 12px 12px; padding-bottom: 20px; }
+
+  .title-edd, .row-edd {
+    background: #22352A;
+    border-left: 1px solid var(--accent); border-right: 1px solid var(--accent);
+    padding-left: 18px !important; padding-right: 18px !important;
+  }
+  .title-edd { border-top: 1px solid var(--accent); border-radius: 14px 14px 0 0; margin-top: 24px; }
+  .row-edd.last {
+    border-bottom: 1px solid var(--accent); border-radius: 0 0 14px 14px; padding-bottom: 24px;
+    box-shadow: 0 15px 30px rgba(0,0,0,.25);
+  }
+
+  /* has-label-col variant (e.g. "Hạng Mục"): the label column adds no comparative
+     value as its own stacked block on mobile, so collapse it to just 2 cards and
+     surface each row's label as an inline caption inside the competitor/EDD cells. */
+  .has-label-col .title-label, .has-label-col .row-label { display: none; }
+  .has-label-col .row-label-inline {
+    display: block; font-family: var(--font-h); font-weight: 700; font-size: 0.72rem;
+    letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; color: var(--accent-deep);
+  }
+  .has-label-col .row-edd .row-label-inline { color: var(--accent); }
+}
+
+/* ── Interactive cycle wave (5-stage sine-arc tab map) ── */
+.cycle-wave { position: relative; max-width: 1100px; margin: 0 auto; height: 260px; }
+.cycle-wave-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cycle-wave-path { fill: none; stroke: var(--accent-deep); stroke-width: 2; opacity: .45; transition: opacity .4s ease, filter .4s ease; }
+.cycle-wave.has-active .cycle-wave-path { opacity: .8; filter: drop-shadow(0 0 6px rgba(201,166,87,.4)); }
+.cycle-nodes { position: absolute; inset: 0; }
+/* Node is a zero-size anchor pinned exactly on the wave line; the dot and the
+   label are positioned independently off that same anchor so the label never
+   straddles the line regardless of its text length. */
+.cycle-node {
+  position: absolute; width: 0; height: 0;
+  background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-b);
+  z-index: 10;
+}
+.cycle-node-dot {
+  position: absolute; top: 0; left: 0; transform: translate(-50%, -50%);
+  width: 16px; height: 16px; border-radius: 50%; background: var(--accent-soft); border: 1px solid var(--accent-deep);
+  transition: all .3s ease;
+}
+.cycle-node-dot::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--accent-deep); opacity: .5; transition: all .3s ease; }
+.cycle-node.is-active .cycle-node-dot, .cycle-node:hover .cycle-node-dot { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.cycle-node.is-active .cycle-node-dot::after, .cycle-node:hover .cycle-node-dot::after { background: var(--accent); opacity: 1; }
+.cycle-node-label {
+  position: absolute; left: 0; transform: translateX(-50%); width: 130px;
+  text-align: center; font-size: .78rem; font-weight: 600; color: var(--text-muted); line-height: 1.3;
+  transition: color .3s ease;
+}
+.cycle-node.label-above .cycle-node-label { bottom: 16px; }
+.cycle-node.label-below .cycle-node-label { top: 16px; }
+/* Leftmost/rightmost nodes: anchor the label to its inner edge instead of
+   centering, so it extends inward and never overflows the wave container. */
+.cycle-node.edge-start .cycle-node-label { left: 0; transform: none; text-align: left; }
+.cycle-node.edge-end .cycle-node-label { left: auto; right: 0; transform: none; text-align: right; }
+.cycle-node-index { display: block; font-family: var(--font-h); font-weight: 800; color: var(--accent-deep); font-size: .7rem; letter-spacing: .1em; margin-bottom: 2px; transition: color .3s ease; }
+.cycle-node.is-active .cycle-node-label, .cycle-node:hover .cycle-node-label { color: var(--text); }
+.cycle-node.is-active .cycle-node-index, .cycle-node:hover .cycle-node-index { color: var(--accent); }
+
+.cycle-detail { position: relative; max-width: 640px; margin: 32px auto 0; min-height: 168px; }
+.cycle-detail-panel { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; text-align: center; animation: cycleFadeIn .4s cubic-bezier(.16,.84,.44,1); }
+.cycle-detail-panel.is-active { display: block; }
+@keyframes cycleFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .cycle-detail-panel { animation: none; } }
+
+@media (max-width: 900px) {
+  /* Vertical trail: a dashed rail down the left with each stage's dot pinned
+     to the same x so the rail stays straight; all labels sit flush at the
+     same indent (no zig-zag) for a clean aligned list. Labels stay
+     left-aligned and unconstrained in width (they wrap) — never edge-anchored
+     like the desktop wave's first/last nodes — so there's no overflow risk
+     regardless of viewport width. Tap-to-reveal behavior is untouched. */
+  .cycle-wave { height: auto; }
+  .cycle-wave-svg { display: none; }
+  .cycle-nodes {
+    position: relative; display: flex; flex-direction: column; gap: 4px;
+    padding: 12px 8px 12px 20px; max-width: 380px; margin: 0 auto;
+  }
+  .cycle-nodes::before {
+    content: ''; position: absolute; left: 28px; top: 22px; bottom: 22px; width: 0;
+    border-left: 1px dashed var(--accent-deep); opacity: .5;
+  }
+  .cycle-node {
+    position: static; width: auto; height: auto; display: flex; align-items: center; gap: 14px;
+    flex-direction: row; padding: 14px 0;
+  }
+  .cycle-node-dot { position: relative; transform: none; z-index: 1; flex: 0 0 auto; }
+  .cycle-node-label {
+    position: static; transform: none; width: auto; max-width: none; text-align: left;
+  }
+  .cycle-node.edge-start .cycle-node-label, .cycle-node.edge-end .cycle-node-label { text-align: left; left: auto; right: auto; }
+}
+.phase-num { font-family: var(--font-h); font-weight: 800; color: var(--accent); font-size: 0.8rem; letter-spacing: .05em; text-transform: uppercase; }
+
+.detail-accordion {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden;
+}
+.detail-accordion summary { padding: 18px 22px; cursor: pointer; font-family: var(--font-h); font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.detail-accordion summary::-webkit-details-marker { display: none; }
+.detail-accordion summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; }
+.detail-accordion[open] summary::after { content: "−"; }
+.detail-accordion .detail-body { padding: 0 22px 22px; }
+.mini-list li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); }
+.mini-list li:last-child { border-bottom: none; }
+.mini-list strong { color: var(--text); }
+
+/* ── Offer box ── */
+.offer-box {
+  background: linear-gradient(135deg, var(--accent-deep) 0%, #1B2C20 100%);
+  border: 2px solid var(--accent); border-radius: var(--radius);
+  padding: 56px 40px; text-align: center; box-shadow: 0 24px 60px rgba(201,166,87,0.18);
+}
+.offer-price { margin: 24px 0 8px; }
+.offer-price .strike { color: rgba(242,237,227,.55); text-decoration: line-through; font-size: 1.15rem; display: block; margin-bottom: 6px; }
+.offer-price .main { color: var(--accent); font-size: 3.2rem; font-weight: 800; font-family: var(--font-h); }
+.offer-mini-list { display: inline-flex; flex-direction: column; gap: 12px; text-align: left; margin: 0 auto; }
+.offer-mini-list li { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 0.98rem; }
+.guarantee-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 32px; margin-top: 28px; text-align: left;
+}
+.guarantee-box h3 { color: var(--accent); }
+
+/* ── Audience fit ── */
+.audience-list { display: grid; gap: 14px; }
+.audience-item {
+  background: var(--surface-2); padding: 18px 24px 18px 56px; border-radius: 10px;
+  position: relative; color: var(--text); border: 1px solid var(--border); font-size: 0.96rem;
+}
+.audience-item::before {
+  content: "✓"; position: absolute; left: 20px; top: 18px; width: 24px; height: 24px;
+  background: var(--accent); color: #1B2C20; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;
+}
+.not-fit-box {
+  background: var(--surface); border: 1px dashed var(--border);
+  border-radius: var(--radius); padding: 24px 26px; margin-top: 20px;
+}
+.not-fit-box::before { content: "✕ "; color: #8B4444; font-weight: 700; }
+
+/* ── FAQ ── */
+.faq-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+.faq-item summary { padding: 20px 24px; cursor: pointer; font-family: var(--font-h); font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; color: var(--accent); font-size: 1.5rem; flex-shrink: 0; }
+.faq-item[open] summary::after { content: "−"; }
+.faq-item .answer { padding: 0 24px 24px; color: var(--text-muted); }
+
+/* ── Instructor / Final CTA ── */
+.instructor-wrap { background: linear-gradient(180deg, #1B2C20 0%, #131F17 100%); }
+.instructor-quote {
+  font-size: 1.08rem; color: var(--text); border-left: 3px solid var(--accent);
+  padding-left: 26px; margin: 28px 0;
+}
+.instructor-quote p { color: var(--text); margin-bottom: 18px; }
+.outcome-banner {
+  background: var(--surface); border: 1px solid var(--accent); border-radius: var(--radius);
+  padding: 28px 26px; margin-top: 32px;
+}
+.final-cta-box { text-align: center; margin-top: 56px; }
+.ps-note {
+  margin-top: 40px; padding: 22px; border: 1px dashed var(--accent); border-radius: var(--radius);
+  font-style: italic; color: var(--text); text-align: left; font-size: 0.94rem;
+}
+
+/* ── Sticky mobile CTA ── */
+.sticky-cta {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px;
+  background: rgba(19, 31, 23, 0.96); backdrop-filter: blur(12px);
+  border-top: 1px solid var(--accent); z-index: 200;
+}
+.sticky-cta a { display: block; text-align: center; }
+@media (max-width: 760px) {
+  .sticky-cta { display: none; }
+}
+
+footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,237,227,.08); text-align: center; color: rgba(242,237,227,.5); font-size: 0.85rem; }
+
+/* =========================================================
+   V2 REDESIGN — Story Hero structure match
+   ========================================================= */
+.hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; width: 24px; }
+.hamburger span { width: 100%; height: 2px; background: var(--text); display: block; border-radius: 1px; }
+
+/* ── Hero v2 ── */
+.hero h1.uppercase { text-transform: uppercase; }
+.mobile-break { display: none; }
+.desktop-break { display: inline; }
+@media (max-width: 900px) {
+  .mobile-break { display: inline; }
+  .desktop-break { display: none; }
+  .hero .subhead { font-size: 0.78rem; }
+}
+.hero .social-proof-mini { font-size: 0.85rem; color: rgba(242,237,227,.6); margin-top: 24px; letter-spacing: .01em; }
+.scroll-arrow { display: flex; justify-content: center; margin-top: 48px; color: var(--accent-deep); animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ── Problem v2 ── */
+.problem-headline .line1 { display: block; color: var(--text); }
+.problem-headline .line2 { display: block; color: var(--text-muted); }
+.problem-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px; margin-top: 56px; text-align: center; }
+.problem-col .icon-xl { width: 52px; height: 52px; margin: 0 auto 20px; color: var(--text-muted); }
+.problem-col h3 { margin-bottom: 14px; }
+@media (max-width: 900px) {
+  .problem-col p { font-size: 0.9rem; }
+}
+.bridge-statement {
+  text-align: center; font-size: clamp(1rem, 2vw, 1.2rem); font-family: var(--font-h); font-weight: 700; color: var(--text);
+  margin: 56px auto 0; max-width: 980px;
+}
+.bridge-statement em { color: var(--accent); font-style: normal; }
+.sub-lead { text-align: center; margin-top: 20px; font-weight: 600; color: var(--text-muted); }
+
+/* ── Banner box ── */
+.banner-box { background: var(--accent); border-radius: var(--radius); padding: 64px 40px; text-align: center; margin-top: 64px; }
+.banner-box h2 { color: #1B2C20; text-transform: uppercase; font-size: clamp(1.5rem, 3.4vw, 2.3rem); }
+.banner-box .banner-highlight { background: #1B2C20; color: var(--accent); padding: 2px 12px; border-radius: 6px; }
+.banner-box p { color: rgba(27,44,32,.75); margin-top: 20px; max-width: 560px; margin-left: auto; margin-right: auto; font-weight: 500; }
+@media (max-width: 900px) {
+  .banner-box .banner-title-market { font-size: 20px; }
+  .banner-box h2 { font-size: 1.2rem; }
+}
+
+/* ── Bản Thể & Thời Thế ── */
+.bg-text-wrap { position: relative; overflow: hidden; }
+.bg-text {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-h); font-weight: 800; font-size: clamp(3rem, 10vw, 7rem);
+  color: rgba(242,237,227,.045); text-transform: uppercase; pointer-events: none; padding: 0 24px; z-index: 0; white-space: nowrap;
+}
+.concept-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 48px; margin-top: 24px; }
+.concept-col { text-align: center; }
+@media (min-width: 901px) {
+  .concept-col h3 { font-size: 1.25rem; white-space: nowrap; }
+}
+@media (max-width: 900px) {
+  .concept-col h3 { font-size: 0.85rem; }
+  .concept-col p { font-size: 0.9rem; }
+}
+.concept-asset {
+  width: 110px; height: 110px; margin: 0 auto 24px; border-radius: 50%; background: var(--surface);
+  border: 1px dashed var(--accent-deep); display: flex; align-items: center; justify-content: center; color: var(--accent);
+}
+.concept-asset svg { width: 48px; height: 48px; }
+
+/* ── Khai Phóng Nội Lực (CSS-only centerpiece, no external image) ── */
+.quadrant-bgtext {
+  text-align: center; font-family: var(--font-h); font-weight: 800; font-size: clamp(1.8rem, 5.4vw, 3.2rem);
+  color: var(--accent); text-transform: uppercase; margin-bottom: 8px; opacity: .9;
+}
+.superpower-container {
+  position: relative; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; max-width: 1000px; margin: 0 auto; padding: 60px 20px;
+}
+.center-energy-gate {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  border: 1px dashed rgba(201, 166, 87, 0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle, rgba(201, 166, 87, 0.15) 0%, rgba(27, 44, 32, 0) 70%);
+  pointer-events: none; z-index: 1;
+}
+.center-energy-gate::before {
+  content: 'EDD'; font-family: var(--font-h); font-size: 14px; font-weight: 800;
+  color: var(--accent); letter-spacing: 2px; opacity: 0.7;
+}
+.floating-card {
+  position: relative; background: rgba(34, 53, 42, 0.7); backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 166, 87, 0.12); border-radius: 12px; padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); z-index: 2; transition: all 0.4s ease;
+}
+.floating-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); }
+.floating-card h4 { color: var(--accent); font-family: var(--font-h); font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+.floating-card p { font-size: 0.85rem; margin: 0; color: rgba(242,237,227,.7); }
+@media (max-width: 760px) {
+  .superpower-container { grid-template-columns: 1fr; padding: 40px 0; }
+  .center-energy-gate { width: 140px; height: 140px; }
+}
+
+/* ── Introducing / E-System ── */
+.intro-kicker { text-align: center; letter-spacing: .3em; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+.intro-title { text-align: center; font-size: clamp(2.2rem, 7vw, 4rem); margin-top: 16px; letter-spacing: .03em; }
+.intro-title .sp { letter-spacing: .5em; color: var(--text-muted); font-size: 0.5em; display: block; margin-top: 10px; }
+@media (max-width: 900px) { .intro-title .sp { font-size: 0.45em; } }
+/* ── Layered UI showcase (4 windows, moss/gold) ── */
+.luxury-layered-showcase-container {
+  position: relative; width: 100%; max-width: 1140px; height: 520px; margin: 60px auto;
+  display: flex; justify-content: center; align-items: center;
+}
+.showcase-ui-window {
+  background: #1B2C20; border: 1px solid rgba(201, 166, 87, 0.12); border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column; position: absolute;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.45);
+  transition: transform .4s cubic-bezier(.25,1,.5,1), border-color .4s ease;
+}
+.ui-window-header {
+  background: #16241A; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(201, 166, 87, 0.06);
+}
+.ui-dots { display: flex; gap: 5px; }
+.d-ui { width: 5px; height: 5px; border-radius: 50%; background: rgba(242, 237, 227, 0.2); }
+.ui-window-tag { font-family: var(--font-h); font-size: 8.5px; color: #C9A657; letter-spacing: .12em; font-weight: 600; }
+.ui-window-body { padding: 18px; flex-grow: 1; position: relative; }
+
+.window-center-core { width: 660px; height: 400px; z-index: 1; bottom: 60px; }
+.core-brand-bg { display: flex; justify-content: center; align-items: center; background: radial-gradient(circle, #22352A 0%, #1B2C20 100%); }
+.brand-center-identity { text-align: center; }
+.gold-shield-icon { display: flex; justify-content: center; }
+.system-title-glow { font-family: var(--font-h); font-size: 15px; color: #F2EDE3; letter-spacing: .12em; text-align: center; margin-top: 14px; }
+.system-scanning-bar { width: 200px; height: 2px; background: rgba(201,166,87,.1); margin: 16px auto 0; border-radius: 2px; overflow: hidden; }
+.scanning-progress { width: 60%; height: 100%; background: #C9A657; animation: scanMove 3s infinite ease-in-out; }
+@keyframes scanMove { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+
+.window-left-course { width: 280px; height: 320px; left: 30px; bottom: 30px; z-index: 2; }
+.layout-split { display: flex; flex-direction: column; gap: 12px; }
+.video-player-sim { width: 100%; height: 130px; background: #132017; border-radius: 6px; position: relative; display: flex; justify-content: center; align-items: center; }
+.center-play-triangle { opacity: .85; }
+.video-timeline-bar { position: absolute; bottom: 8px; left: 10px; right: 10px; height: 3px; background: rgba(242,237,227,.1); border-radius: 2px; }
+.video-progress-fill { display: block; width: 45%; height: 100%; background: #C9A657; border-radius: 2px; }
+.video-playlist-sim { display: flex; flex-direction: column; gap: 6px; }
+.playlist-item { font-size: 11px; color: #F2EDE3; opacity: .6; padding: 6px 8px; background: rgba(242,237,227,.03); border-radius: 4px; }
+.playlist-item.active-item { color: #C9A657; opacity: 1; background: rgba(201,166,87,.08); border: 1px solid rgba(201,166,87,.15); }
+
+.window-right-report { width: 270px; height: 240px; right: 40px; top: 30px; z-index: 3; }
+.report-meta-exposed { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.report-id-text { font-size: 11px; color: #F2EDE3; font-weight: 600; opacity: .9; }
+.radar-radar-circle { width: 30px; height: 30px; border: 1px solid rgba(201,166,87,.3); border-radius: 50%; position: relative; overflow: hidden; }
+.radar-line-sweep { width: 100%; height: 100%; background: conic-gradient(from 0deg, transparent, rgba(201,166,87,.35)); border-radius: 50%; animation: spinRadar 4s infinite linear; }
+@keyframes spinRadar { 100% { transform: rotate(360deg); } }
+.report-locked-blur-zone { position: relative; margin-top: 10px; border-top: 1px solid rgba(201,166,87,.08); padding-top: 10px; }
+.blur-lines-p { filter: blur(3.5px); opacity: .22; user-select: none; pointer-events: none; }
+.blur-lines-p p { font-size: 11px; color: #F2EDE3; line-height: 1.5; margin: 0; }
+.lock-overlay-badge-mini {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 5px; background: rgba(27, 44, 32, 0.96);
+  border: 1px solid rgba(201, 166, 87, 0.25); border-radius: 20px; padding: 4px 10px;
+  color: #F2EDE3; font-size: 9.5px; white-space: nowrap; box-shadow: 0 5px 15px rgba(0,0,0,.3);
+}
+
+.window-right-timeline { width: 270px; height: 190px; right: 20px; bottom: 40px; z-index: 4; }
+.mini-wave-graph-box { width: 100%; height: 60px; background: #132017; border-radius: 6px; overflow: hidden; display: flex; align-items: center; }
+.graph-svg-inner { width: 100%; height: 100%; }
+.timeline-months-text-preview { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+.timeline-months-text-preview p { font-size: 11.5px; color: #F2EDE3; opacity: .85; margin: 0; }
+.gold-t { color: #C9A657; font-weight: 700; }
+
+.showcase-ui-window:hover { z-index: 20; border-color: rgba(201, 166, 87, 0.4); transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scanning-progress, .radar-line-sweep { animation: none; }
+}
+
+@media (max-width: 768px) {
+  .luxury-layered-showcase-container { height: auto; display: flex; flex-direction: column; gap: 24px; padding: 0 16px; margin: 40px auto; }
+  .showcase-ui-window { position: relative; left: auto; right: auto; top: auto; bottom: auto; width: 100%; height: auto; }
+  .window-center-core { order: -1; }
+}
+.metrics-bar {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px; margin-top: 56px;
+  text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0;
+}
+.metrics-bar .m-num { font-family: var(--font-h); font-weight: 800; font-size: 2.2rem; color: var(--accent); }
+.metrics-bar .m-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; letter-spacing: .02em; }
+@media (max-width: 900px) {
+  .metrics-bar { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .metrics-bar .m-num { font-size: 1.4rem; }
+  .metrics-bar .m-label { font-size: 0.58rem; letter-spacing: 0; }
+}
+
+/* =========================================================
+   V3 — Bubble testimonials, Timeline curriculum, Network, Pricing2, Instructor2, Final choice
+   ========================================================= */
+
+/* ── Bubble testimonials — CSS multi-column waterfall masonry ──
+   Native column flow sizes each card to its own content and drops it into
+   the shortest column, so cards of different lengths interlock naturally
+   with no manual row-span math and no risk of clipping content. */
+.bubble-masonry-clip { margin-top: 48px; }
+.bubble-masonry { columns: 3; column-gap: 20px; }
+.bubble {
+  background: rgba(34, 53, 42, .82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 22px 22px 20px; margin: 0 0 20px; break-inside: avoid; -webkit-column-break-inside: avoid;
+}
+.bubble-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.bubble-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border: 1px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-h); font-weight: 700; color: #1B2C20; font-size: 0.9rem;
+}
+.bubble-name { font-family: var(--font-h); font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.bubble-date { font-size: 0.7rem; color: var(--text-muted); }
+.bubble p { font-size: 0.88rem; color: var(--text-muted); margin: 0; }
+@media (max-width: 900px) {
+  .bubble-masonry { columns: 2; }
+}
+@media (max-width: 600px) {
+  .bubble-masonry { columns: 1; }
+}
+
+/* ── Timeline curriculum ── */
+.timeline-wrap { display: flex; gap: 28px; margin-top: 48px; }
+.timeline-rail {
+  writing-mode: vertical-lr; transform: rotate(180deg); text-align: center;
+  font-family: var(--font-h); font-weight: 700; font-size: 0.72rem; letter-spacing: .25em;
+  color: var(--accent-deep); text-transform: uppercase; padding: 8px 0 8px 14px;
+  border-left: 1px solid var(--accent-deep); flex-shrink: 0;
+}
+.timeline-list { flex: 1; display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.lesson-card { background: var(--surface); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 45% 55%; min-height: 220px; }
+.lesson-card .lesson-info { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+.lesson-card .lesson-title { color: var(--accent); font-family: var(--font-h); font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; }
+.lesson-card .lesson-desc { font-size: 0.9rem; color: rgba(242,237,227,.8); margin-bottom: 18px; }
+.lesson-card .lesson-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+  border: 1px solid rgba(242,237,227,.3); border-radius: 999px; font-size: 0.76rem; font-weight: 600;
+  color: var(--text); width: fit-content; cursor: pointer; list-style: none; user-select: none;
+  transition: background .15s, border-color .15s;
+}
+.lesson-card .lesson-btn::-webkit-details-marker { display: none; }
+.lesson-card .lesson-btn:hover { border-color: var(--accent); color: var(--accent); }
+.lesson-overview[open] .lesson-btn { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.lesson-overview-body { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(242,237,227,.12); }
+.lesson-overview-intro { font-size: 0.88rem; color: var(--text); font-weight: 600; margin-bottom: 10px; }
+.lesson-overview-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.lesson-overview-list li { font-size: 0.86rem; color: rgba(242,237,227,.75); padding-left: 20px; position: relative; }
+.lesson-overview-list li::before { content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.lesson-overview-closing { font-size: 0.86rem; color: var(--text); font-style: italic; }
+.lesson-card .free-badge { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 0.76rem; color: var(--accent); font-weight: 600; }
+.lesson-card .lesson-media {
+  position: relative; background: linear-gradient(120deg, var(--surface) 0%, var(--accent-soft) 60%, var(--surface-2) 100%);
+  display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.78rem; text-align: center; padding: 20px;
+}
+.lesson-card .lesson-media::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--surface) 0%, transparent 45%); pointer-events: none; }
+.module-graphic-box { position: relative; z-index: 1; width: 100%; max-width: 220px; }
+.minimal-svg { width: 100%; height: auto; display: block; }
+@keyframes modulePulseSlow { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+.animate-pulse-slow { animation: modulePulseSlow 2.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .animate-pulse-slow { animation: none; } }
+@media (max-width: 760px) {
+  .lesson-card { grid-template-columns: 1fr; }
+  .lesson-card .lesson-title { font-size: 1rem; }
+  .lesson-card .lesson-media { min-height: 160px; order: -1; }
+  .timeline-wrap { flex-direction: column; }
+  .timeline-rail { writing-mode: horizontal-tb; transform: none; border-left: none; border-top: 1px solid var(--accent-deep); text-align: left; padding: 8px 0; }
+}
+
+/* ── 3-col "more than lessons" ── */
+.feature-card { background: #1B2C20; border: 1px solid rgba(201,166,87,.08); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+.feature-card .feature-mockup { background: transparent; min-height: 160px; display: flex; align-items: center; justify-content: center; padding: 20px 16px 0; }
+.feature-card .feature-body { padding: 8px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+.feature-card .feature-num { color: var(--accent); font-family: var(--font-h); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px; }
+.feature-card .feature-body p { color: #F2EDE3; opacity: .8; }
+.feature-tag { font-size: 10px; color: #C9A657; letter-spacing: .12em; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; display: block; }
+.feature-locked-footer { position: relative; margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(201,166,87,.12); }
+.feature-blur-line { filter: blur(4px); opacity: .3; user-select: none; pointer-events: none; font-size: 11.5px; color: #F2EDE3; line-height: 1.5; margin: 0; }
+.feature-lock-badge-mini {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  background: rgba(27,44,32,.95); border: 1px solid rgba(201,166,87,.3); border-radius: 20px;
+  padding: 5px 12px; color: #F2EDE3; font-size: 10px; box-shadow: 0 8px 18px rgba(0,0,0,.35);
+}
+.feature-lock-badge-mini svg { flex-shrink: 0; color: #C9A657; }
+
+.mockup-graphic-display { width: 100%; max-width: 340px; margin: 0 auto; }
+.mockup-svg { width: 100%; height: auto; display: block; }
+.wave-path-flow { filter: drop-shadow(0 0 4px rgba(201,166,87,.5)); }
+@keyframes mockupPulseRing { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
+.pulse-ring-slow { transform-origin: 102px 46px; animation: mockupPulseRing 2.4s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring-slow { animation: none; }
+}
+
+/* ── The Protocol (on-demand support dashboard) ── */
+.protocol-title-wrapper { text-align: center; }
+.protocol-main-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0; line-height: 1.05;
+  background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+.protocol-sub-tag { font-family: var(--font-h); font-size: 12px; color: var(--accent); letter-spacing: .28em; font-weight: 600; display: block; margin-top: 18px; }
+
+.protocol-transition-card { padding: 40px 32px; margin: 120px auto 0; max-width: var(--max-w-narrow); }
+.protocol-transition-card h2 { font-size: clamp(1.15rem, 2.6vw, 1.6rem); }
+
+.protocol-dashboard-layout { display: grid; grid-template-columns: 280px 1fr 280px; gap: 32px; align-items: center; margin-top: 56px; }
+
+.protocol-panel-card {
+  background: #1B2C20; border: 1px solid rgba(201, 166, 87, 0.08); border-radius: 14px; padding: 32px 24px;
+  height: 280px; display: flex; flex-direction: column; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+.panel-header-gold { font-family: var(--font-h); font-size: 13.5px; color: #C9A657; margin: 0 0 20px; letter-spacing: .06em; font-weight: 600; }
+
+.protocol-request-list { list-style: none; padding: 0; margin: 0; }
+.protocol-request-list li { font-size: 14px; color: #F2EDE3; opacity: .85; padding: 12px 0; border-bottom: 1px solid rgba(201,166,87,.06); }
+
+.protocol-process-timeline { display: flex; flex-direction: column; gap: 14px; }
+.process-item strong { font-family: var(--font-h); font-size: 12px; color: #F2EDE3; display: block; margin-bottom: 3px; }
+.process-item p { font-size: 11.5px; color: #F2EDE3; opacity: .6; margin: 0; line-height: 1.5; }
+
+.protocol-central-graphic-portal { display: flex; justify-content: center; align-items: center; height: 100%; }
+.portal-svg-graphic { width: 100%; max-width: 280px; height: auto; overflow: visible; }
+.portal-core-pulse { animation: coreGlow 4s infinite ease-in-out; transform-origin: 150px 120px; }
+@keyframes coreGlow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(201,166,87,0)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 10px rgba(201,166,87,.35)); }
+}
+@media (prefers-reduced-motion: reduce) { .portal-core-pulse { animation: none; } }
+
+@media (max-width: 768px) {
+  .protocol-dashboard-layout { grid-template-columns: 1fr; gap: 24px; }
+  .protocol-panel-card { height: auto; padding: 32px 20px; }
+  .protocol-central-graphic-portal { order: -1; margin-bottom: 10px; }
+  .protocol-transition-card { padding: 32px 24px; margin-top: 64px; }
+}
+
+/* ── Pricing + guarantee: 2-col balanced checkout showcase ── */
+.edd-checkout-balance-container {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;
+  max-width: 960px; margin: 48px auto 0; align-items: stretch;
+}
+.checkout-luxury-card {
+  border-radius: 20px; padding: 40px 32px; box-sizing: border-box;
+  display: flex; flex-direction: column; box-shadow: 0 20px 45px rgba(0,0,0,.08);
+}
+
+.offer-card-tier { background: #FFFBF2; border: 1px solid #C9A657; }
+.card-tier-header h3 { font-size: 22px; color: #1B2C20; margin: 0 0 6px; font-weight: 700; }
+.card-tier-header p { font-size: 13px; color: #8B7355; margin: 0; }
+.card-tier-price { font-size: 38px; color: #C9A657; font-weight: 800; margin: 24px 0; font-family: var(--font-h); }
+.card-tier-features-list { list-style: none; padding: 0; margin: 0 0 24px; }
+.card-tier-features-list li { font-size: 14px; color: #22352A; margin-bottom: 12px; position: relative; padding-left: 24px; line-height: 1.5; }
+.card-tier-features-list li::before { content: '✓'; position: absolute; left: 0; color: #C9A657; font-weight: 700; }
+.card-tier-note { font-size: 12px; color: #8B7355; font-style: italic; margin: 0 0 24px; }
+.card-tier-cta-btn {
+  background: #C9A657; color: #FFFBF2; text-decoration: none; text-align: center; padding: 14px;
+  border-radius: 30px; font-weight: 600; font-size: 15px; margin-top: auto; display: block; transition: background .3s ease;
+}
+.card-tier-cta-btn:hover { background: #1B2C20; }
+
+.guarantee-card-tier { background: #1B2C20; border: 1px solid rgba(201,166,87,.15); align-items: center; text-align: center; }
+.guarantee-badge-circle {
+  width: 90px; height: 90px; border: 1px dashed #C9A657; border-radius: 50%;
+  display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
+}
+.badge-circle-inner { display: flex; flex-direction: column; color: #F2EDE3; font-size: 9px; letter-spacing: .05em; text-transform: uppercase; }
+.badge-circle-inner strong { color: #C9A657; font-size: 14px; margin: 2px 0; font-weight: 700; }
+.guarantee-card-title { font-size: 20px; color: #F2EDE3; font-weight: 700; margin: 0 0 20px; line-height: 1.4; }
+.guarantee-card-body-text { display: flex; flex-direction: column; gap: 14px; }
+.guarantee-card-body-text p { font-size: 13.5px; line-height: 1.6; color: #F2EDE3; opacity: .8; margin: 0; }
+
+@media (max-width: 768px) {
+  .edd-checkout-balance-container { grid-template-columns: 1fr; gap: 20px; padding: 0 16px; }
+  .checkout-luxury-card { padding: 32px 20px; }
+}
+
+/* ── Instructor v2 ── */
+.instructor-grid2 { display: grid; grid-template-columns: 1fr 1fr; border-radius: 20px; overflow: hidden; }
+@media (max-width: 860px) { .instructor-grid2 { grid-template-columns: 1fr; } }
+.instructor-photo {
+  background: linear-gradient(180deg, rgba(15,23,18,.1) 0%, rgba(15,23,18,.7) 100%), url('assets/duyen-avatar.jpg');
+  background-size: cover; background-position: center 22%;
+  position: relative; min-height: 480px; display: flex; flex-direction: column; justify-content: space-between;
+}
+.instructor-photo .placeholder-label { color: rgba(242,237,227,.4); font-size: 0.8rem; text-align: center; padding: 40px; max-width: 300px; margin: auto; }
+.instructor-metrics { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; padding: 28px 20px; margin-top: auto; background: linear-gradient(0deg, rgba(0,0,0,.65) 0%, transparent 100%); }
+.instructor-metrics div { text-align: center; }
+.instructor-metrics .i-num { font-family: var(--font-h); font-weight: 800; color: var(--accent); font-size: 1.35rem; }
+.instructor-metrics .i-label { font-size: 0.68rem; color: rgba(242,237,227,.75); margin-top: 4px; }
+@media (max-width: 900px) {
+  .instructor-metrics .i-label { font-size: 0.6rem; }
+}
+.instructor-bio-panel { background: #EDE6D8; padding: 56px 44px; display: flex; flex-direction: column; justify-content: center; }
+.instructor-bio-panel h3 { color: #24352A; text-transform: uppercase; }
+.instructor-bio-panel p { color: rgba(36,53,42,.75); margin-top: 16px; }
+
+/* ── Final choice contrast ── */
+.choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+@media (max-width: 760px) { .choice-grid { grid-template-columns: 1fr; } }
+.choice-col { border-radius: 18px; padding: 36px 32px; }
+.choice-col.yes { background: var(--surface); border: 1px solid var(--accent); }
+.choice-col.no { background: var(--surface); border: 1px dashed var(--border); opacity: .85; }
+.choice-col h3 { margin-bottom: 20px; }
+.choice-col.yes h3 { color: var(--accent); }
+.choice-col.no h3 { color: var(--text-muted); }
+.choice-col ul li { display: flex; gap: 12px; padding: 10px 0; font-size: 0.94rem; }
+.choice-col.yes ul li { color: var(--text); }
+.choice-col.no ul li { color: var(--text-muted); }
+.choice-col ul li .icon { flex-shrink: 0; margin-top: 2px; }
+
+/* ── Cinematic scroll reveal (fade-in + slide-up), à la Story Hero ── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Cinematic depth for stacked dark sections (Problem / Concept / Solution) ── */
+.depth-section {
+  position: relative; overflow: hidden;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 130% 65% at 50% 0%, rgba(0,0,0,.32) 0%, transparent 55%),
+    radial-gradient(ellipse 130% 60% at 50% 100%, rgba(0,0,0,.28) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(201,166,87,.05) 0%, transparent 70%);
+}
+.depth-section::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: min(920px, 72%); height: 1px; z-index: 2;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,166,87,.4) 50%, transparent 100%);
+}
+.depth-section::after {
+  content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  width: min(920px, 72%); height: 220px; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at 50% 0%, rgba(201,166,87,.1) 0%, transparent 70%);
+}
+.depth-section > .container, .depth-section > .container-narrow { position: relative; z-index: 3; }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="nav-logo">EDD <span>Foundation™</span></div>
+    <div class="nav-links">
+      <a href="#solution">Cơ Chế</a>
+      <a href="#curriculum">Lộ Trình</a>
+      <a href="#pricing">Bảng Giá</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero theme-dark" id="hero">
+  <div class="container">
+    <h1 class="uppercase">Làm Chủ<br class="mobile-break"> Bản Đồ Kinh Doanh.<br>Trở Thành Người<br class="mobile-break"> Ra Quyết Định<br><span class="highlight-box">Thấu Suốt</span></h1>
+    <p class="subhead">Thẩm định cấu trúc năng lượng để dứt điểm các<br class="mobile-break"> quyết định mơ hồ,<br class="desktop-break"> tối ưu hóa hiệu suất dòng tiền<br class="mobile-break"> và biết rõ khi nào nên bứt phá, khi nào nên phòng thủ.</p>
+    <p class="social-proof-mini">Học thử miễn phí 5 ngày đầu tiên ·<br class="mobile-break"> Đã có hơn 100+ nhà điều hành tham gia</p>
+    <div class="mt-8">
+      <a href="dang-ky.html" class="btn-primary">Trải Nghiệm Ngay →</a>
+    </div>
+    <div class="scroll-arrow">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 5 6-5M6 15l6 5 6-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIAL PROOF STRIP (4 cards) ===================== -->
+<section class="section theme-light">
+  <div class="container">
+    <div class="grid-4">
+      <div class="testimonial-card">
+        <div class="avatar-placeholder">S</div>
+        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
+        <div class="testimonial-name mt-2">NGUYEN HOANG SON</div>
+        <div class="testimonial-role">Founder · Ngành Công Nghệ</div>
+        <p class="quote">"Hai lần thất bại không phải vì tôi làm sai - mà vì tôi làm đúng vào thời điểm sai. Báo Cáo Phân Tích Cá Nhân EDD Digital là lần đầu tiên tôi có công cụ để không lặp lại điều đó."</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="avatar-placeholder">L</div>
+        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
+        <div class="testimonial-name mt-2">TRAN THUY LINH</div>
+        <div class="testimonial-role">Giám Đốc Điều Hành · Ngành Dịch Vụ</div>
+        <p class="quote">"Tôi không thiếu kinh nghiệm để nhận ra hợp đồng tệ. Tôi thiếu công cụ để nhận ra mình đang ở trạng thái dễ ra quyết định tệ nhất - đó là thứ Báo Cáo Phân Tích Cá Nhân EDD Digital cho tôi."</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="avatar-placeholder">T</div>
+        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
+        <div class="testimonial-name mt-2">HOANG MINH TRI</div>
+        <div class="testimonial-role">Nhà Đầu Tư Cá Nhân</div>
+        <p class="quote">"Khi hiểu được cấu trúc chu kỳ của chính mình, tôi không còn bị cuốn vào những quyết định vội vã. Sự rõ ràng này đáng giá hơn bất kỳ chiến lược kinh doanh nào tôi từng thử học."</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="avatar-placeholder">T</div>
+        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
+        <div class="testimonial-name mt-2">PHAM THU TRANG</div>
+        <div class="testimonial-role">Co-founder · Brand Agency</div>
+        <p class="quote">"Công cụ này cho tôi một hệ quy chiếu vững vàng trước mỗi bước ngoặt lớn. Tôi biết chính xác khi nào mình cần lùi lại để củng cố nội lực và khi nào nên dồn sức bứt phá."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROBLEM ===================== -->
+<section class="section theme-dark depth-section" id="problem">
+  <div class="container">
+    <h2 class="problem-headline" style="text-align:center;">
+      <span class="line1">Không Ai Quan Tâm Bạn Nỗ Lực Ra Sao.</span>
+      <span class="line2">Họ Chỉ Nhìn Vào Kết Quả Quyết Định Của Bạn.</span>
+    </h2>
+
+    <div class="problem-cols">
+      <div class="problem-col">
+        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.3-9C1.3 7.8 2.6 5 5.4 4.4c1.8-.4 3.5.4 4.6 1.9C11 4.8 12.7 4 14.5 4.4c2.8.6 4.1 3.4 2.7 6.6C15 15 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8l-1.5 3 2 1.5-1.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>1. Bạn Hành Động Sai Trạng Thái<br>(Điểm mù bên trong)</h3>
+        <p>Bạn mải mê tìm cách kiểm soát biến số bên ngoài trước khi ra quyết định nhưng lại không rõ cấu trúc năng lượng bên trong của mình. <strong style="color:var(--text)">Bạn không biết mình đang ở chu kỳ đóng hay mở</strong>, dẫn đến cảm giác thiếu chắc chắn và "đến đâu xoay đến đó".</p>
+      </div>
+      <div class="problem-col">
+        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12c2-4 4 4 6 0s4-4 6 0 4-4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="6" r="2" stroke="currentColor" stroke-width="1.6"/></svg></span>
+        <h3>2. Bạn Hành Động Sai Thời Điểm<br>(Hiệu ứng trễ)</h3>
+        <p>Bạn đưa ra quyết định dựa trên bối cảnh hiện tại nhưng chưa đánh giá được rủi ro trong giai đoạn tiếp theo. <strong style="color:var(--text)">Một quyết định đúng về khả năng nhưng sai về thời điểm</strong> thường khiến bạn tốn nhiều nguồn lực gấp nhiều lần.</p>
+      </div>
+    </div>
+
+    <p class="bridge-statement">Bạn cần một phương pháp để <em>thấu suốt cấu trúc bản thân</em><br class="desktop-break"> và đưa ra các quyết định kinh doanh một cách tự tin nhất.</p>
+    <p class="sub-lead">Đây là cách hệ thống này vận hành...</p>
+    <div class="scroll-arrow">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 5 6-5M6 15l6 5 6-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="banner-box">
+      <h2 class="banner-title-market" style="text-align:center;">Thị Trường Chỉ Công Nhận Một Quyết Định Đúng Khi Nó Được Đưa Ra <br class="mobile-break"><span class="banner-highlight">Đúng Thời Điểm</span></h2>
+      <p>Hãy để tôi chỉ cho bạn cách làm chủ nhịp độ chu kỳ cá nhân để đưa các quyết định kinh doanh và tài chính đi đến kết quả rõ ràng nhất.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BẢN THỂ & THỜI THẾ ===================== -->
+<section class="section theme-dark depth-section" id="concept">
+  <div class="container">
+    <div class="concept-grid">
+      <div class="concept-col">
+        <div class="concept-asset">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8l4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Cấu trúc năng lượng là bệ đỡ của nội&nbsp;lực.</h3>
+        <p class="mt-4">Nó định hình điểm mạnh bẩm sinh, cách bạn xử lý thông tin và cơ chế tạo ra dòng tiền tự nhiên nhất mà không cần gượng ép sao chép bất kỳ ai.</p>
+      </div>
+      <div class="concept-col">
+        <div class="concept-asset">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12M6 21h12M7 3c0 5 4 6 5 9-1 3-5 4-5 9M17 3c0 5-4 6-5 9 1 3 5 4 5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Tính thời điểm là đòn bẩy của ngoại&nbsp;lực.</h3>
+        <p class="mt-4">Nó chỉ rõ quỹ đạo chu kỳ của riêng bạn trong từng giai đoạn. Giúp bạn nhận diện khi nào nên bứt phá mở rộng và khi nào cần thu mình bảo toàn nguồn lực.</p>
+      </div>
+    </div>
+    <p class="bridge-statement">Đó là lý do vì sao khi kết hợp cả hai yếu tố Bản Thể & Thời Thế, <br class="desktop-break">bạn sẽ sở hữu một hệ quy chiếu sắc bén nhất để dứt điểm mọi quyết định mơ hồ trong kinh doanh.</p>
+  </div>
+</section>
+
+<!-- ===================== KHAI PHÓNG NỘI LỰC (4-quadrant) ===================== -->
+<section class="section theme-dark depth-section" id="solution">
+  <div class="container">
+    <div class="quadrant-bgtext">Khai Phóng Nội Lực!</div>
+    <div class="superpower-container">
+      <div class="center-energy-gate"></div>
+
+      <div class="floating-card">
+        <h4>Ra Quyết Định Thấu Suốt</h4>
+        <p>Dứt điểm các lựa chọn mơ hồ. Nhận diện rõ nét cấu trúc chu kỳ để đưa ra những bước đi kinh doanh và tài chính tự tin nhất.</p>
+      </div>
+      <div class="floating-card">
+        <h4>Vận Hành Với Sự Tự Tin</h4>
+        <p>Làm chủ nhịp độ chu kỳ cá nhân để biết chính xác thời điểm nào phù hợp để tăng tốc bứt phá, thời điểm nào cần phòng thủ vững vàng.</p>
+      </div>
+      <div class="floating-card">
+        <h4>Tối Ưu Hiệu Suất Dòng Tiền</h4>
+        <p>Kích hoạt cỗ máy kiếm tiền tự nhiên (Money Engine) bẩm sinh của riêng bạn, thu hút nguồn lực một cách thuận tự nhiên và không gượng ép.</p>
+      </div>
+      <div class="floating-card">
+        <h4>Giải Phóng Thế Mạnh Bẩm Sinh</h4>
+        <p>Đọc vị chính xác điểm mạnh cốt lõi và kiểm soát hoàn toàn điểm mù tự nhiên, định vị bản thân vững vàng ở phân cấp xứng tầm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ★ REPORT PREVIEW ===================== -->
+<section class="section theme-light" id="report-preview">
+  <div class="container">
+    <span class="eyebrow">Bằng Chứng Hữu Hình</span>
+    <h2><span class="h2-rule"></span>Report Của Bạn Sẽ Trông Như Thế Này</h2>
+    <p class="mt-6" style="max-width:900px;">Không phải bài test chung chung. Đây là report thật — tính toán thủ công riêng cho từng cá nhân.</p>
+
+    <div class="report-preview-grid mt-12">
+      <div class="report-mock" data-report-slider>
+        <div class="report-mock-topbar">
+          <span class="report-mock-logo">L.O.S™ · Life Operating System</span>
+          <span class="report-mock-conf">Confidential</span>
+        </div>
+        <div class="report-mock-viewport">
+          <div class="report-mock-track" data-report-track>
+            <div class="report-mock-slide">
+              <div class="report-mock-body">
+                <span class="report-mock-eyebrow">EDD Foundation™ · Energy Due Diligence</span>
+                <div class="report-mock-rule"></div>
+                <span class="report-mock-title">Structural Life</span>
+                <span class="report-mock-title-italic">Intelligence Report</span>
+                <div class="report-mock-divider"></div>
+                <div class="report-mock-fields">
+                  <div>
+                    <span class="report-mock-field-label">Họ Và Tên</span>
+                    <div class="report-mock-field-val">Anonymous Founder</div>
+                  </div>
+                  <div>
+                    <span class="report-mock-field-label">Report ID</span>
+                    <div class="report-mock-field-val">EDD-4563</div>
+                  </div>
+                  <div>
+                    <span class="report-mock-field-label">Ngày Sinh</span>
+                    <div class="report-mock-field-val">xx / xx / xxxx</div>
+                  </div>
+                  <div>
+                    <span class="report-mock-field-label">Ngày Phân Tích</span>
+                    <div class="report-mock-field-val">6/7/2026</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-mock-slide">
+              <div class="report-mock-body">
+                <span class="report-mock-eyebrow">[Preview] Định Vị Năng Lực Cốt Lõi</span>
+                <div class="report-mock-radar">
+                  <span class="report-mock-radar-ring r1"></span>
+                  <span class="report-mock-radar-ring r2"></span>
+                  <span class="report-mock-radar-ring r3"></span>
+                  <span class="report-mock-radar-sweep"></span>
+                  <span class="report-mock-radar-core"></span>
+                </div>
+                <p class="report-mock-chart-caption">Kiểu kiến trúc nhận thức: <span class="report-mock-glow-gold">Kiến Trúc Sư Nền Móng Quyền Lực</span></p>
+                <p class="report-mock-chart-caption report-mock-caption-muted">Năng lực cốt lõi: <span class="report-mock-glow-gold">Kiến Tạo Uy Tín Thể Chế</span></p>
+              </div>
+            </div>
+
+            <div class="report-mock-slide">
+              <div class="report-mock-body">
+                <span class="report-mock-eyebrow">[Preview] Xu Hướng Money Engine</span>
+                <div class="report-mock-chart">
+                  <div class="report-mock-chart-line"></div>
+                  <span class="report-mock-pulse-dot" style="left:38%; top:32%;"></span>
+                  <span class="report-mock-pulse-dot" style="left:68%; top:64%; animation-delay:.6s;"></span>
+                </div>
+                <p class="report-mock-chart-caption">Cơ chế dòng tiền bẩm sinh đang vận hành ở trạng thái: <span class="report-mock-glow-gold">TỐI ƯU</span></p>
+              </div>
+            </div>
+
+            <div class="report-mock-slide">
+              <div class="report-mock-body">
+                <span class="report-mock-eyebrow">[Preview] Điểm Nghẽn Năng Lượng</span>
+                <div class="report-mock-gauge">
+                  <div class="report-mock-gauge-fill"></div>
+                </div>
+                <span class="report-mock-gauge-label">Trạng Thái Cân Bằng: Mất Cân Bằng</span>
+                <p class="report-mock-chart-caption" style="margin-top:16px;">Pattern rủi ro nổi bật: <span class="report-mock-laser alert">Bảo Thủ Cực Đoan</span></p>
+                <div class="report-mock-blur-fill">
+                  <div class="report-mock-blur-lines" aria-hidden="true">
+                    <p>Lực kiểm soát &amp; tích lũy chiếm 80% hệ thống — lực tăng trưởng chỉ còn 17%.</p>
+                    <p>Hướng điều hướng: thiết lập khung quyết định rõ ràng, không để bản năng phòng thủ quyết định thay.</p>
+                  </div>
+                  <div class="report-mock-blur-badge">
+                    <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/></svg>
+                    Đăng ký để mở khoá phân tích chi tiết
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-mock-slide">
+              <div class="report-mock-body">
+                <span class="report-mock-eyebrow">[Preview] Vùng Lợi Thế Cấu Trúc</span>
+                <ul class="report-mock-zones">
+                  <li><span class="report-mock-zone-num">01</span>Quản Trị Khủng Hoảng &amp; Tái Cấu Trúc Tổ Chức</li>
+                  <li><span class="report-mock-zone-num">02</span>Xây Dựng &amp; Bảo Chứng Uy Tín Thể Chế</li>
+                  <li><span class="report-mock-zone-num">03</span>Quản Lý &amp; Nhân Rộng Tài Sản Hữu Hình</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="report-mock-slide">
+              <div class="report-mock-body">
+                <span class="report-mock-eyebrow">[Preview] Dự Phóng Quỹ Đạo 12 Tháng Tới</span>
+                <ul class="report-mock-insights report-mock-insights-compact">
+                  <li>Tháng 09/2026: Vùng lợi thế mở ra. <span class="report-mock-laser">Dồn Lực Tấn Công</span></li>
+                  <li>Tháng 10/2026: Chuẩn hoá quy trình nội bộ. <span class="report-mock-laser neutral">Tích Luỹ Dự Phòng</span></li>
+                  <li>Tháng 11/2026: Dòng tiền bắt đầu tăng nhiệt. <span class="report-mock-laser positive">Kích Hoạt Dòng Tiền</span></li>
+                  <li>Tháng 12/2026: Áp lực &amp; kỷ luật chạm đỉnh. <span class="report-mock-laser alert">Phòng Thủ Tuyệt Đối</span></li>
+                </ul>
+                <div class="report-mock-blur-fill report-mock-blur-fill-tight">
+                  <div class="report-mock-blur-lines" aria-hidden="true">
+                    <p>Tháng 01/2027 → 04/2027: điểm rơi chu kỳ mới, cơ hội bứt phá và các mốc rủi ro cần phòng tránh...</p>
+                  </div>
+                  <div class="report-mock-blur-badge">
+                    <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/></svg>
+                    Đăng ký bản Full để mở khoá dự phóng trọn vẹn 12 tháng
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-mock-slide">
+              <div class="report-mock-body report-mock-locked">
+                <span class="report-mock-eyebrow">[Preview] Kết Luận &amp; Khuyến Nghị Chiến Lược</span>
+                <div class="report-mock-locked-content" aria-hidden="true">
+                  <p class="report-mock-chart-caption">Ưu tiên 1: Củng cố và hệ thống hoá nền tảng vận hành hiện tại — chuẩn hoá quy trình, đảm bảo hệ thống vận hành độc lập.</p>
+                  <p class="report-mock-chart-caption" style="margin-top:14px;">Ưu tiên 2: Phân quyền có chủ đích — xác định người có thể gánh vác các mảng vận hành cụ thể.</p>
+                  <p class="report-mock-chart-caption" style="margin-top:14px;">Bảy nhận thức cá nhân được rút ra từ toàn bộ dữ liệu phân tích cấu trúc...</p>
+                </div>
+                <div class="report-mock-lock-badge">
+                  <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  Dữ liệu đã được mã hoá bảo mật — đăng ký để mở khoá bản Full của riêng bạn
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="report-mock-dots" data-report-dots>
+          <button type="button" class="dot is-active" data-slide="0" aria-label="Trang 1"></button>
+          <button type="button" class="dot" data-slide="1" aria-label="Trang 2"></button>
+          <button type="button" class="dot" data-slide="2" aria-label="Trang 3"></button>
+          <button type="button" class="dot" data-slide="3" aria-label="Trang 4"></button>
+          <button type="button" class="dot" data-slide="4" aria-label="Trang 5"></button>
+          <button type="button" class="dot" data-slide="5" aria-label="Trang 6"></button>
+          <button type="button" class="dot" data-slide="6" aria-label="Trang 7"></button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="mt-2">Bên Trong Bản Báo Cáo Gồm Những Gì?</h3>
+        <ul class="report-toc mt-6">
+          <li><span class="toc-badge">A</span><span class="toc-desc"><strong>Bản Đồ Tư Duy & Năng Lực Cốt Lõi</strong> — Giải mã kiến trúc nhận thức, cơ chế ra quyết định dưới áp lực và hồ sơ năng lực tự nhiên xác lập cách bạn vận hành ở tầng nền tảng.</span></li>
+          <li><span class="toc-badge">B</span><span class="toc-desc"><strong>Cấu Trúc Tài Chính & Trạng Thái Vận Hành</strong> — Money Engine bẩm sinh, cơ chế tạo và nhân rộng dòng tiền, cùng mức độ liên kết giữa bản chất cốt lõi với chu kỳ vận hành hiện tại.</span></li>
+          <li><span class="toc-badge">C</span><span class="toc-desc"><strong>Phân Tích Cấu Trúc Chiều Sâu: Cân Bằng Năng Lượng & Cảnh Báo Rủi Ro</strong> — Bản đồ Ngũ Hành, vùng lợi thế tuyệt đối, heatmap 10 năm theo từng mốc điểm số, tổng quan 12 tháng theo quý và các pattern rủi ro đặc thù cần chủ động phòng vệ.</span></li>
+          <li><span class="toc-badge">D</span><span class="toc-desc"><strong>Insights Tích Hợp & Khung Hành Động Ưu Tiên</strong> — Các ưu tiên hành động được rút ra từ toàn bộ dữ liệu, loạt insight cá nhân hoá và bản đồ trực quan hóa quỹ đạo cuộc đời qua từng thập kỷ.</span></li>
+          <li><span class="toc-badge">E</span><span class="toc-desc"><strong>Nhận Thức Cơ Chế Vận Hành</strong> — Tổng kết toàn cảnh và bước tiếp theo cụ thể để chủ động chuyển hóa những gì vừa được nhìn thấy.</span></li>
+        </ul>
+        <div class="report-caption">Report ID EDD-4563 — Trích xuất từ hồ sơ bảo mật của một Nhà điều hành thực chiến. Bản báo cáo của riêng bạn sẽ được tính toán độc bản, dựa trên chính xác cấu trúc dữ liệu thời điểm sinh của bạn.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INTRODUCING / E-SYSTEM ===================== -->
+<section class="section theme-dark" id="intro-system">
+  <div class="container">
+    <div class="intro-kicker">Giới Thiệu</div>
+    <h2 class="intro-title" style="text-transform:none;">EDD FOUNDATION<span class="sp">E · S · Y · S · T · E · M</span></h2>
+
+    <div class="luxury-layered-showcase-container">
+
+      <div class="showcase-ui-window window-center-core">
+        <div class="ui-window-header">
+          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
+          <span class="ui-window-tag">EDD FOUNDATION™ CENTRAL SYSTEM</span>
+        </div>
+        <div class="ui-window-body core-brand-bg">
+          <div class="brand-center-identity">
+            <div class="gold-shield-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#C9A657" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h2 class="system-title-glow">L.O.S™ · LIFE OPERATING SYSTEM</h2>
+            <div class="system-scanning-bar"><div class="scanning-progress"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-ui-window window-left-course">
+        <div class="ui-window-header">
+          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
+          <span class="ui-window-tag">01 | COURSE PLAYER</span>
+        </div>
+        <div class="ui-window-body layout-split">
+          <div class="video-player-sim">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A657" stroke-width="2" class="center-play-triangle animate-pulse-slow"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="video-timeline-bar"><span class="video-progress-fill"></span></div>
+          </div>
+          <div class="video-playlist-sim">
+            <div class="playlist-item active-item">Chương 1: Bản Sắc Gốc</div>
+            <div class="playlist-item">Chương 2: Money Engine</div>
+            <div class="playlist-item">Chương 3: Cấu Trúc Vận Hành</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-ui-window window-right-report">
+        <div class="ui-window-header">
+          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
+          <span class="ui-window-tag badge-confidential">02 | CONFIDENTIAL REPORT</span>
+        </div>
+        <div class="ui-window-body">
+          <div class="report-meta-exposed">
+            <span class="report-id-text">HỒ SƠ GIÁM ĐỊNH: EDD-4563</span>
+            <div class="radar-radar-circle"><div class="radar-line-sweep"></div></div>
+          </div>
+          <div class="report-locked-blur-zone">
+            <div class="blur-lines-p">
+              <p>Chỉ số cấu trúc nhận thức bẩm sinh cho thấy bạn có khả năng quản trị khủng hoảng xuất sắc, tuy nhiên điểm nghẽn lớn nhất...</p>
+            </div>
+            <div class="lock-overlay-badge-mini">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A657" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Dữ liệu mã hoá bảo mật
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-ui-window window-right-timeline">
+        <div class="ui-window-header">
+          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
+          <span class="ui-window-tag">03 | MACRO FORECAST</span>
+        </div>
+        <div class="ui-window-body">
+          <div class="mini-wave-graph-box">
+            <svg viewBox="0 0 200 60" fill="none" class="graph-svg-inner">
+              <path d="M 0 40 C 40 10, 80 10, 100 35 C 120 60, 160 60, 200 20" stroke="#C9A657" stroke-width="2"/>
+              <circle cx="45" cy="22" r="3" fill="#F2EDE3"/>
+            </svg>
+          </div>
+          <div class="timeline-months-text-preview">
+            <p>Tháng 09/2026: <span class="gold-t">Dồn Lực Tấn Công</span></p>
+            <p>Tháng 12/2026: <span class="gold-t">Phòng Thủ Tuyệt Đối</span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="metrics-bar">
+      <div>
+        <div class="m-num">06</div>
+        <div class="m-label">MODULES HỌC</div>
+      </div>
+      <div>
+        <div class="m-num">05</div>
+        <div class="m-label">NGÀY TRẢI NGHIỆM THỬ</div>
+      </div>
+      <div>
+        <div class="m-num">04</div>
+        <div class="m-label">DỮ LIỆU BÁO CÁO CHUYÊN SÂU</div>
+      </div>
+      <div>
+        <div class="m-num">01</div>
+        <div class="m-label">HỆ QUY CHIẾU TRỌN ĐỜI</div>
+      </div>
+    </div>
+
+    <p class="text-center mt-12" style="max-width:680px;margin-left:auto;margin-right:auto;">Hệ thống thẩm định năng lượng toàn diện kết hợp giữa các module tự học tinh gọn và bộ báo cáo phân tích cá nhân độc bản. Được thiết kế để định vị rõ nét lộ trình và tối ưu hóa hiệu suất dòng tiền cho nhà điều hành thực chiến.</p>
+
+    <div class="text-center mt-8">
+      <a href="dang-ky.html" class="btn-primary">Bắt Đầu Ngay Chỉ Với 790.000đ →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BUBBLE TESTIMONIALS ===================== -->
+<section class="section theme-dark">
+  <div class="container">
+    <h2 class="text-center" style="text-align:center;">MỌI NGƯỜI <span class="text-accent">NÓI GÌ</span></h2>
+    <div class="bubble-masonry-clip">
+      <div class="bubble-masonry">
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">T</div>
+            <div><div class="bubble-name">Lê Minh Trí</div><div class="bubble-date">12th Jan, 10:15 AM</div></div>
+          </div>
+          <p>Thật sự biết ơn hệ thống tư duy này. Lần đầu tiên tôi hiểu được thế nào là "lệch hướng cấu trúc". Trước giờ cứ nghĩ kiệt sức là do làm nhiều, hóa ra là do vận hành sai cách.</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">A</div>
+            <div><div class="bubble-name">Hoàng Lan Anh</div><div class="bubble-date">24th Feb, 3:30 PM</div></div>
+          </div>
+          <p>Báo cáo EDD thực hiện thủ công vô cùng chi tiết. Lộ trình 10 năm tới giúp tôi nhận ra thời điểm vàng để dồn lực kinh doanh. 790.000đ quả thực là một món hời quá lớn.</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">P</div>
+            <div><div class="bubble-name">Trần Thế Phong</div><div class="bubble-date">5th Mar, 11:20 AM</div></div>
+          </div>
+          <p>Quá trực quan và thực chiến! Module học ngắn gọn dưới 30 phút rất phù hợp với người bận rộn như tôi. Đọc vị đúng Money Engine giúp tôi đưa ra quyết định tự tin hơn nhiều.</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">G</div>
+            <div><div class="bubble-name">Nguyễn Hương Giang</div><div class="bubble-date">18th Apr, 8:45 AM</div></div>
+          </div>
+          <p>Chính sách hoàn tiền 5 ngày thực sự làm tôi yên tâm khi đăng ký. Nhưng học đến ngày thứ 3 tôi đã biết mình sẽ không bao giờ yêu cầu hoàn tiền. Tư duy quá sắc bén!</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">N</div>
+            <div><div class="bubble-name">Vũ Đức Nam</div><div class="bubble-date">2nd May, 9:10 AM</div></div>
+          </div>
+          <p>Sơ đồ chu kỳ hình sin quá đỉnh! Nhìn vào đó tôi biết ngay tại sao năm ngoái mình đầu tư mạnh tay lại bị gãy dứt điểm. Nếu biết EDD Foundation sớm hơn thì đã tiết kiệm được vài tỷ đồng rồi.</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">K</div>
+            <div><div class="bubble-name">Minh Khuê</div><div class="bubble-date">15th May, 4:20 PM</div></div>
+          </div>
+          <p>Thẩm định năng lượng bẩm sinh giúp tôi tái cơ cấu lại nhân sự trong công ty. Đặt đúng người vào đúng vị trí theo thế mạnh cốt lõi, hiệu suất dòng tiền tự động tối ưu mà không cần ép buộc.</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">N</div>
+            <div><div class="bubble-name">Hoàng Nam</div><div class="bubble-date">30th May, 1:05 PM</div></div>
+          </div>
+          <p>Cá nhân hóa 100%! Không hề giống mấy bài test tính cách chung chung trên mạng. Đây là một hệ quy chiếu vận hành trọn đời cho bất cứ ai muốn làm chủ cuộc chơi tài chính.</p>
+        </div>
+        <div class="bubble">
+          <div class="bubble-head">
+            <div class="bubble-avatar">H</div>
+            <div><div class="bubble-name">Phạm Thanh Hà</div><div class="bubble-date">10th Jun, 9:40 AM</div></div>
+          </div>
+          <p>Ấn tượng nhất là phần dự phóng chu kỳ 12 tháng tới. Nó như một chiếc la bàn báo trước cho tôi biết khi nào nên tổng tấn công bứt phá, khi nào buộc phải đóng băng phòng thủ để bảo toàn nguồn lực.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHAT YOU'LL LEARN (Timeline) ===================== -->
+<section class="section theme-dark" id="curriculum">
+  <div class="container">
+    <span class="eyebrow">Lộ Trình Chi Tiết</span>
+    <h2><span class="h2-rule"></span>Bạn Sẽ Học Gì</h2>
+    <p class="mt-6" style="max-width:680px;">6 module tự học tinh gọn, mỗi bài dưới 30 phút, gửi đều đặn mỗi ngày để bạn tự học theo lịch cá nhân — không cần buổi học trực tiếp bắt buộc.</p>
+
+    <div class="timeline-wrap">
+      <div class="timeline-rail">ĐỊNH VỊ BẢN THỂ</div>
+      <div class="timeline-list">
+        <div class="lesson-card">
+          <div class="lesson-info">
+            <div class="lesson-title">1. Khai Mở Nền Tảng</div>
+            <p class="lesson-desc">Nhận diện "Bản Sắc Vay Mượn" âm thầm khiến bạn theo đuổi những mục tiêu không thực sự thuộc về mình.</p>
+            <details class="lesson-overview">
+              <summary class="lesson-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/></svg> NỘI DUNG CHÍNH</summary>
+              <div class="lesson-overview-body">
+                <p class="lesson-overview-intro">Trong module đầu tiên này, bạn sẽ:</p>
+                <ul class="lesson-overview-list">
+                  <li>Định nghĩa lại "thành công" — không phải qua kết quả bên ngoài, mà qua sự tương thích giữa con người bạn và môi trường bạn đang vận hành.</li>
+                  <li>Nhìn thấy ba lớp cấu trúc đang quyết định mọi kết quả trong cuộc đời — và lớp nào bạn có thể thay đổi, lớp nào bạn cần học cách tận dụng.</li>
+                  <li>Nhận diện Bản Sắc Vay Mượn — cơ chế âm thầm khiến bạn theo đuổi những mục tiêu không thực sự của mình, dù chúng hoàn toàn hợp lý trên lý thuyết.</li>
+                  <li>Bước vào vai trò Người Quan Sát — năng lực nền tảng để lần đầu tiên nhìn thấy chính mình một cách rõ ràng, thay vì bị cuốn theo.</li>
+                </ul>
+                <p class="lesson-overview-closing">Đây là điểm khởi đầu bắt buộc trước khi bạn ra bất kỳ quyết định lớn nào tiếp theo trong cuộc đời.</p>
+              </div>
+            </details>
+            <div class="free-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Học thử không rủi ro</div>
+          </div>
+          <div class="lesson-media">
+            <div class="module-graphic-box">
+              <svg viewBox="0 0 200 200" fill="none" class="minimal-svg">
+                <defs>
+                  <linearGradient id="spotlightGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C9A657" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="#C9A657" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="100,20 60,160 140,160" fill="url(#spotlightGrad)"/>
+                <line x1="20" y1="160" x2="180" y2="160" stroke="#8B7355" stroke-width="1" opacity="0.3"/>
+                <circle cx="50" cy="130" r="8" fill="#1B2C20" opacity="0.6"/>
+                <line x1="50" y1="138" x2="50" y2="160" stroke="#1B2C20" stroke-width="3" opacity="0.6"/>
+                <circle cx="150" cy="130" r="8" fill="#1B2C20" opacity="0.6"/>
+                <line x1="150" y1="138" x2="150" y2="160" stroke="#1B2C20" stroke-width="3" opacity="0.6"/>
+                <circle cx="100" cy="125" r="8" fill="#F2EDE3" class="animate-pulse-slow"/>
+                <line x1="100" y1="133" x2="100" y2="160" stroke="#F2EDE3" stroke-width="3"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-info">
+            <div class="lesson-title">2. Cấu Trúc Năng Lượng Bên Trong</div>
+            <p class="lesson-desc">Thấu hiểu vì sao thời điểm bạn sinh ra tạo nên một cấu trúc vận hành hoàn toàn riêng biệt.</p>
+            <details class="lesson-overview">
+              <summary class="lesson-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/></svg> NỘI DUNG CHÍNH</summary>
+              <div class="lesson-overview-body">
+                <p class="lesson-overview-intro">Trong module này, bạn sẽ:</p>
+                <ul class="lesson-overview-list">
+                  <li>Hiểu vì sao thời điểm bạn sinh ra tạo nên một cấu trúc vận hành năng lượng hoàn toàn riêng biệt, không ai giống ai.</li>
+                  <li>Nhận ra rõ ràng: mình mạnh ở đâu một cách tự nhiên, ở đâu mình đang tốn sức mà không hiệu quả, và nhịp làm việc nào thực sự phù hợp với mình.</li>
+                  <li>Xác định cách bạn tạo ra giá trị và thu nhập một cách bền vững nhất — qua chuyên môn, qua hệ thống, qua mối quan hệ, hay qua nguồn lực — thay vì cố theo mô hình của người khác.</li>
+                </ul>
+                <p class="lesson-overview-closing">Đây là cách để bạn hiểu đúng về chính mình - nền tảng để mọi quyết định lớn sau này được đưa ra với đủ sự rõ ràng, thay vì đoán mò.</p>
+              </div>
+            </details>
+            <div class="free-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Học thử không rủi ro</div>
+          </div>
+          <div class="lesson-media">
+            <div class="module-graphic-box">
+              <svg viewBox="0 0 200 200" fill="none" class="minimal-svg">
+                <defs>
+                  <radialGradient id="prismGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#C9A657" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#C9A657" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="100" cy="100" r="70" fill="url(#prismGlow)"/>
+                <polygon points="100,60 130,120 70,120" stroke="#C9A657" stroke-width="1.4"/>
+                <line x1="100" y1="60" x2="60" y2="28" stroke="#C9A657" stroke-width="1" opacity="0.6"/>
+                <line x1="100" y1="60" x2="142" y2="24" stroke="#C9A657" stroke-width="1" opacity="0.6"/>
+                <line x1="130" y1="120" x2="176" y2="132" stroke="#C9A657" stroke-width="1" opacity="0.6"/>
+                <line x1="70" y1="120" x2="24" y2="136" stroke="#C9A657" stroke-width="1" opacity="0.6"/>
+                <line x1="100" y1="120" x2="100" y2="168" stroke="#C9A657" stroke-width="1" opacity="0.6"/>
+                <circle cx="100" cy="90" r="2.5" fill="#F2EDE3" class="animate-pulse-slow"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-info">
+            <div class="lesson-title">3. Lệch Hướng Cấu Trúc Vận Hành</div>
+            <p class="lesson-desc">Nhận diện các dấu hiệu lệch hướng: dòng tiền bất ổn, kiệt sức cấu trúc kéo dài.</p>
+            <details class="lesson-overview">
+              <summary class="lesson-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/></svg> NỘI DUNG CHÍNH</summary>
+              <div class="lesson-overview-body">
+                <p class="lesson-overview-intro">Trong module này, bạn sẽ:</p>
+                <ul class="lesson-overview-list">
+                  <li>Nhận diện ba dấu hiệu cho thấy bạn đang lệch hướng cấu trúc - dòng tiền không ổn định, kiệt sức kéo dài, và bỏ lỡ cơ hội mở rộng - trước khi chúng âm thầm tích lũy thành khủng hoảng.</li>
+                  <li>Phân biệt kiệt sức do quá tải với kiệt sức cấu trúc - hai vấn đề trông giống nhau nhưng đòi hỏi hai cách xử lý hoàn toàn trái ngược.</li>
+                  <li>Xác định bạn đang mắc kẹt ở loại khoảng cách nào trong ba loại: lệch hướng trong vai trò, trong môi trường, hay trong mô hình kinh doanh - mỗi loại có một trần tăng trưởng và hướng xử lý riêng.</li>
+                  <li>Hiểu rõ phạm vi mà công cụ EDD Digital có thể đọc được cho bạn — và đâu là ranh giới cần một hành trình sâu hơn.</li>
+                </ul>
+                <p class="lesson-overview-closing">Đây là module giúp bạn dừng việc đổ thêm nỗ lực vào sai chỗ — và bắt đầu sửa đúng tầng, trước khi vòng lặp lặp lại ở quy mô lớn hơn.</p>
+              </div>
+            </details>
+            <div class="free-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Học thử không rủi ro</div>
+          </div>
+          <div class="lesson-media">
+            <div class="module-graphic-box">
+              <svg viewBox="0 0 200 200" fill="none" class="minimal-svg">
+                <line x1="20" y1="150" x2="180" y2="60" stroke="#8B7355" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+                <path d="M20,150 L70,132 L92,155 L128,90 L180,60" stroke="#C9A657" stroke-width="1.6"/>
+                <circle cx="20" cy="150" r="3" fill="#C9A657" opacity="0.5"/>
+                <circle cx="92" cy="155" r="7" fill="#1B2C20" stroke="#F2EDE3" stroke-width="1.4" class="animate-pulse-slow"/>
+                <circle cx="180" cy="60" r="3" fill="#C9A657"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-wrap mt-8">
+      <div class="timeline-rail">LÀM CHỦ THỜI THẾ</div>
+      <div class="timeline-list">
+        <div class="lesson-card">
+          <div class="lesson-info">
+            <div class="lesson-title">4. Tính Thời Điểm & Kích Hoạt Chu Kỳ</div>
+            <p class="lesson-desc">Khám phá ba lớp thời gian để biết chính xác khi nào nên bứt phá dồn lực, khi nào nên phòng thủ.</p>
+            <details class="lesson-overview">
+              <summary class="lesson-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/></svg> NỘI DUNG CHÍNH</summary>
+              <div class="lesson-overview-body">
+                <p class="lesson-overview-intro">Trong module này, bạn sẽ:</p>
+                <ul class="lesson-overview-list">
+                  <li>Khám phá ba "lớp thời gian" đang cùng vận hành trong cuộc đời bạn — bức tranh lớn trọn đời, kế hoạch 10 năm tới, và nhịp độ của riêng năm nay — để hiểu vì sao có những giai đoạn mọi nỗ lực đều mang lại kết quả, và những giai đoạn ngược lại.</li>
+                  <li>Xác định chính xác bạn đang ở giai đoạn nào ngay lúc này — đang cần tích luỹ, đang cần bứt phá, hay đang cần chậm lại để củng cố — thay vì áp một kế hoạch cứng nhắc lên một cơ thể không vận hành theo lịch.</li>
+                  <li>Nhận diện rõ cơ hội và rủi ro riêng của từng giai đoạn — để biết khi nào nên dồn lực tiến lên, khi nào nên giữ nhịp, và khi nào cảm giác "chững lại" thực chất là dấu hiệu bạn đang chuẩn bị cho một bước nhảy lớn hơn, chứ không phải bạn đang thất bại.</li>
+                  <li>Học cách phát huy tối đa thế mạnh của giai đoạn hiện tại, thay vì ép bản thân theo đuổi điều chưa đúng lúc — để bạn ngừng lãng phí công sức vào những cuộc chiến sai thời điểm.</li>
+                </ul>
+                <p class="lesson-overview-closing">Đây là mảnh ghép mà phần lớn người ra quyết định đều bỏ lỡ vì chưa từng có phương pháp nào chỉ ra cách nhìn ra nó.</p>
+              </div>
+            </details>
+            <div class="free-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Học thử không rủi ro</div>
+          </div>
+          <div class="lesson-media">
+            <div class="module-graphic-box">
+              <svg viewBox="0 0 200 200" fill="none" class="minimal-svg">
+                <defs>
+                  <radialGradient id="hourglassGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#C9A657" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#C9A657" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="100" cy="100" r="55" fill="url(#hourglassGlow)"/>
+                <path d="M65,45 H135 L100,100 L135,155 H65 L100,100 Z" stroke="#C9A657" stroke-width="1.4" stroke-linejoin="round"/>
+                <circle cx="100" cy="78" r="2" fill="#F2EDE3"/>
+                <circle cx="100" cy="100" r="2" fill="#F2EDE3" class="animate-pulse-slow"/>
+                <circle cx="100" cy="122" r="2" fill="#F2EDE3" opacity="0.6"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-info">
+            <div class="lesson-title">5. Cơ Chế Tạo Tiền Cá Nhân</div>
+            <p class="lesson-desc">Khám phá "cỗ máy kiếm tiền" tự nhiên của riêng bạn để thu hút dòng tiền bền vững mà không gượng ép.</p>
+            <details class="lesson-overview">
+              <summary class="lesson-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/></svg> NỘI DUNG CHÍNH</summary>
+              <div class="lesson-overview-body">
+                <p class="lesson-overview-intro">Trong module này, bạn sẽ:</p>
+                <ul class="lesson-overview-list">
+                  <li>Khám phá cơ chế kiếm tiền tự nhiên của riêng mình — thứ quyết định bạn nên tạo giá trị bằng cách nào để tiền đến dễ dàng hơn, thay vì phải gồng mình mỗi ngày.</li>
+                  <li>Nhận diện chính xác bạn đang thuộc nhóm nào trong 10 kiểu vận hành tài chính khác nhau — và vì sao việc sao chép mô hình kinh doanh của người khác gần như luôn dẫn đến kiệt sức.</li>
+                  <li>Phát hiện những dấu hiệu cảnh báo sớm khi bạn đang đi ngược với bản chất tài chính của mình — trước khi nó khiến bạn mất thời gian, tiền bạc và động lực.</li>
+                  <li>Học cách kết hợp đúng cơ chế kiếm tiền với đúng thời điểm trong hành trình của bạn — đây chính là lý do một số người tạo ra kết quả vượt trội mà nhìn từ ngoài ai cũng tưởng là "may mắn".</li>
+                </ul>
+                <p class="lesson-overview-closing">Đây là bước nền tảng để bạn ngừng chạy theo công thức của người khác, và bắt đầu xây dựng dòng tiền theo cách tự nhiên nhất với chính mình.</p>
+              </div>
+            </details>
+            <div class="free-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Học thử không rủi ro</div>
+          </div>
+          <div class="lesson-media">
+            <div class="module-graphic-box">
+              <svg viewBox="0 0 200 200" fill="none" class="minimal-svg">
+                <rect x="40" y="50" width="120" height="100" rx="4" stroke="#8B7355" stroke-width="1.2" opacity="0.5"/>
+                <line x1="100" y1="50" x2="100" y2="150" stroke="#8B7355" stroke-width="1" opacity="0.3"/>
+                <path d="M55,120 C75,100 85,130 105,105 C120,85 130,110 145,80" stroke="#C9A657" stroke-width="1.6"/>
+                <circle cx="55" cy="120" r="3" fill="#C9A657"/>
+                <circle cx="145" cy="80" r="4" fill="#F2EDE3" class="animate-pulse-slow"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-info">
+            <div class="lesson-title">6. Lộ Trình Cuộc Đời</div>
+            <p class="lesson-desc">Thấu hiểu vị trí đứng của mình trên hành trình cá nhân để hạn chế tối đa các quyết định sai thời điểm.</p>
+            <details class="lesson-overview">
+              <summary class="lesson-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/></svg> NỘI DUNG CHÍNH</summary>
+              <div class="lesson-overview-body">
+                <p class="lesson-overview-intro">Trong module này, bạn sẽ:</p>
+                <ul class="lesson-overview-list">
+                  <li>Ghép lại toàn bộ những mảnh ghép đã học thành một bức tranh duy nhất — nơi con người bạn, hoàn cảnh bạn, và hướng đi cuộc đời bạn không còn là những thứ tách rời mà vận hành như một hệ thống.</li>
+                  <li>Học cách tự định vị bản thân trong bức tranh lớn của cuộc đời — biết mình đang ở chặng nào, từ đó nhận ra loại cơ hội nào nên nắm bắt và loại quyết định nào nên tạm gác lại.</li>
+                  <li>Phát triển khả năng nhận biết trước những bước ngoặt sắp tới — thay vì chỉ phản ứng khi mọi thứ đã xảy ra, bạn chủ động chuẩn bị cho chúng.</li>
+                  <li>Nhận diện ba cấp độ thấu hiểu bản thân, để biết chính xác mình đang ở đâu trên hành trình hiểu chính mình — và cần điều gì để tiến lên cấp độ tiếp theo.</li>
+                </ul>
+                <p class="lesson-overview-closing">Đây là module bản lề — nơi bạn không học thêm một khái niệm mới, mà học cách nhìn thấy toàn bộ bức tranh mà bạn đang là một phần trong đó.</p>
+              </div>
+            </details>
+          </div>
+          <div class="lesson-media">
+            <div class="module-graphic-box">
+              <svg viewBox="0 0 200 200" fill="none" class="minimal-svg">
+                <defs>
+                  <linearGradient id="roadGlow" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C9A657" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#C9A657" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="100,55 70,165 130,165" fill="url(#roadGlow)" opacity="0.5"/>
+                <line x1="100" y1="55" x2="70" y2="165" stroke="#C9A657" stroke-width="1.4"/>
+                <line x1="100" y1="55" x2="130" y2="165" stroke="#C9A657" stroke-width="1.4"/>
+                <line x1="85" y1="120" x2="115" y2="120" stroke="#8B7355" stroke-width="1" opacity="0.4"/>
+                <line x1="80" y1="145" x2="120" y2="145" stroke="#8B7355" stroke-width="1" opacity="0.4"/>
+                <circle cx="100" cy="55" r="2.5" fill="#F2EDE3" class="animate-pulse-slow"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-8" style="max-width:900px;">Thông tin quan trọng để tránh hiểu lầm:<br>Bạn được quyền <strong style="color:var(--text)">học thử miễn phí 5 ngày đầu tiên</strong> để hoàn toàn thẩm định hệ thống tư duy cốt lõi. Đúng đến ngày thứ 7, bạn mới chính thức nhận toàn bộ báo cáo phân tích cá nhân được tính toán thủ công.</p>
+  </div>
+</section>
+
+<!-- ===================== MORE THAN JUST LESSONS (3-col) ===================== -->
+<section class="section theme-light" id="bonus">
+  <div class="container">
+    <span class="eyebrow">Hơn Cả Các Bài Học</span>
+    <h2><span class="h2-rule"></span>Nhận Vào Ngày Thứ 7</h2>
+    <p class="mt-6" style="max-width:680px;">Sau khi đi hết lộ trình học, bạn nhận trọn bộ cẩm nang vận hành độc bản được tính toán riêng theo dữ liệu cá nhân của bạn.</p>
+
+    <div class="grid-3 mt-10">
+      <div class="feature-card">
+        <div class="feature-mockup">
+          <div class="mockup-graphic-display">
+            <svg viewBox="0 0 350 180" fill="none" class="mockup-svg">
+              <rect x="10" y="10" width="330" height="160" rx="12" fill="#1B2C20" stroke="rgba(201, 166, 87, 0.15)" stroke-width="1.5"/>
+              <rect x="25" y="25" width="180" height="110" rx="6" fill="rgba(34, 53, 42, 0.8)" stroke="rgba(201, 166, 87, 0.1)"/>
+              <polygon points="110,70 110,90 130,80" fill="#C9A657" class="animate-pulse-slow"/>
+              <line x1="25" y1="145" x2="205" y2="145" stroke="rgba(242, 237, 227, 0.1)" stroke-width="4" stroke-linecap="round"/>
+              <line x1="25" y1="145" x2="135" y2="145" stroke="#C9A657" stroke-width="4" stroke-linecap="round"/>
+              <rect x="220" y="25" width="105" height="24" rx="4" fill="rgba(242, 237, 227, 0.05)"/>
+              <line x1="230" y1="37" x2="290" y2="37" stroke="#F2EDE3" stroke-width="2" opacity="0.6"/>
+              <rect x="220" y="55" width="105" height="24" rx="4" fill="rgba(201, 166, 87, 0.08)" stroke="rgba(201, 166, 87, 0.2)"/>
+              <line x1="230" y1="67" x2="300" y2="67" stroke="#C9A657" stroke-width="2"/>
+              <rect x="220" y="85" width="105" height="24" rx="4" fill="rgba(242, 237, 227, 0.05)"/>
+              <line x1="230" y1="97" x2="280" y2="97" stroke="#F2EDE3" stroke-width="2" opacity="0.6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="feature-body">
+          <span class="feature-tag">[ Hệ Thống Kiểm Định Độc Bản ]</span>
+          <div class="feature-num">01 | Giao Diện Học Tập</div>
+          <p style="font-size:0.92rem;">Chuỗi video trang bị tư duy cốt lõi để thấu suốt bản thể.</p>
+          <div class="feature-locked-footer">
+            <p class="feature-blur-line">Phân hệ bao gồm 6 chương chuyên sâu, đo lường xu hướng Money Engine và các giải pháp thực chiến phòng thủ...</p>
+            <div class="feature-lock-badge-mini">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Đăng ký để mở khoá nội dung chi tiết
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-mockup">
+          <div class="mockup-graphic-display">
+            <svg viewBox="0 0 350 180" fill="none" class="mockup-svg">
+              <defs>
+                <linearGradient id="pdfCoverGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#22352A"/>
+                  <stop offset="100%" stop-color="#14221A"/>
+                </linearGradient>
+              </defs>
+              <rect x="105" y="25" width="140" height="140" rx="4" fill="#0D1611" opacity="0.6" transform="rotate(-3 175 95)"/>
+              <rect x="100" y="20" width="140" height="140" rx="4" fill="url(#pdfCoverGrad)" stroke="rgba(201, 166, 87, 0.25)" stroke-width="1.5"/>
+              <rect x="115" y="32" width="110" height="1" fill="rgba(201, 166, 87, 0.2)"/>
+              <rect x="190" y="40" width="40" height="10" rx="2" stroke="#C9A657" stroke-width="0.5"/>
+              <circle cx="195" cy="45" r="1.5" fill="#C9A657"/>
+              <rect x="115" y="65" width="70" height="6" rx="1" fill="#C9A657" opacity="0.8"/>
+              <rect x="115" y="77" width="90" height="4" rx="1" fill="#F2EDE3" opacity="0.4"/>
+              <circle cx="170" cy="120" r="20" stroke="#8B7355" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.5"/>
+              <circle cx="170" cy="120" r="30" stroke="#C9A657" stroke-width="0.5" stroke-dasharray="6 2" opacity="0.3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="feature-body">
+          <span class="feature-tag">[ Hệ Thống Kiểm Định Độc Bản ]</span>
+          <div class="feature-num">02 | Báo Cáo EDD Digital</div>
+          <p style="font-size:0.92rem;">Bản phân tích chi tiết cách bạn tư duy, tối ưu điểm mạnh và phòng ngừa điểm mù tự nhiên.</p>
+          <div class="feature-locked-footer">
+            <p class="feature-blur-line">Bao gồm bản đồ tư duy, hồ sơ năng lực tự nhiên và các điểm mù cần chú ý được tính toán riêng cho bạn...</p>
+            <div class="feature-lock-badge-mini">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Đăng ký để mở khoá nội dung chi tiết
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-mockup">
+          <div class="mockup-graphic-display">
+            <svg viewBox="0 0 350 180" fill="none" class="mockup-svg">
+              <defs>
+                <linearGradient id="lineGlowGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#8B7355" stop-opacity="0.2"/>
+                  <stop offset="50%" stop-color="#C9A657" stop-opacity="1"/>
+                  <stop offset="100%" stop-color="#8B7355" stop-opacity="0.2"/>
+                </linearGradient>
+              </defs>
+              <rect x="10" y="10" width="330" height="160" rx="12" fill="#1B2C20" stroke="rgba(201, 166, 87, 0.15)" stroke-width="1.5"/>
+              <line x1="20" y1="90" x2="330" y2="90" stroke="rgba(139, 115, 85, 0.15)" stroke-width="1"/>
+              <line x1="60" y1="20" x2="60" y2="160" stroke="rgba(139, 115, 85, 0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
+              <line x1="175" y1="20" x2="175" y2="160" stroke="rgba(139, 115, 85, 0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
+              <line x1="290" y1="20" x2="290" y2="160" stroke="rgba(139, 115, 85, 0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
+              <path d="M 20 120 C 80 20, 130 20, 175 90 C 220 160, 270 160, 330 60" stroke="url(#lineGlowGrad)" stroke-width="2.5" class="wave-path-flow"/>
+              <circle cx="102" cy="46" r="5" fill="#F2EDE3"/>
+              <circle cx="102" cy="46" r="12" stroke="#C9A657" stroke-width="1" class="pulse-ring-slow"/>
+            </svg>
+          </div>
+        </div>
+        <div class="feature-body">
+          <span class="feature-tag">[ Hệ Thống Kiểm Định Độc Bản ]</span>
+          <div class="feature-num">03 | Bản Đồ Chu Kỳ</div>
+          <p style="font-size:0.92rem;">Bản đồ dự phóng vĩ mô lộ trình vận hành cuộc đời và ma trận cơ hội chi tiết 10 năm.</p>
+          <div class="feature-locked-footer">
+            <p class="feature-blur-line">Chi tiết từng giai đoạn chu kỳ, cửa sổ cơ hội vàng và các mốc rủi ro cần chủ động phòng tránh...</p>
+            <div class="feature-lock-badge-mini">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Đăng ký để mở khoá nội dung chi tiết
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="dang-ky.html" class="btn-primary">Bắt Đầu Ngay →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPARISON / FRAMEWORK ===================== -->
+<section class="section theme-light" id="comparison">
+  <div class="container">
+    <span class="eyebrow">Khác Biệt Thực Tiễn</span>
+    <h2><span class="h2-rule"></span>Bảng So Sánh Giá Trị Thực Tiễn & Hệ Quy Chiếu Chu Kỳ</h2>
+    <p class="mt-6">EDD khác biệt hoàn toàn với các công cụ thông thường:</p>
+
+    <div class="comparison-table-wrapper mt-8">
+      <div class="edd-card-bg" aria-hidden="true"></div>
+
+      <div class="compare-col-title title-competitor" style="grid-row:1;grid-column:1">Các Bài Test Tính Cách</div>
+      <div class="compare-col-title title-competitor" style="grid-row:1;grid-column:2">Coach / Người Hướng Dẫn</div>
+      <div class="compare-col-title title-edd" style="grid-row:1;grid-column:3">EDD Foundation™</div>
+
+      <div class="compare-row row-competitor" style="grid-row:2;grid-column:1">Xếp loại rập khuôn: Dán nhãn bạn vào các nhóm tính cách chung chung (có hàng triệu người giống bạn).</div>
+      <div class="compare-row row-competitor" style="grid-row:2;grid-column:2">Vay mượn bản sắc: Trao cho bạn công thức thành công của... chính họ.</div>
+      <div class="compare-row row-edd" style="grid-row:2;grid-column:3"><strong>Sự cá nhân hoá:</strong> Chỉ ra chính xác "Cơ chế dòng tiền" bẩm sinh của riêng bạn. Không ai có bản đồ giống ai.</div>
+
+      <div class="compare-row row-competitor" style="grid-row:3;grid-column:1">Phân tích bề mặt: Chỉ ra điểm mạnh/yếu nhưng không có tính ứng dụng thực chiến.</div>
+      <div class="compare-row row-competitor" style="grid-row:3;grid-column:2">Xung đột cấu trúc: Công thức giúp họ đổi đời có thể chính là nguy cơ đốt tiền của bạn.</div>
+      <div class="compare-row row-edd" style="grid-row:3;grid-column:3"><strong>Tối ưu hóa nguồn lực:</strong> Chỉ ra cách bạn tạo ra dòng tiền "thuận tự nhiên" nhất, tránh xa những lộ trình đi ngược lại thế mạnh cốt lõi.</div>
+
+      <div class="compare-row row-competitor last" style="grid-row:4;grid-column:1">Mù mờ về chu kỳ: Không chỉ ra được khi nào năng lực của bạn tạo ra đòn bẩy sinh lời, khi nào chỉ là sự hao mòn vô ích.</div>
+      <div class="compare-row row-competitor last" style="grid-row:4;grid-column:2">Dựa vào may rủi: Kết quả phụ thuộc hoàn toàn vào việc bạn có "hợp" với người hướng dẫn hay không.</div>
+      <div class="compare-row row-edd last" style="grid-row:4;grid-column:3"><strong>Làm chủ "Thời Điểm":</strong> Định vị bạn đang ở đâu trong quỹ đạo cuộc đời. Chỉ rõ năm nào nên tất tay, năm nào buộc phải đóng băng phòng thủ.</div>
+    </div>
+
+    <h3 class="mt-16">Chi Tiết 5 Giai Đoạn Trong Chu Kỳ Vận Hành Cá Nhân Bạn Sẽ Làm Chủ</h3>
+    <div class="cycle-wave mt-10 has-active" data-cycle-wave>
+      <svg class="cycle-wave-svg" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true">
+        <path class="cycle-wave-path" d="M0,150 C120,150 130,70 250,70 C370,70 380,190 500,190 C620,190 630,30 750,30 C870,30 880,150 1000,150" />
+      </svg>
+      <div class="cycle-nodes" role="tablist" aria-label="5 giai đoạn chu kỳ vận hành">
+        <button type="button" class="cycle-node label-above edge-start is-active" style="left:4%; top:68%;" data-stage="1" role="tab" aria-selected="true">
+          <span class="cycle-node-dot"></span>
+          <span class="cycle-node-label"><span class="cycle-node-index">01</span>Tích Lũy &amp; Cấu Trúc</span>
+        </button>
+        <button type="button" class="cycle-node label-above" style="left:27%; top:32%;" data-stage="2" role="tab" aria-selected="false">
+          <span class="cycle-node-dot"></span>
+          <span class="cycle-node-label"><span class="cycle-node-index">02</span>Đột Phá &amp; Sáng Tạo</span>
+        </button>
+        <button type="button" class="cycle-node label-above" style="left:50%; top:86%;" data-stage="3" role="tab" aria-selected="false">
+          <span class="cycle-node-dot"></span>
+          <span class="cycle-node-label"><span class="cycle-node-index">03</span>Tăng Trưởng &amp; Dòng Tiền</span>
+        </button>
+        <button type="button" class="cycle-node label-below" style="left:73%; top:14%;" data-stage="4" role="tab" aria-selected="false">
+          <span class="cycle-node-dot"></span>
+          <span class="cycle-node-label"><span class="cycle-node-index">04</span>Áp Lực &amp; Kỷ Luật</span>
+        </button>
+        <button type="button" class="cycle-node label-above edge-end" style="left:96%; top:68%;" data-stage="5" role="tab" aria-selected="false">
+          <span class="cycle-node-dot"></span>
+          <span class="cycle-node-label"><span class="cycle-node-index">05</span>Kết Nối &amp; Cạnh Tranh</span>
+        </button>
+      </div>
+    </div>
+    <div class="cycle-detail" data-cycle-detail>
+      <div class="cycle-detail-panel is-active" data-stage-panel="1">
+        <span class="phase-num">Giai Đoạn 1</span>
+        <h3 class="mt-2" style="font-size:1.05rem;">Tích Lũy & Cấu Trúc</h3>
+        <p class="mt-4" style="font-size:0.92rem;">Giai đoạn xây bệ phóng — năng lượng tập trung vào thiết lập nền tảng, chuẩn hóa quy trình. Ưu tiên: chuẩn hóa quy trình vận hành, đầu tư vào nền tảng chất lượng thay vì mở rộng quy mô.</p>
+      </div>
+      <div class="cycle-detail-panel" data-stage-panel="2">
+        <span class="phase-num">Giai Đoạn 2</span>
+        <h3 class="mt-2" style="font-size:1.05rem;">Đột Phá & Sáng Tạo</h3>
+        <p class="mt-4" style="font-size:0.92rem;">Tư duy đổi mới lên cao nhất. Ưu tiên: thử nghiệm mô hình mới, ra mắt sản phẩm/dịch vụ mới, khám phá hướng đi chưa có tiền lệ của cá nhân bạn.</p>
+      </div>
+      <div class="cycle-detail-panel" data-stage-panel="3">
+        <span class="phase-num">Giai Đoạn 3</span>
+        <h3 class="mt-2" style="font-size:1.05rem;">Tăng Trưởng & Dòng Tiền</h3>
+        <p class="mt-4" style="font-size:0.92rem;">Điểm rơi tài chính tốt nhất trong chu kỳ. Ưu tiên: tối ưu hóa lợi nhuận, mở rộng quy mô có kiểm soát, dồn nguồn lực vào cơ hội có tỷ suất sinh lời cao nhất.</p>
+      </div>
+      <div class="cycle-detail-panel" data-stage-panel="4">
+        <span class="phase-num">Giai Đoạn 4</span>
+        <h3 class="mt-2" style="font-size:1.05rem;">Áp Lực & Kỷ Luật</h3>
+        <p class="mt-4" style="font-size:0.92rem;">Giai đoạn kỷ luật cao nhất. Ưu tiên: giữ vững những gì đang hoạt động, tránh những quyết định lớn và thay đổi căn bản.</p>
+      </div>
+      <div class="cycle-detail-panel" data-stage-panel="5">
+        <span class="phase-num">Giai Đoạn 5</span>
+        <h3 class="mt-2" style="font-size:1.05rem;">Kết Nối & Cạnh Tranh</h3>
+        <p class="mt-4" style="font-size:0.92rem;">Thời điểm mở rộng quan hệ và tạo đòn bẩy từ mạng lưới. Ưu tiên: xây dựng và củng cố liên minh chiến lược, đầu tư vào quan hệ dài hạn.</p>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <details class="detail-accordion">
+        <summary>Xem đầy đủ 10 Kiểu Vận Hành Cá Nhân</summary>
+        <div class="detail-body">
+          <ul class="mini-list">
+            <li><strong>01 Người Tiên Phong</strong> — Kéo người khác tin vào thứ họ chưa nhìn thấy - sức mạnh nằm ở năng lượng lan tỏa và tầm nhìn. Sức mạnh cốt lõi: Lãnh đạo qua năng lượng, tạo động lực tập thể, xây dựng thương hiệu cá nhân mạnh. (NGUYÊN TẮC → HÀNH ĐỘNG).</li>
+            <li><strong>02 Người Giữ Vững</strong> — Vận hành từ kinh nghiệm được kiểm chứng - sức mạnh nằm ở sự bền bỉ và tin cậy theo thời gian. Sức mạnh cốt lõi: Bền bỉ, đáng tin cậy, xây dựng mối quan hệ dài hạn, duy trì chất lượng nhất quán. (KINH NGHIỆM → KẾT QUẢ).</li>
+            <li><strong>03 Người Kết Nối</strong> — Tạo giá trị từ việc đặt đúng người vào đúng chỗ - sức mạnh nằm ở mạng lưới và khả năng đọc bối cảnh. Sức mạnh cốt lõi: Đọc bối cảnh, xây dựng quan hệ chiến lược, tạo đòn bẩy từ mạng lưới. (MẠNG LƯỚI → GIÁ TRỊ).</li>
+            <li><strong>04 Người Trực Giác Chiến Lược</strong> — Đọc được thứ đang thực sự xảy ra bên dưới bề mặt - sức mạnh nằm ở giải pháp độc bản từ trực giác sâu. Sức mạnh cốt lõi: Quyết định trong bất định, đọc bối cảnh phức tạp, nhìn thấy cơ hội ẩn. (TRỰC GIÁC → GIẢI PHÁP ĐỘC BẢN).</li>
+            <li><strong>05 Người Truyền Cảm Hứng</strong> — Kéo người khác tin vào thứ họ chưa nhìn thấy - sức mạnh nằm ở năng lượng lan tỏa và tầm nhìn. Sức mạnh cốt lõi: Lãnh đạo qua năng lượng, tạo động lực tập thể, xây dựng thương hiệu cá nhân mạnh. (TẦM NHÌN → LAN TOẢ).</li>
+            <li><strong>06 Người Tư Duy Chiều Sâu</strong> — Đi đến nguyên nhân gốc rễ trước khi kết luận - sức mạnh nằm ở chiều sâu phân tích mà người khác bỏ qua. Sức mạnh cốt lõi: Phân tích chiều sâu, giải quyết vấn đề phức tạp, nhìn thấy rủi ro ẩn. (CHIỀU SÂU → SỰ CHẮC CHẮN).</li>
+            <li><strong>07 Người Kiến Tạo Giá Trị</strong> — Nhìn thấy khoảng cách giữa những gì đang có và những gì có thể tốt hơn - sức mạnh nằm ở tiêu chuẩn chất lượng khó sao chép. Sức mạnh cốt lõi: Nâng chuẩn chất lượng, cải tiến liên tục, tạo ra sản phẩm/dịch vụ premium. (TIÊU CHUẨN → CHẤT LƯỢNG).</li>
+            <li><strong>08 Người Thực Thi</strong> — Đi thẳng từ vấn đề đến kết quả - sức mạnh nằm ở tốc độ và khả năng giải quyết dứt điểm. Sức mạnh cốt lõi: Tốc độ thực thi, giải quyết vấn đề nhanh, biến kế hoạch thành hành động cụ thể. (VẤN ĐỀ → KẾT QUẢ).</li>
+            <li><strong>09 Người Điều Hướng</strong> — Nhìn thấy kết nối giữa những thứ tưởng như không liên quan - sức mạnh nằm ở sự linh hoạt điều hướng trong biến động. Sức mạnh cốt lõi: Thích nghi nhanh, nhìn thấy cơ hội trong bất định. (LINH HOẠT → CƠ HỘI).</li>
+            <li><strong>10 Người Hiện Thực Hóa</strong> — Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán. Sức mạnh cốt lõi: Xây dựng hệ thống, nhân rộng quy mô, tạo ra kết quả nhất quán. (Ý TƯỞNG → QUY TRÌNH).</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="detail-accordion">
+        <summary>Xem đầy đủ 10 Cơ Chế Dòng Tiền Tự Nhiên (Money Engine Profile)</summary>
+        <div class="detail-body">
+          <ul class="mini-list">
+            <li><strong>01 Cơ Chế Đồng Hành</strong> — Dòng tiền đến từ năng lực cá nhân độc lập và quyền tự quyết hoàn toàn. Hoạt động tốt nhất khi: Có quyền kiểm soát hoàn toàn quá trình và kết quả. (TỰ CHỦ · ĐỘC LẬP).</li>
+            <li><strong>02 Cơ Chế Chiếm Lĩnh</strong> — Dòng tiền đến từ tốc độ và khả năng hành động trước người khác. Hoạt động tốt nhất khi: Thị trường đang hình thành hoặc đang có khoảng trống. (TỐC ĐỘ · TIÊN PHONG).</li>
+            <li><strong>03 Cơ Chế Giá Trị</strong> — Dòng tiền đến từ chất lượng mà thị trường sẵn sàng trả cao hơn mặt bằng chung. (CHẤT LƯỢNG · PREMIUM).</li>
+            <li><strong>04 Cơ Chế Chiếm Lĩnh (Xu Hướng)</strong> — Dòng tiền đến từ ý tưởng dẫn dắt xu hướng trước khi thị trường tự nhận ra. (ĐỔI MỚI · XU HƯỚNG).</li>
+            <li><strong>05 Cơ Chế Vận Hành</strong> — Dòng tiền đến từ hệ thống tạo ra kết quả đều đặn và có thể dự báo được. (HỆ THỐNG · DỰ BÁO).</li>
+            <li><strong>06 Cơ Chế Vốn</strong> — Dòng tiền đến từ khả năng nhìn thấy cơ hội tài chính và hành động trước khi thị trường định giá đầy đủ. (ĐẦU TƯ · CƠ HỘI TÀI CHÍNH).</li>
+            <li><strong>07 Cơ Chế Quản Trị</strong> — Dòng tiền đến từ uy tín được xây dựng qua sự nhất quán và tính chính danh theo thời gian. (UY TÍN · DÀI HẠN).</li>
+            <li><strong>08 Cơ Chế Quyền Lực</strong> — Dòng tiền đến từ khả năng tạo ra kết quả trong điều kiện mà người khác rút lui. (ÁP LỰC · KẾT QUẢ KHÓ).</li>
+            <li><strong>09 Cơ Chế Tri Thức</strong> — Dòng tiền đến từ chiều sâu chuyên môn tích lũy mà thị trường sẵn sàng trả giá cao để tiếp cận. (CHUYÊN MÔN · CHIỀU SÂU).</li>
+            <li><strong>10 Cơ Chế Trực Giác</strong> — Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán. Hoạt động tốt nhất khi: Được định vị rõ ràng với đúng thị trường ngách. (GIẢI PHÁP ĐỘC BẢN · NGÁCH).</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="mt-16">12 Tháng Tới Của Bạn: Chưa Có EDD vs Có EDD Foundation™</h3>
+    <div class="comparison-table-wrapper has-label-col mt-16">
+      <div class="edd-card-bg" aria-hidden="true"></div>
+
+      <div class="compare-col-title title-label" style="grid-row:1;grid-column:1">Hạng Mục</div>
+      <div class="compare-col-title title-competitor" style="grid-row:1;grid-column:2">Chưa Có EDD</div>
+      <div class="compare-col-title title-edd" style="grid-row:1;grid-column:3">Có EDD Foundation™</div>
+
+      <div class="compare-row row-label" style="grid-row:2;grid-column:1"><strong>Nguồn Lực</strong></div>
+      <div class="compare-row row-competitor" style="grid-row:2;grid-column:2"><span class="row-label-inline">Nguồn Lực</span>Đốt tiền bạc, thời gian và năng lượng vào những quyết định mù mờ — để rồi chỉ biết "giá như" sau khi tổn thất thực tế đã xảy ra.</div>
+      <div class="compare-row row-edd" style="grid-row:2;grid-column:3"><span class="row-label-inline">Nguồn Lực</span>Biết chính xác giai đoạn nào phù hợp để dồn lực, giai đoạn nào cần phòng thủ - để mỗi đồng, mỗi giờ, mỗi phần năng lượng bỏ ra đều tạo ra đòn bẩy tối đa.</div>
+
+      <div class="compare-row row-label" style="grid-row:3;grid-column:1"><strong>Cơ Hội</strong></div>
+      <div class="compare-row row-competitor" style="grid-row:3;grid-column:2"><span class="row-label-inline">Cơ Hội</span>Tiếp tục bỏ lỡ những "điểm rơi" tài chính và cơ hội tốt nhất trong chu kỳ vì không nhận ra đây là thời điểm vàng.</div>
+      <div class="compare-row row-edd" style="grid-row:3;grid-column:3"><span class="row-label-inline">Cơ Hội</span>Nhận ra đúng thời điểm khi cơ hội đang ở đỉnh của chu kỳ cá nhân - để chủ động chuẩn bị và nắm bắt, chấm dứt những nuối tiếc.</div>
+
+      <div class="compare-row row-label" style="grid-row:4;grid-column:1"><strong>Rủi Ro</strong></div>
+      <div class="compare-row row-competitor" style="grid-row:4;grid-column:2"><span class="row-label-inline">Rủi Ro</span>Tiếp tục mở rộng, đầu tư và đưa ra quyết định lớn mà không biết mình đang ở giai đoạn nào trong chu kỳ.</div>
+      <div class="compare-row row-edd" style="grid-row:4;grid-column:3"><span class="row-label-inline">Rủi Ro</span>Nhận diện trước những giai đoạn nhạy cảm và rủi ro cao trong lộ trình của mình - để điều phối thay vì bị động ứng phó.</div>
+
+      <div class="compare-row row-label last" style="grid-row:5;grid-column:1"><strong>Hệ Quy Chiếu</strong></div>
+      <div class="compare-row row-competitor last" style="grid-row:5;grid-column:2"><span class="row-label-inline">Hệ Quy Chiếu</span>Ra quyết định bằng cảm nhận, kinh nghiệm và thông tin thị trường — vẫn thiếu lớp quan trọng nhất: hiểu biết về chính cấu trúc vận hành của bạn.</div>
+      <div class="compare-row row-edd last" style="grid-row:5;grid-column:3"><span class="row-label-inline">Hệ Quy Chiếu</span>Có trong tay bản phân tích độc bản về cách bạn vận hành và chu kỳ bạn đang đi qua - hệ quy chiếu này tồn tại trọn đời.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE PROTOCOL ===================== -->
+<section class="section theme-dark" id="network">
+  <div class="container">
+    <div class="protocol-title-wrapper">
+      <h2 class="protocol-main-title">The Protocol</h2>
+      <span class="protocol-sub-tag">[ Đồng Hành &amp; Giải Đáp Thắc Mắc Cho Riêng Bạn ]</span>
+    </div>
+
+    <div class="protocol-dashboard-layout">
+      <div class="protocol-panel-card card-left">
+        <h3 class="panel-header-gold">Tiếp Nhận Yêu Cầu</h3>
+        <ul class="protocol-request-list">
+          <li>Gửi Câu Hỏi Phản Biện</li>
+          <li>Yêu Cầu Rà Soát Chỉ Số</li>
+          <li>Đặt Lịch Giám Định Sâu</li>
+        </ul>
+      </div>
+
+      <div class="protocol-central-graphic-portal">
+        <svg viewBox="0 0 300 240" fill="none" class="portal-svg-graphic">
+          <line x1="0" y1="120" x2="300" y2="120" stroke="rgba(201, 166, 87, 0.18)" stroke-width="1" stroke-dasharray="4 4"/>
+          <ellipse cx="150" cy="120" rx="95" ry="95" stroke="rgba(201, 166, 87, 0.12)" stroke-width="1"/>
+          <ellipse cx="150" cy="120" rx="95" ry="36" stroke="rgba(201, 166, 87, 0.22)" stroke-width="1"/>
+          <ellipse cx="150" cy="120" rx="36" ry="95" stroke="rgba(201, 166, 87, 0.22)" stroke-width="1"/>
+          <ellipse cx="150" cy="120" rx="95" ry="36" stroke="rgba(139, 115, 85, 0.28)" stroke-width="0.75" stroke-dasharray="5 4" transform="rotate(45 150 120)"/>
+          <ellipse cx="150" cy="120" rx="95" ry="36" stroke="rgba(139, 115, 85, 0.28)" stroke-width="0.75" stroke-dasharray="5 4" transform="rotate(-45 150 120)"/>
+          <circle cx="150" cy="25" r="3" fill="#C9A657" opacity="0.7"/>
+          <circle cx="150" cy="215" r="3" fill="#C9A657" opacity="0.7"/>
+          <circle cx="55" cy="120" r="3" fill="#8B7355" opacity="0.5"/>
+          <circle cx="245" cy="120" r="3" fill="#8B7355" opacity="0.5"/>
+          <circle cx="150" cy="120" r="34" fill="#16241A" stroke="#C9A657" stroke-width="1.5" class="portal-core-pulse"/>
+          <text x="150" y="124" fill="#F2EDE3" font-family="Montserrat, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1" text-anchor="middle">ON-DEMAND</text>
+        </svg>
+      </div>
+
+      <div class="protocol-panel-card card-right">
+        <h3 class="panel-header-gold">Quy Trình Xử Lý</h3>
+        <div class="protocol-process-timeline">
+          <div class="process-item">
+            <strong>Bước 01 · Gửi Phản Hồi</strong>
+            <p>Khách hàng chủ động gửi các điểm chưa thấu suốt sau khi đọc báo cáo.</p>
+          </div>
+          <div class="process-item">
+            <strong>Bước 02 · Thẩm Định Hồ Sơ</strong>
+            <p>Chuyên gia tiếp nhận, đối chiếu lại hệ quy chiếu bẩm sinh.</p>
+          </div>
+          <div class="process-item">
+            <strong>Bước 03 · Trả Lời Chuyên Sâu</strong>
+            <p>Phản hồi trực tiếp bằng văn bản hoặc phiên làm việc chuyên biệt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="banner-box protocol-transition-card">
+      <h2 style="text-align:center;">Nhưng Học Lý Thuyết<br><span class="banner-highlight">Chưa Đủ Để Chuyển&nbsp;Hóa</span></h2>
+      <p>Sự thấu suốt thực sự chỉ đến khi bạn đặt lý thuyết vào đúng cấu trúc cá nhân. Đó là lý do chúng tôi xây dựng hệ thống báo cáo thực tế độc bản dành riêng cho bạn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING 2-CARD ===================== -->
+<section class="section theme-light" id="pricing">
+  <div class="container">
+    <span class="eyebrow">Bảng Giá</span>
+    <h2><span class="h2-rule"></span>Mọi Thứ Bạn Cần Để Khởi Đầu</h2>
+
+    <div class="edd-checkout-balance-container">
+      <div class="checkout-luxury-card offer-card-tier">
+        <div class="card-tier-header">
+          <h3>EDD Foundation™</h3>
+          <p>Thấu suốt cơ chế &amp; Nhận diện chu kỳ</p>
+        </div>
+        <div class="card-tier-price">790.000đ</div>
+        <ul class="card-tier-features-list">
+          <li>06 Module video tự học (dưới 30 phút/bài)</li>
+          <li>Báo cáo phân tích cá nhân EDD Digital (Ngày thứ 7)</li>
+          <li>Bản đồ dự phóng vĩ mô Life Trajectory</li>
+          <li>10 Years Opportunity Heatmap chi tiết</li>
+          <li>Money Engine Profile — Cỗ máy kiếm tiền bẩm sinh</li>
+        </ul>
+        <p class="card-tier-note">Nâng cấp lên hành trình chuyên sâu bất kỳ lúc nào.</p>
+        <a href="dang-ky.html" class="card-tier-cta-btn">Bắt Đầu Trải Nghiệm ↗</a>
+      </div>
+
+      <div class="checkout-luxury-card guarantee-card-tier">
+        <div class="guarantee-badge-circle">
+          <div class="badge-circle-inner"><span>Bảo Đảm</span><strong>5 Ngày</strong><span>Hoàn Tiền</span></div>
+        </div>
+        <h3 class="guarantee-card-title">Bảo Đảm Trải Nghiệm Không Rủi Ro 100%</h3>
+        <div class="guarantee-card-body-text">
+          <p>Chúng tôi tin vào giá trị thực tế mà EDD mang lại cho quá trình ra quyết định của bạn. Đó là lý do bạn có trọn vẹn 5 ngày đầu tiên để tự do học tập và trải nghiệm hệ thống. Nếu bạn cảm thấy không phù hợp, chỉ cần gửi email, chúng tôi sẽ hoàn trả 100% học phí mà không cần lý do.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section theme-dark" id="faq">
+  <div class="container-narrow">
+    <span class="eyebrow">Hỏi Đáp</span>
+    <h2><span class="text-accent">Câu Hỏi</span> Thường Gặp</h2>
+    <div class="mt-10">
+      <details class="faq-item">
+        <summary>EDD hoạt động như thế nào - đây có phải hệ thống có cơ sở không?</summary>
+        <div class="answer">EDD được xây dựng trên nền tảng của Bát Tự - hệ thống phân tích cấu trúc con người với hơn 1,500 năm được ứng dụng và tinh lọc trong triết học Đông Á. Hệ thống bóc tách cấu trúc năng lượng từ dữ liệu thời điểm sinh để giúp bạn nhìn rõ chu kỳ vận hành của bản thân. Bạn có 5 ngày đầu để trải nghiệm thực tế, nếu cảm thấy không phù hợp sẽ được hoàn tiền 100%.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Tôi đã thử nhiều công cụ phân tích bản thân rồi - EDD khác gì?</summary>
+        <div class="answer">Các công cụ phân tích tính cách đại trà thường dán nhãn tính cách của bạn vào các nhóm chung chung. EDD đi sâu vào việc chỉ ra cơ chế tạo dòng tiền bẩm sinh và chu kỳ thời gian cụ thể của riêng bạn. Đây là thông tin thực chiến về thời điểm và cấu trúc vận hành cá nhân - thứ mà các bài test khác không cung cấp.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Phí đầu tư 790.000đ có xứng đáng không?</summary>
+        <div class="answer">Một quyết định sai về thời điểm - như mở rộng vội vã nhầm giai đoạn rủi ro hoặc đầu tư cảm tính khi chu kỳ chưa sẵn sàng - thường có chi phí thực tế từ vài chục đến vài trăm triệu đồng. EDD cung cấp lớp thông tin nền tảng giúp bạn hạn chế tối đa các quyết định đó trong 12 tháng tới. 790,000đ là khoản đầu tư trải nghiệm một lần cho hệ quy chiếu bạn có thể sử dụng suốt đời.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Tôi rất bận - liệu có theo kịp lộ trình học không?</summary>
+        <div class="answer">Hệ thống học tập EDD E-Learning được thiết kế để bạn tự sử dụng hoàn toàn chủ động theo lịch cá nhân, mỗi module chỉ dưới 30 phút và không có buổi học trực tiếp bắt buộc. Bộ báo cáo phân tích cá nhân nhận vào ngày thứ 7 là tài liệu được tính toán riêng biệt để bạn đọc một lần và lưu trữ tham chiếu dài hạn bất cứ khi nào cần đưa ra lựa chọn lớn.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSTRUCTOR (Gặp Gỡ Người Đồng Hành) ===================== -->
+<section class="section theme-dark" id="instructor">
+  <div class="container">
+    <div class="instructor-grid2">
+      <div class="instructor-photo" role="img" aria-label="Chân dung Duyên, founder L.O.S™">
+        <div class="instructor-metrics">
+          <div>
+            <div class="i-num">1,500+</div>
+            <div class="i-label">Năm Nền Tảng Triết Học Triệt Tiêu Điểm Mù</div>
+          </div>
+          <div>
+            <div class="i-num">100+</div>
+            <div class="i-label">Founders & C-Levels Đồng Hành</div>
+          </div>
+          <div>
+            <div class="i-num">100%</div>
+            <div class="i-label">Bảo Đảm Trải Nghiệm Vô Sự</div>
+          </div>
+        </div>
+      </div>
+      <div class="instructor-bio-panel">
+        <span class="eyebrow">Gặp Gỡ Người Đồng Hành</span>
+        <h3>Duyên</h3>
+        <p>Duyên là nhà sáng lập của L.O.S™ (Life Operation System) — hệ thống hỗ trợ các nhà điều hành giải phóng lực cản dòng tiền và thấu suốt quỹ đạo vận hành cá nhân.</p>
+        <p>Từng đứng ở vị trí của một người loay hoay trong bế tắc, gánh chịu áp lực lớn nhưng bên ngoài luôn phải "tỏ ra ổn", Duyên hiểu sâu sắc cảm giác của sự tự nghi ngờ và những quyết định sai thời điểm phải trả giá bằng cả tài chính lẫn năng lượng.</p>
+        <p>Thông qua việc ứng dụng và tinh lọc hệ thống Bát Tự 1,500 năm tuổi, L.O.S™ được xây dựng với một mục tiêu duy nhất: Trang bị cho bạn một hệ quy chiếu sắc bén nhất để bạn ngừng bơi ngược dòng, tự tin đưa ra các lựa chọn kinh doanh dứt điểm và thấu suốt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CHOICE ===================== -->
+<section class="section theme-dark instructor-wrap">
+  <div class="container-narrow">
+    <h2 class="text-center" style="text-align:center;">LỰA CHỌN <span class="text-accent">LÀ CỦA BẠN</span></h2>
+
+    <div class="choice-grid">
+      <div class="choice-col yes">
+        <h3>Tham Gia Ngay</h3>
+        <ul>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tự tin đưa ra các quyết định kinh doanh dứt điểm, rõ ràng và kiên định.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Làm chủ nhịp độ chu kỳ cá nhân để biết chính xác lúc nào nên bứt phá dồn lực.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kích hoạt cỗ máy tạo tiền tự nhiên (Money Engine) bẩm sinh mà không gượng ép.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Đồng hành cùng mạng lưới nhà điều hành thực chiến thấu suốt và vững vàng.</li>
+        </ul>
+      </div>
+      <div class="choice-col no">
+        <h3>Loay Hoay Kẹt Lại</h3>
+        <ul>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Tiếp tục mơ hồ, mệt mỏi xoay xở trong vòng lặp dòng tiền âm rồi kẹt.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đốt nguồn lực, thời gian vào những quyết định sai thời điểm rồi tiếc nuối.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Loay hoay sao chép công thức kinh doanh của người khác một cách kiệt sức.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đơn độc trên hành trình đưa ra những quyết định lớn mà thiếu hệ quy chiếu.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="final-cta-box">
+      <div class="mt-8">
+        <a href="dang-ky.html" class="btn-primary" style="font-size:1.15rem;">Bấm Vào Đây Để Đăng Ký Hành Trình EDD Foundation™ →</a>
+      </div>
+      <div class="ps-note">
+        P.S. Report của bạn sẽ hoàn toàn khác với bất kỳ ai — được tính toán thủ công riêng theo dữ liệu sinh của chính bạn. 5 ngày đầu học thử miễn phí, hoàn tiền 100% nếu chưa phù hợp.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <p>© 2026 EDD Foundation™ — L.O.S™ Life Operation System. All rights reserved.</p>
+    <p class="mt-4">Mọi thắc mắc vui lòng liên hệ qua email hỗ trợ trong trang xác nhận đơn hàng.</p>
+  </div>
+</footer>
+
+<!-- ===================== STICKY MOBILE CTA ===================== -->
+<div class="sticky-cta">
+  <a href="dang-ky.html" class="btn-primary">Học Thử Miễn Phí 5 Ngày →</a>
+</div>
+
+<script>
+(function () {
+  var revealSelectors = [
+    'h2', '.testimonial-card', '.bubble', '.lesson-card', '.feature-card',
+    '.checkout-luxury-card', '.choice-col', '.cycle-wave', '.outcome-card',
+    '.mistake', '.problem-col', '.concept-col', '.floating-card', '.bonus-card',
+    '.faq-item', '.report-mock', '.protocol-panel-card', '.instructor-grid2', '.offer-box',
+    '.guarantee-box', '.banner-box'
+  ];
+  var els = document.querySelectorAll(revealSelectors.join(','));
+
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  els.forEach(function (el) { el.classList.add('reveal'); });
+
+  var firedOnce = false;
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        firedOnce = true;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  els.forEach(function (el) { observer.observe(el); });
+
+  /* Safety net: if IntersectionObserver never fires at all within 3s
+     (e.g. blocked by browser policy or an unusual embedding context),
+     reveal everything so content is never stuck invisible. */
+  setTimeout(function () {
+    if (!firedOnce) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+  }, 3000);
+})();
+</script>
+
+<script>
+(function () {
+  var wave = document.querySelector('[data-cycle-wave]');
+  var detail = document.querySelector('[data-cycle-detail]');
+  if (!wave || !detail) return;
+  var nodes = wave.querySelectorAll('.cycle-node');
+  var panels = detail.querySelectorAll('.cycle-detail-panel');
+
+  function activate(stage) {
+    nodes.forEach(function (n) {
+      var active = n.getAttribute('data-stage') === stage;
+      n.classList.toggle('is-active', active);
+      n.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach(function (p) {
+      p.classList.toggle('is-active', p.getAttribute('data-stage-panel') === stage);
+    });
+  }
+
+  nodes.forEach(function (n) {
+    n.addEventListener('click', function () { activate(n.getAttribute('data-stage')); });
+    n.addEventListener('mouseenter', function () { activate(n.getAttribute('data-stage')); });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var slider = document.querySelector('[data-report-slider]');
+  if (!slider) return;
+  var track = slider.querySelector('[data-report-track]');
+  var slides = slider.querySelectorAll('.report-mock-slide');
+  var dots = slider.querySelectorAll('[data-report-dots] .dot');
+  var count = slides.length;
+  var current = 0;
+  var autoplayTimer = null;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function goTo(index) {
+    current = (index + count) % count;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, i) { d.classList.toggle('is-active', i === current); });
+  }
+
+  function startAutoplay() {
+    if (reducedMotion) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(function () { goTo(current + 1); }, 5000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+  }
+
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () {
+      goTo(parseInt(d.getAttribute('data-slide'), 10));
+      startAutoplay();
+    });
+  });
+
+  var touchStartX = 0, touchDeltaX = 0, touching = false;
+  slider.addEventListener('touchstart', function (e) {
+    touching = true;
+    touchStartX = e.touches[0].clientX;
+    touchDeltaX = 0;
+    stopAutoplay();
+  }, { passive: true });
+  slider.addEventListener('touchmove', function (e) {
+    if (!touching) return;
+    touchDeltaX = e.touches[0].clientX - touchStartX;
+  }, { passive: true });
+  slider.addEventListener('touchend', function () {
+    if (!touching) return;
+    touching = false;
+    if (touchDeltaX < -40) goTo(current + 1);
+    else if (touchDeltaX > 40) goTo(current - 1);
+    startAutoplay();
+  });
+
+  slider.addEventListener('mouseenter', stopAutoplay);
+  slider.addEventListener('mouseleave', startAutoplay);
+
+  goTo(0);
+  startAutoplay();
+})();
+</script>
+</body>
+</html>

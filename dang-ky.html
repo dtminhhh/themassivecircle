@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__BRAND_NAME__ — Đăng ký</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EDE6D8; --surface: #FFFFFF; --text: #24352A; --text-muted: rgba(36,53,42,.65);
+    --accent: #C9A657; --accent-deep: #8B7355; --border: rgba(36,53,42,.14);
+    --font-h: 'Poppins', sans-serif; --font-b: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-b); background: #1B2C20; color: var(--text); line-height: 1.6; padding: 40px 20px; min-height: 100vh; }
+  .container { max-width: 480px; margin: 0 auto; background: var(--surface); padding: 36px 32px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+  .brand { font-family: var(--font-h); font-weight: 700; font-size: 0.95rem; color: var(--accent-deep); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; }
+  h1 { font-family: var(--font-h); font-size: 24px; margin-bottom: 8px; color: var(--text); }
+  .lead { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; color: var(--text); }
+  input, select {
+    width: 100%; padding: 13px 14px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 15px; font-family: var(--font-b); background: #FAF7F0; color: var(--text);
+  }
+  input:focus, select:focus { outline: none; border-color: var(--accent); }
+  .cta {
+    width: 100%; background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+    color: #1B2C20; padding: 15px; font-size: 16px; font-weight: 700; font-family: var(--font-h);
+    border: none; border-radius: 999px; cursor: pointer; margin-top: 22px;
+  }
+  .cta:hover { opacity: 0.92; }
+  .cta:disabled { background: #999; cursor: not-allowed; }
+  .error { color: #A6453A; font-size: 13px; margin-top: 8px; display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">EDD Foundation™</div>
+  <h1>Đăng ký __PRODUCT_NAME__</h1>
+  <p class="lead">Điền thông tin để tiếp tục đến trang thanh toán.</p>
+
+  <form id="orderForm">
+    <label>Họ tên *</label>
+    <input type="text" name="name" required>
+
+    <label>Số điện thoại *</label>
+    <input type="tel" name="phone" required pattern="[0-9]{10,11}">
+
+    <label>Email *</label>
+    <input type="email" name="email" required>
+
+    <label>Mục tiêu của bạn</label>
+    <select name="goal">
+      <option value="">-- Chọn mục tiêu --</option>
+      <option value="Mục tiêu A">Mục tiêu A</option>
+      <option value="Mục tiêu B">Mục tiêu B</option>
+      <option value="Mục tiêu C">Mục tiêu C</option>
+    </select>
+
+    <button type="submit" class="cta" id="submitBtn">Tiếp tục thanh toán →</button>
+    <p class="error" id="error"></p>
+  </form>
+</div>
+
+<script>
+  const GAS_URL = '__GAS_URL__';
+
+  document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('error');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Đang xử lý...';
+
+    const form = new FormData(e.target);
+    const data = {
+      name: form.get('name'),
+      phone: form.get('phone'),
+      email: form.get('email'),
+      goal: form.get('goal'),
+      bump1: false,
+      bump2: false,
+      totalAmount: __PRODUCT_PRICE__
+    };
+
+    try {
+      const res = await fetch(GAS_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'createOrder', data: data })
+      });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error || 'Order creation failed');
+
+      sessionStorage.setItem('order', JSON.stringify({
+        orderId: json.orderId,
+        ckContent: json.ckContent,
+        totalAmount: json.totalAmount,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        goal: data.goal
+      }));
+
+      window.location.href = '/checkout';
+    } catch (err) {
+      errEl.textContent = 'Lỗi: ' + err.message + '. Vui lòng thử lại.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Tiếp tục thanh toán →';
+    }
+  });
+</script>
+</body>
+</html>

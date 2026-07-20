@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__BRAND_NAME__ — Xác nhận đơn hàng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EDE6D8; --surface: #FFFFFF; --text: #24352A; --text-muted: rgba(36,53,42,.65);
+    --accent: #C9A657; --accent-deep: #8B7355; --border: rgba(36,53,42,.14);
+    --font-h: 'Poppins', sans-serif; --font-b: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-b); background: #1B2C20; color: var(--text); line-height: 1.6; padding: 40px 20px; }
+  .container { max-width: 560px; margin: 0 auto; background: var(--surface); padding: 40px 32px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); text-align: center; }
+  .brand { font-family: var(--font-h); font-weight: 700; font-size: 0.9rem; color: var(--accent-deep); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; }
+  .check {
+    width: 64px; height: 64px; background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+    color: #1B2C20; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 32px; margin-bottom: 16px; font-weight: 700;
+  }
+  h1 { font-family: var(--font-h); font-size: 26px; margin-bottom: 8px; color: var(--text); }
+  .lead { color: var(--text-muted); margin-bottom: 24px; font-size: 15px; }
+  .info { background: #FAF7F0; border: 1px solid var(--border); padding: 16px; border-radius: 10px; text-align: left; margin: 20px 0; }
+  .info-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+  .steps { text-align: left; margin: 24px 0; }
+  .step { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    background: var(--accent-deep); color: #fff; min-width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; font-family: var(--font-h);
+  }
+  .step-text { flex: 1; }
+  .step-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; color: var(--text); }
+  .step-desc { font-size: 14px; color: var(--text-muted); }
+  footer { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">EDD Foundation™</div>
+  <div class="check">✓</div>
+  <h1>Đã nhận thanh toán!</h1>
+  <p class="lead">Cảm ơn bạn. Đơn hàng đã được xác nhận và tài liệu đã gửi qua email.</p>
+
+  <div class="info">
+    <div class="info-row"><span>Mã đơn</span><strong id="orderId">—</strong></div>
+    <div class="info-row"><span>Họ tên</span><strong id="orderName">—</strong></div>
+    <div class="info-row"><span>Email</span><strong id="orderEmail">—</strong></div>
+    <div class="info-row"><span>Số tiền</span><strong id="orderAmount">—</strong></div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <div class="step-title">Kiểm tra hộp thư email</div>
+        <div class="step-desc">Xác nhận đăng ký EDD E-Learning đã được gửi. Nếu không thấy, check tab Promotions/Spam.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <div class="step-title">Bắt đầu hành trình 7 ngày</div>
+        <div class="step-desc">Mỗi ngày bạn sẽ nhận 1 module học dưới 30 phút qua tài khoản E-learning cá nhân.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <div class="step-title">Nhận báo cáo cá nhân vào Ngày 7</div>
+        <div class="step-desc">Report EDD Digital, Life Trajectory, 10 Years Opportunity Heatmap và Money Engine Profile sẽ được gửi qua email sau khi hoàn thành lộ trình.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Cần hỗ trợ? Liên hệ __HOTLINE__
+  </footer>
+</div>
+
+<script>
+  const order = JSON.parse(sessionStorage.getItem('order') || '{}');
+  if (order.orderId) {
+    document.getElementById('orderId').textContent = order.orderId;
+    document.getElementById('orderName').textContent = order.name || '—';
+    document.getElementById('orderEmail').textContent = order.email || '—';
+    const amt = Number(order.totalAmount || 0).toLocaleString('en-US').replace(/,/g, '.');
+    document.getElementById('orderAmount').textContent = amt + 'đ';
+  }
+</script>
+</body>
+</html>
