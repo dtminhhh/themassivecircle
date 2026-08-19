@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Khóa Học Của Bạn — EDD Foundation™</title>
+<meta name="description" content="Không gian học tập EDD Foundation™ — nội dung mở khóa dần theo từng ngày qua email.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#F4EFEA',
+          moss: { DEFAULT: '#1B2C20', surface: '#22352A', surface2: '#263D30' },
+          gold: { DEFAULT: '#C9A657', deep: '#8B7355' },
+        },
+        fontFamily: {
+          heading: ['Montserrat', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  @keyframes modalIn { from { opacity: 0; transform: translateY(10px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .modal-card { animation: modalIn .22s cubic-bezier(.16,.84,.44,1); }
+  @media (prefers-reduced-motion: reduce) {
+    .modal-card { animation: none; }
+    html { scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body class="bg-cream text-moss font-body antialiased">
+
+<!-- ===================== TOP BAR ===================== -->
+<header class="bg-moss text-cream sticky top-0 z-30 border-b border-gold-deep/20">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+    <div class="font-heading font-extrabold text-lg tracking-tight">EDD <span class="text-gold">Foundation™</span></div>
+    <div id="day-pill" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-gold/15 text-gold border border-gold/30">Ngày —/7</div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 md:px-8 pt-8 md:pt-12 pb-16 md:pb-20">
+
+  <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gold-deep">
+    <span class="w-4 h-px bg-gold-deep"></span> Khóa Học Của Bạn
+  </span>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 md:gap-10 mt-4">
+
+    <!-- ===================== VIDEO / NỘI DUNG BÀI HỌC (Trái · Trên) ===================== -->
+    <section id="player-section">
+      <div class="relative rounded-2xl overflow-hidden bg-black aspect-video shadow-xl ring-1 ring-moss/10">
+        <video id="course-video" class="w-full h-full object-cover" playsinline preload="metadata">
+          <source id="video-source" src="" type="video/mp4">
+          Trình duyệt của bạn không hỗ trợ phát video.
+        </video>
+        <iframe id="course-iframe" class="hidden absolute inset-0 w-full h-full border-0" src="" title="Video bài học" loading="lazy" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen></iframe>
+        <button id="play-btn" type="button" aria-label="Phát video" class="group absolute inset-0 flex items-center justify-center bg-moss/25 hover:bg-moss/15 transition-colors">
+          <span class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gold bg-moss/70 backdrop-blur-sm flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6 md:w-7 md:h-7 text-gold translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+      </div>
+
+      <div class="mt-6">
+        <span id="module-tag" class="inline-block text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep">—</span>
+        <h1 id="module-title" class="font-heading text-2xl md:text-3xl font-extrabold text-moss mt-2 leading-snug">—</h1>
+
+        <div class="flex items-center gap-1.5 mt-2 text-sm text-moss/55">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="module-duration">—</span>
+        </div>
+
+        <p id="module-summary" class="mt-4 text-[15px] leading-relaxed text-moss/75">—</p>
+
+        <div class="mt-6 rounded-2xl border border-gold/25 bg-white/70 p-5 md:p-6">
+          <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-3">Ý Chính Bài Học</div>
+          <ul id="module-points" class="space-y-2.5 text-[14px] leading-relaxed text-moss/80"></ul>
+          <p id="module-closing" class="mt-4 pt-4 border-t border-gold/15 text-[13.5px] italic text-moss/60">—</p>
+        </div>
+
+        <div class="flex items-center justify-between gap-4 mt-8 pt-6 border-t border-moss/10">
+          <button id="prev-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-moss/15 text-moss/70 text-sm font-semibold hover:bg-moss/5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            Bài Trước
+          </button>
+          <button id="next-btn" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-br from-[#D9BB70] via-[#C9A657] to-[#8B7355] text-[#1B2C20] text-sm font-bold shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none">
+            Bài Tiếp Theo
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SIDEBAR DANH MỤC (Phải · Dưới) ===================== -->
+    <aside class="lg:sticky lg:top-24 self-start">
+      <div class="bg-moss rounded-2xl p-5 md:p-6 shadow-lg">
+        <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold mb-1">Lộ Trình 6 Modules</div>
+        <p class="text-[12.5px] text-cream/50 mb-4 leading-relaxed">Nội dung được mở khóa dần theo từng ngày, gửi trực tiếp qua email của bạn.</p>
+        <ul id="module-list" class="space-y-2"></ul>
+      </div>
+
+      <!-- Widget Ngày 7 -->
+      <div class="mt-5 rounded-2xl p-5 md:p-6 bg-gradient-to-br from-[#D9BB70] via-[#C9A657] to-[#8B7355] text-[#1B2C20] shadow-lg">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6M9 9h1"/></svg>
+          <span class="font-heading font-extrabold text-[13px] uppercase tracking-wide">Hồ Sơ Phân Tích EDD Độc Bản</span>
+        </div>
+        <p class="mt-2.5 text-[13.5px] leading-relaxed opacity-90">Báo cáo tính toán thủ công dành riêng cho bạn, bàn giao vào <strong>Ngày 7</strong>.</p>
+        <div id="day7-dots" class="mt-4 flex items-center gap-1.5"></div>
+        <div id="day7-countdown" class="mt-3 text-[13.5px] font-bold">—</div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- ===================== MODAL: MODULE ĐANG KHÓA ===================== -->
+<div id="lock-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="lock-message">
+  <div class="absolute inset-0 bg-moss/60 backdrop-blur-sm" data-close></div>
+  <div class="modal-card relative w-full max-w-sm bg-cream rounded-2xl shadow-2xl p-6 text-center">
+    <div class="w-12 h-12 mx-auto rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold-deep">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <p id="lock-message" class="mt-4 text-[15px] text-moss/85 leading-relaxed" aria-live="polite">—</p>
+    <button type="button" data-close class="mt-5 inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-moss text-cream text-sm font-semibold hover:bg-moss-surface transition-colors">Đã hiểu</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  // ── Dữ liệu 6 modules × 3 bài học con (Lesson .1/.2/.3) ──
+  // Lưu ý: video/duration bên dưới là placeholder demo — thay bằng file video thật + thời lượng thật của từng bài khi có.
+  var VIDEO_PLACEHOLDER = 'assets/video-landing.mp4';
+  var POSTER_PLACEHOLDER = 'assets/video-landing-poster.png';
+
+  var MODULES = [
+    {
+      id: 1,
+      title: 'Cuộc Đời Có Cấu Trúc — Nguyên Lý Người Quan Sát',
+      summary: 'Mở khóa nguyên lý vận hành gốc rễ, xóa bỏ ảo tưởng "may rủi" và thoát khỏi vòng lặp kiệt sức.',
+      lessons: [
+        { id: 1, title: 'Công Thức Thành Công Bền Vững (SSC Formula)', duration: '9 phút', desc: 'Định nghĩa lại thành công qua công thức Nội Lực × Thời Điểm × Môi Trường; giải mã lý do nỗ lực đơn thuần chỉ khuếch đại sai lầm nếu đi sai cấu trúc.', video: 'assets/lesson-1-1.mp4', poster: 'assets/lesson-1-1-poster.png', bunny: { library: '730159', id: '40232c62-35f4-40a1-9bbb-4ab39bc6e772' } },
+        { id: 2, title: 'Bẫy Bản Sắc Vay Mượn & Điểm Mù Cấu Trúc', duration: '7 phút', desc: 'Nhận diện cơ chế não bộ tự vay mượn kỳ vọng xã hội để trả lời "Tôi là ai", dẫn đến tham vọng sai, quyết định sai và kiệt sức cấu trúc.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '025d01ed-a591-40b6-ac64-08cd945ca610' } },
+        { id: 3, title: 'Nguyên Lý Người Quan Sát (Diễn Viên – Đạo Diễn – Khán Giả)', duration: '5 phút', desc: 'Chuyển dịch vị thế từ "Diễn viên bị động nhận bài" sang "Đạo diễn & Khán giả" có nhận thức chủ động điều phối kịch bản cuộc đời.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: 'bd7fab63-a753-44f8-b0e8-1adabe7310f1' } }
+      ]
+    },
+    {
+      id: 2,
+      title: 'Energy Structure — Bản Đồ Năng Lượng Độc Bản',
+      summary: 'Khám phá cấu hình phần cứng bẩm sinh, giải mã 4 tọa độ thời gian và 5 chiều kích vận hành tự nhiên.',
+      lessons: [
+        { id: 1, title: 'Cơ Chế Tọa Độ Không Gian & Thời Gian (4 Trụ Cuộc Đời)', duration: '6 phút', desc: 'Giải mã giá trị của Năm (Thiếu niên), Tháng (Thanh niên), Ngày (Trung niên), Giờ (Lão niên) như tọa độ định vị trường năng lượng cá nhân trên quỹ đạo tự nhiên.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '7db07574-668a-476d-9d83-74bcddb76c76' } },
+        { id: 2, title: '5 Chiều Kích Vận Hành & Điểm Mạnh Tự Nhiên', duration: '6 phút', desc: 'Xác định trục vận hành ít ma sát nhất, vùng năng lượng được khuếch đại tự nhiên và nhận diện các điểm căng thẳng tiêu hao vô ích.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '75d32f75-653c-4364-9246-3cb609d7d64d' } },
+        { id: 3, title: 'Structural Alignment — Sự Tương Thích Cấu Trúc', duration: '4 phút', desc: 'Phân biệt trạng thái "Thuận dòng" (ít nỗ lực, kết quả cao) và "Lệch hướng" (cố gắng nhiều, kiệt sức); cách đưa EDD vào vận hành thực tế.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: 'b7381136-9d17-4fdc-a8ce-7ab4f8996cd6' } }
+      ]
+    },
+    {
+      id: 3,
+      title: 'The Gap Model — Đo Lường & Phá Vỡ Lệch Hướng Cấu Trúc',
+      summary: 'Bắt bệnh 3 dấu hiệu bất ổn và giải mã chuỗi nhân quả của 3 khoảng cách vận hành.',
+      lessons: [
+        { id: 1, title: '3 Dấu Hiệu Lệch Hướng Cốt Lõi', duration: '5 phút', desc: 'Nhận diện triệu chứng dòng tiền trồi sụt, kiệt sức cấu trúc (nghỉ ngơi không hết mệt) và liên tục bỏ lỡ các cơ hội mở rộng then chốt.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '3fb7c3eb-84d9-41da-8b36-00846879f8e6' } },
+        { id: 2, title: 'Chuỗi Nhân Quả Của 3 Loại Khoảng Cách (Role – Environment – Model)', duration: '5 phút', desc: 'Bóc tách mắt xích sai lầm: Lệch Vai trò dẫn đến Lệch Môi trường, từ đó bóp méo toàn bộ Mô hình tạo thu nhập.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '21b55510-4986-46b4-81fd-c3fc4b5a7b05' } },
+        { id: 3, title: 'Cơ Chế Hoạt Động Của EDD Resolution', duration: '5 phút', desc: 'Hiểu rõ 3 tầng thông tin mà báo cáo cung cấp (Cấu trúc năng lượng gốc, Chẩn đoán hiện tại, Dự phóng tương lai) và ranh giới ứng dụng thực tế.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '3a2cbe93-c247-47d5-99e8-f2b7b500216a' } }
+      ]
+    },
+    {
+      id: 4,
+      title: 'Chu Kỳ Thời Gian — 3 Lớp Đồng Hồ Vận Trình & 4 Mùa Chiến Lược',
+      summary: 'Làm chủ nghệ thuật Timing: Biết chính xác khi nào nên bung sức mở rộng, khi nào cần thu về củng cố.',
+      lessons: [
+        { id: 1, title: 'Hệ Thống 3 Lớp Chu Kỳ (Macro – Meso – Micro)', duration: '4 phút', desc: 'Hiểu cơ chế chi phối từ trên xuống của Đại vận 10 năm (Macro), Khung chiến lược trung hạn (Meso) và Nhịp điệu 12 tháng thực thi (Micro).', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: 'f8aad914-3312-4b34-9ea4-cca47d0e0dda' } },
+        { id: 2, title: 'Quy Luật 4 Mùa Cuộc Đời (Gieo Hạt – Xây Dựng – Đỉnh – Tích Lũy)', duration: '5 phút', desc: 'Giải mã hành vi tối ưu cho từng mùa; triệt tiêu thói quen ép mở rộng quy mô khi đang rơi vào mùa Đông Tích Lũy.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: 'a86f2841-d36a-4cc1-9f55-4550ba852e79' } },
+        { id: 3, title: '3 Nguyên Tắc Vận Hành Thời Điểm & Năm Bản Lề', duration: '5 phút', desc: 'Kỹ thuật nhận diện tín hiệu sớm, chuẩn bị đệm nguồn lực trước các khúc ngoặt chuyển giao chu kỳ để bảo toàn thành quả.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '50caff76-7b53-46c0-aeef-5495a4b296d6' } }
+      ]
+    },
+    {
+      id: 5,
+      title: 'Personal Money Engine — Cơ Chế Tạo Dòng Tiền Tự Nhiên',
+      summary: 'Chấm dứt việc sao chép mô hình kiếm tiền của người khác; kích hoạt đòn bẩy tài chính tương thích bẩm sinh.',
+      lessons: [
+        { id: 1, title: 'Công Thức Dòng Tiền Hiệu Quả (Effective Money Flow)', duration: '7 phút', desc: 'Phân tích sự kết hợp giữa Nhận thức, Nỗ lực, Money Engine và Yếu tố Thời điểm để tạo dòng tiền bền vững.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '99282cc8-98b6-4092-a8e4-68c9fc6f35df' } },
+        { id: 2, title: 'Giải Mã 10 Mẫu Hình Money Engine (Thuận vs Lệch)', duration: '7 phút', desc: 'Bóc tách chi tiết các nguyên mẫu tài chính (Value Creation, Innovation, Capital, Partnership...) ở cả hai trạng thái tạo ra tiền và tự hủy hoại.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: '4bd4395c-a200-40fc-bff0-061793aa1845' } },
+        { id: 3, title: 'Tương Thích Kép (Dual Alignment) & 4 Bước Tái Thiết Kế', duration: '4 phút', desc: 'Lộ trình 4 bước chuyển đổi mô hình kinh doanh và 3 tín hiệu nhận biết khi dòng tiền đã chảy đúng đòn bẩy tự nhiên.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER, bunny: { library: '730159', id: 'e4279e02-9dc1-4cee-a253-537c642538a3' } }
+      ]
+    },
+    {
+      id: 6,
+      title: 'SLI Integration — Định Vị & Tối Ưu Hóa Cuộc Đời Chủ Động',
+      summary: 'Tích hợp toàn bộ hệ thống để tự tin điều hướng các quyết định lớn và sẵn sàng khai phóng bản báo cáo cá nhân hóa.',
+      lessons: [
+        { id: 1, title: 'Hệ Thống Tích Hợp SLI (Địa Hình – Phương Tiện – Người Lái – Con Đường)', duration: '8 phút', desc: 'Cách kết hợp hoàn hảo giữa Hoàn cảnh sống, Cấu trúc năng lượng, Năng lực nhận thức và Hướng đi tương lai.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER },
+        { id: 2, title: 'Quy Trình Tái Định Vị 3 Bước & 3 Lớp Dự Phóng', duration: '9 phút', desc: 'Phương pháp rà soát quyết định tồn đọng, đón bắt Cửa sổ cơ hội, phòng ngừa Xu hướng biến động và đọc Tín hiệu điểm chuyển giao.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER },
+        { id: 3, title: '4 Lớp Hành Động Tối Ưu & Khung Ứng Dụng Thực Thi', duration: '7 phút', desc: 'Thiết lập 3 bộ lọc hằng ngày (Bộ lọc quyết định, Nhận diện cơ hội, Quản lý năng lượng), sẵn sàng đón nhận và vận hành bản EDD Digital Report cá nhân hóa.', video: VIDEO_PLACEHOLDER, poster: POSTER_PLACEHOLDER }
+      ]
+    }
+  ];
+
+  var FLAT_SEQUENCE = [];
+  MODULES.forEach(function (mod) {
+    mod.lessons.forEach(function (les) {
+      FLAT_SEQUENCE.push({ moduleId: mod.id, lessonId: les.id });
+    });
+  });
+
+  var LOCK_ICON = '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  var CHECK_ICON = '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+  var PLAY_ICON_SM = '<svg class="w-3.5 h-3.5 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  var CHEVRON_ICON = '<svg class="w-3.5 h-3.5 flex-shrink-0 text-cream/40 transition-transform duration-200{ROTATE}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+  // ── Đọc drip-content từ URL: ?day=N hoặc ?module=N (2 tên tham số tương đương, cùng điều khiển 1 mốc "ngày mở khóa" — mở khóa theo MODULE, mỗi module mở trọn 3 bài học con) ──
+  var params = new URLSearchParams(window.location.search);
+  var rawParam = params.get('day');
+  if (rawParam === null) rawParam = params.get('module');
+  var rawDay = parseInt(rawParam, 10);
+  if (!Number.isFinite(rawDay) || rawDay < 1) rawDay = 1;
+  if (rawDay > 7) rawDay = 7;
+  var unlockedCount = Math.min(rawDay, MODULES.length);
+
+  var currentModuleId = unlockedCount;
+  var currentLessonId = 1;
+  var openModuleId = unlockedCount;
+
+  var els = {
+    video: document.getElementById('course-video'),
+    source: document.getElementById('video-source'),
+    iframe: document.getElementById('course-iframe'),
+    playBtn: document.getElementById('play-btn'),
+    tag: document.getElementById('module-tag'),
+    title: document.getElementById('module-title'),
+    duration: document.getElementById('module-duration'),
+    summary: document.getElementById('module-summary'),
+    points: document.getElementById('module-points'),
+    closing: document.getElementById('module-closing'),
+    list: document.getElementById('module-list'),
+    prevBtn: document.getElementById('prev-btn'),
+    nextBtn: document.getElementById('next-btn'),
+    dayPill: document.getElementById('day-pill'),
+    day7Dots: document.getElementById('day7-dots'),
+    day7Text: document.getElementById('day7-countdown'),
+    modal: document.getElementById('lock-modal'),
+    modalMsg: document.getElementById('lock-message'),
+    playerSection: document.getElementById('player-section'),
+  };
+
+  function isLocked(id) { return id > unlockedCount; }
+  function findModule(id) { return MODULES.filter(function (m) { return m.id === id; })[0]; }
+  function findLesson(mod, lid) { return mod.lessons.filter(function (l) { return l.id === lid; })[0]; }
+  function currentFlatIndex() {
+    for (var i = 0; i < FLAT_SEQUENCE.length; i++) {
+      if (FLAT_SEQUENCE[i].moduleId === currentModuleId && FLAT_SEQUENCE[i].lessonId === currentLessonId) return i;
+    }
+    return 0;
+  }
+
+  function openLockModal(id) {
+    els.modalMsg.textContent = 'Module này sẽ được gửi mở khóa vào Ngày ' + id + ' qua email của bạn.';
+    els.modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
+  function closeLockModal() {
+    els.modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+  els.modal.querySelectorAll('[data-close]').forEach(function (el) {
+    el.addEventListener('click', closeLockModal);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLockModal();
+  });
+
+  function renderList() {
+    els.list.innerHTML = MODULES.map(function (mod) {
+      var locked = isLocked(mod.id);
+      var containsActive = !locked && mod.id === currentModuleId;
+      var isOpen = !locked && openModuleId === mod.id;
+
+      var rowClasses, dotClasses, icon, stateLabel, titleClasses;
+      if (locked) {
+        rowClasses = 'bg-moss-surface/50 opacity-55 hover:opacity-80';
+        dotClasses = 'bg-cream/10 text-cream/50';
+        icon = LOCK_ICON;
+        stateLabel = '';
+        titleClasses = 'text-cream/60';
+      } else if (containsActive) {
+        rowClasses = 'bg-gold/15 border border-gold/50';
+        dotClasses = 'bg-gold text-moss';
+        icon = PLAY_ICON_SM;
+        stateLabel = '<span class="block text-[10px] font-bold uppercase tracking-wider text-gold mt-0.5">Đang học</span>';
+        titleClasses = 'text-cream';
+      } else {
+        rowClasses = 'bg-moss-surface hover:bg-moss-surface2';
+        dotClasses = 'bg-gold/20 text-gold';
+        icon = CHECK_ICON;
+        stateLabel = '<span class="block text-[10px] font-medium uppercase tracking-wider text-cream/40 mt-0.5">Đã học</span>';
+        titleClasses = 'text-cream/85';
+      }
+
+      var chevron = locked ? '' : CHEVRON_ICON.replace('{ROTATE}', isOpen ? ' rotate-180' : '');
+
+      var lessonsHtml = '';
+      if (!locked && isOpen) {
+        lessonsHtml = '<ul class="mt-1.5 mb-1 space-y-1 pl-[52px] pr-1">' + mod.lessons.map(function (les) {
+          var lesActive = containsActive && les.id === currentLessonId;
+          return '' +
+            '<li>' +
+              '<button type="button" data-module-id="' + mod.id + '" data-lesson-id="' + les.id + '" class="lesson-item w-full text-left flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-[12.5px] transition-colors ' +
+                (lesActive ? 'bg-gold/20 text-gold font-semibold' : 'text-cream/65 hover:bg-cream/5 hover:text-cream') + '">' +
+                '<span class="truncate">' + mod.id + '.' + les.id + ' · ' + les.title + '</span>' +
+                '<span class="flex-shrink-0 text-[11px] opacity-70">' + les.duration + '</span>' +
+              '</button>' +
+            '</li>';
+        }).join('') + '</ul>';
+      }
+
+      return '' +
+        '<li>' +
+          '<button type="button" data-module-id="' + mod.id + '" class="module-header w-full text-left flex items-center gap-3 rounded-xl px-4 py-3 border border-transparent transition-colors ' + rowClasses + '">' +
+            '<span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ' + dotClasses + '">' + icon + '</span>' +
+            '<span class="flex-1 min-w-0">' +
+              '<span class="block text-sm font-semibold truncate ' + titleClasses + '">' + String(mod.id).padStart(2, '0') + ' · ' + mod.title + '</span>' +
+              stateLabel +
+            '</span>' +
+            chevron +
+          '</button>' +
+          lessonsHtml +
+        '</li>';
+    }).join('');
+
+    els.list.querySelectorAll('.module-header').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = parseInt(btn.getAttribute('data-module-id'), 10);
+        toggleModule(id);
+      });
+    });
+    els.list.querySelectorAll('.lesson-item').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var mid = parseInt(btn.getAttribute('data-module-id'), 10);
+        var lid = parseInt(btn.getAttribute('data-lesson-id'), 10);
+        selectLesson(mid, lid, { scroll: window.innerWidth < 1024 });
+      });
+    });
+  }
+
+  function toggleModule(id) {
+    if (isLocked(id)) { openLockModal(id); return; }
+    openModuleId = (openModuleId === id) ? null : id;
+    renderList();
+  }
+
+  function updateNav() {
+    var idx = currentFlatIndex();
+    els.prevBtn.disabled = idx <= 0;
+    els.nextBtn.disabled = idx >= FLAT_SEQUENCE.length - 1;
+  }
+
+  function renderDay7() {
+    els.dayPill.textContent = 'Ngày ' + rawDay + '/7';
+    var dots = [];
+    for (var i = 1; i <= 7; i++) {
+      dots.push('<span class="w-2.5 h-2.5 rounded-full ' + (i <= rawDay ? 'bg-moss' : 'bg-moss/25') + '"></span>');
+    }
+    els.day7Dots.innerHTML = dots.join('');
+    els.day7Text.textContent = rawDay >= 7
+      ? 'Hồ sơ phân tích của bạn đã được gửi qua email — kiểm tra hộp thư ngay.'
+      : 'Còn ' + (7 - rawDay) + ' ngày nữa';
+  }
+
+  function selectLesson(mid, lid, opts) {
+    opts = opts || {};
+    if (isLocked(mid)) { openLockModal(mid); return; }
+
+    var mod = findModule(mid);
+    var les = findLesson(mod, lid);
+
+    currentModuleId = mid;
+    currentLessonId = lid;
+    openModuleId = mid;
+
+    if (les.bunny) {
+      els.video.pause();
+      els.source.src = '';
+      els.video.classList.add('hidden');
+      els.playBtn.classList.add('hidden');
+      els.iframe.src = 'https://iframe.mediadelivery.net/embed/' + les.bunny.library + '/' + les.bunny.id + '?autoplay=false&loop=false&muted=false&preload=true&responsive=true';
+      els.iframe.classList.remove('hidden');
+    } else {
+      els.iframe.src = '';
+      els.iframe.classList.add('hidden');
+      els.video.classList.remove('hidden');
+      els.video.pause();
+      els.source.src = les.video;
+      els.video.poster = les.poster;
+      els.video.load();
+      els.playBtn.classList.remove('hidden');
+    }
+
+    els.tag.textContent = 'MODULE ' + String(mid).padStart(2, '0') + ' · BÀI ' + mid + '.' + lid;
+    els.title.textContent = les.title;
+    els.duration.textContent = les.duration;
+    els.summary.textContent = les.desc;
+    els.points.innerHTML = mod.lessons.map(function (l) {
+      var active = l.id === lid;
+      return '<li class="flex items-start gap-2' + (active ? ' text-moss font-semibold' : '') + '"><span class="text-gold flex-shrink-0">' + (active ? '▸' : '·') + '</span><span>' + mid + '.' + l.id + ' — ' + l.title + '</span></li>';
+    }).join('');
+    els.closing.textContent = mod.summary;
+
+    renderList();
+    updateNav();
+
+    if (opts.scroll) {
+      els.playerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  els.prevBtn.addEventListener('click', function () {
+    var idx = currentFlatIndex();
+    if (idx > 0) {
+      var p = FLAT_SEQUENCE[idx - 1];
+      selectLesson(p.moduleId, p.lessonId, { scroll: false });
+    }
+  });
+  els.nextBtn.addEventListener('click', function () {
+    var idx = currentFlatIndex();
+    if (idx < FLAT_SEQUENCE.length - 1) {
+      var n = FLAT_SEQUENCE[idx + 1];
+      selectLesson(n.moduleId, n.lessonId, { scroll: false });
+    }
+  });
+
+  els.playBtn.addEventListener('click', function () { els.video.play(); });
+  els.video.addEventListener('play', function () { els.playBtn.classList.add('hidden'); });
+  ['pause', 'ended'].forEach(function (evt) {
+    els.video.addEventListener(evt, function () { els.playBtn.classList.remove('hidden'); });
+  });
+
+  renderDay7();
+  selectLesson(currentModuleId, currentLessonId);
+})();
+</script>
+</body>
+</html>

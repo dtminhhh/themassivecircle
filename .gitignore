@@ -1,1 +1,8 @@
 .DS_Store
+
+# Local video fallback cho các lesson đã chuyển sang Bunny Stream — không cần
+# push (156MB > giới hạn 100MB của GitHub); video-landing.mp4 vẫn giữ track
+# vì đang là nguồn thật cho hero video trang chủ + placeholder các lesson
+# chưa gắn Bunny.
+assets/lesson-*.mp4
+assets/lesson-*-poster.png

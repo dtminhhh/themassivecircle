@@ -506,42 +506,37 @@ p { color: var(--text-muted); }
   .has-label-col .row-edd .row-label-inline { color: var(--accent); }
 }
 
-/* ── Interactive cycle wave (5-stage sine-arc tab map) ── */
-.cycle-wave { position: relative; max-width: 1100px; margin: 0 auto; height: 260px; }
-.cycle-wave-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.cycle-wave-path { fill: none; stroke: var(--accent-deep); stroke-width: 2; opacity: .45; transition: opacity .4s ease, filter .4s ease; }
-.cycle-wave.has-active .cycle-wave-path { opacity: .8; filter: drop-shadow(0 0 6px rgba(201,166,87,.4)); }
-.cycle-nodes { position: absolute; inset: 0; }
-/* Node is a zero-size anchor pinned exactly on the wave line; the dot and the
-   label are positioned independently off that same anchor so the label never
-   straddles the line regardless of its text length. */
-.cycle-node {
-  position: absolute; width: 0; height: 0;
-  background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-b);
-  z-index: 10;
+/* ── Interactive cycle stepper (5-stage horizontal tab map) ── */
+.cycle-stepper { max-width: 1100px; margin: 64px auto 0; }
+.cycle-track { position: relative; display: flex; align-items: flex-start; justify-content: space-between; }
+/* Line spans dot-center to dot-center: with 5 equal flex-basis items, those
+   centers sit at fixed 10%/30%/50%/70%/90% regardless of container width. */
+.cycle-track::before {
+  content: ''; position: absolute; top: 22px; left: 10%; right: 10%; height: 1px;
+  background: var(--border); z-index: 0;
 }
-.cycle-node-dot {
-  position: absolute; top: 0; left: 0; transform: translate(-50%, -50%);
-  width: 16px; height: 16px; border-radius: 50%; background: var(--accent-soft); border: 1px solid var(--accent-deep);
+.cycle-step {
+  position: relative; z-index: 1; flex: 1 1 0; display: flex; flex-direction: column;
+  align-items: center; gap: 14px; background: none; border: none; cursor: pointer;
+  padding: 0 8px; font-family: var(--font-b);
+}
+.cycle-step-dot {
+  width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 1px solid var(--border); color: var(--accent-deep);
+  font-family: var(--font-h); font-weight: 800; font-size: .82rem; letter-spacing: .02em;
   transition: all .3s ease;
 }
-.cycle-node-dot::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--accent-deep); opacity: .5; transition: all .3s ease; }
-.cycle-node.is-active .cycle-node-dot, .cycle-node:hover .cycle-node-dot { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-.cycle-node.is-active .cycle-node-dot::after, .cycle-node:hover .cycle-node-dot::after { background: var(--accent); opacity: 1; }
-.cycle-node-label {
-  position: absolute; left: 0; transform: translateX(-50%); width: 130px;
-  text-align: center; font-size: .78rem; font-weight: 600; color: var(--text-muted); line-height: 1.3;
+.cycle-step-label {
+  font-size: .82rem; font-weight: 600; color: var(--text-muted); line-height: 1.35; max-width: 150px;
   transition: color .3s ease;
 }
-.cycle-node.label-above .cycle-node-label { bottom: 16px; }
-.cycle-node.label-below .cycle-node-label { top: 16px; }
-/* Leftmost/rightmost nodes: anchor the label to its inner edge instead of
-   centering, so it extends inward and never overflows the wave container. */
-.cycle-node.edge-start .cycle-node-label { left: 0; transform: none; text-align: left; }
-.cycle-node.edge-end .cycle-node-label { left: auto; right: 0; transform: none; text-align: right; }
-.cycle-node-index { display: block; font-family: var(--font-h); font-weight: 800; color: var(--accent-deep); font-size: .7rem; letter-spacing: .1em; margin-bottom: 2px; transition: color .3s ease; }
-.cycle-node.is-active .cycle-node-label, .cycle-node:hover .cycle-node-label { color: var(--text); }
-.cycle-node.is-active .cycle-node-index, .cycle-node:hover .cycle-node-index { color: var(--accent); }
+.cycle-step.is-active .cycle-step-dot, .cycle-step:hover .cycle-step-dot {
+  background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+  border-color: var(--accent); color: #1B2C20;
+  box-shadow: 0 0 0 6px var(--accent-soft), 0 10px 20px rgba(0,0,0,.18);
+  transform: translateY(-2px) scale(1.06);
+}
+.cycle-step.is-active .cycle-step-label, .cycle-step:hover .cycle-step-label { color: var(--text); }
 
 .cycle-detail { position: relative; max-width: 640px; margin: 32px auto 0; min-height: 168px; }
 .cycle-detail-panel { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; text-align: center; animation: cycleFadeIn .4s cubic-bezier(.16,.84,.44,1); }
@@ -551,30 +546,24 @@ p { color: var(--text-muted); }
 
 @media (max-width: 900px) {
   /* Vertical trail: a dashed rail down the left with each stage's dot pinned
-     to the same x so the rail stays straight; all labels sit flush at the
-     same indent (no zig-zag) for a clean aligned list. Labels stay
-     left-aligned and unconstrained in width (they wrap) — never edge-anchored
-     like the desktop wave's first/last nodes — so there's no overflow risk
-     regardless of viewport width. Tap-to-reveal behavior is untouched. */
-  .cycle-wave { height: auto; }
-  .cycle-wave-svg { display: none; }
-  .cycle-nodes {
+     to the same x so the rail stays straight; label sits flush at the same
+     indent (no zig-zag) for a clean aligned list. Tap-to-reveal behavior
+     (shared detail card below) is untouched. */
+  .cycle-stepper { margin-top: 40px; }
+  .cycle-track {
     position: relative; display: flex; flex-direction: column; gap: 4px;
-    padding: 12px 8px 12px 20px; max-width: 380px; margin: 0 auto;
+    padding: 12px 8px 12px 4px; max-width: 380px; margin: 0 auto;
   }
-  .cycle-nodes::before {
-    content: ''; position: absolute; left: 28px; top: 22px; bottom: 22px; width: 0;
-    border-left: 1px dashed var(--accent-deep); opacity: .5;
+  .cycle-track::before {
+    content: ''; position: absolute; left: 22px; top: 22px; bottom: 22px; right: auto; width: 0; height: auto;
+    border-left: 1px dashed var(--accent-deep); background: none; opacity: .5;
   }
-  .cycle-node {
-    position: static; width: auto; height: auto; display: flex; align-items: center; gap: 14px;
-    flex-direction: row; padding: 14px 0;
+  .cycle-step {
+    flex: none; flex-direction: row; align-items: center; justify-content: flex-start;
+    gap: 14px; padding: 10px 0;
   }
-  .cycle-node-dot { position: relative; transform: none; z-index: 1; flex: 0 0 auto; }
-  .cycle-node-label {
-    position: static; transform: none; width: auto; max-width: none; text-align: left;
-  }
-  .cycle-node.edge-start .cycle-node-label, .cycle-node.edge-end .cycle-node-label { text-align: left; left: auto; right: auto; }
+  .cycle-step-dot { flex: 0 0 auto; }
+  .cycle-step-label { text-align: left; max-width: none; }
 }
 .phase-num { font-family: var(--font-h); font-weight: 800; color: var(--accent); font-size: 0.8rem; letter-spacing: .05em; text-transform: uppercase; }
 
@@ -585,10 +574,49 @@ p { color: var(--text-muted); }
 .detail-accordion summary::-webkit-details-marker { display: none; }
 .detail-accordion summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; }
 .detail-accordion[open] summary::after { content: "−"; }
-.detail-accordion .detail-body { padding: 0 22px 22px; }
+.detail-accordion .detail-body { padding: 0 22px 22px; overflow: hidden; transition: height .35s cubic-bezier(.16,.84,.44,1); }
 .mini-list li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); }
 .mini-list li:last-child { border-bottom: none; }
 .mini-list strong { color: var(--text); }
+
+/* ── Ops table: 10 Kiểu Vận Hành Cá Nhân ── */
+.ops-table-wrap { overflow-x: auto; }
+.ops-table { width: 100%; border-collapse: collapse; }
+.ops-table th {
+  font-family: var(--font-h); font-size: 0.7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--accent-deep); text-align: left; padding: 14px 14px 12px; border-bottom: 1px solid var(--border);
+}
+.ops-table td {
+  padding: 16px 14px; border-bottom: 1px solid var(--border); font-size: 0.86rem; color: var(--text-muted);
+  vertical-align: top; line-height: 1.55;
+}
+.ops-table tr:last-child td { border-bottom: none; }
+.ops-table td:first-child { color: var(--text); font-weight: 700; font-family: var(--font-h); font-size: 0.85rem; }
+.ops-tag {
+  display: inline-block; font-family: var(--font-h); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: .03em; text-transform: uppercase; color: var(--accent-deep);
+  background: var(--accent-soft); padding: 5px 10px; border-radius: 999px; white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .ops-table thead { display: none; }
+  .ops-table, .ops-table tbody { display: block; width: 100%; }
+  .ops-table tr {
+    display: flex; flex-wrap: wrap; align-items: flex-start; row-gap: 6px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .ops-table tr:last-child { border-bottom: none; }
+  .ops-table td { display: block; width: 100%; padding: 0; border-bottom: none; font-size: 0.84rem; line-height: 1.48; }
+  .ops-table td:nth-child(1) { order: 1; font-size: 0.92rem; }
+  .ops-table td:nth-child(4) { order: 2; }
+  .ops-table td:nth-child(4) .ops-tag { display: inline-flex; }
+  .ops-table td:nth-child(2) { order: 3; }
+  .ops-table td:nth-child(3) { order: 4; }
+  .ops-table td:nth-child(3)::before { content: "Điểm mạnh cốt lõi: "; font-weight: 700; color: var(--text); }
+  .ops-table td:empty { display: none; }
+  .ops-tag { font-size: 0.6rem; padding: 4px 8px; }
+
+  .ops-table--engine td:nth-child(3)::before { content: "Hoạt động tốt nhất khi: "; }
+}
 
 /* ── Offer box ── */
 .offer-box {
@@ -602,10 +630,17 @@ p { color: var(--text-muted); }
 .offer-mini-list { display: inline-flex; flex-direction: column; gap: 12px; text-align: left; margin: 0 auto; }
 .offer-mini-list li { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 0.98rem; }
 .guarantee-box {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 32px; margin-top: 28px; text-align: left;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+  border-radius: var(--radius); padding: 24px 32px; margin-top: 28px; text-align: left;
+  box-shadow: 0 18px 40px rgba(201,166,87,.3);
 }
-.guarantee-box h3 { color: var(--accent); }
+.guarantee-box .icon { color: #1B2C20; width: 26px; height: 26px; flex-shrink: 0; }
+.guarantee-box p { color: #1B2C20; font-weight: 700; font-size: 0.98rem; margin: 0; line-height: 1.5; }
+.guarantee-box h3 { color: #1B2C20; }
+@media (max-width: 500px) {
+  .guarantee-box { flex-direction: column; text-align: center; padding: 24px; }
+}
 
 /* ── Audience fit ── */
 .audience-list { display: grid; gap: 14px; }
@@ -791,56 +826,31 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 
 .window-center-core { width: 660px; height: 400px; z-index: 1; bottom: 60px; }
 .core-brand-bg { display: flex; justify-content: center; align-items: center; background: radial-gradient(circle, #22352A 0%, #1B2C20 100%); }
-.brand-center-identity { text-align: center; }
-.gold-shield-icon { display: flex; justify-content: center; }
-.system-title-glow { font-family: var(--font-h); font-size: 15px; color: #F2EDE3; letter-spacing: .12em; text-align: center; margin-top: 14px; }
-.system-scanning-bar { width: 200px; height: 2px; background: rgba(201,166,87,.1); margin: 16px auto 0; border-radius: 2px; overflow: hidden; }
-.scanning-progress { width: 60%; height: 100%; background: #C9A657; animation: scanMove 3s infinite ease-in-out; }
-@keyframes scanMove { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
 
-.window-left-course { width: 280px; height: 320px; left: 30px; bottom: 30px; z-index: 2; }
-.layout-split { display: flex; flex-direction: column; gap: 12px; }
-.video-player-sim { width: 100%; height: 130px; background: #132017; border-radius: 6px; position: relative; display: flex; justify-content: center; align-items: center; }
-.center-play-triangle { opacity: .85; }
-.video-timeline-bar { position: absolute; bottom: 8px; left: 10px; right: 10px; height: 3px; background: rgba(242,237,227,.1); border-radius: 2px; }
-.video-progress-fill { display: block; width: 45%; height: 100%; background: #C9A657; border-radius: 2px; }
-.video-playlist-sim { display: flex; flex-direction: column; gap: 6px; }
-.playlist-item { font-size: 11px; color: #F2EDE3; opacity: .6; padding: 6px 8px; background: rgba(242,237,227,.03); border-radius: 4px; }
-.playlist-item.active-item { color: #C9A657; opacity: 1; background: rgba(201,166,87,.08); border: 1px solid rgba(201,166,87,.15); }
-
-.window-right-report { width: 270px; height: 240px; right: 40px; top: 30px; z-index: 3; }
-.report-meta-exposed { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.report-id-text { font-size: 11px; color: #F2EDE3; font-weight: 600; opacity: .9; }
-.radar-radar-circle { width: 30px; height: 30px; border: 1px solid rgba(201,166,87,.3); border-radius: 50%; position: relative; overflow: hidden; }
-.radar-line-sweep { width: 100%; height: 100%; background: conic-gradient(from 0deg, transparent, rgba(201,166,87,.35)); border-radius: 50%; animation: spinRadar 4s infinite linear; }
-@keyframes spinRadar { 100% { transform: rotate(360deg); } }
-.report-locked-blur-zone { position: relative; margin-top: 10px; border-top: 1px solid rgba(201,166,87,.08); padding-top: 10px; }
-.blur-lines-p { filter: blur(3.5px); opacity: .22; user-select: none; pointer-events: none; }
-.blur-lines-p p { font-size: 11px; color: #F2EDE3; line-height: 1.5; margin: 0; }
-.lock-overlay-badge-mini {
+.intro-video-wrap { padding: 0; overflow: hidden; aspect-ratio: 16 / 9; }
+.intro-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+.intro-video-play-btn {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  display: flex; align-items: center; gap: 5px; background: rgba(27, 44, 32, 0.96);
-  border: 1px solid rgba(201, 166, 87, 0.25); border-radius: 20px; padding: 4px 10px;
-  color: #F2EDE3; font-size: 9.5px; white-space: nowrap; box-shadow: 0 5px 15px rgba(0,0,0,.3);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(27,44,32,.85); border: 1px solid rgba(201,166,87,.5);
+  display: flex; align-items: center; justify-content: center; padding: 0;
+  cursor: pointer; transition: all .25s ease; box-shadow: 0 15px 35px rgba(0,0,0,.4);
 }
-
-.window-right-timeline { width: 270px; height: 190px; right: 20px; bottom: 40px; z-index: 4; }
-.mini-wave-graph-box { width: 100%; height: 60px; background: #132017; border-radius: 6px; overflow: hidden; display: flex; align-items: center; }
-.graph-svg-inner { width: 100%; height: 100%; }
-.timeline-months-text-preview { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
-.timeline-months-text-preview p { font-size: 11.5px; color: #F2EDE3; opacity: .85; margin: 0; }
-.gold-t { color: #C9A657; font-weight: 700; }
+.intro-video-play-btn:hover { background: var(--accent); border-color: var(--accent); transform: translate(-50%, -50%) scale(1.08); }
+.intro-video-play-btn svg { width: 22px; height: 22px; color: #C9A657; margin-left: 3px; transition: color .25s ease; }
+.intro-video-play-btn:hover svg { color: #1B2C20; }
+.intro-video-play-btn.is-hidden { opacity: 0; pointer-events: none; }
+.intro-video-label {
+  position: absolute; left: 16px; bottom: 14px; font-family: var(--font-h); font-size: 11px;
+  color: #F2EDE3; letter-spacing: .1em; text-shadow: 0 2px 8px rgba(0,0,0,.6); pointer-events: none;
+  transition: opacity .3s ease;
+}
 
 .showcase-ui-window:hover { z-index: 20; border-color: rgba(201, 166, 87, 0.4); transform: translateY(-2px); }
-
-@media (prefers-reduced-motion: reduce) {
-  .scanning-progress, .radar-line-sweep { animation: none; }
-}
 
 @media (max-width: 768px) {
   .luxury-layered-showcase-container { height: auto; display: flex; flex-direction: column; gap: 24px; padding: 0 16px; margin: 40px auto; }
   .showcase-ui-window { position: relative; left: auto; right: auto; top: auto; bottom: auto; width: 100%; height: auto; }
-  .window-center-core { order: -1; }
 }
 .metrics-bar {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px; margin-top: 56px;
@@ -941,16 +951,21 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 .feature-card .feature-num { color: var(--accent); font-family: var(--font-h); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px; }
 .feature-card .feature-body p { color: #F2EDE3; opacity: .8; }
 .feature-tag { font-size: 10px; color: #C9A657; letter-spacing: .12em; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; display: block; }
-.feature-locked-footer { position: relative; margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(201,166,87,.12); }
-.feature-blur-line { filter: blur(4px); opacity: .3; user-select: none; pointer-events: none; font-size: 11.5px; color: #F2EDE3; line-height: 1.5; margin: 0; }
-.feature-lock-badge-mini {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  display: flex; align-items: center; gap: 6px; white-space: nowrap;
-  background: rgba(27,44,32,.95); border: 1px solid rgba(201,166,87,.3); border-radius: 20px;
-  padding: 5px 12px; color: #F2EDE3; font-size: 10px; box-shadow: 0 8px 18px rgba(0,0,0,.35);
+.feature-value {
+  display: inline-block; align-self: flex-start; margin: 0 0 12px; font-size: 0.72rem; font-weight: 600;
+  color: #C9A657; background: rgba(201,166,87,.1); padding: 3px 10px; border-radius: 999px;
 }
-.feature-lock-badge-mini svg { flex-shrink: 0; color: #C9A657; }
+.feature-sublist { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.feature-sublist li { font-size: 11.5px; line-height: 1.6; color: #F2EDE3; opacity: .8; }
+.feature-sublist li strong { color: #C9A657; display: block; margin-bottom: 3px; font-family: var(--font-h); font-weight: 700; opacity: 1; }
 
+.feature-module-list { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; }
+.feature-module-list li {
+  display: flex; align-items: baseline; gap: 10px; padding: 9px 0;
+  border-top: 1px solid rgba(201,166,87,.1); font-size: 12px; color: #F2EDE3; opacity: .8; line-height: 1.4;
+}
+.feature-module-list li:first-child { border-top: none; }
+.feature-module-num { color: #C9A657; font-family: var(--font-h); font-weight: 800; font-size: 11px; flex-shrink: 0; opacity: 1; }
 .mockup-graphic-display { width: 100%; max-width: 340px; margin: 0 auto; }
 .mockup-svg { width: 100%; height: auto; display: block; }
 .wave-path-flow { filter: drop-shadow(0 0 4px rgba(201,166,87,.5)); }
@@ -1003,44 +1018,39 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   .protocol-transition-card { padding: 32px 24px; margin-top: 64px; }
 }
 
-/* ── Pricing + guarantee: 2-col balanced checkout showcase ── */
-.edd-checkout-balance-container {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;
-  max-width: 960px; margin: 48px auto 0; align-items: stretch;
+/* ── Pricing: premium single-tier card ── */
+.pricing-premium-card {
+  max-width: var(--max-w-narrow); margin: 40px auto 0; text-align: center;
+  background: linear-gradient(165deg, #22352A 0%, #1B2C20 100%);
+  border: 1px solid rgba(201,166,87,.25); border-radius: var(--radius);
+  padding: 48px 40px; box-shadow: 0 25px 60px rgba(0,0,0,.22);
 }
-.checkout-luxury-card {
-  border-radius: 20px; padding: 40px 32px; box-sizing: border-box;
-  display: flex; flex-direction: column; box-shadow: 0 20px 45px rgba(0,0,0,.08);
+.pricing-premium-header h3 { color: #F2EDE3; font-size: 1.3rem; margin-bottom: 4px; }
+.pricing-premium-header span { display: block; font-size: 0.85rem; color: rgba(242,237,227,.55); }
+.pricing-premium-divider { height: 1px; background: rgba(201,166,87,.15); margin: 24px 0; }
+.offer-banner-eyebrow {
+  display: block; font-family: var(--font-h); font-size: 0.78rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: rgba(242,237,227,.6); margin-bottom: 18px;
 }
+.offer-banner-strike-ref { font-size: 0.9rem; font-style: italic; color: rgba(242,237,227,.5); text-decoration: line-through; margin-bottom: 8px; }
+.offer-banner-price { font-family: var(--font-h); font-weight: 800; font-size: clamp(2.4rem, 5vw, 3.2rem); color: var(--accent); }
+.pricing-premium-note { font-size: 0.85rem; color: rgba(242,237,227,.6); line-height: 1.65; margin-top: 16px; text-align: left; }
+.pricing-premium-note strong { color: var(--accent); font-weight: 700; }
 
-.offer-card-tier { background: #FFFBF2; border: 1px solid #C9A657; }
-.card-tier-header h3 { font-size: 22px; color: #1B2C20; margin: 0 0 6px; font-weight: 700; }
-.card-tier-header p { font-size: 13px; color: #8B7355; margin: 0; }
-.card-tier-price { font-size: 38px; color: #C9A657; font-weight: 800; margin: 24px 0; font-family: var(--font-h); }
-.card-tier-features-list { list-style: none; padding: 0; margin: 0 0 24px; }
-.card-tier-features-list li { font-size: 14px; color: #22352A; margin-bottom: 12px; position: relative; padding-left: 24px; line-height: 1.5; }
-.card-tier-features-list li::before { content: '✓'; position: absolute; left: 0; color: #C9A657; font-weight: 700; }
-.card-tier-note { font-size: 12px; color: #8B7355; font-style: italic; margin: 0 0 24px; }
-.card-tier-cta-btn {
-  background: #C9A657; color: #FFFBF2; text-decoration: none; text-align: center; padding: 14px;
-  border-radius: 30px; font-weight: 600; font-size: 15px; margin-top: auto; display: block; transition: background .3s ease;
+.pricing-included-label {
+  display: block; font-family: var(--font-h); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: rgba(242,237,227,.5); margin-bottom: 18px; text-align: left;
 }
-.card-tier-cta-btn:hover { background: #1B2C20; }
+.pricing-benefits { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; text-align: left; }
+.pricing-benefits li { display: flex; gap: 14px; align-items: flex-start; }
+.pricing-benefits .icon { background: rgba(201,166,87,.1); border-radius: 8px; padding: 6px; width: 32px; height: 32px; }
+.pricing-benefits li strong { display: block; color: #F2EDE3; font-family: var(--font-h); font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+.pricing-benefits li p { color: rgba(242,237,227,.6); font-size: 0.85rem; line-height: 1.55; margin: 0; }
 
-.guarantee-card-tier { background: #1B2C20; border: 1px solid rgba(201,166,87,.15); align-items: center; text-align: center; }
-.guarantee-badge-circle {
-  width: 90px; height: 90px; border: 1px dashed #C9A657; border-radius: 50%;
-  display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
-}
-.badge-circle-inner { display: flex; flex-direction: column; color: #F2EDE3; font-size: 9px; letter-spacing: .05em; text-transform: uppercase; }
-.badge-circle-inner strong { color: #C9A657; font-size: 14px; margin: 2px 0; font-weight: 700; }
-.guarantee-card-title { font-size: 20px; color: #F2EDE3; font-weight: 700; margin: 0 0 20px; line-height: 1.4; }
-.guarantee-card-body-text { display: flex; flex-direction: column; gap: 14px; }
-.guarantee-card-body-text p { font-size: 13.5px; line-height: 1.6; color: #F2EDE3; opacity: .8; margin: 0; }
+.pricing-cta { display: block; margin-top: 32px; }
 
-@media (max-width: 768px) {
-  .edd-checkout-balance-container { grid-template-columns: 1fr; gap: 20px; padding: 0 16px; }
-  .checkout-luxury-card { padding: 32px 20px; }
+@media (max-width: 700px) {
+  .pricing-premium-card { padding: 36px 24px; }
 }
 
 /* ── Instructor v2 ── */
@@ -1129,8 +1139,8 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 <!-- ===================== HERO ===================== -->
 <section class="hero theme-dark" id="hero">
   <div class="container">
-    <h1 class="uppercase">Làm Chủ<br class="mobile-break"> Bản Đồ Kinh Doanh.<br>Trở Thành Người<br class="mobile-break"> Ra Quyết Định<br><span class="highlight-box">Thấu Suốt</span></h1>
-    <p class="subhead">Thẩm định cấu trúc năng lượng để dứt điểm các<br class="mobile-break"> quyết định mơ hồ,<br class="desktop-break"> tối ưu hóa hiệu suất dòng tiền<br class="mobile-break"> và biết rõ khi nào nên bứt phá, khi nào nên phòng thủ.</p>
+    <h1 class="uppercase">Làm Chủ<br class="mobile-break"> Bản Đồ Tài Chính Cá Nhân<br>Trở Thành Người<br class="mobile-break"> Ra Quyết Định<br><span class="highlight-box">Thấu Suốt</span></h1>
+    <p class="subhead">Thẩm định cấu trúc năng lượng sẵn có của riêng bạn<br class="mobile-break"> để định hình lộ trình Thịnh Vượng trọn đời<br class="desktop-break"> - tối ưu hoá hiệu suất dòng tiền và nguồn lực<br class="mobile-break"> bằng cách biết đâu là quyết định đúng.</p>
     <p class="social-proof-mini">Học thử miễn phí 5 ngày đầu tiên ·<br class="mobile-break"> Đã có hơn 100+ nhà điều hành tham gia</p>
     <div class="mt-8">
       <a href="dang-ky.html" class="btn-primary">Trải Nghiệm Ngay →</a>
@@ -1149,29 +1159,22 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
         <div class="avatar-placeholder">S</div>
         <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
         <div class="testimonial-name mt-2">NGUYEN HOANG SON</div>
-        <div class="testimonial-role">Founder · Ngành Công Nghệ</div>
-        <p class="quote">"Hai lần thất bại không phải vì tôi làm sai - mà vì tôi làm đúng vào thời điểm sai. Báo Cáo Phân Tích Cá Nhân EDD Digital là lần đầu tiên tôi có công cụ để không lặp lại điều đó."</p>
+        <div class="testimonial-role">Founder · Ngành Giáo Dục</div>
+        <p class="quote">"Ba năm đầu trên hành trình khởi nghiệp là khoảng thời gian thử thách nhất. Khi chưa sử dụng EDD, tôi nghĩ khó khăn đó là điều hiển nhiên khi khởi nghiệp. Chỉ đến khi quy chiếu qua EDD, tôi đã thấy sự sai lầm là mình đã chọn thời điểm khó khăn nhất của cuộc đời để bắt đầu."</p>
       </div>
       <div class="testimonial-card">
         <div class="avatar-placeholder">L</div>
         <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
         <div class="testimonial-name mt-2">TRAN THUY LINH</div>
         <div class="testimonial-role">Giám Đốc Điều Hành · Ngành Dịch Vụ</div>
-        <p class="quote">"Tôi không thiếu kinh nghiệm để nhận ra hợp đồng tệ. Tôi thiếu công cụ để nhận ra mình đang ở trạng thái dễ ra quyết định tệ nhất - đó là thứ Báo Cáo Phân Tích Cá Nhân EDD Digital cho tôi."</p>
-      </div>
-      <div class="testimonial-card">
-        <div class="avatar-placeholder">T</div>
-        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
-        <div class="testimonial-name mt-2">HOANG MINH TRI</div>
-        <div class="testimonial-role">Nhà Đầu Tư Cá Nhân</div>
-        <p class="quote">"Khi hiểu được cấu trúc chu kỳ của chính mình, tôi không còn bị cuốn vào những quyết định vội vã. Sự rõ ràng này đáng giá hơn bất kỳ chiến lược kinh doanh nào tôi từng thử học."</p>
+        <p class="quote">"Đạt được cột mốc đặt ra từ 5 năm trước mang lại cho tôi niềm vui trọn vẹn, nhưng ngay sau đó lại là sự vô định về chặng đường tiếp theo. Không còn nhiều năng lượng để chiến đấu như khi còn trẻ nhưng không thể dừng lại vì tính chất ngành đào thải nhanh. EDD giúp mình tháo gỡ sự mơ hồ và nhận diện được cần chuẩn bị điều gì cho tương lai."</p>
       </div>
       <div class="testimonial-card">
         <div class="avatar-placeholder">T</div>
         <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
         <div class="testimonial-name mt-2">PHAM THU TRANG</div>
         <div class="testimonial-role">Co-founder · Brand Agency</div>
-        <p class="quote">"Công cụ này cho tôi một hệ quy chiếu vững vàng trước mỗi bước ngoặt lớn. Tôi biết chính xác khi nào mình cần lùi lại để củng cố nội lực và khi nào nên dồn sức bứt phá."</p>
+        <p class="quote">"Dù luôn có niềm tin mạnh mẽ vào năng lực của mình nhưng khi đứng trước quyết định có sức nặng quá lớn, tôi bất lực với cảm giác thiếu chắc chắn khi chờ đợi kết quả. Báo cáo EDD thực sự đã giúp tôi lấp đầy khoảng trống ấy khi mà trực giác và kinh nghiệm là chưa đủ để tự tin ra quyết định."</p>
       </div>
     </div>
   </div>
@@ -1181,8 +1184,8 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 <section class="section theme-dark depth-section" id="problem">
   <div class="container">
     <h2 class="problem-headline" style="text-align:center;">
-      <span class="line1">Không Ai Quan Tâm Bạn Nỗ Lực Ra Sao.</span>
-      <span class="line2">Họ Chỉ Nhìn Vào Kết Quả Quyết Định Của Bạn.</span>
+      <span class="line1">Tại Sao Mọi Nỗ Lực & Nguồn Lực Của Bạn</span>
+      <span class="line2">Vẫn Chưa Thể Chuyển Hóa Thành Kết Quả Đạt Kỳ Vọng?</span>
     </h2>
 
     <div class="problem-cols">
@@ -1205,7 +1208,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
     </div>
 
     <div class="banner-box">
-      <h2 class="banner-title-market" style="text-align:center;">Thị Trường Chỉ Công Nhận Một Quyết Định Đúng Khi Nó Được Đưa Ra <br class="mobile-break"><span class="banner-highlight">Đúng Thời Điểm</span></h2>
+      <h2 class="banner-title-market" style="text-align:center;">Bên Trong Bạn Luôn Có Một Cấu Trúc Tạo Dòng Tiền Tự Nhiên Miễn Là Bạn Vận Hành Nó <br class="mobile-break"><span class="banner-highlight">Đúng Thời Điểm</span></h2>
       <p>Hãy để tôi chỉ cho bạn cách làm chủ nhịp độ chu kỳ cá nhân để đưa các quyết định kinh doanh và tài chính đi đến kết quả rõ ràng nhất.</p>
     </div>
   </div>
@@ -1230,7 +1233,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
         <p class="mt-4">Nó chỉ rõ quỹ đạo chu kỳ của riêng bạn trong từng giai đoạn. Giúp bạn nhận diện khi nào nên bứt phá mở rộng và khi nào cần thu mình bảo toàn nguồn lực.</p>
       </div>
     </div>
-    <p class="bridge-statement">Đó là lý do vì sao khi kết hợp cả hai yếu tố Bản Thể & Thời Thế, <br class="desktop-break">bạn sẽ sở hữu một hệ quy chiếu sắc bén nhất để dứt điểm mọi quyết định mơ hồ trong kinh doanh.</p>
+    <p class="bridge-statement">Đó là lý do vì sao khi kết hợp cả hai yếu tố Cá Nhân & Thời Thế, <br class="desktop-break">bạn sẽ sở hữu một hệ quy chiếu sắc bén nhất để dứt điểm mọi quyết định mơ hồ trong kinh doanh, tài chính và sự nghiệp.</p>
   </div>
 </section>
 
@@ -1365,20 +1368,20 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 
             <div class="report-mock-slide">
               <div class="report-mock-body">
-                <span class="report-mock-eyebrow">[Preview] Dự Phóng Quỹ Đạo 12 Tháng Tới</span>
+                <span class="report-mock-eyebrow">[Preview] Dự Phóng Quỹ Đạo Nhiều Năm Tới</span>
                 <ul class="report-mock-insights report-mock-insights-compact">
-                  <li>Tháng 09/2026: Vùng lợi thế mở ra. <span class="report-mock-laser">Dồn Lực Tấn Công</span></li>
-                  <li>Tháng 10/2026: Chuẩn hoá quy trình nội bộ. <span class="report-mock-laser neutral">Tích Luỹ Dự Phòng</span></li>
-                  <li>Tháng 11/2026: Dòng tiền bắt đầu tăng nhiệt. <span class="report-mock-laser positive">Kích Hoạt Dòng Tiền</span></li>
-                  <li>Tháng 12/2026: Áp lực &amp; kỷ luật chạm đỉnh. <span class="report-mock-laser alert">Phòng Thủ Tuyệt Đối</span></li>
+                  <li>Năm 2026: Khoảng lặng chuyển tiếp. <span class="report-mock-laser">Củng Cố Nền Tảng</span></li>
+                  <li>Năm 2027: Nền tảng vững, sẵn sàng đặt móng. <span class="report-mock-laser positive">Khởi Động Thuận Lợi</span></li>
+                  <li>Năm 2028: Áp lực kép từ nhiều hướng. <span class="report-mock-laser alert">Phòng Thủ Tuyệt Đối</span></li>
+                  <li>Năm 2029: Điều kiện cải thiện rõ rệt. <span class="report-mock-laser neutral">Tái Định Vị</span></li>
                 </ul>
                 <div class="report-mock-blur-fill report-mock-blur-fill-tight">
                   <div class="report-mock-blur-lines" aria-hidden="true">
-                    <p>Tháng 01/2027 → 04/2027: điểm rơi chu kỳ mới, cơ hội bứt phá và các mốc rủi ro cần phòng tránh...</p>
+                    <p>Năm 2030 trở đi: điểm rơi đỉnh chu kỳ, cơ hội bứt phá mạnh nhất và các mốc rủi ro cần phòng tránh...</p>
                   </div>
                   <div class="report-mock-blur-badge">
                     <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/></svg>
-                    Đăng ký bản Full để mở khoá dự phóng trọn vẹn 12 tháng
+                    Đăng ký bản Full để mở khoá dự phóng trọn vẹn nhiều năm tới
                   </div>
                 </div>
               </div>
@@ -1439,73 +1442,14 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
           <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
           <span class="ui-window-tag">EDD FOUNDATION™ CENTRAL SYSTEM</span>
         </div>
-        <div class="ui-window-body core-brand-bg">
-          <div class="brand-center-identity">
-            <div class="gold-shield-icon">
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#C9A657" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h2 class="system-title-glow">L.O.S™ · LIFE OPERATING SYSTEM</h2>
-            <div class="system-scanning-bar"><div class="scanning-progress"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase-ui-window window-left-course">
-        <div class="ui-window-header">
-          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
-          <span class="ui-window-tag">01 | COURSE PLAYER</span>
-        </div>
-        <div class="ui-window-body layout-split">
-          <div class="video-player-sim">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A657" stroke-width="2" class="center-play-triangle animate-pulse-slow"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <div class="video-timeline-bar"><span class="video-progress-fill"></span></div>
-          </div>
-          <div class="video-playlist-sim">
-            <div class="playlist-item active-item">Chương 1: Bản Sắc Gốc</div>
-            <div class="playlist-item">Chương 2: Money Engine</div>
-            <div class="playlist-item">Chương 3: Cấu Trúc Vận Hành</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase-ui-window window-right-report">
-        <div class="ui-window-header">
-          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
-          <span class="ui-window-tag badge-confidential">02 | CONFIDENTIAL REPORT</span>
-        </div>
-        <div class="ui-window-body">
-          <div class="report-meta-exposed">
-            <span class="report-id-text">HỒ SƠ GIÁM ĐỊNH: EDD-4563</span>
-            <div class="radar-radar-circle"><div class="radar-line-sweep"></div></div>
-          </div>
-          <div class="report-locked-blur-zone">
-            <div class="blur-lines-p">
-              <p>Chỉ số cấu trúc nhận thức bẩm sinh cho thấy bạn có khả năng quản trị khủng hoảng xuất sắc, tuy nhiên điểm nghẽn lớn nhất...</p>
-            </div>
-            <div class="lock-overlay-badge-mini">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A657" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              Dữ liệu mã hoá bảo mật
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase-ui-window window-right-timeline">
-        <div class="ui-window-header">
-          <div class="ui-dots"><span class="d-ui"></span><span class="d-ui"></span><span class="d-ui"></span></div>
-          <span class="ui-window-tag">03 | MACRO FORECAST</span>
-        </div>
-        <div class="ui-window-body">
-          <div class="mini-wave-graph-box">
-            <svg viewBox="0 0 200 60" fill="none" class="graph-svg-inner">
-              <path d="M 0 40 C 40 10, 80 10, 100 35 C 120 60, 160 60, 200 20" stroke="#C9A657" stroke-width="2"/>
-              <circle cx="45" cy="22" r="3" fill="#F2EDE3"/>
-            </svg>
-          </div>
-          <div class="timeline-months-text-preview">
-            <p>Tháng 09/2026: <span class="gold-t">Dồn Lực Tấn Công</span></p>
-            <p>Tháng 12/2026: <span class="gold-t">Phòng Thủ Tuyệt Đối</span></p>
-          </div>
+        <div class="ui-window-body core-brand-bg intro-video-wrap">
+          <video class="intro-video" poster="assets/video-landing-poster.png" preload="metadata" playsinline>
+            <source src="assets/video-landing.mp4" type="video/mp4">
+          </video>
+          <button type="button" class="intro-video-play-btn" aria-label="Phát video giới thiệu EDD Foundation">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="intro-video-label">L.O.S™ · LIFE OPERATING SYSTEM</span>
         </div>
       </div>
 
@@ -1610,7 +1554,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   <div class="container">
     <span class="eyebrow">Lộ Trình Chi Tiết</span>
     <h2><span class="h2-rule"></span>Bạn Sẽ Học Gì</h2>
-    <p class="mt-6" style="max-width:680px;">6 module tự học tinh gọn, mỗi bài dưới 30 phút, gửi đều đặn mỗi ngày để bạn tự học theo lịch cá nhân — không cần buổi học trực tiếp bắt buộc.</p>
+    <p class="mt-6" style="max-width:680px;">6 modules tự học tinh gọn (dưới 30 phút/bài) gửi đều đặn mỗi ngày, hoàn toàn linh hoạt theo lịch trình cá nhân. Toàn bộ lộ trình tập trung giải mã cấu trúc năng lượng nội tại, giúp bạn hiểu rõ cơ chế vận hành của "Bộ nhận diện nội lực cá nhân" trong bản báo cáo EDD.</p>
 
     <div class="timeline-wrap">
       <div class="timeline-rail">ĐỊNH VỊ BẢN THỂ</div>
@@ -1847,8 +1791,8 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 <section class="section theme-light" id="bonus">
   <div class="container">
     <span class="eyebrow">Hơn Cả Các Bài Học</span>
-    <h2><span class="h2-rule"></span>Nhận Vào Ngày Thứ 7</h2>
-    <p class="mt-6" style="max-width:680px;">Sau khi đi hết lộ trình học, bạn nhận trọn bộ cẩm nang vận hành độc bản được tính toán riêng theo dữ liệu cá nhân của bạn.</p>
+    <h2><span class="h2-rule"></span>Trọn Bộ Hệ Thống Bạn Nhận Được</h2>
+    <p class="mt-6" style="max-width:680px;">Lộ trình kết hợp giữa nền tảng E-learning tự học và Hồ sơ phân tích độc bản tính toán riêng theo cấu trúc dữ liệu của bạn.</p>
 
     <div class="grid-3 mt-10">
       <div class="feature-card">
@@ -1870,16 +1814,18 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
           </div>
         </div>
         <div class="feature-body">
-          <span class="feature-tag">[ Hệ Thống Kiểm Định Độc Bản ]</span>
-          <div class="feature-num">01 | Giao Diện Học Tập</div>
-          <p style="font-size:0.92rem;">Chuỗi video trang bị tư duy cốt lõi để thấu suốt bản thể.</p>
-          <div class="feature-locked-footer">
-            <p class="feature-blur-line">Phân hệ bao gồm 6 chương chuyên sâu, đo lường xu hướng Money Engine và các giải pháp thực chiến phòng thủ...</p>
-            <div class="feature-lock-badge-mini">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Đăng ký để mở khoá nội dung chi tiết
-            </div>
-          </div>
+          <span class="feature-tag">[ Giai Đoạn 1 · Học Tập Tự Chủ ]</span>
+          <div class="feature-num">01 | Khóa Học Nền Tảng (EDD E-Learning)</div>
+          <span class="feature-value">Trị giá: 1.500.000đ</span>
+          <p style="font-size:0.92rem;">6 module video bài giảng tinh gọn (dưới 30 phút/bài), học linh hoạt theo lịch cá nhân.</p>
+          <ul class="feature-module-list">
+            <li><span class="feature-module-num">01</span>Khai Mở Nền Tảng</li>
+            <li><span class="feature-module-num">02</span>Cấu Trúc Năng Lượng Bên Trong</li>
+            <li><span class="feature-module-num">03</span>Lệch Hướng Cấu Trúc Vận Hành</li>
+            <li><span class="feature-module-num">04</span>Tính Thời Điểm &amp; Kích Hoạt Chu Kỳ</li>
+            <li><span class="feature-module-num">05</span>Cơ Chế Tạo Tiền Cá Nhân</li>
+            <li><span class="feature-module-num">06</span>Lộ Trình Cuộc Đời</li>
+          </ul>
         </div>
       </div>
       <div class="feature-card">
@@ -1905,51 +1851,15 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
           </div>
         </div>
         <div class="feature-body">
-          <span class="feature-tag">[ Hệ Thống Kiểm Định Độc Bản ]</span>
-          <div class="feature-num">02 | Báo Cáo EDD Digital</div>
-          <p style="font-size:0.92rem;">Bản phân tích chi tiết cách bạn tư duy, tối ưu điểm mạnh và phòng ngừa điểm mù tự nhiên.</p>
-          <div class="feature-locked-footer">
-            <p class="feature-blur-line">Bao gồm bản đồ tư duy, hồ sơ năng lực tự nhiên và các điểm mù cần chú ý được tính toán riêng cho bạn...</p>
-            <div class="feature-lock-badge-mini">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Đăng ký để mở khoá nội dung chi tiết
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-mockup">
-          <div class="mockup-graphic-display">
-            <svg viewBox="0 0 350 180" fill="none" class="mockup-svg">
-              <defs>
-                <linearGradient id="lineGlowGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#8B7355" stop-opacity="0.2"/>
-                  <stop offset="50%" stop-color="#C9A657" stop-opacity="1"/>
-                  <stop offset="100%" stop-color="#8B7355" stop-opacity="0.2"/>
-                </linearGradient>
-              </defs>
-              <rect x="10" y="10" width="330" height="160" rx="12" fill="#1B2C20" stroke="rgba(201, 166, 87, 0.15)" stroke-width="1.5"/>
-              <line x1="20" y1="90" x2="330" y2="90" stroke="rgba(139, 115, 85, 0.15)" stroke-width="1"/>
-              <line x1="60" y1="20" x2="60" y2="160" stroke="rgba(139, 115, 85, 0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
-              <line x1="175" y1="20" x2="175" y2="160" stroke="rgba(139, 115, 85, 0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
-              <line x1="290" y1="20" x2="290" y2="160" stroke="rgba(139, 115, 85, 0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
-              <path d="M 20 120 C 80 20, 130 20, 175 90 C 220 160, 270 160, 330 60" stroke="url(#lineGlowGrad)" stroke-width="2.5" class="wave-path-flow"/>
-              <circle cx="102" cy="46" r="5" fill="#F2EDE3"/>
-              <circle cx="102" cy="46" r="12" stroke="#C9A657" stroke-width="1" class="pulse-ring-slow"/>
-            </svg>
-          </div>
-        </div>
-        <div class="feature-body">
-          <span class="feature-tag">[ Hệ Thống Kiểm Định Độc Bản ]</span>
-          <div class="feature-num">03 | Bản Đồ Chu Kỳ</div>
-          <p style="font-size:0.92rem;">Bản đồ dự phóng vĩ mô lộ trình vận hành cuộc đời và ma trận cơ hội chi tiết 10 năm.</p>
-          <div class="feature-locked-footer">
-            <p class="feature-blur-line">Chi tiết từng giai đoạn chu kỳ, cửa sổ cơ hội vàng và các mốc rủi ro cần chủ động phòng tránh...</p>
-            <div class="feature-lock-badge-mini">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Đăng ký để mở khoá nội dung chi tiết
-            </div>
-          </div>
+          <span class="feature-tag">[ Giai Đoạn 2 · Bàn Giao Ngày 7 ]</span>
+          <div class="feature-num">02 | Hồ Sơ Phân Tích Độc Bản (EDD Report &amp; Roadmap)</div>
+          <span class="feature-value">Trị giá: 5.000.000đ</span>
+          <p style="font-size:0.92rem;">Báo cáo tính toán thủ công theo dữ liệu cá nhân (bàn giao ngày thứ 7), tích hợp trọn bộ 3 công cụ dự phóng chuyên sâu:</p>
+          <ul class="feature-sublist">
+            <li><strong>Cơ Chế Dòng Tiền (Money Engine Profile)</strong>Chỉ rõ cách tạo ra kết quả nhanh và bền vững nhất thuộc về bản năng của bạn — dừng ngay việc đổ vốn vào các mô hình "ngược năng lượng" chỉ khiến bạn kiệt quệ và mất tiền vô ích.</li>
+            <li><strong>Bản Đồ Quỹ Đạo Cuộc Đời (Life Trajectory)</strong>La bàn định vị chu kỳ thịnh – suy toàn bộ cuộc đời — biết chính xác thời điểm nào nên bung sức "tất tay" để nhân tài sản, khúc nào phải thu mình bảo toàn vốn để không bị trả giá đắt.</li>
+            <li><strong>Biểu Đồ Nhiệt Cơ Hội 10 Năm (10 Years Heatmap)</strong>Tấm radar quét trước 1 thập kỷ tới — nhận diện chính xác năm nào là "cửa sổ vàng" để đón sóng bứt phá, năm nào ẩn chứa bẫy rủi ro cần tuyệt đối tránh xa.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1988,30 +1898,27 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
     </div>
 
     <h3 class="mt-16">Chi Tiết 5 Giai Đoạn Trong Chu Kỳ Vận Hành Cá Nhân Bạn Sẽ Làm Chủ</h3>
-    <div class="cycle-wave mt-10 has-active" data-cycle-wave>
-      <svg class="cycle-wave-svg" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true">
-        <path class="cycle-wave-path" d="M0,150 C120,150 130,70 250,70 C370,70 380,190 500,190 C620,190 630,30 750,30 C870,30 880,150 1000,150" />
-      </svg>
-      <div class="cycle-nodes" role="tablist" aria-label="5 giai đoạn chu kỳ vận hành">
-        <button type="button" class="cycle-node label-above edge-start is-active" style="left:4%; top:68%;" data-stage="1" role="tab" aria-selected="true">
-          <span class="cycle-node-dot"></span>
-          <span class="cycle-node-label"><span class="cycle-node-index">01</span>Tích Lũy &amp; Cấu Trúc</span>
+    <div class="cycle-stepper" data-cycle-stepper>
+      <div class="cycle-track" role="tablist" aria-label="5 giai đoạn chu kỳ vận hành">
+        <button type="button" class="cycle-step is-active" data-stage="1" role="tab" aria-selected="true">
+          <span class="cycle-step-dot">01</span>
+          <span class="cycle-step-label">Tích Lũy &amp; Cấu Trúc</span>
         </button>
-        <button type="button" class="cycle-node label-above" style="left:27%; top:32%;" data-stage="2" role="tab" aria-selected="false">
-          <span class="cycle-node-dot"></span>
-          <span class="cycle-node-label"><span class="cycle-node-index">02</span>Đột Phá &amp; Sáng Tạo</span>
+        <button type="button" class="cycle-step" data-stage="2" role="tab" aria-selected="false">
+          <span class="cycle-step-dot">02</span>
+          <span class="cycle-step-label">Đột Phá &amp; Sáng Tạo</span>
         </button>
-        <button type="button" class="cycle-node label-above" style="left:50%; top:86%;" data-stage="3" role="tab" aria-selected="false">
-          <span class="cycle-node-dot"></span>
-          <span class="cycle-node-label"><span class="cycle-node-index">03</span>Tăng Trưởng &amp; Dòng Tiền</span>
+        <button type="button" class="cycle-step" data-stage="3" role="tab" aria-selected="false">
+          <span class="cycle-step-dot">03</span>
+          <span class="cycle-step-label">Tăng Trưởng &amp; Dòng Tiền</span>
         </button>
-        <button type="button" class="cycle-node label-below" style="left:73%; top:14%;" data-stage="4" role="tab" aria-selected="false">
-          <span class="cycle-node-dot"></span>
-          <span class="cycle-node-label"><span class="cycle-node-index">04</span>Áp Lực &amp; Kỷ Luật</span>
+        <button type="button" class="cycle-step" data-stage="4" role="tab" aria-selected="false">
+          <span class="cycle-step-dot">04</span>
+          <span class="cycle-step-label">Áp Lực &amp; Kỷ Luật</span>
         </button>
-        <button type="button" class="cycle-node label-above edge-end" style="left:96%; top:68%;" data-stage="5" role="tab" aria-selected="false">
-          <span class="cycle-node-dot"></span>
-          <span class="cycle-node-label"><span class="cycle-node-index">05</span>Kết Nối &amp; Cạnh Tranh</span>
+        <button type="button" class="cycle-step" data-stage="5" role="tab" aria-selected="false">
+          <span class="cycle-step-dot">05</span>
+          <span class="cycle-step-label">Kết Nối &amp; Cạnh Tranh</span>
         </button>
       </div>
     </div>
@@ -2047,36 +1954,156 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
       <details class="detail-accordion">
         <summary>Xem đầy đủ 10 Kiểu Vận Hành Cá Nhân</summary>
         <div class="detail-body">
-          <ul class="mini-list">
-            <li><strong>01 Người Tiên Phong</strong> — Kéo người khác tin vào thứ họ chưa nhìn thấy - sức mạnh nằm ở năng lượng lan tỏa và tầm nhìn. Sức mạnh cốt lõi: Lãnh đạo qua năng lượng, tạo động lực tập thể, xây dựng thương hiệu cá nhân mạnh. (NGUYÊN TẮC → HÀNH ĐỘNG).</li>
-            <li><strong>02 Người Giữ Vững</strong> — Vận hành từ kinh nghiệm được kiểm chứng - sức mạnh nằm ở sự bền bỉ và tin cậy theo thời gian. Sức mạnh cốt lõi: Bền bỉ, đáng tin cậy, xây dựng mối quan hệ dài hạn, duy trì chất lượng nhất quán. (KINH NGHIỆM → KẾT QUẢ).</li>
-            <li><strong>03 Người Kết Nối</strong> — Tạo giá trị từ việc đặt đúng người vào đúng chỗ - sức mạnh nằm ở mạng lưới và khả năng đọc bối cảnh. Sức mạnh cốt lõi: Đọc bối cảnh, xây dựng quan hệ chiến lược, tạo đòn bẩy từ mạng lưới. (MẠNG LƯỚI → GIÁ TRỊ).</li>
-            <li><strong>04 Người Trực Giác Chiến Lược</strong> — Đọc được thứ đang thực sự xảy ra bên dưới bề mặt - sức mạnh nằm ở giải pháp độc bản từ trực giác sâu. Sức mạnh cốt lõi: Quyết định trong bất định, đọc bối cảnh phức tạp, nhìn thấy cơ hội ẩn. (TRỰC GIÁC → GIẢI PHÁP ĐỘC BẢN).</li>
-            <li><strong>05 Người Truyền Cảm Hứng</strong> — Kéo người khác tin vào thứ họ chưa nhìn thấy - sức mạnh nằm ở năng lượng lan tỏa và tầm nhìn. Sức mạnh cốt lõi: Lãnh đạo qua năng lượng, tạo động lực tập thể, xây dựng thương hiệu cá nhân mạnh. (TẦM NHÌN → LAN TOẢ).</li>
-            <li><strong>06 Người Tư Duy Chiều Sâu</strong> — Đi đến nguyên nhân gốc rễ trước khi kết luận - sức mạnh nằm ở chiều sâu phân tích mà người khác bỏ qua. Sức mạnh cốt lõi: Phân tích chiều sâu, giải quyết vấn đề phức tạp, nhìn thấy rủi ro ẩn. (CHIỀU SÂU → SỰ CHẮC CHẮN).</li>
-            <li><strong>07 Người Kiến Tạo Giá Trị</strong> — Nhìn thấy khoảng cách giữa những gì đang có và những gì có thể tốt hơn - sức mạnh nằm ở tiêu chuẩn chất lượng khó sao chép. Sức mạnh cốt lõi: Nâng chuẩn chất lượng, cải tiến liên tục, tạo ra sản phẩm/dịch vụ premium. (TIÊU CHUẨN → CHẤT LƯỢNG).</li>
-            <li><strong>08 Người Thực Thi</strong> — Đi thẳng từ vấn đề đến kết quả - sức mạnh nằm ở tốc độ và khả năng giải quyết dứt điểm. Sức mạnh cốt lõi: Tốc độ thực thi, giải quyết vấn đề nhanh, biến kế hoạch thành hành động cụ thể. (VẤN ĐỀ → KẾT QUẢ).</li>
-            <li><strong>09 Người Điều Hướng</strong> — Nhìn thấy kết nối giữa những thứ tưởng như không liên quan - sức mạnh nằm ở sự linh hoạt điều hướng trong biến động. Sức mạnh cốt lõi: Thích nghi nhanh, nhìn thấy cơ hội trong bất định. (LINH HOẠT → CƠ HỘI).</li>
-            <li><strong>10 Người Hiện Thực Hóa</strong> — Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán. Sức mạnh cốt lõi: Xây dựng hệ thống, nhân rộng quy mô, tạo ra kết quả nhất quán. (Ý TƯỞNG → QUY TRÌNH).</li>
-          </ul>
+          <div class="ops-table-wrap">
+            <table class="ops-table">
+              <colgroup>
+                <col style="width:19%"><col style="width:35%"><col style="width:32%"><col style="width:14%">
+              </colgroup>
+              <thead>
+                <tr><th>Kiểu Vận Hành</th><th>Định Nghĩa</th><th>Sức Mạnh Cốt Lõi</th><th>Cơ Chế</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Tiên Phong</td>
+                  <td data-label="Định Nghĩa">Kéo người khác tin vào thứ họ chưa nhìn thấy - sức mạnh nằm ở năng lượng lan tỏa và tầm nhìn.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Lãnh đạo qua năng lượng • Tạo động lực tập thể • Xây dựng thương hiệu cá nhân mạnh</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Nguyên Tắc → Hành Động</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Giữ Vững</td>
+                  <td data-label="Định Nghĩa">Vận hành từ kinh nghiệm được kiểm chứng - sức mạnh nằm ở sự bền bỉ và tin cậy theo thời gian.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Bền bỉ • Đáng tin cậy • Xây dựng mối quan hệ dài hạn • Duy trì chất lượng nhất quán</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Kinh Nghiệm → Kết Quả</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Kết Nối</td>
+                  <td data-label="Định Nghĩa">Tạo giá trị từ việc đặt đúng người vào đúng chỗ - sức mạnh nằm ở mạng lưới và khả năng đọc bối cảnh.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Đọc bối cảnh • Xây dựng quan hệ chiến lược • Tạo đòn bẩy từ mạng lưới</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Mạng Lưới → Giá Trị</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Trực Giác Chiến Lược</td>
+                  <td data-label="Định Nghĩa">Đọc được thứ đang thực sự xảy ra bên dưới bề mặt - sức mạnh nằm ở giải pháp độc bản từ trực giác sâu.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Quyết định trong bất định • Đọc bối cảnh phức tạp • Nhìn thấy cơ hội ẩn</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Trực Giác → Giải Pháp Độc Bản</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Truyền Cảm Hứng</td>
+                  <td data-label="Định Nghĩa">Kéo người khác tin vào thứ họ chưa nhìn thấy - sức mạnh nằm ở năng lượng lan tỏa và tầm nhìn.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Lãnh đạo qua năng lượng • Tạo động lực tập thể • Xây dựng thương hiệu cá nhân mạnh</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Tầm Nhìn → Lan Tỏa</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Tư Duy Chiều Sâu</td>
+                  <td data-label="Định Nghĩa">Đi đến nguyên nhân gốc rễ trước khi kết luận - sức mạnh nằm ở chiều sâu phân tích mà người khác bỏ qua.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Phân tích chiều sâu • Giải quyết vấn đề phức tạp • Nhìn thấy rủi ro ẩn</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Chiều Sâu → Sự Chắc Chắn</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Kiến Tạo Giá Trị</td>
+                  <td data-label="Định Nghĩa">Nhìn thấy khoảng cách giữa những gì đang có và những gì có thể tốt hơn - sức mạnh nằm ở tiêu chuẩn chất lượng khó sao chép.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Nâng chuẩn chất lượng • Cải tiến liên tục • Tạo ra sản phẩm/dịch vụ premium</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Tiêu Chuẩn → Chất Lượng</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Thực Thi</td>
+                  <td data-label="Định Nghĩa">Đi thẳng từ vấn đề đến kết quả - sức mạnh nằm ở tốc độ và khả năng giải quyết dứt điểm.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Tốc độ thực thi • Giải quyết vấn đề nhanh • Biến kế hoạch thành hành động cụ thể</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Vấn Đề → Kết Quả</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Điều Hướng</td>
+                  <td data-label="Định Nghĩa">Nhìn thấy kết nối giữa những thứ tưởng như không liên quan - sức mạnh nằm ở sự linh hoạt điều hướng trong biến động.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Thích nghi nhanh • Nhìn thấy cơ hội trong bất định</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Linh Hoạt → Cơ Hội</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Kiểu Vận Hành">Người Hiện Thực Hóa</td>
+                  <td data-label="Định Nghĩa">Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán.</td>
+                  <td data-label="Sức Mạnh Cốt Lõi">Xây dựng hệ thống • Nhân rộng quy mô • Tạo ra kết quả nhất quán</td>
+                  <td data-label="Cơ Chế"><span class="ops-tag">Ý Tưởng → Quy Trình</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </details>
 
       <details class="detail-accordion">
         <summary>Xem đầy đủ 10 Cơ Chế Dòng Tiền Tự Nhiên (Money Engine Profile)</summary>
         <div class="detail-body">
-          <ul class="mini-list">
-            <li><strong>01 Cơ Chế Đồng Hành</strong> — Dòng tiền đến từ năng lực cá nhân độc lập và quyền tự quyết hoàn toàn. Hoạt động tốt nhất khi: Có quyền kiểm soát hoàn toàn quá trình và kết quả. (TỰ CHỦ · ĐỘC LẬP).</li>
-            <li><strong>02 Cơ Chế Chiếm Lĩnh</strong> — Dòng tiền đến từ tốc độ và khả năng hành động trước người khác. Hoạt động tốt nhất khi: Thị trường đang hình thành hoặc đang có khoảng trống. (TỐC ĐỘ · TIÊN PHONG).</li>
-            <li><strong>03 Cơ Chế Giá Trị</strong> — Dòng tiền đến từ chất lượng mà thị trường sẵn sàng trả cao hơn mặt bằng chung. (CHẤT LƯỢNG · PREMIUM).</li>
-            <li><strong>04 Cơ Chế Chiếm Lĩnh (Xu Hướng)</strong> — Dòng tiền đến từ ý tưởng dẫn dắt xu hướng trước khi thị trường tự nhận ra. (ĐỔI MỚI · XU HƯỚNG).</li>
-            <li><strong>05 Cơ Chế Vận Hành</strong> — Dòng tiền đến từ hệ thống tạo ra kết quả đều đặn và có thể dự báo được. (HỆ THỐNG · DỰ BÁO).</li>
-            <li><strong>06 Cơ Chế Vốn</strong> — Dòng tiền đến từ khả năng nhìn thấy cơ hội tài chính và hành động trước khi thị trường định giá đầy đủ. (ĐẦU TƯ · CƠ HỘI TÀI CHÍNH).</li>
-            <li><strong>07 Cơ Chế Quản Trị</strong> — Dòng tiền đến từ uy tín được xây dựng qua sự nhất quán và tính chính danh theo thời gian. (UY TÍN · DÀI HẠN).</li>
-            <li><strong>08 Cơ Chế Quyền Lực</strong> — Dòng tiền đến từ khả năng tạo ra kết quả trong điều kiện mà người khác rút lui. (ÁP LỰC · KẾT QUẢ KHÓ).</li>
-            <li><strong>09 Cơ Chế Tri Thức</strong> — Dòng tiền đến từ chiều sâu chuyên môn tích lũy mà thị trường sẵn sàng trả giá cao để tiếp cận. (CHUYÊN MÔN · CHIỀU SÂU).</li>
-            <li><strong>10 Cơ Chế Trực Giác</strong> — Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán. Hoạt động tốt nhất khi: Được định vị rõ ràng với đúng thị trường ngách. (GIẢI PHÁP ĐỘC BẢN · NGÁCH).</li>
-          </ul>
+          <div class="ops-table-wrap">
+            <table class="ops-table ops-table--engine">
+              <colgroup>
+                <col style="width:19%"><col style="width:33%"><col style="width:30%"><col style="width:18%">
+              </colgroup>
+              <thead>
+                <tr><th>Cơ Chế Dòng Tiền</th><th>Định Nghĩa</th><th>Hoạt Động Tốt Nhất Khi</th><th>Đặc Trưng</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Đồng Hành</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ năng lực cá nhân độc lập và quyền tự quyết hoàn toàn.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Có quyền kiểm soát hoàn toàn quá trình và kết quả.</td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Tự Chủ · Độc Lập</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Chiếm Lĩnh</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ tốc độ và khả năng hành động trước người khác.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Thị trường đang hình thành hoặc đang có khoảng trống.</td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Tốc Độ · Tiên Phong</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Giá Trị</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ chất lượng mà thị trường sẵn sàng trả cao hơn mặt bằng chung.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Chất Lượng · Premium</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Chiếm Lĩnh (Xu Hướng)</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ ý tưởng dẫn dắt xu hướng trước khi thị trường tự nhận ra.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Đổi Mới · Xu Hướng</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Vận Hành</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ hệ thống tạo ra kết quả đều đặn và có thể dự báo được.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Hệ Thống · Dự Báo</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Vốn</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ khả năng nhìn thấy cơ hội tài chính và hành động trước khi thị trường định giá đầy đủ.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Đầu Tư · Cơ Hội Tài Chính</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Quản Trị</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ uy tín được xây dựng qua sự nhất quán và tính chính danh theo thời gian.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Uy Tín · Dài Hạn</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Quyền Lực</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ khả năng tạo ra kết quả trong điều kiện mà người khác rút lui.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Áp Lực · Kết Quả Khó</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Tri Thức</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ chiều sâu chuyên môn tích lũy mà thị trường sẵn sàng trả giá cao để tiếp cận.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Chuyên Môn · Chiều Sâu</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Trực Giác</td>
+                  <td data-label="Định Nghĩa">Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán.</td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Được định vị rõ ràng với đúng thị trường ngách.</td>
+                  <td data-label="Đặc Trưng"><span class="ops-tag">Giải Pháp Độc Bản · Ngách</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </details>
     </div>
@@ -2169,39 +2196,57 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   </div>
 </section>
 
-<!-- ===================== PRICING 2-CARD ===================== -->
+<!-- ===================== PRICING PREMIUM CARD ===================== -->
 <section class="section theme-light" id="pricing">
-  <div class="container">
-    <span class="eyebrow">Bảng Giá</span>
-    <h2><span class="h2-rule"></span>Mọi Thứ Bạn Cần Để Khởi Đầu</h2>
+  <div class="container-narrow">
+    <span class="eyebrow">EDD Foundation™</span>
+    <h2><span class="h2-rule"></span>Sở Hữu Trọn Bộ Hệ Thống</h2>
 
-    <div class="edd-checkout-balance-container">
-      <div class="checkout-luxury-card offer-card-tier">
-        <div class="card-tier-header">
-          <h3>EDD Foundation™</h3>
-          <p>Thấu suốt cơ chế &amp; Nhận diện chu kỳ</p>
-        </div>
-        <div class="card-tier-price">790.000đ</div>
-        <ul class="card-tier-features-list">
-          <li>06 Module video tự học (dưới 30 phút/bài)</li>
-          <li>Báo cáo phân tích cá nhân EDD Digital (Ngày thứ 7)</li>
-          <li>Bản đồ dự phóng vĩ mô Life Trajectory</li>
-          <li>10 Years Opportunity Heatmap chi tiết</li>
-          <li>Money Engine Profile — Cỗ máy kiếm tiền bẩm sinh</li>
-        </ul>
-        <p class="card-tier-note">Nâng cấp lên hành trình chuyên sâu bất kỳ lúc nào.</p>
-        <a href="dang-ky.html" class="card-tier-cta-btn">Bắt Đầu Trải Nghiệm ↗</a>
+    <div class="pricing-premium-card mt-10">
+      <div class="pricing-premium-header">
+        <h3>EDD Foundation™</h3>
+        <span>Thanh Toán 1 Lần</span>
       </div>
+      <div class="pricing-premium-divider"></div>
 
-      <div class="checkout-luxury-card guarantee-card-tier">
-        <div class="guarantee-badge-circle">
-          <div class="badge-circle-inner"><span>Bảo Đảm</span><strong>5 Ngày</strong><span>Hoàn Tiền</span></div>
-        </div>
-        <h3 class="guarantee-card-title">Bảo Đảm Trải Nghiệm Không Rủi Ro 100%</h3>
-        <div class="guarantee-card-body-text">
-          <p>Chúng tôi tin vào giá trị thực tế mà EDD mang lại cho quá trình ra quyết định của bạn. Đó là lý do bạn có trọn vẹn 5 ngày đầu tiên để tự do học tập và trải nghiệm hệ thống. Nếu bạn cảm thấy không phù hợp, chỉ cần gửi email, chúng tôi sẽ hoàn trả 100% học phí mà không cần lý do.</p>
-        </div>
-      </div>
+      <span class="offer-banner-eyebrow">Ưu Đãi Early Access</span>
+      <div class="offer-banner-strike-ref">790.000đ</div>
+      <div class="offer-banner-price">290.000đ</div>
+      <p class="pricing-premium-note">Mức phí trợ giá áp dụng độc quyền cho 50 người đầu tiên tiếp cận phiên bản EDD Foundation™ 2.0 — đã được nâng cấp toàn diện cấu trúc thuật toán và hệ thống bản đồ dự phóng trước khi chính thức niêm yết ở mức 790.000đ. <strong>Hiện chỉ còn 26/50 suất.</strong></p>
+
+      <div class="pricing-premium-divider"></div>
+
+      <span class="pricing-included-label">Quyền Lợi Trọn Gói</span>
+      <ul class="pricing-benefits">
+        <li>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor" stroke="none"/></svg></span>
+          <div>
+            <strong>6 Modules E-Learning Nền Tảng</strong>
+            <p>Video tự học dưới 30 phút/bài, linh hoạt theo lịch cá nhân.</p>
+          </div>
+        </li>
+        <li>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16.5h6"/></svg></span>
+          <div>
+            <strong>Báo Cáo Phân Tích EDD Digital Độc Bản</strong>
+            <p>Tính toán thủ công riêng biệt, bàn giao ngày thứ 7.</p>
+          </div>
+        </li>
+        <li>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6z"/></svg></span>
+          <div>
+            <strong>Bộ 3 Bản Đồ Dự Phóng</strong>
+            <p>Cơ Chế Dòng Tiền (Money Engine), Quỹ Đạo Cuộc Đời (Life Trajectory) &amp; Biểu Đồ Cơ Hội 10 Năm (10 Years Heatmap).</p>
+          </div>
+        </li>
+      </ul>
+
+      <a href="dang-ky.html" class="btn-primary pricing-cta">Đăng Ký Sở Hữu Ngay →</a>
+    </div>
+
+    <div class="guarantee-box mt-8">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <p>Bảo đảm hoàn tiền 100% không rủi ro trong 5 ngày đầu trải nghiệm phương pháp.</p>
     </div>
   </div>
 </section>
@@ -2221,8 +2266,8 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
         <div class="answer">Các công cụ phân tích tính cách đại trà thường dán nhãn tính cách của bạn vào các nhóm chung chung. EDD đi sâu vào việc chỉ ra cơ chế tạo dòng tiền bẩm sinh và chu kỳ thời gian cụ thể của riêng bạn. Đây là thông tin thực chiến về thời điểm và cấu trúc vận hành cá nhân - thứ mà các bài test khác không cung cấp.</div>
       </details>
       <details class="faq-item">
-        <summary>Phí đầu tư 790.000đ có xứng đáng không?</summary>
-        <div class="answer">Một quyết định sai về thời điểm - như mở rộng vội vã nhầm giai đoạn rủi ro hoặc đầu tư cảm tính khi chu kỳ chưa sẵn sàng - thường có chi phí thực tế từ vài chục đến vài trăm triệu đồng. EDD cung cấp lớp thông tin nền tảng giúp bạn hạn chế tối đa các quyết định đó trong 12 tháng tới. 790,000đ là khoản đầu tư trải nghiệm một lần cho hệ quy chiếu bạn có thể sử dụng suốt đời.</div>
+        <summary>Phí đầu tư 290.000đ có xứng đáng không?</summary>
+        <div class="answer">Một quyết định sai về thời điểm - như mở rộng vội vã nhầm giai đoạn rủi ro hoặc đầu tư cảm tính khi chu kỳ chưa sẵn sàng - thường có chi phí thực tế từ vài chục đến vài trăm triệu đồng. EDD cung cấp lớp thông tin nền tảng giúp bạn hạn chế tối đa các quyết định đó trong 12 tháng tới. 290.000đ (giá chuẩn 790.000đ) là khoản đầu tư trải nghiệm một lần cho hệ quy chiếu bạn có thể sử dụng suốt đời.</div>
       </details>
       <details class="faq-item">
         <summary>Tôi rất bận - liệu có theo kịp lộ trình học không?</summary>
@@ -2315,9 +2360,34 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 
 <script>
 (function () {
+  var wrap = document.querySelector('.intro-video-wrap');
+  if (!wrap) return;
+  var video = wrap.querySelector('.intro-video');
+  var btn = wrap.querySelector('.intro-video-play-btn');
+  var label = wrap.querySelector('.intro-video-label');
+
+  btn.addEventListener('click', function () {
+    video.setAttribute('controls', '');
+    video.play();
+    btn.classList.add('is-hidden');
+    if (label) label.style.opacity = '0';
+  });
+  video.addEventListener('pause', function () {
+    btn.classList.remove('is-hidden');
+    if (label) label.style.opacity = '';
+  });
+  video.addEventListener('ended', function () {
+    btn.classList.remove('is-hidden');
+    if (label) label.style.opacity = '';
+  });
+})();
+</script>
+
+<script>
+(function () {
   var revealSelectors = [
     'h2', '.testimonial-card', '.bubble', '.lesson-card', '.feature-card',
-    '.checkout-luxury-card', '.choice-col', '.cycle-wave', '.outcome-card',
+    '.pricing-premium-card', '.choice-col', '.cycle-stepper', '.outcome-card',
     '.mistake', '.problem-col', '.concept-col', '.floating-card', '.bonus-card',
     '.faq-item', '.report-mock', '.protocol-panel-card', '.instructor-grid2', '.offer-box',
     '.guarantee-box', '.banner-box'
@@ -2356,10 +2426,55 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 
 <script>
 (function () {
-  var wave = document.querySelector('[data-cycle-wave]');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.detail-accordion').forEach(function (det) {
+    var summary = det.querySelector('summary');
+    var body = det.querySelector('.detail-body');
+    if (!summary || !body) return;
+    var animating = false;
+
+    summary.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (animating) return;
+      animating = true;
+
+      if (det.open) {
+        body.style.height = body.scrollHeight + 'px';
+        body.getBoundingClientRect();
+        body.style.height = '0px';
+        var finishClose = function () {
+          body.removeEventListener('transitionend', finishClose);
+          det.open = false;
+          body.style.height = '';
+          animating = false;
+        };
+        body.addEventListener('transitionend', finishClose);
+        setTimeout(finishClose, 400);
+      } else {
+        det.open = true;
+        var endH = body.scrollHeight;
+        body.style.height = '0px';
+        body.getBoundingClientRect();
+        body.style.height = endH + 'px';
+        var finishOpen = function () {
+          body.removeEventListener('transitionend', finishOpen);
+          body.style.height = '';
+          animating = false;
+        };
+        body.addEventListener('transitionend', finishOpen);
+        setTimeout(finishOpen, 400);
+      }
+    });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var stepper = document.querySelector('[data-cycle-stepper]');
   var detail = document.querySelector('[data-cycle-detail]');
-  if (!wave || !detail) return;
-  var nodes = wave.querySelectorAll('.cycle-node');
+  if (!stepper || !detail) return;
+  var nodes = stepper.querySelectorAll('.cycle-step');
   var panels = detail.querySelectorAll('.cycle-detail-panel');
 
   function activate(stage) {
