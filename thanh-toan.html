@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Hoàn Tất Đăng Ký — EDD Foundation™</title>
+<meta name="description" content="Điền thông tin và thanh toán để kích hoạt EDD Foundation™.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#F4EFEA',
+          moss: { DEFAULT: '#1B2C20', surface: '#22352A', surface2: '#263D30' },
+          gold: { DEFAULT: '#C9A657', deep: '#8B7355' },
+        },
+        fontFamily: {
+          heading: ['Montserrat', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  input[type="radio"], input[type="checkbox"] { accent-color: #C9A657; }
+  select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B7355' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { animation: fadeUp .3s cubic-bezier(.16,.84,.44,1); }
+  @media (prefers-reduced-motion: reduce) { .fade-up { animation: none; } }
+  input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type="number"] { -moz-appearance: textfield; }
+</style>
+</head>
+<body class="bg-cream text-moss font-body antialiased">
+
+<!-- ===================== TOP BAR ===================== -->
+<header class="bg-moss text-cream sticky top-0 z-30 border-b border-gold-deep/20">
+  <div class="max-w-2xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+    <div class="font-heading font-extrabold text-lg tracking-tight">EDD <span class="text-gold">Foundation™</span></div>
+    <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-gold/15 text-gold border border-gold/30">
+      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Thanh Toán An Toàn
+    </div>
+  </div>
+</header>
+
+<main class="max-w-2xl mx-auto px-4 md:px-8 py-10 md:py-16">
+
+  <div class="text-center mb-10">
+    <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gold-deep">
+      <span class="w-4 h-px bg-gold-deep"></span> EDD Foundation™ <span class="w-4 h-px bg-gold-deep"></span>
+    </span>
+    <h1 class="font-heading text-2xl md:text-3xl font-extrabold text-moss mt-3">Hoàn Tất Đăng Ký</h1>
+    <p class="mt-2 text-[15px] text-moss/65 max-w-md mx-auto">Điền chính xác thông tin bên dưới để chúng tôi tính toán đúng Hồ Sơ Phân Tích EDD dành riêng cho bạn.</p>
+  </div>
+
+  <form id="checkoutForm" novalidate>
+
+    <!-- ===================== 1. THÔNG TIN CÁ NHÂN ===================== -->
+    <section class="bg-white rounded-2xl border border-gold/20 p-6 md:p-8">
+      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-5">01 · Thông Tin Cá Nhân</div>
+
+      <label class="block text-[13px] font-semibold mb-1.5">Họ và tên <span class="text-red-700/70">*</span></label>
+      <input type="text" name="fullName" required placeholder="Ví dụ: Nguyễn Văn A"
+        class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+
+      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Giới tính <span class="text-red-700/70">*</span></label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="cursor-pointer">
+          <input type="radio" name="gender" value="Nam" required class="peer sr-only">
+          <div class="text-center py-3 rounded-full border border-moss/15 text-[14px] font-semibold text-moss/60 peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-moss transition-colors">Nam</div>
+        </label>
+        <label class="cursor-pointer">
+          <input type="radio" name="gender" value="Nữ" required class="peer sr-only">
+          <div class="text-center py-3 rounded-full border border-moss/15 text-[14px] font-semibold text-moss/60 peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-moss transition-colors">Nữ</div>
+        </label>
+      </div>
+
+      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Ngày sinh (Dương lịch) <span class="text-red-700/70">*</span></label>
+      <div class="grid grid-cols-3 gap-3">
+        <input type="number" name="birthDay" id="birthDay" required placeholder="Ngày" min="1" max="31" inputmode="numeric"
+          class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+        <input type="number" name="birthMonth" id="birthMonth" required placeholder="Tháng" min="1" max="12" inputmode="numeric"
+          class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+        <input type="number" name="birthYear" id="birthYear" required placeholder="Năm" min="1940" max="2026" inputmode="numeric"
+          class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+      </div>
+
+      <div class="flex items-center justify-between mt-5 mb-1.5">
+        <label class="block text-[13px] font-semibold">Giờ sinh</label>
+        <label class="inline-flex items-center gap-1.5 text-[12.5px] text-moss/60 cursor-pointer">
+          <input type="checkbox" id="unknownTime" class="rounded"> Không rõ giờ sinh
+        </label>
+      </div>
+      <select name="birthTimeSlot" id="birthTimeSlot" class="w-full px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold disabled:opacity-40 disabled:bg-moss/5">
+        <option value="">Chọn khung giờ sinh (Canh giờ Bát tự)</option>
+        <option value="ty">Giờ Tý (23:00 – 00:59)</option>
+        <option value="suu">Giờ Sửu (01:00 – 02:59)</option>
+        <option value="dan">Giờ Dần (03:00 – 04:59)</option>
+        <option value="mao">Giờ Mão (05:00 – 06:59)</option>
+        <option value="thin">Giờ Thìn (07:00 – 08:59)</option>
+        <option value="ti">Giờ Tị (09:00 – 10:59)</option>
+        <option value="ngo">Giờ Ngọ (11:00 – 12:59)</option>
+        <option value="mui">Giờ Mùi (13:00 – 14:59)</option>
+        <option value="than">Giờ Thân (15:00 – 16:59)</option>
+        <option value="dau">Giờ Dậu (17:00 – 18:59)</option>
+        <option value="tuat">Giờ Tuất (19:00 – 20:59)</option>
+        <option value="hoi">Giờ Hợi (21:00 – 22:59)</option>
+        <option value="unknown" hidden>Không rõ giờ sinh</option>
+      </select>
+
+      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Email nhận báo cáo <span class="text-red-700/70">*</span></label>
+      <input type="email" name="email" required placeholder="abc@gmail.com"
+        class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+      <p class="mt-1.5 text-[12px] text-moss/45 italic">Bản báo cáo EDD & Khoá học sẽ được gửi về email này.</p>
+
+      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Số điện thoại / Zalo <span class="text-red-700/70">*</span></label>
+      <input type="tel" name="phone" id="phoneInput" required placeholder="09xxxxxxxx" inputmode="numeric"
+        class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+      <p class="mt-1.5 text-[12px] text-moss/45 italic">Dùng để hỗ trợ kích hoạt nhanh và xác nhận giao dịch.</p>
+    </section>
+
+    <!-- ===================== 2. UPSELL ===================== -->
+    <section class="mt-6">
+      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-3 px-1">02 · Nâng Cấp Trải Nghiệm (Tùy Chọn)</div>
+
+      <label class="block cursor-pointer mb-3">
+        <input type="checkbox" id="upsell1" class="peer sr-only">
+        <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Bộ Tài Liệu Vận Hành Cá Nhân · EDD Digital</span>
+              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Architecture Type Playbook™</div>
+              <p class="mt-2 text-[13px] leading-relaxed text-moss/70">Giải mã vì sao cùng một quyết định lại tạo ra kết quả hoàn toàn khác nhau ở mỗi người.<br>51 trang: bài test tự đánh giá + 10 kiểu cấu trúc vận hành gốc + 8 tổ hợp vận hành đồng thời.</p>
+            </div>
+            <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell1Box">
+              <svg class="w-4 h-4 text-white hidden" id="upsell1Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
+            <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng</span>
+            <span class="font-heading font-extrabold text-gold text-[16px]" id="upsell1PriceLabel">+149.000đ</span>
+          </div>
+        </div>
+      </label>
+
+      <label class="block cursor-pointer">
+        <input type="checkbox" id="upsell2" class="peer sr-only">
+        <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Bộ Tài Liệu Vận Hành Cá Nhân · EDD Digital</span>
+              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Money Engine Field Guide™</div>
+              <p class="mt-2 text-[13px] leading-relaxed text-moss/70">Chỉ rõ vì sao kết quả tài chính vẫn khó kiểm soát dù bối cảnh đang thuận lợi.<br>52 trang: bài test tự đánh giá + 10 cơ chế tài chính gốc + 8 tổ hợp cơ chế kết hợp.</p>
+            </div>
+            <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell2Box">
+              <svg class="w-4 h-4 text-white hidden" id="upsell2Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
+            <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng</span>
+            <span class="font-heading font-extrabold text-gold text-[16px]" id="upsell2PriceLabel">+149.000đ</span>
+          </div>
+        </div>
+      </label>
+    </section>
+
+    <!-- ===================== 3. ORDER SUMMARY ===================== -->
+    <section class="mt-6 bg-moss rounded-2xl p-6 md:p-8 text-cream">
+      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold mb-4">03 · Tóm Tắt Đơn Hàng</div>
+      <div class="space-y-2 text-[14px]">
+        <div class="flex justify-between"><span class="text-cream/70" id="baseNameLabel">EDD Foundation™</span><span id="baseAmountLabel">—</span></div>
+        <div class="flex justify-between hidden" id="upsell1Row"><span class="text-cream/70">Architecture Type Playbook™</span><span id="upsell1AmountLabel">+149.000đ</span></div>
+        <div class="flex justify-between hidden" id="upsell2Row"><span class="text-cream/70">Money Engine Field Guide™</span><span id="upsell2AmountLabel">+149.000đ</span></div>
+      </div>
+      <div class="flex justify-between items-baseline mt-4 pt-4 border-t border-cream/15">
+        <span class="font-heading font-bold text-[15px]">Tổng Thanh Toán</span>
+        <span class="font-heading font-extrabold text-gold text-[26px]" id="totalLabel">—</span>
+      </div>
+    </section>
+
+    <!-- ===================== 4. THANH TOÁN ===================== -->
+    <section class="mt-6 bg-white rounded-2xl border border-gold/20 p-6 md:p-8">
+      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-5">04 · Chuyển Khoản Thanh Toán</div>
+
+      <div class="space-y-2.5 text-[14px] mb-6">
+        <div class="flex justify-between"><span class="text-moss/55">Ngân hàng</span><strong>MB Bank</strong></div>
+        <div class="flex justify-between"><span class="text-moss/55">Số tài khoản</span><strong class="font-mono">0123456789</strong></div>
+        <div class="flex justify-between"><span class="text-moss/55">Chủ tài khoản</span><strong>CONG TY TNHH EDD FOUNDATION</strong></div>
+        <div class="flex justify-between"><span class="text-moss/55">Nội dung CK</span><strong class="font-mono text-gold-deep" id="ckContentLabel">EDD ...</strong></div>
+        <div class="flex justify-between"><span class="text-moss/55">Số tiền</span><strong id="qrAmountLabel">—</strong></div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="p-3 bg-cream rounded-2xl border border-gold/20">
+          <img id="qrImg" alt="Mã VietQR thanh toán" class="w-56 h-56 object-contain" onerror="this.style.display='none'; document.getElementById('qrFallback').classList.remove('hidden');">
+          <div id="qrFallback" class="hidden w-56 h-56 flex items-center justify-center text-center text-[12px] text-moss/50 px-4">Mã QR sẽ hiển thị khi kết nối tài khoản ngân hàng thật</div>
+        </div>
+        <p class="mt-3 text-[12.5px] text-moss/50 text-center max-w-xs">Quét mã bằng app ngân hàng bất kỳ, hoặc chuyển khoản thủ công theo đúng thông tin trên — nội dung chuyển khoản phải khớp chính xác để hệ thống đối soát tự động.</p>
+      </div>
+    </section>
+
+    <button type="submit" id="submitBtn" class="w-full mt-8 py-4 rounded-full bg-gradient-to-br from-[#D9BB70] via-[#C9A657] to-[#8B7355] text-[#1B2C20] font-heading font-extrabold text-[15px] shadow-lg hover:shadow-xl transition-shadow disabled:opacity-50 disabled:cursor-not-allowed">
+      Xác Nhận Đã Chuyển Khoản & Gửi Thông Tin →
+    </button>
+    <p class="mt-4 text-[12.5px] text-moss/50 text-center leading-relaxed flex items-center justify-center gap-1.5">
+      <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Toàn bộ thông tin cá nhân được bảo mật tuyệt đối, chỉ dùng để tính toán Hồ Sơ Phân Tích EDD của riêng bạn.
+    </p>
+    <p class="mt-2 text-[12px] text-red-700/70 text-center hidden" id="formError">Vui lòng điền đầy đủ các trường bắt buộc (*).</p>
+  </form>
+
+  <!-- ===================== SUCCESS STATE ===================== -->
+  <div id="successState" class="hidden fade-up text-center py-10">
+    <div class="w-16 h-16 mx-auto rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold-deep">
+      <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <h2 class="font-heading text-xl font-extrabold text-moss mt-4">Đã Ghi Nhận Thông Tin!</h2>
+    <p class="mt-2 text-[14px] text-moss/65 max-w-sm mx-auto">Chúng tôi sẽ đối soát giao dịch và gửi tài khoản học + xác nhận qua email trong ít phút. Nội dung chuyển khoản của bạn:</p>
+    <p class="mt-3 inline-block px-4 py-2 rounded-full bg-moss text-cream font-mono text-[14px]" id="successCkContent">—</p>
+  </div>
+
+</main>
+
+<script>
+(function () {
+  // ── Giá & thông tin ngân hàng — thay bằng thông tin thật trước khi go-live ──
+  var params = new URLSearchParams(window.location.search);
+  var storedOrder = JSON.parse(sessionStorage.getItem('order') || '{}');
+  var BASE_PRICE = parseInt(params.get('price'), 10) || storedOrder.totalAmount || 290000;
+  var UPSELL1_PRICE = 149000; // Architecture Type Playbook™ — giá đề xuất, xác nhận lại trước khi dùng thật
+  var UPSELL2_PRICE = 149000; // Money Engine Field Guide™ — giá đề xuất, xác nhận lại trước khi dùng thật
+
+  var BANK_CODE = 'MBBank';        // TODO: thay mã ngân hàng thật (theo chuẩn VietQR)
+  var ACCOUNT_NUMBER = '0123456789'; // TODO: thay số tài khoản thật
+  var GAS_URL = '';                 // TODO: gắn Google Apps Script endpoint thật để ghi đơn hàng
+
+  function fmt(n) { return Number(n).toLocaleString('en-US').replace(/,/g, '.') + 'đ'; }
+
+  // ── Ngày / tháng / năm: tự giới hạn số chữ số khi nhập ──
+  function clampDigits(id, maxLen) {
+    var el = document.getElementById(id);
+    el.addEventListener('input', function () {
+      if (el.value.length > maxLen) el.value = el.value.slice(0, maxLen);
+    });
+  }
+  clampDigits('birthDay', 2);
+  clampDigits('birthMonth', 2);
+  clampDigits('birthYear', 4);
+
+  // ── Giờ sinh: 12 canh giờ Bát Tự ──
+  var timeSlotSel = document.getElementById('birthTimeSlot');
+  document.getElementById('unknownTime').addEventListener('change', function (e) {
+    var off = e.target.checked;
+    timeSlotSel.disabled = off;
+    timeSlotSel.required = !off;
+    timeSlotSel.value = off ? 'unknown' : '';
+  });
+
+  // ── Tổng tiền & QR ──
+  var els = {
+    baseAmount: document.getElementById('baseAmountLabel'),
+    upsell1Row: document.getElementById('upsell1Row'),
+    upsell2Row: document.getElementById('upsell2Row'),
+    upsell1Box: document.getElementById('upsell1Box'),
+    upsell2Box: document.getElementById('upsell2Box'),
+    upsell1Check: document.getElementById('upsell1Check'),
+    upsell2Check: document.getElementById('upsell2Check'),
+    total: document.getElementById('totalLabel'),
+    qrAmount: document.getElementById('qrAmountLabel'),
+    qrImg: document.getElementById('qrImg'),
+    ckContent: document.getElementById('ckContentLabel'),
+    successCk: document.getElementById('successCkContent'),
+  };
+
+  function ckContent() {
+    var phone = document.getElementById('phoneInput').value.replace(/\D/g, '');
+    return 'EDD ' + (phone || '...');
+  }
+
+  function recalc() {
+    var total = BASE_PRICE;
+    var u1 = document.getElementById('upsell1').checked;
+    var u2 = document.getElementById('upsell2').checked;
+    if (u1) total += UPSELL1_PRICE;
+    if (u2) total += UPSELL2_PRICE;
+
+    els.baseAmount.textContent = fmt(BASE_PRICE);
+    els.upsell1Row.classList.toggle('hidden', !u1);
+    els.upsell2Row.classList.toggle('hidden', !u2);
+    els.upsell1Check.classList.toggle('hidden', !u1);
+    els.upsell2Check.classList.toggle('hidden', !u2);
+    els.upsell1Box.classList.toggle('bg-gold', u1);
+    els.upsell1Box.classList.toggle('border-gold', u1);
+    els.upsell2Box.classList.toggle('bg-gold', u2);
+    els.upsell2Box.classList.toggle('border-gold', u2);
+    els.total.textContent = fmt(total);
+    els.qrAmount.textContent = fmt(total);
+
+    var content = ckContent();
+    els.ckContent.textContent = content;
+    els.qrImg.style.display = '';
+    document.getElementById('qrFallback').classList.add('hidden');
+    els.qrImg.src = 'https://img.vietqr.io/image/' + BANK_CODE + '-' + ACCOUNT_NUMBER + '-compact2.png?amount=' + total + '&addInfo=' + encodeURIComponent(content);
+
+    return { total: total, u1: u1, u2: u2, ckContent: content };
+  }
+
+  document.getElementById('upsell1').addEventListener('change', recalc);
+  document.getElementById('upsell2').addEventListener('change', recalc);
+  document.getElementById('phoneInput').addEventListener('input', recalc);
+  recalc();
+
+  // ── Submit ──
+  document.getElementById('checkoutForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var form = e.target;
+    var errEl = document.getElementById('formError');
+    if (!form.checkValidity()) {
+      errEl.classList.remove('hidden');
+      form.reportValidity();
+      return;
+    }
+    errEl.classList.add('hidden');
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Đang gửi...';
+
+    var state = recalc();
+    var fd = new FormData(form);
+    var payload = {
+      action: 'createOrder',
+      data: {
+        fullName: fd.get('fullName'),
+        gender: fd.get('gender'),
+        birthDate: fd.get('birthYear') + '-' + String(fd.get('birthMonth')).padStart(2, '0') + '-' + String(fd.get('birthDay')).padStart(2, '0'),
+        birthTimeSlot: document.getElementById('unknownTime').checked ? 'unknown' : fd.get('birthTimeSlot'),
+        birthTimeSlotLabel: document.getElementById('unknownTime').checked ? 'Không rõ giờ sinh' : timeSlotSel.selectedOptions[0].textContent,
+        unknownBirthTime: document.getElementById('unknownTime').checked,
+        email: fd.get('email'),
+        phone: fd.get('phone'),
+        upsell1: state.u1,
+        upsell2: state.u2,
+        totalAmount: state.total,
+        ckContent: state.ckContent,
+      }
+    };
+
+    sessionStorage.setItem('edd_checkout_submission', JSON.stringify(payload.data));
+
+    if (GAS_URL) {
+      try {
+        await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
+      } catch (err) { console.error('Gửi đơn hàng thất bại, đã lưu tạm vào trình duyệt:', err); }
+    }
+
+    els.successCk.textContent = state.ckContent;
+    form.classList.add('hidden');
+    document.getElementById('successState').classList.remove('hidden');
+    document.getElementById('successState').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>
