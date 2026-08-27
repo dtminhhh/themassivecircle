@@ -1207,11 +1207,24 @@ section[id] { scroll-margin-top: 74px; }
   h2 .h2-rule { margin-bottom: 14px; }
   .mt-10 { margin-top: 32px; } .mt-12 { margin-top: 36px; } .mt-16 { margin-top: 44px; }
 
-  /* Hero — let the headline flow instead of 3 hard breaks; smaller + tighter */
+  /* Hero — sentence-case headline w/ gold key phrases, compact eyebrow, thin deck copy */
   .hero { padding: 40px 0 var(--section-py); }
-  .hero h1 { font-size: clamp(1.5rem, 6.3vw, 2rem); line-height: 1.18; letter-spacing: -0.015em; }
-  .hero .eyebrow { letter-spacing: 0.1em; margin-bottom: 14px; }
-  .hero .subhead { font-size: 0.84rem; margin-top: 16px; }
+  .hero .eyebrow {
+    font-size: 0.56rem; letter-spacing: 0.04em; margin-bottom: 18px;
+    color: rgba(201, 166, 87, 0.8); text-wrap: balance; max-width: 300px;
+    margin-left: auto; margin-right: auto;
+  }
+  .hero h1.uppercase { text-transform: none; }
+  .hero h1 {
+    font-size: clamp(1.6rem, 6.7vw, 2.15rem);
+    line-height: 1.34; letter-spacing: -0.005em; color: #F4EFE6;
+  }
+  .hero h1 .hl-h { color: var(--accent); }
+  .hero .subhead {
+    font-size: 0.82rem; line-height: 1.62; margin-top: 18px;
+    font-weight: 300; color: rgba(242, 237, 227, 0.66);
+  }
+  .hero .subhead strong { font-weight: 600; }
   .hero .social-proof-mini { margin-top: 16px; }
   .hero .mt-8 { margin-top: 24px; }
   .scroll-arrow { margin-top: 26px; }
@@ -1333,7 +1346,7 @@ section[id] { scroll-margin-top: 74px; }
 <section class="hero theme-dark" id="hero">
   <div class="container">
     <span class="eyebrow" style="display:block;text-align:center;">Dành Cho Founder &amp; Nhà&nbsp;Điều&nbsp;Hành Đang Căng&nbsp;Thẳng Vì Dòng&nbsp;Tiền</span>
-    <h1 class="uppercase">Phương&nbsp;Pháp Giúp Doanh&nbsp;Nhân Bảo&nbsp;Toàn <br class="desktop-break">Dòng&nbsp;Tiền &amp; Né&nbsp;Tránh 90% Quyết&nbsp;Định <br class="desktop-break">Sai Thời&nbsp;Điểm</h1>
+    <h1 class="uppercase">Phương&nbsp;Pháp Giúp Doanh&nbsp;Nhân <span class="hl-h">Bảo&nbsp;Toàn <br class="desktop-break">Dòng&nbsp;Tiền</span> &amp; Né&nbsp;Tránh <span class="hl-h">90% Quyết&nbsp;Định <br class="desktop-break">Sai Thời&nbsp;Điểm</span></h1>
     <p class="subhead">Khám phá “Cỗ Máy Tạo&nbsp;Tiền Bẩm&nbsp;Sinh” và giải mã Chu&nbsp;Kỳ 10&nbsp;Năm của riêng bạn<br class="desktop-break"> — để biết chính xác <strong style="color:var(--text)">NĂM NÀO</strong> nên tất tay mở rộng,<br class="mobile-break"> <strong style="color:var(--text)">THÁNG NÀO</strong> phải phòng&nbsp;thủ bảo toàn vốn.<br class="mobile-break"> Dứt điểm 90% quyết&nbsp;định đầu&nbsp;tư sai thời&nbsp;điểm mà không phải đánh&nbsp;cược với sự may&nbsp;rủi.</p>
     <p class="social-proof-mini">Trải nghiệm 5 ngày không rủi ro ·<br class="mobile-break"> Đã có hơn 100+ nhà điều&nbsp;hành tham&nbsp;gia</p>
     <div class="mt-8">
