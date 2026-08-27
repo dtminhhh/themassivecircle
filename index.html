@@ -688,15 +688,6 @@ p { color: var(--text-muted); }
   font-style: italic; color: var(--text); text-align: left; font-size: 0.94rem;
 }
 
-/* ── Sticky mobile CTA ── */
-.sticky-cta {
-  display: none; position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px;
-  background: rgba(19, 31, 23, 0.96); backdrop-filter: blur(12px);
-  border-top: 1px solid var(--accent); z-index: 200;
-}
-.sticky-cta a { display: block; text-align: center; }
-/* Mobile visibility is handled in the MOBILE POLISH block below. */
-
 footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,237,227,.08); text-align: center; color: rgba(242,237,227,.5); font-size: 0.85rem; }
 
 /* =========================================================
@@ -1185,9 +1176,6 @@ section[id] { scroll-margin-top: 74px; }
 /* Release compositor layers after an element has revealed (long-scroll perf) */
 .reveal.is-visible { will-change: auto; }
 
-/* Nav CTA lives only inside the mobile dropdown */
-.nav-cta { display: none; }
-
 /* ---- Hamburger dropdown menu (<=700px, where .nav-links is hidden) ---- */
 .hamburger { padding: 0; height: 18px; justify-content: center; }
 .hamburger span { transition: transform .25s ease, opacity .2s ease; transform-origin: center; }
@@ -1206,34 +1194,9 @@ section[id] { scroll-margin-top: 74px; }
     font-size: 0.95rem; color: rgba(242, 237, 227, 0.85);
   }
   .nav-links.is-open a:last-child { border-bottom: none; }
-  .nav-links.is-open .nav-cta {
-    display: block; margin-top: 10px; padding: 13px 16px; text-align: center;
-    background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
-    color: #1B2C20; font-family: var(--font-h); font-weight: 700; border-radius: 999px;
-  }
   .hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.is-open span:nth-child(2) { opacity: 0; }
   .hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-}
-
-/* ---- Sticky bottom CTA — re-enabled for mobile (was display:none) ---- */
-@media (max-width: 760px) {
-  .sticky-cta {
-    display: block;
-    transform: translateY(130%);
-    transition: transform .38s cubic-bezier(.16, .84, .44, 1);
-    padding: 9px 14px calc(9px + env(safe-area-inset-bottom, 0px));
-    border-top: 1px solid rgba(201, 166, 87, 0.55);
-  }
-  .sticky-cta.is-visible { transform: translateY(0); }
-  .sticky-cta .btn-primary {
-    display: block; width: 100%; text-align: center;
-    padding: 15px 18px; font-size: 0.98rem;
-    box-shadow: 0 6px 22px rgba(201, 166, 87, 0.32);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .sticky-cta { transition: none; }
 }
 
 /* ---- Vertical-rhythm + decorative-icon tightening for phones ---- */
@@ -1344,9 +1307,6 @@ section[id] { scroll-margin-top: 74px; }
   /* Journey badge reads better as a soft rectangle when it wraps */
   .journey-step-badge { border-radius: 10px; }
 
-  /* Keep footer clear of the sticky CTA bar */
-  footer { padding-bottom: 104px; }
-
   /* Stacked dark sections — make the ambient divider a hairline, not a glowing box */
   .depth-section::after { height: 84px; opacity: 0.55; }
   .depth-section::before { width: min(920px, 60%); }
@@ -1364,7 +1324,6 @@ section[id] { scroll-margin-top: 74px; }
       <a href="#curriculum">Lộ Trình</a>
       <a href="#pricing">Bảng Giá</a>
       <a href="#faq">FAQ</a>
-      <a href="thanh-toan.html" class="nav-cta">Học thử 5 ngày →</a>
     </div>
     <button type="button" class="hamburger" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
   </div>
@@ -2674,11 +2633,6 @@ section[id] { scroll-margin-top: 74px; }
   </div>
 </footer>
 
-<!-- ===================== STICKY MOBILE CTA ===================== -->
-<div class="sticky-cta">
-  <a href="thanh-toan.html" class="btn-primary">Học&nbsp;Thử Miễn&nbsp;Phí 5 Ngày →</a>
-</div>
-
 <script>
 (function () {
   var wrap = document.querySelector('.intro-video-wrap');
@@ -2912,26 +2866,6 @@ section[id] { scroll-margin-top: 74px; }
         setOpen(false);
       }
     });
-  }
-
-  /* ---- Sticky bottom CTA: show after the hero scrolls away,
-         hide again once the final CTA block is on screen ---- */
-  var sticky = document.querySelector('.sticky-cta');
-  var hero = document.getElementById('hero');
-  var finalCta = document.querySelector('.final-cta-box');
-  if (sticky && 'IntersectionObserver' in window) {
-    var pastHero = false, atFinal = false;
-    var sync = function () { sticky.classList.toggle('is-visible', pastHero && !atFinal); };
-    if (hero) {
-      new IntersectionObserver(function (e) {
-        pastHero = !e[0].isIntersecting; sync();
-      }, { rootMargin: '-180px 0px 0px 0px' }).observe(hero);
-    }
-    if (finalCta) {
-      new IntersectionObserver(function (e) {
-        atFinal = e[0].isIntersecting; sync();
-      }, { rootMargin: '0px 0px -40px 0px' }).observe(finalCta);
-    }
   }
 })();
 </script>
