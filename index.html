@@ -756,7 +756,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 .concept-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 48px; margin-top: 24px; }
 .concept-col { text-align: center; }
 @media (min-width: 901px) {
-  .concept-col h3 { font-size: 1.25rem; white-space: nowrap; }
+  .concept-col h3 { font-size: 1.25rem; }
 }
 @media (max-width: 900px) {
   .concept-col h3 { font-size: 0.85rem; }
@@ -774,8 +774,8 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   color: var(--accent); text-transform: uppercase; margin-bottom: 8px; opacity: .9;
 }
 .superpower-container {
-  position: relative; display: grid; grid-template-columns: 1fr 1fr;
-  gap: 40px; max-width: 1000px; margin: 0 auto; padding: 60px 20px;
+  position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px; max-width: 1000px; margin: 0 auto; padding: 60px 20px;
 }
 .center-energy-gate {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -1192,28 +1192,34 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
       <span class="line2">Vẫn Chưa Thể Chuyển&nbsp;Hóa Thành Kết&nbsp;Quả Đạt Kỳ&nbsp;Vọng?</span>
     </h2>
 
+    <p class="sub-lead">Nếu bạn đang trải qua những cảm&nbsp;giác này...</p>
+
     <div class="problem-cols">
       <div class="problem-col">
-        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.3-9C1.3 7.8 2.6 5 5.4 4.4c1.8-.4 3.5.4 4.6 1.9C11 4.8 12.7 4 14.5 4.4c2.8.6 4.1 3.4 2.7 6.6C15 15 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8l-1.5 3 2 1.5-1.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <h3>1. Bạn Hành&nbsp;Động Sai Trạng&nbsp;Thái<br>(Điểm&nbsp;mù bên trong)</h3>
-        <p>Bạn mải mê tìm cách kiểm soát biến số bên ngoài trước khi ra quyết định nhưng lại không rõ cấu trúc năng lượng bên trong của mình. <strong style="color:var(--text)">Bạn không biết mình đang ở chu kỳ đóng hay mở</strong>, dẫn đến cảm giác thiếu chắc chắn và "đến đâu xoay đến đó".</p>
+        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V11M9 20V5M14 20v-8M19 20v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <h3>Nỗ&nbsp;Lực Gấp&nbsp;Đôi<br>Nhưng Dòng&nbsp;Tiền Bất&nbsp;Ổn</h3>
+        <p>Làm việc 14 tiếng/ngày nhưng số dư tài khoản không tăng tương ứng.</p>
       </div>
       <div class="problem-col">
-        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12c2-4 4 4 6 0s4-4 6 0 4-4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="6" r="2" stroke="currentColor" stroke-width="1.6"/></svg></span>
-        <h3>2. Bạn Hành&nbsp;Động Sai Thời&nbsp;Điểm<br>(Hiệu&nbsp;ứng trễ)</h3>
-        <p>Bạn đưa ra quyết định dựa trên bối cảnh hiện tại nhưng chưa đánh giá được rủi ro trong giai đoạn tiếp theo. <strong style="color:var(--text)">Một quyết định đúng về khả năng nhưng sai về thời điểm</strong> thường khiến bạn tốn nhiều nguồn lực gấp nhiều lần.</p>
+        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v9M12 12l-6 3M12 12l6 3M6 15v6M18 15v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>Đứng Trước Quyết&nbsp;Định Lớn<br>Nhưng Mờ&nbsp;Mịt</h3>
+        <p>Bơm tiền mở rộng hay thu hẹp phòng thủ? Mọi thứ hiện tại chỉ dựa vào "cảm giác" hoặc may rủi.</p>
+      </div>
+      <div class="problem-col">
+        <span class="icon icon-xl"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v10M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 20h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <h3>Kiệt&nbsp;Sức Cấu&nbsp;Trúc</h3>
+        <p>Cảm giác vô định với chặng đường tiếp theo dù từng đạt nhiều cột mốc lớn trong quá khứ.</p>
       </div>
     </div>
 
-    <p class="bridge-statement">Bạn cần một phương&nbsp;pháp để <em>thấu&nbsp;suốt cấu&nbsp;trúc bản&nbsp;thân</em><br class="desktop-break"> và đưa ra các quyết&nbsp;định kinh&nbsp;doanh một cách tự&nbsp;tin nhất.</p>
-    <p class="sub-lead">Đây là cách hệ thống này vận hành...</p>
+    <p class="bridge-statement">Vấn đề không phải là bạn phải nỗ&nbsp;lực nhiều hơn.<br class="desktop-break"> Vấn đề là bạn đang <em>vận&nbsp;hành ngược chu&nbsp;kỳ năng&nbsp;lượng tự&nbsp;nhiên</em> của chính mình.</p>
     <div class="scroll-arrow">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 5 6-5M6 15l6 5 6-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
 
     <div class="banner-box">
       <h2 class="banner-title-market" style="text-align:center;">Bên Trong Bạn Luôn Có Một Cấu&nbsp;Trúc Tạo Dòng&nbsp;Tiền Tự&nbsp;Nhiên Miễn Là Bạn Vận&nbsp;Hành Nó <br class="mobile-break"><span class="banner-highlight">Đúng Thời&nbsp;Điểm</span></h2>
-      <p>Hãy để tôi chỉ cho bạn cách làm&nbsp;chủ nhịp&nbsp;độ chu&nbsp;kỳ cá&nbsp;nhân để đưa các quyết&nbsp;định kinh&nbsp;doanh và tài&nbsp;chính đi đến kết&nbsp;quả rõ&nbsp;ràng nhất.</p>
+      <p>Đây không phải là bài test tính&nbsp;cách MBTI hay Thần&nbsp;số&nbsp;học đoán mò trên mạng. EDD Foundation™ là hệ thống thẩm&nbsp;định dữ&nbsp;liệu vận&nbsp;hành cá&nbsp;nhân — kết hợp thuật&nbsp;toán Bát&nbsp;Tự cổ đại (chu kỳ 1.500 năm) với tư duy Quản&nbsp;trị tài&nbsp;chính hiện đại để giải mã 2 giá&nbsp;trị cốt lõi:</p>
     </div>
   </div>
 </section>
@@ -1226,15 +1232,15 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
         <div class="concept-asset">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8l4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
         </div>
-        <h3>Cấu trúc năng lượng là bệ đỡ của nội&nbsp;lực.</h3>
-        <p class="mt-4">Nó định hình điểm mạnh bẩm sinh, cách bạn xử lý thông tin và cơ chế tạo ra dòng tiền tự nhiên nhất mà không cần gượng ép sao chép bất kỳ ai.</p>
+        <h3>Money&nbsp;Engine™ (Cỗ&nbsp;Máy Tạo&nbsp;Tiền Bẩm&nbsp;Sinh)</h3>
+        <p class="mt-4">Điểm mạnh cốt lõi giúp bạn hút dòng tiền tự nhiên nhất mà không cần gượng ép sao chép bất kỳ ai.</p>
       </div>
       <div class="concept-col">
         <div class="concept-asset">
           <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12M6 21h12M7 3c0 5 4 6 5 9-1 3-5 4-5 9M17 3c0 5-4 6-5 9 1 3 5 4 5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3>Tính thời điểm là đòn bẩy của ngoại&nbsp;lực.</h3>
-        <p class="mt-4">Nó chỉ rõ quỹ đạo chu kỳ của riêng bạn trong từng giai đoạn. Giúp bạn nhận diện khi nào nên bứt phá mở rộng và khi nào cần thu mình bảo toàn nguồn lực.</p>
+        <h3>Life&nbsp;Trajectory™ (Bản&nbsp;Đồ Chu&nbsp;Kỳ 10&nbsp;Năm)</h3>
+        <p class="mt-4">Ra đòn đúng thời điểm — biết chính xác năm nào nên tăng tốc bứt phá, năm nào cần đóng băng bảo toàn nguồn lực.</p>
       </div>
     </div>
     <p class="bridge-statement">Đó là lý do vì sao khi kết&nbsp;hợp cả hai yếu&nbsp;tố Cá&nbsp;Nhân & Thời&nbsp;Thế, <br class="desktop-break">bạn sẽ sở&nbsp;hữu một hệ quy&nbsp;chiếu sắc&nbsp;bén nhất để dứt&nbsp;điểm mọi quyết&nbsp;định mơ&nbsp;hồ trong kinh&nbsp;doanh, tài&nbsp;chính và sự&nbsp;nghiệp.</p>
@@ -1244,26 +1250,42 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 <!-- ===================== KHAI PHÓNG NỘI LỰC (4-quadrant) ===================== -->
 <section class="section theme-dark depth-section" id="solution">
   <div class="container">
-    <div class="quadrant-bgtext">Khai Phóng Nội Lực!</div>
+    <div class="quadrant-bgtext">Khi Nắm Được Nhịp&nbsp;Độ Chu&nbsp;Kỳ Này, Bạn Sẽ:</div>
     <div class="superpower-container">
-      <div class="center-energy-gate"></div>
+      <div class="floating-card">
+        <h4>Dứt Điểm Sự Mơ Hồ</h4>
+        <p>Tự tin ra quyết định đầu tư, nhân sự và mở rộng kinh doanh mà không còn cảm giác chới với.</p>
+      </div>
+      <div class="floating-card">
+        <h4>Bảo Toàn Hàng Tỷ Đồng "Tiền Ngu"</h4>
+        <p>Né tránh các giai đoạn nhạy cảm — nơi một quyết định sai lầm có thể đốt sạch thành quả nhiều năm tích lũy.</p>
+      </div>
+      <div class="floating-card">
+        <h4>Kích Hoạt Dòng Tiền Tự Nhiên</h4>
+        <p>Làm ít hơn nhưng hiệu quả cao hơn vì bạn đang đi thuận chiều con sóng năng lượng.</p>
+      </div>
+    </div>
 
-      <div class="floating-card">
-        <h4>Ra Quyết Định Thấu Suốt</h4>
-        <p>Dứt điểm các lựa chọn mơ hồ. Nhận diện rõ nét cấu trúc chu kỳ để đưa ra những bước đi kinh doanh và tài chính tự tin nhất.</p>
-      </div>
-      <div class="floating-card">
-        <h4>Vận Hành Với Sự Tự Tin</h4>
-        <p>Làm chủ nhịp độ chu kỳ cá nhân để biết chính xác thời điểm nào phù hợp để tăng tốc bứt phá, thời điểm nào cần phòng thủ vững vàng.</p>
-      </div>
-      <div class="floating-card">
-        <h4>Tối Ưu Hiệu Suất Dòng Tiền</h4>
-        <p>Kích hoạt cỗ máy kiếm tiền tự nhiên (Money Engine) bẩm sinh của riêng bạn, thu hút nguồn lực một cách thuận tự nhiên và không gượng ép.</p>
-      </div>
-      <div class="floating-card">
-        <h4>Giải Phóng Thế Mạnh Bẩm Sinh</h4>
-        <p>Đọc vị chính xác điểm mạnh cốt lõi và kiểm soát hoàn toàn điểm mù tự nhiên, định vị bản thân vững vàng ở phân cấp xứng tầm.</p>
-      </div>
+    <div class="audience-list mt-8" style="max-width:640px;margin-left:auto;margin-right:auto;">
+      <div class="not-fit-box" style="color:var(--text-muted)">Bạn <strong style="color:var(--text)">KHÔNG</strong> cần phải học các kiến thức cổ học hay lý thuyết phức tạp.</div>
+      <div class="not-fit-box" style="color:var(--text-muted)">Bạn <strong style="color:var(--text)">KHÔNG</strong> cần thay đổi bản thân hay cố trở thành một ai khác.</div>
+      <div class="audience-item">Tất cả đã được đúc kết thành <strong>Bản Báo Cáo EDD Digital Độc Bản</strong>, tính toán riêng biệt theo đúng ngày tháng năm và giờ sinh của bạn.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPEN LOOP + RISK-FREE CTA ===================== -->
+<section class="section theme-dark depth-section" id="open-loop">
+  <div class="container">
+    <p class="bridge-statement">Ngay bên dưới đây, bạn sẽ thấy chính&nbsp;xác bản báo&nbsp;cáo này trông như thế nào,<br class="desktop-break"> và cách chuỗi bài học tinh&nbsp;gọn (dưới 30&nbsp;phút/ngày) giúp bạn đọc vị cỗ&nbsp;máy kiếm&nbsp;tiền của mình ra sao.</p>
+
+    <div class="guarantee-box mt-8" style="max-width:760px;margin-left:auto;margin-right:auto;">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <p>Bạn có trọn vẹn 5 ngày trải nghiệm hệ thống. Nếu cảm thấy phương pháp này không mang lại sự rõ ràng cho bạn, chỉ cần gửi 1 tin nhắn — chúng tôi sẽ hoàn lại 290.000đ ngay lập tức, không hỏi thêm bất kỳ câu nào.</p>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="thanh-toan.html" class="btn-primary">Khám&nbsp;Phá Báo&nbsp;Cáo & Trải&nbsp;Nghiệm 5 Ngày Ngay — Chỉ 290K →</a>
     </div>
   </div>
 </section>
