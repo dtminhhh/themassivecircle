@@ -746,6 +746,34 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
   max-width: 640px; margin-left: auto; margin-right: auto; text-align: center;
 }
+
+/* ── 7-Day Journey (3-step timeline) ── */
+.journey-steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  max-width: 980px; margin-left: auto; margin-right: auto;
+}
+.journey-step {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px 24px; text-align: left;
+}
+.journey-step-num {
+  display: flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+  border-radius: 50%; background: var(--accent); color: #1B2C20; font-weight: 800;
+  font-family: var(--font-h); font-size: 0.82rem; margin-bottom: 16px;
+}
+.journey-step-day {
+  display: block; font-family: var(--font-h); font-weight: 700; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+.journey-step h4 { font-size: 1rem; margin-bottom: 10px; }
+.journey-step p { font-size: 0.9rem; margin: 0; }
+.journey-step-badge {
+  display: inline-block; margin-top: 16px; padding: 6px 12px; border-radius: 999px;
+  background: rgba(201,166,87,.14); color: var(--accent); font-size: 0.72rem; font-weight: 700; line-height: 1.4;
+}
+@media (max-width: 860px) {
+  .journey-steps { grid-template-columns: 1fr; }
+}
 .micro-lead-compare-col {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 22px;
 }
@@ -1338,15 +1366,35 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   <div class="container">
     <p class="bridge-statement" style="margin-top:0;">Bạn không cần phải tin lời tôi ngay bây giờ.<br class="desktop-break"> Hãy để dữ liệu tự chứng minh cho bạn.</p>
 
-    <p class="text-center mt-8" style="max-width:760px;margin-left:auto;margin-right:auto;">Chúng tôi mở quyền truy cập toàn bộ 5 Module Đào tạo Nền tảng + Xử lý Báo cáo Cá nhân với mức phí tượng trưng: <strong style="color:var(--text)">290.000đ</strong> <span style="text-decoration:line-through;color:var(--text-muted);">(Giá chuẩn: 790.000đ)</span>.</p>
+    <h2 class="mt-12" style="text-align:center;max-width:820px;margin-left:auto;margin-right:auto;"><span class="h2-rule" style="margin-left:auto;margin-right:auto;"></span>Lộ&nbsp;Trình 7 Ngày: Từ Nền&nbsp;Tảng Tư&nbsp;Duy<br class="mobile-break"> Đến Báo&nbsp;Cáo Thực&nbsp;Thi</h2>
+    <p class="sub-lead">Mỗi ngày 1 bài học tinh&nbsp;gọn dưới 30 phút — Học theo nhịp cá&nbsp;nhân</p>
 
-    <div class="guarantee-box mt-8" style="max-width:760px;margin-left:auto;margin-right:auto;">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <p>Cam kết Hoàn Tiền 100% Trong 5 Ngày, Không Cần Lý Do: Trải nghiệm toàn bộ hệ thống tư duy trong 5 ngày đầu. Nếu bạn cảm thấy nội dung này không mang lại sự rõ ràng và giá trị vượt trội cho các quyết định kinh doanh của mình, chỉ cần gửi 1 tin nhắn. Chúng tôi sẽ hoàn trả 290.000đ vào tài khoản của bạn ngay lập tức — không hỏi thêm bất kỳ câu nào. Bạn không có bất kỳ rủi ro nào.</p>
+    <div class="journey-steps mt-10">
+      <div class="journey-step">
+        <span class="journey-step-num">1</span>
+        <span class="journey-step-day">Ngày 1 – 5</span>
+        <h4>5 Module Nền Tảng &amp; Trải Nghiệm Không Rủi Ro</h4>
+        <p>Kích hoạt hệ quy chiếu, giải mã cấu trúc năng lượng và nhận diện cỗ máy dòng tiền cá nhân.</p>
+        <span class="journey-step-badge">100% Hoàn tiền trong 5 ngày nếu không hài lòng</span>
+      </div>
+      <div class="journey-step">
+        <span class="journey-step-num">2</span>
+        <span class="journey-step-day">Ngày 6</span>
+        <h4>Module 06 — Lộ Trình Cuộc Đời (Module Bản Lề)</h4>
+        <p>Ghép toàn bộ mảnh ghép thành bức tranh tổng thể, tự định vị chặng đường hiện tại và chủ động đón đầu các bước ngoặt trước khi tiếp nhận báo cáo.</p>
+      </div>
+      <div class="journey-step">
+        <span class="journey-step-num">3</span>
+        <span class="journey-step-day">Ngày 7</span>
+        <h4>Bàn Giao Báo Cáo EDD Độc Bản</h4>
+        <p>Nhận bản báo cáo 20+ trang được thẩm định và tính toán thủ công theo đúng dữ liệu sinh thần của bạn qua email.</p>
+      </div>
     </div>
 
-    <div class="text-center mt-10">
-      <a href="thanh-toan.html" class="btn-primary">Nhận&nbsp;Báo&nbsp;Cáo Cá&nbsp;Nhân &amp; Trải&nbsp;Nghiệm 5 Ngày Không Rủi&nbsp;Ro (Chỉ 290.000đ) →</a>
+    <p class="text-center mt-10" style="max-width:640px;margin-left:auto;margin-right:auto;">Trọn bộ 6 Module + Báo cáo xử lý thủ công: <strong style="color:var(--text)">290.000đ</strong> <span style="text-decoration:line-through;color:var(--text-muted);">(Giá chuẩn: 790.000đ)</span></p>
+
+    <div class="text-center mt-8">
+      <a href="thanh-toan.html" class="btn-primary">Bắt&nbsp;Đầu Ngày 1 &amp; Trải&nbsp;Nghiệm 5 Ngày Không Rủi&nbsp;Ro →</a>
     </div>
   </div>
 </section>
