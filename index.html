@@ -143,7 +143,7 @@ p { color: var(--text-muted); }
   background: rgba(27, 44, 32, 0.9); backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(242, 237, 227, 0.1);
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; position: relative; }
 .nav-logo { font-family: var(--font-h); font-weight: 700; font-size: 1.05rem; color: #F2EDE3; }
 .nav-logo span { color: var(--accent); }
 .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: rgba(242,237,227,.75); }
@@ -695,9 +695,7 @@ p { color: var(--text-muted); }
   border-top: 1px solid var(--accent); z-index: 200;
 }
 .sticky-cta a { display: block; text-align: center; }
-@media (max-width: 760px) {
-  .sticky-cta { display: none; }
-}
+/* Mobile visibility is handled in the MOBILE POLISH block below. */
 
 footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,237,227,.08); text-align: center; color: rgba(242,237,227,.5); font-size: 0.85rem; }
 
@@ -1173,6 +1171,186 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   background: radial-gradient(ellipse 100% 100% at 50% 0%, rgba(201,166,87,.1) 0%, transparent 70%);
 }
 .depth-section > .container, .depth-section > .container-narrow { position: relative; z-index: 3; }
+
+/* =========================================================
+   MOBILE POLISH v1 (2026-08-27)
+   Tighter direct-response rhythm, smaller decorative icons,
+   calmer motion, working sticky CTA + hamburger menu.
+   All scoped — remove this block to fully revert.
+   ========================================================= */
+
+/* Anchor jumps (nav + mobile menu) clear the sticky nav bar */
+section[id] { scroll-margin-top: 74px; }
+
+/* Release compositor layers after an element has revealed (long-scroll perf) */
+.reveal.is-visible { will-change: auto; }
+
+/* Nav CTA lives only inside the mobile dropdown */
+.nav-cta { display: none; }
+
+/* ---- Hamburger dropdown menu (<=700px, where .nav-links is hidden) ---- */
+.hamburger { padding: 0; height: 18px; justify-content: center; }
+.hamburger span { transition: transform .25s ease, opacity .2s ease; transform-origin: center; }
+@media (min-width: 701px) { .hamburger { display: none; } }
+@media (max-width: 700px) {
+  .nav-links.is-open {
+    display: flex; flex-direction: column; gap: 0;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: #16241A;
+    border-bottom: 1px solid var(--accent-deep);
+    padding: 4px 24px 16px;
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.5);
+  }
+  .nav-links.is-open a {
+    padding: 13px 2px; border-bottom: 1px solid rgba(242, 237, 227, 0.08);
+    font-size: 0.95rem; color: rgba(242, 237, 227, 0.85);
+  }
+  .nav-links.is-open a:last-child { border-bottom: none; }
+  .nav-links.is-open .nav-cta {
+    display: block; margin-top: 10px; padding: 13px 16px; text-align: center;
+    background: linear-gradient(135deg, #D9BB70 0%, var(--accent) 55%, var(--accent-deep) 100%);
+    color: #1B2C20; font-family: var(--font-h); font-weight: 700; border-radius: 999px;
+  }
+  .hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.is-open span:nth-child(2) { opacity: 0; }
+  .hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+/* ---- Sticky bottom CTA — re-enabled for mobile (was display:none) ---- */
+@media (max-width: 760px) {
+  .sticky-cta {
+    display: block;
+    transform: translateY(130%);
+    transition: transform .38s cubic-bezier(.16, .84, .44, 1);
+    padding: 9px 14px calc(9px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid rgba(201, 166, 87, 0.55);
+  }
+  .sticky-cta.is-visible { transform: translateY(0); }
+  .sticky-cta .btn-primary {
+    display: block; width: 100%; text-align: center;
+    padding: 15px 18px; font-size: 0.98rem;
+    box-shadow: 0 6px 22px rgba(201, 166, 87, 0.32);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticky-cta { transition: none; }
+}
+
+/* ---- Vertical-rhythm + decorative-icon tightening for phones ---- */
+@media (max-width: 900px) {
+  :root { --section-py: clamp(46px, 9vw, 74px); }
+
+  p, li { line-height: 1.6; }
+  h2 .h2-rule { margin-bottom: 14px; }
+  .mt-10 { margin-top: 32px; } .mt-12 { margin-top: 36px; } .mt-16 { margin-top: 44px; }
+
+  /* Hero — let the headline flow instead of 3 hard breaks; smaller + tighter */
+  .hero { padding: 40px 0 var(--section-py); }
+  .hero h1 { font-size: clamp(1.5rem, 6.3vw, 2rem); line-height: 1.18; letter-spacing: -0.015em; }
+  .hero .eyebrow { letter-spacing: 0.1em; margin-bottom: 14px; }
+  .hero .subhead { font-size: 0.84rem; margin-top: 16px; }
+  .hero .social-proof-mini { margin-top: 16px; }
+  .hero .mt-8 { margin-top: 24px; }
+  .scroll-arrow { margin-top: 26px; }
+
+  /* Social-proof strip */
+  .grid-4 { gap: 14px; }
+  .testimonial-card { padding: 24px 22px; }
+
+  /* Phần 1 — paradox hook */
+  .micro-lead-hook { font-size: 1.05rem; line-height: 1.5; }
+  .micro-lead-compare { gap: 14px; }
+  .micro-lead-compare-col { padding: 20px 18px; }
+  .micro-lead-compare-col .icon-xl { width: 30px; height: 30px; margin-bottom: 8px; }
+
+  /* Phần 2 — Cơ Chế: shrink the oversized dashed circles, close the 72px gap */
+  .concept-grid { gap: 26px; margin-top: 28px; }
+  .concept-asset {
+    width: 58px; height: 58px; margin-bottom: 14px;
+    border-style: solid; border-color: var(--border);
+  }
+  .concept-asset svg { width: 26px; height: 26px; }
+  .bridge-statement { margin-top: 0; }
+
+  /* Phần 3 — belief banner */
+  .banner-box { padding: 34px 22px; margin-top: 0; }
+  .sub-lead { margin-top: 28px; }
+
+  /* Phần 4 — future pacing */
+  .not-fit-box { padding: 18px 20px; margin-top: 12px; }
+  .audience-list { gap: 10px; }
+  .audience-item { padding: 15px 18px 15px 46px; font-size: 0.92rem; }
+  .audience-item::before { top: 15px; left: 15px; }
+
+  /* Phần 5 — fascinations */
+  .superpower-container { gap: 14px; padding: 26px 0 0; }
+  .floating-card { padding: 22px 20px; }
+  .floating-card p { font-size: 0.88rem; }
+
+  /* Phần 6 — 7-day journey: number sits inline with the day label */
+  .journey-steps { gap: 14px; margin-top: 28px; }
+  .journey-step {
+    padding: 22px 20px;
+    display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 4px; align-items: center;
+  }
+  .journey-step-num { width: 24px; height: 24px; font-size: 0.72rem; margin-bottom: 0; }
+  .journey-step-day { margin-bottom: 0; }
+  .journey-step h4 { grid-column: 1 / -1; margin-top: 6px; }
+  .journey-step p { grid-column: 1 / -1; }
+  .journey-step-badge { grid-column: 1 / -1; margin-top: 10px; }
+
+  /* Report preview */
+  .report-preview-grid { gap: 26px; margin-top: 28px; }
+  .report-mock-eyebrow { letter-spacing: 0.12em; margin-bottom: 16px; }
+  .report-mock-slide .report-mock-body { padding: 26px 22px 18px; }
+  .report-mock-viewport { height: 448px; }
+
+  /* Intro / E-System */
+  .metrics-bar { margin-top: 34px; padding: 24px 0; }
+  .luxury-layered-showcase-container { margin: 30px auto; }
+
+  /* Bubble testimonials */
+  .bubble-masonry-clip { margin-top: 26px; }
+  .bubble { padding: 18px 18px 16px; margin-bottom: 14px; }
+
+  /* Comparison */
+  #comparison .cycle-stepper { margin-top: 26px; }
+  .detail-accordion { margin-bottom: 10px; }
+
+  /* Network / protocol */
+  .protocol-transition-card { margin-top: 40px; padding: 30px 22px; }
+
+  /* Pricing */
+  .pricing-premium-card { padding: 32px 22px; }
+  .pricing-benefits { gap: 16px; }
+
+  /* FAQ */
+  .faq-item summary { padding: 16px 18px; font-size: 0.94rem; }
+  .faq-item .answer { padding: 0 18px 18px; }
+
+  /* Instructor */
+  .instructor-bio-panel { padding: 36px 24px; }
+  .instructor-photo { min-height: 360px; }
+  .instructor-metrics { padding: 18px 12px; gap: 4px; }
+  .instructor-metrics .i-num { font-size: 1.05rem; }
+  .instructor-metrics .i-label { font-size: 0.55rem; line-height: 1.3; }
+
+  /* Final choice */
+  .choice-col { padding: 26px 22px; }
+  .final-cta-box { margin-top: 40px; }
+  .final-cta-box .btn-primary { padding: 16px 24px; }
+  .ps-note { margin-top: 26px; padding: 18px; }
+
+  /* Journey badge reads better as a soft rectangle when it wraps */
+  .journey-step-badge { border-radius: 10px; }
+
+  /* Keep footer clear of the sticky CTA bar */
+  footer { padding-bottom: 104px; }
+
+  /* Stacked dark sections — make the ambient divider a hairline, not a glowing box */
+  .depth-section::after { height: 84px; opacity: 0.55; }
+  .depth-section::before { width: min(920px, 60%); }
+}
 </style>
 </head>
 <body>
@@ -1181,13 +1359,14 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 <nav class="nav">
   <div class="container nav-inner">
     <div class="nav-logo">EDD <span>Foundation™</span></div>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="#solution">Cơ Chế</a>
       <a href="#curriculum">Lộ Trình</a>
       <a href="#pricing">Bảng Giá</a>
       <a href="#faq">FAQ</a>
+      <a href="thanh-toan.html" class="nav-cta">Học thử 5 ngày →</a>
     </div>
-    <div class="hamburger"><span></span><span></span><span></span></div>
+    <button type="button" class="hamburger" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -1195,7 +1374,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 <section class="hero theme-dark" id="hero">
   <div class="container">
     <span class="eyebrow" style="display:block;text-align:center;">Dành Cho Founder &amp; Nhà&nbsp;Điều&nbsp;Hành Đang Căng&nbsp;Thẳng Vì Dòng&nbsp;Tiền</span>
-    <h1 class="uppercase">Phương&nbsp;Pháp Giúp Doanh&nbsp;Nhân Bảo&nbsp;Toàn<br>Dòng&nbsp;Tiền &amp; Né&nbsp;Tránh 90% Quyết&nbsp;Định<br>Sai Thời&nbsp;Điểm</h1>
+    <h1 class="uppercase">Phương&nbsp;Pháp Giúp Doanh&nbsp;Nhân Bảo&nbsp;Toàn <br class="desktop-break">Dòng&nbsp;Tiền &amp; Né&nbsp;Tránh 90% Quyết&nbsp;Định <br class="desktop-break">Sai Thời&nbsp;Điểm</h1>
     <p class="subhead">Khám phá “Cỗ Máy Tạo&nbsp;Tiền Bẩm&nbsp;Sinh” và giải mã Chu&nbsp;Kỳ 10&nbsp;Năm của riêng bạn<br class="desktop-break"> — để biết chính xác <strong style="color:var(--text)">NĂM NÀO</strong> nên tất tay mở rộng,<br class="mobile-break"> <strong style="color:var(--text)">THÁNG NÀO</strong> phải phòng&nbsp;thủ bảo toàn vốn.<br class="mobile-break"> Dứt điểm 90% quyết&nbsp;định đầu&nbsp;tư sai thời&nbsp;điểm mà không phải đánh&nbsp;cược với sự may&nbsp;rủi.</p>
     <p class="social-proof-mini">Trải nghiệm 5 ngày không rủi ro ·<br class="mobile-break"> Đã có hơn 100+ nhà điều&nbsp;hành tham&nbsp;gia</p>
     <div class="mt-8">
@@ -2658,7 +2837,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   function startAutoplay() {
     if (reducedMotion) return;
     stopAutoplay();
-    autoplayTimer = setInterval(function () { goTo(current + 1); }, 5000);
+    autoplayTimer = setInterval(function () { goTo(current + 1); }, 6500);
   }
 
   function stopAutoplay() {
@@ -2694,8 +2873,66 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   slider.addEventListener('mouseenter', stopAutoplay);
   slider.addEventListener('mouseleave', startAutoplay);
 
+  /* Pause the carousel while it is off-screen so it isn't churning
+     under the user during a scroll (calmer, less jank on mobile). */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) startAutoplay();
+        else stopAutoplay();
+      });
+    }, { threshold: 0.35 }).observe(slider);
+  }
+
   goTo(0);
   startAutoplay();
+})();
+</script>
+
+<script>
+(function () {
+  /* ---- Mobile hamburger dropdown ---- */
+  var ham = document.querySelector('.hamburger');
+  var links = document.getElementById('nav-links');
+  if (ham && links) {
+    var setOpen = function (open) {
+      links.classList.toggle('is-open', open);
+      ham.classList.toggle('is-open', open);
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    ham.addEventListener('click', function () {
+      setOpen(!links.classList.contains('is-open'));
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') setOpen(false);
+    });
+    document.addEventListener('click', function (e) {
+      if (links.classList.contains('is-open') &&
+          !links.contains(e.target) && !ham.contains(e.target)) {
+        setOpen(false);
+      }
+    });
+  }
+
+  /* ---- Sticky bottom CTA: show after the hero scrolls away,
+         hide again once the final CTA block is on screen ---- */
+  var sticky = document.querySelector('.sticky-cta');
+  var hero = document.getElementById('hero');
+  var finalCta = document.querySelector('.final-cta-box');
+  if (sticky && 'IntersectionObserver' in window) {
+    var pastHero = false, atFinal = false;
+    var sync = function () { sticky.classList.toggle('is-visible', pastHero && !atFinal); };
+    if (hero) {
+      new IntersectionObserver(function (e) {
+        pastHero = !e[0].isIntersecting; sync();
+      }, { rootMargin: '-180px 0px 0px 0px' }).observe(hero);
+    }
+    if (finalCta) {
+      new IntersectionObserver(function (e) {
+        atFinal = e[0].isIntersecting; sync();
+      }, { rootMargin: '0px 0px -40px 0px' }).observe(finalCta);
+    }
+  }
 })();
 </script>
 </body>
