@@ -654,20 +654,29 @@ p { color: var(--text-muted); }
 
 /* ── Audience fit ── */
 .audience-list { display: grid; gap: 14px; }
-.audience-item {
-  background: var(--surface-2); padding: 18px 24px 18px 56px; border-radius: 10px;
-  position: relative; color: var(--text); border: 1px solid var(--border); font-size: 0.96rem;
+
+/* #future-pacing — the 2 "not-fit" (✕) cards and the 4 "audience" (✓) cards
+   share ONE geometry (width / padding / radius). The icon is a flex child,
+   vertically centred against the text block and never squashed. */
+.audience-item, .not-fit-box {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 22px; border-radius: 12px; margin: 0;
+  color: var(--text); font-size: 0.96rem;
+}
+.audience-item { background: var(--surface-2); border: 1px solid var(--border); }
+.not-fit-box  { background: var(--surface); border: 1px dashed var(--border); }
+.audience-item > span, .not-fit-box > span { flex: 1; min-width: 0; }
+
+.audience-item::before, .not-fit-box::before {
+  flex-shrink: 0; width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; line-height: 1;
 }
 .audience-item::before {
-  content: "✓"; position: absolute; left: 20px; top: 18px; width: 24px; height: 24px;
-  background: var(--accent); color: #1B2C20; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;
+  content: "✓"; background: var(--accent); color: #1B2C20;
+  border-radius: 50%; font-size: 0.85rem;
 }
-.not-fit-box {
-  background: var(--surface); border: 1px dashed var(--border);
-  border-radius: var(--radius); padding: 24px 26px; margin-top: 20px;
-}
-.not-fit-box::before { content: "✕ "; color: #8B4444; font-weight: 700; }
+.not-fit-box::before { content: "✕"; color: #8B4444; font-size: 1rem; }
 
 /* ── FAQ ── */
 .faq-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
@@ -1293,10 +1302,8 @@ section[id] { scroll-margin-top: 74px; }
   .sub-lead { margin-top: 28px; }
 
   /* Phần 4 — future pacing */
-  .not-fit-box { padding: 18px 20px; margin-top: 12px; }
   .audience-list { gap: 10px; }
-  .audience-item { padding: 15px 18px 15px 46px; font-size: 0.92rem; }
-  .audience-item::before { top: 15px; left: 15px; }
+  .audience-item, .not-fit-box { padding: 15px 16px; gap: 14px; font-size: 0.92rem; }
 
   /* Phần 5 — fascinations */
   .superpower-container { gap: 14px; padding: 26px 0 0; }
@@ -1514,18 +1521,18 @@ section[id] { scroll-margin-top: 74px; }
 <!-- ===================== PHẦN 4 · OBJECTION HANDLING & FUTURE PACING ===================== -->
 <section class="section theme-dark depth-section" id="future-pacing">
   <div class="container">
-    <div class="audience-list" style="max-width:640px;margin-left:auto;margin-right:auto;">
-      <div class="not-fit-box" style="color:var(--text-muted)">Bạn <strong style="color:var(--text)">KHÔNG</strong> cần phải là chuyên gia phong thủy.</div>
-      <div class="not-fit-box" style="color:var(--text-muted)">Bạn cũng <strong style="color:var(--text)">KHÔNG</strong> cần phải thay đổi tính cách hay biến mình thành một ai khác.</div>
+    <div class="audience-list" style="max-width:680px;margin-left:auto;margin-right:auto;">
+      <div class="not-fit-box" style="color:var(--text-muted)"><span>Bạn <strong style="color:var(--text)">KHÔNG</strong> cần phải là chuyên gia phong thủy.</span></div>
+      <div class="not-fit-box" style="color:var(--text-muted)"><span>Bạn cũng <strong style="color:var(--text)">KHÔNG</strong> cần phải thay đổi tính cách hay biến mình thành một ai khác.</span></div>
     </div>
 
     <p class="text-center mt-10" style="max-width:640px;margin-left:auto;margin-right:auto;">Tất cả những gì bạn cần làm là ngừng vận&nbsp;hành ngược với dòng chảy tự&nbsp;nhiên của mình.<br class="desktop-break"> Hãy hình dung cảm giác trong 12 tháng tới:</p>
 
-    <div class="audience-list mt-8" style="max-width:720px;margin-left:auto;margin-right:auto;">
-      <div class="audience-item">Bạn bước vào mọi cuộc đàm phán với sự điềm tĩnh tuyệt đối, vì biết rõ đây là thời điểm chiến lược của mình.</div>
-      <div class="audience-item">Bạn chấm dứt hoàn toàn cảm giác tội lỗi khi phải gồng gánh những việc không thuộc thế mạnh bẩm sinh.</div>
-      <div class="audience-item">Bạn bảo toàn hàng trăm triệu (thậm chí hàng tỷ đồng) tiền thử nghiệm sai, vì biết trước năm nào thị trường chỉ mang lại sự rủi ro tài chính.</div>
-      <div class="audience-item">Dòng tiền và công việc kinh doanh tìm lại nhịp thở ổn định, giải phóng bạn khỏi sự kiệt sức triền miên.</div>
+    <div class="audience-list mt-8" style="max-width:680px;margin-left:auto;margin-right:auto;">
+      <div class="audience-item"><span>Bạn bước vào mọi cuộc đàm phán với sự điềm tĩnh tuyệt đối, vì biết rõ đây là thời điểm chiến lược của mình.</span></div>
+      <div class="audience-item"><span>Bạn chấm dứt hoàn toàn cảm giác tội lỗi khi phải gồng gánh những việc không thuộc thế mạnh bẩm sinh.</span></div>
+      <div class="audience-item"><span>Bạn bảo toàn hàng trăm triệu (thậm chí hàng tỷ đồng) tiền thử nghiệm sai, vì biết trước năm nào thị trường chỉ mang lại sự rủi ro tài chính.</span></div>
+      <div class="audience-item"><span>Dòng tiền và công việc kinh doanh tìm lại nhịp thở ổn định, giải phóng bạn khỏi sự kiệt sức triền miên.</span></div>
     </div>
   </div>
 </section>
