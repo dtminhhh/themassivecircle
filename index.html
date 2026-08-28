@@ -168,7 +168,6 @@ p { color: var(--text-muted); }
   line-height: 1.3; letter-spacing: -0.018em; color: #F4EFE6;
 }
 .hero h1 .hl-h { color: var(--accent); }
-.hero .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; color: rgba(201,166,87,.82); }
 .hero .subhead {
   font-size: clamp(0.95rem, 1.5vw, 1.12rem); max-width: 820px; margin: 20px auto 0;
   color: rgba(242,237,227,.9); font-weight: 400;
@@ -1170,6 +1169,55 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 .depth-section > .container, .depth-section > .container-narrow { position: relative; z-index: 3; }
 
 /* =========================================================
+   TYPE HIERARCHY v2 (2026-08-28) — size / weight / leading /
+   contrast only. Sharper reading rhythm: commanding headlines,
+   recessive labels, decisive card titles, calm body, dominant
+   price + CTA, whisper-quiet notes. Delete this block to revert.
+   ========================================================= */
+
+/* Tier 4 · body — readable, relaxed, one clear step below headings.
+   (Redefined on the theme classes, not :root, so it beats the
+   .theme-dark / .theme-light token blocks by proximity + source order.) */
+.theme-dark  { --text-muted: rgba(242, 237, 227, 0.78); }
+.theme-light { --text-muted: rgba(36, 53, 42, 0.72); }
+p { line-height: 1.68; }
+p strong, li strong { color: var(--text); font-weight: 700; }
+
+/* Tier 1 · section headlines + leverage lines — big, condensed, loud */
+h2 { font-size: clamp(1.65rem, 4.7vw, 3rem); line-height: 1.14; letter-spacing: -0.025em; }
+h2 .h2-rule { height: 3px; width: 48px; margin-bottom: 20px; }
+.bridge-statement { font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 700; line-height: 1.45; color: var(--text); }
+.banner-box h2 { font-size: clamp(1.4rem, 3.7vw, 2.4rem); line-height: 1.18; }
+
+/* Tier 2 · eyebrows / labels / sequence numbers — quiet positioning marks */
+.eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; color: rgba(201,166,87,.9); margin-bottom: 16px; }
+.hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; color: rgba(201,166,87,.85); }
+.sub-lead { font-size: 1rem; font-weight: 400; line-height: 1.55; }
+.phase-num, .bonus-card .bonus-num, .feature-card .feature-num { font-size: 0.72rem; letter-spacing: 0.06em; }
+
+/* Tier 3 · card titles — decisive, detached from the copy below */
+h3 { font-size: clamp(1.14rem, 2.1vw, 1.38rem); font-weight: 800; line-height: 1.28; }
+.floating-card h4, .concept-col h3, .journey-step h4,
+.lesson-card .lesson-title, .pricing-benefits li strong, .report-toc .toc-desc strong {
+  font-size: clamp(1.05rem, 1.7vw, 1.22rem); font-weight: 800; line-height: 1.3; margin-bottom: 10px;
+}
+.floating-card p, .journey-step p, .pricing-benefits li p { line-height: 1.6; }
+.faq-item summary { font-size: 1.02rem; font-weight: 700; }
+
+/* Tier 5 · price + CTA — the loudest anchors on the page */
+.btn-primary { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.008em; }
+.offer-banner-price { font-size: clamp(2.7rem, 6.4vw, 3.8rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em; }
+.offer-banner-strike-ref { font-size: 0.82rem; color: rgba(242,237,227,.42); }
+.price-now { font-family: var(--font-h); font-weight: 900; font-size: 1.32em; color: var(--accent); letter-spacing: -0.01em; }
+.price-was { font-size: 0.9em; color: rgba(242,237,227,.5); text-decoration: line-through; }
+
+/* Tier 6 · notes & legal — minimised, low contrast */
+.ps-note { font-size: 0.82rem; line-height: 1.6; color: rgba(242,237,227,.6); }
+.report-caption { font-size: 0.84rem; color: rgba(36,53,42,.62); }
+.pricing-premium-note { font-size: 0.8rem; color: rgba(242,237,227,.55); }
+footer, footer p { font-size: 0.8rem; color: rgba(242,237,227,.45); }
+
+/* =========================================================
    MOBILE POLISH v1 (2026-08-27)
    Tighter direct-response rhythm, smaller decorative icons,
    calmer motion, working sticky CTA + hamburger menu.
@@ -1543,7 +1591,7 @@ section[id] { scroll-margin-top: 74px; }
       </div>
     </div>
 
-    <p class="text-center mt-10" style="max-width:640px;margin-left:auto;margin-right:auto;">Trọn bộ 6 Module + Báo cáo xử lý thủ công: <strong style="color:var(--text)">290.000đ</strong> <span style="text-decoration:line-through;color:var(--text-muted);">(Giá chuẩn: 790.000đ)</span></p>
+    <p class="text-center mt-10" style="max-width:640px;margin-left:auto;margin-right:auto;">Trọn bộ 6 Module + Báo cáo xử lý thủ công: <strong class="price-now">290.000đ</strong> <span class="price-was">Giá chuẩn: 790.000đ</span></p>
 
     <div class="text-center mt-8">
       <a href="thanh-toan.html" class="btn-primary">Bắt&nbsp;Đầu Ngày 1 &amp; Trải&nbsp;Nghiệm 5 Ngày Không Rủi&nbsp;Ro →</a>
