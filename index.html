@@ -802,18 +802,33 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
   font-family: var(--font-h); font-weight: 800; font-size: clamp(3rem, 10vw, 7rem);
   color: rgba(242,237,227,.045); text-transform: uppercase; pointer-events: none; padding: 0 24px; z-index: 0; white-space: nowrap;
 }
+/* ── PHẦN 2 (#solution) — statement headline + concept columns (story-hero visual language) ── */
+.solution-statement {
+  text-align: center; max-width: 1000px; margin: 0 auto;
+  font-family: var(--font-h); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(1.8rem, 4.9vw, 3.3rem); line-height: 1.08; letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.solution-statement .ss-a { display: block; color: #F6F1E7; }
+.solution-statement .ss-b { display: block; color: rgba(242, 237, 227, 0.4); margin-top: 2px; }
+
+.solution-lead {
+  text-align: center; max-width: 620px; margin: 32px auto 0;
+  color: var(--text-muted); line-height: 1.7; font-size: 0.98rem;
+}
+.solution-lead strong { color: var(--text); font-weight: 700; }
+
 .concept-grid {
   position: relative; z-index: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: 52px; max-width: 820px; margin: 24px auto 0;
+  gap: 60px; max-width: 900px; margin: 76px auto 0;
 }
 .concept-col { text-align: center; }
-.concept-col h3 { margin-bottom: 12px; }
-.concept-col p { font-size: 0.9rem; margin-left: auto; margin-right: auto; text-wrap: pretty; }
-.concept-asset {
-  width: 110px; height: 110px; margin: 0 auto 20px; border-radius: 50%; background: var(--surface);
-  border: 1px dashed var(--accent-deep); display: flex; align-items: center; justify-content: center; color: var(--accent);
-}
-.concept-asset svg { width: 48px; height: 48px; }
+.concept-icon { display: block; width: 46px; height: 46px; margin: 0 auto 26px; color: rgba(242, 237, 227, 0.5); }
+.concept-icon svg { width: 100%; height: 100%; display: block; }
+.concept-col h3 { color: var(--accent); }
+.concept-col h3 .c-num { margin-right: 9px; font-weight: 700; color: rgba(201, 166, 87, 0.6); }
+.concept-col p { font-size: 0.94rem; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.65; text-wrap: pretty; }
+.concept-col p strong { color: var(--text); font-weight: 700; }
 
 /* ── Khai Phóng Nội Lực (CSS-only centerpiece, no external image) ── */
 .quadrant-bgtext {
@@ -1189,9 +1204,6 @@ p strong, li strong { color: var(--text); font-weight: 700; }
 h2 { font-size: clamp(1.65rem, 4.7vw, 3rem); line-height: 1.14; letter-spacing: -0.025em; }
 h2 .h2-rule { height: 3px; width: 48px; margin-bottom: 20px; }
 .bridge-statement { font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 700; line-height: 1.45; color: var(--text); }
-/* #solution's bridge is a longer lead-in, not a short punch line — match it
-   to the micro-lead-hook size and let it use the full container width. */
-#solution .bridge-statement { font-size: clamp(1.02rem, 2vw, 1.24rem); max-width: none; }
 .banner-box h2 { font-size: clamp(1.4rem, 3.7vw, 2.4rem); line-height: 1.18; }
 /* #pricing sits in the narrow (760px) column — cap its headline so
    "Sở Hữu Trọn Bộ Hệ Thống" stays on one line on desktop. */
@@ -1291,13 +1303,11 @@ section[id] { scroll-margin-top: 74px; }
   .micro-lead-compare-col { padding: 20px 18px; }
   .micro-lead-compare-col .icon-xl { width: 30px; height: 30px; margin-bottom: 8px; }
 
-  /* Phần 2 — Cơ Chế: shrink the oversized dashed circles, close the 72px gap */
-  .concept-grid { gap: 26px; margin-top: 28px; }
-  .concept-asset {
-    width: 58px; height: 58px; margin-bottom: 14px;
-    border-style: solid; border-color: var(--border);
-  }
-  .concept-asset svg { width: 26px; height: 26px; }
+  /* Phần 2 — Cơ Chế */
+  .solution-statement { font-size: clamp(1.4rem, 6.6vw, 2rem); line-height: 1.1; }
+  .solution-lead { margin-top: 26px; font-size: 0.92rem; }
+  .concept-grid { gap: 40px; margin-top: 44px; }
+  .concept-icon { width: 40px; height: 40px; margin-bottom: 18px; }
   .bridge-statement { margin-top: 0; }
 
   /* Phần 3 — belief banner */
@@ -1472,24 +1482,37 @@ section[id] { scroll-margin-top: 74px; }
 <!-- ===================== PHẦN 2 · CƠ CHẾ (HOOK PHASE) ===================== -->
 <section class="section theme-dark depth-section" id="solution">
   <div class="container">
-    <p class="bridge-statement" style="margin-top:0;">Trong kinh&nbsp;doanh, nỗ&nbsp;lực tối đa đặt vào sai thời&nbsp;điểm là con đường nhanh nhất dẫn tới phá&nbsp;sản.</p>
+    <h2 class="solution-statement">
+      <span class="ss-a">Trong Kinh&nbsp;Doanh, Nỗ&nbsp;Lực Tối&nbsp;Đa Đặt&nbsp;Vào Sai&nbsp;Thời&nbsp;Điểm</span>
+      <span class="ss-b">Là Con&nbsp;Đường Nhanh&nbsp;Nhất Dẫn&nbsp;Tới Phá&nbsp;Sản.</span>
+    </h2>
 
-    <p class="text-center mt-8" style="max-width:760px;margin-left:auto;margin-right:auto;">Điều bạn đang thiếu không phải là một khóa học làm giàu, một công cụ AI mới, hay sự chăm chỉ.<br class="desktop-break"> Thứ bạn cần là một <strong>“Hệ Thống Định Vị Chu Kỳ Cá Nhân”</strong> để biết chính xác:</p>
+    <p class="solution-lead">Điều bạn đang thiếu không phải là một khóa&nbsp;học làm&nbsp;giàu, một công&nbsp;cụ AI mới, hay sự chăm&nbsp;chỉ.<br class="desktop-break"> Thứ bạn cần là một <strong>“Hệ Thống Định Vị Chu Kỳ Cá Nhân”</strong> để biết chính&nbsp;xác:</p>
 
-    <div class="concept-grid mt-10">
+    <div class="concept-grid">
       <div class="concept-col">
-        <div class="concept-asset">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8l4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Money&nbsp;Engine<br>(Cỗ&nbsp;Máy Hút&nbsp;Tiền Tự&nbsp;Nhiên)</h3>
-        <p>Vùng thế mạnh cốt lõi bẩm sinh — nơi bạn tạo ra kết quả lớn nhất với ít lực cản nhất.</p>
+        <span class="concept-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="13"/>
+            <path d="M24 17l6 7-6 7-6-7z"/>
+            <path d="M24 5v5M24 38v5M5 24h5M38 24h5"/>
+            <path d="M12 12l3.4 3.4M32.6 32.6L36 36M36 12l-3.4 3.4M15.4 32.6L12 36" opacity=".5"/>
+          </svg>
+        </span>
+        <h3><span class="c-num">01</span>Money&nbsp;Engine<br>(Cỗ&nbsp;Máy Hút&nbsp;Tiền Tự&nbsp;Nhiên)</h3>
+        <p>Vùng thế mạnh cốt&nbsp;lõi bẩm&nbsp;sinh — <strong>nơi bạn tạo ra kết&nbsp;quả lớn&nbsp;nhất với ít lực&nbsp;cản nhất.</strong></p>
       </div>
       <div class="concept-col">
-        <div class="concept-asset">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12M6 21h12M7 3c0 5 4 6 5 9-1 3-5 4-5 9M17 3c0 5-4 6-5 9 1 3 5 4 5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Timing&nbsp;Trajectory<br>(Bản&nbsp;Đồ Chu&nbsp;Kỳ Thời&nbsp;Gian)</h3>
-        <p>Đâu là giai đoạn "vàng" để mở rộng quy mô, và đâu là "vùng trũng" cần đóng băng dòng tiền để phòng thủ.</p>
+        <span class="concept-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 27A9.5 9.5 0 0 1 24 27A9.5 9.5 0 0 0 43 27"/>
+            <line x1="4" y1="27" x2="44" y2="27" stroke-dasharray="1.5 4" opacity=".4"/>
+            <circle cx="14.5" cy="17.5" r="2.3" fill="currentColor" stroke="none"/>
+            <circle cx="33.5" cy="36.5" r="2.3" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <h3><span class="c-num">02</span>Timing&nbsp;Trajectory<br>(Bản&nbsp;Đồ Chu&nbsp;Kỳ Thời&nbsp;Gian)</h3>
+        <p>Đâu là giai&nbsp;đoạn "vàng" để mở&nbsp;rộng quy&nbsp;mô, <strong>và đâu là "vùng trũng" cần đóng&nbsp;băng dòng&nbsp;tiền để phòng&nbsp;thủ.</strong></p>
       </div>
     </div>
   </div>
