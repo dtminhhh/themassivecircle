@@ -175,23 +175,26 @@ p { color: var(--text-muted); }
 .hero .subhead strong { font-weight: 700; color: #FFFFFF; }
 .hero .lede { font-size: 1.02rem; max-width: 680px; margin: 20px auto 0; }
 .rating-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 28px; font-size: 0.95rem; color: rgba(242,237,227,.7); }
-.stars { color: var(--accent); letter-spacing: 2px; }
 
 /* ── Testimonial strip ── */
 .testimonial-card {
   background: var(--surface-2); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 30px 28px;
 }
+.avatar-placeholder,
+.testimonial-photo {
+  width: 84px; height: 84px; border-radius: 50%; flex-shrink: 0;
+}
 .avatar-placeholder {
-  width: 56px; height: 56px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-h); font-size: 1.3rem; font-weight: 700; color: #1B2C20;
-  margin-bottom: 16px;
+  font-family: var(--font-h); font-size: 2rem; font-weight: 700; color: #1B2C20;
 }
-.testimonial-name { font-family: var(--font-h); font-weight: 700; }
-.testimonial-role { color: var(--accent); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; margin-bottom: 14px; }
-.testimonial-card p.quote { font-size: 1.02rem; color: var(--text); font-style: italic; }
+.testimonial-photo { object-fit: cover; display: block; }
+.testimonial-head { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.testimonial-name { font-family: var(--font-h); font-weight: 700; line-height: 1.22; }
+.testimonial-role { color: var(--accent); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 4px; line-height: 1.35; }
+.testimonial-card p.quote { font-size: 1.02rem; color: var(--text); font-style: italic; margin-top: 0; }
 
 /* ── Problem ── */
 .mistake {
@@ -931,37 +934,8 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 }
 
 /* =========================================================
-   V3 — Bubble testimonials, Timeline curriculum, Network, Pricing2, Instructor2, Final choice
+   V3 — Timeline curriculum, Network, Pricing2, Instructor2, Final choice
    ========================================================= */
-
-/* ── Bubble testimonials — CSS multi-column waterfall masonry ──
-   Native column flow sizes each card to its own content and drops it into
-   the shortest column, so cards of different lengths interlock naturally
-   with no manual row-span math and no risk of clipping content. */
-.bubble-masonry-clip { margin-top: 48px; }
-.bubble-masonry { columns: 3; column-gap: 20px; }
-.bubble {
-  background: rgba(34, 53, 42, .82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  border: 1px solid var(--border); border-radius: 12px;
-  padding: 22px 22px 20px; margin: 0 0 20px; break-inside: avoid; -webkit-column-break-inside: avoid;
-}
-.bubble-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.bubble-avatar {
-  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-  border: 1px solid var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-h); font-weight: 700; color: #1B2C20; font-size: 0.9rem;
-}
-.bubble-name { font-family: var(--font-h); font-weight: 700; font-size: 0.88rem; color: var(--text); }
-.bubble-date { font-size: 0.7rem; color: var(--text-muted); }
-.bubble p { font-size: 0.88rem; color: var(--text-muted); margin: 0; }
-@media (max-width: 900px) {
-  .bubble-masonry { columns: 2; }
-}
-@media (max-width: 600px) {
-  .bubble-masonry { columns: 1; }
-}
 
 /* ── Timeline curriculum ── */
 .timeline-wrap { display: flex; gap: 28px; margin-top: 48px; }
@@ -1233,6 +1207,10 @@ h3 { font-size: clamp(1.14rem, 2.1vw, 1.38rem); font-weight: 800; line-height: 1
 
 /* Tier 6 · notes & legal — minimised, low contrast */
 .ps-note { font-size: 0.82rem; line-height: 1.6; color: rgba(242,237,227,.6); }
+.ps-note p { margin: 0; }
+.ps-note p + p { margin-top: 12px; }
+.ps-note-lead { font-style: normal; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+.ps-note-was { text-decoration: line-through; opacity: 0.6; font-weight: 400; }
 .report-caption { font-size: 0.84rem; color: rgba(36,53,42,.62); }
 .pricing-premium-note { font-size: 0.8rem; color: rgba(242,237,227,.55); }
 footer, footer p { font-size: 0.8rem; color: rgba(242,237,227,.45); }
@@ -1345,10 +1323,6 @@ section[id] { scroll-margin-top: 74px; }
   .metrics-bar { margin-top: 34px; padding: 24px 0; }
   .luxury-layered-showcase-container { margin: 30px auto; }
 
-  /* Bubble testimonials */
-  .bubble-masonry-clip { margin-top: 26px; }
-  .bubble { padding: 18px 18px 16px; margin-bottom: 14px; }
-
   /* Comparison */
   #comparison .cycle-stepper { margin-top: 26px; }
   .detail-accordion { margin-bottom: 10px; }
@@ -1423,24 +1397,33 @@ section[id] { scroll-margin-top: 74px; }
   <div class="container">
     <div class="grid-4">
       <div class="testimonial-card">
-        <div class="avatar-placeholder">S</div>
-        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
-        <div class="testimonial-name mt-2">NGUYEN HOANG SON</div>
-        <div class="testimonial-role">Founder · Ngành Giáo Dục</div>
+        <div class="testimonial-head">
+          <img class="testimonial-photo" src="assets/testimonial-son.jpg" alt="Anh Phong — Founder ngành Giáo Dục" width="84" height="84" loading="lazy">
+          <div>
+            <div class="testimonial-name">Anh Phong</div>
+            <div class="testimonial-role">Founder · Ngành Giáo Dục</div>
+          </div>
+        </div>
         <p class="quote">"Ba năm đầu trên hành trình khởi nghiệp là khoảng thời gian thử thách nhất. Khi chưa sử dụng EDD, tôi nghĩ khó khăn đó là điều hiển nhiên khi khởi nghiệp. Chỉ đến khi quy chiếu qua EDD, tôi đã thấy sự sai lầm là mình đã chọn thời điểm khó khăn nhất của cuộc đời để bắt đầu."</p>
       </div>
       <div class="testimonial-card">
-        <div class="avatar-placeholder">L</div>
-        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
-        <div class="testimonial-name mt-2">TRAN THUY LINH</div>
-        <div class="testimonial-role">Giám Đốc Điều Hành · Ngành Dịch Vụ</div>
+        <div class="testimonial-head">
+          <img class="testimonial-photo" src="assets/testimonial-linh.jpg" alt="Anh Hải và chị Thảo" width="84" height="84" loading="lazy">
+          <div>
+            <div class="testimonial-name">Anh Hải và chị Thảo</div>
+            <div class="testimonial-role">Giám Đốc Điều Hành · Ngành Dịch Vụ</div>
+          </div>
+        </div>
         <p class="quote">"Đạt được cột mốc đặt ra từ 5 năm trước mang lại cho tôi niềm vui trọn vẹn, nhưng ngay sau đó lại là sự vô định về chặng đường tiếp theo. Không còn nhiều năng lượng để chiến đấu như khi còn trẻ nhưng không thể dừng lại vì tính chất ngành đào thải nhanh. EDD giúp mình tháo gỡ sự mơ hồ và nhận diện được cần chuẩn bị điều gì cho tương lai."</p>
       </div>
       <div class="testimonial-card">
-        <div class="avatar-placeholder">T</div>
-        <div class="stars mt-2" style="display:block;font-size:0.85rem;">★★★★★</div>
-        <div class="testimonial-name mt-2">PHAM THU TRANG</div>
-        <div class="testimonial-role">Co-founder · Brand Agency</div>
+        <div class="testimonial-head">
+          <img class="testimonial-photo" src="assets/testimonial-trang.jpg" alt="Chị Trang — Co-founder Brand Agency" width="84" height="84" loading="lazy">
+          <div>
+            <div class="testimonial-name">Chị Trang</div>
+            <div class="testimonial-role">Co-founder · Brand Agency</div>
+          </div>
+        </div>
         <p class="quote">"Dù luôn có niềm tin mạnh mẽ vào năng lực của mình nhưng khi đứng trước quyết định có sức nặng quá lớn, tôi bất lực với cảm giác thiếu chắc chắn khi chờ đợi kết quả. Báo cáo EDD thực sự đã giúp tôi lấp đầy khoảng trống ấy khi mà trực giác và kinh nghiệm là chưa đủ để tự tin ra quyết định."</p>
       </div>
     </div>
@@ -1844,73 +1827,6 @@ section[id] { scroll-margin-top: 74px; }
 
     <div class="text-center mt-8">
       <a href="thanh-toan.html" class="btn-primary">Bắt&nbsp;Đầu Ngay Chỉ Với 290.000đ →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== BUBBLE TESTIMONIALS ===================== -->
-<section class="section theme-dark">
-  <div class="container">
-    <h2 class="text-center" style="text-align:center;">MỌI NGƯỜI <span class="text-accent">NÓI GÌ</span></h2>
-    <div class="bubble-masonry-clip">
-      <div class="bubble-masonry">
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">T</div>
-            <div><div class="bubble-name">Lê Minh Trí</div><div class="bubble-date">12th Jan, 10:15 AM</div></div>
-          </div>
-          <p>Thật sự biết ơn hệ thống tư duy này. Lần đầu tiên tôi hiểu được thế nào là "lệch hướng cấu trúc". Trước giờ cứ nghĩ kiệt sức là do làm nhiều, hóa ra là do vận hành sai cách.</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">A</div>
-            <div><div class="bubble-name">Hoàng Lan Anh</div><div class="bubble-date">24th Feb, 3:30 PM</div></div>
-          </div>
-          <p>Báo cáo EDD thực hiện thủ công vô cùng chi tiết. Lộ trình 10 năm tới giúp tôi nhận ra thời điểm vàng để dồn lực kinh doanh. 790.000đ quả thực là một món hời quá lớn.</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">P</div>
-            <div><div class="bubble-name">Trần Thế Phong</div><div class="bubble-date">5th Mar, 11:20 AM</div></div>
-          </div>
-          <p>Quá trực quan và thực chiến! Module học ngắn gọn dưới 30 phút rất phù hợp với người bận rộn như tôi. Đọc vị đúng Money Engine giúp tôi đưa ra quyết định tự tin hơn nhiều.</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">G</div>
-            <div><div class="bubble-name">Nguyễn Hương Giang</div><div class="bubble-date">18th Apr, 8:45 AM</div></div>
-          </div>
-          <p>Chính sách hoàn tiền 5 ngày thực sự làm tôi yên tâm khi đăng ký. Nhưng học đến ngày thứ 3 tôi đã biết mình sẽ không bao giờ yêu cầu hoàn tiền. Tư duy quá sắc bén!</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">N</div>
-            <div><div class="bubble-name">Vũ Đức Nam</div><div class="bubble-date">2nd May, 9:10 AM</div></div>
-          </div>
-          <p>Sơ đồ chu kỳ hình sin quá đỉnh! Nhìn vào đó tôi biết ngay tại sao năm ngoái mình đầu tư mạnh tay lại bị gãy dứt điểm. Nếu biết EDD Foundation sớm hơn thì đã tiết kiệm được vài tỷ đồng rồi.</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">K</div>
-            <div><div class="bubble-name">Minh Khuê</div><div class="bubble-date">15th May, 4:20 PM</div></div>
-          </div>
-          <p>Thẩm định năng lượng bẩm sinh giúp tôi tái cơ cấu lại nhân sự trong công ty. Đặt đúng người vào đúng vị trí theo thế mạnh cốt lõi, hiệu suất dòng tiền tự động tối ưu mà không cần ép buộc.</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">N</div>
-            <div><div class="bubble-name">Hoàng Nam</div><div class="bubble-date">30th May, 1:05 PM</div></div>
-          </div>
-          <p>Cá nhân hóa 100%! Không hề giống mấy bài test tính cách chung chung trên mạng. Đây là một hệ quy chiếu vận hành trọn đời cho bất cứ ai muốn làm chủ cuộc chơi tài chính.</p>
-        </div>
-        <div class="bubble">
-          <div class="bubble-head">
-            <div class="bubble-avatar">H</div>
-            <div><div class="bubble-name">Phạm Thanh Hà</div><div class="bubble-date">10th Jun, 9:40 AM</div></div>
-          </div>
-          <p>Ấn tượng nhất là phần dự phóng chu kỳ 12 tháng tới. Nó như một chiếc la bàn báo trước cho tôi biết khi nào nên tổng tấn công bứt phá, khi nào buộc phải đóng băng phòng thủ để bảo toàn nguồn lực.</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -2677,25 +2593,25 @@ section[id] { scroll-margin-top: 74px; }
 <!-- ===================== FINAL CHOICE ===================== -->
 <section class="section theme-dark instructor-wrap">
   <div class="container-narrow">
-    <h2 class="text-center" style="text-align:center;">LỰA&nbsp;CHỌN <span class="text-accent">LÀ CỦA BẠN</span></h2>
+    <h2 class="text-center" style="text-align:center;">LỰA&nbsp;CHỌN<br><span class="text-accent">NẰM&nbsp;TRONG TAY&nbsp;BẠN</span></h2>
 
     <div class="choice-grid">
-      <div class="choice-col yes">
-        <h3>Tham&nbsp;Gia Ngay</h3>
+      <div class="choice-col no">
+        <h3>Lựa chọn 1: Tiếp tục vận&nbsp;hành bằng cảm&nbsp;tính</h3>
         <ul>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tự tin đưa ra các quyết định kinh doanh dứt điểm, rõ ràng và kiên định.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Làm chủ nhịp độ chu kỳ cá nhân để biết chính xác lúc nào nên bứt phá dồn lực.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kích hoạt cỗ máy tạo tiền tự nhiên (Money Engine) bẩm sinh mà không gượng ép.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Đồng hành cùng mạng lưới nhà điều hành thực chiến thấu suốt và vững vàng.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đốt nguồn lực, tiền bạc và thời gian vào các chiến lược sai chu kỳ.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Gồng mình làm việc kiệt sức nhưng dòng tiền vẫn rò rỉ thất thoát.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Loay hoay sao chép công thức của người khác mà thiếu hệ quy chiếu riêng.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đơn độc trên hành trình đưa ra những quyết định lớn.</li>
         </ul>
       </div>
-      <div class="choice-col no">
-        <h3>Loay&nbsp;Hoay Kẹt&nbsp;Lại</h3>
+      <div class="choice-col yes">
+        <h3>Lựa chọn 2: 290.000đ&nbsp;&amp; 30 phút mỗi&nbsp;ngày</h3>
         <ul>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Tiếp tục mơ hồ, mệt mỏi xoay xở trong vòng lặp dòng tiền âm rồi kẹt.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đốt nguồn lực, thời gian vào những quyết định sai thời điểm rồi tiếc nuối.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Loay hoay sao chép công thức kinh doanh của người khác một cách kiệt sức.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đơn độc trên hành trình đưa ra những quyết định lớn mà thiếu hệ quy chiếu.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sở hữu hệ quy chiếu chu kỳ cá nhân trọn đời mã hóa riêng cho bạn.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Biết chính xác thời điểm nên bung sức để nhân quy mô tài sản.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nhận diện rõ vùng trũng để chủ động phòng thủ và bảo toàn vốn.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tự tin đưa ra mọi quyết định kinh doanh dứt điểm và kiên định.</li>
         </ul>
       </div>
     </div>
@@ -2705,7 +2621,8 @@ section[id] { scroll-margin-top: 74px; }
         <a href="thanh-toan.html" class="btn-primary" style="font-size:1.15rem;">Bấm Vào Đây Để Đăng Ký Hành Trình EDD Foundation™ →</a>
       </div>
       <div class="ps-note">
-        P.S. Report của bạn sẽ hoàn toàn khác với bất kỳ ai — được tính toán thủ công riêng theo dữ liệu sinh của chính bạn. 5 ngày đầu học thử miễn phí, hoàn tiền 100% nếu chưa phù hợp.
+        <p class="ps-note-lead">Đầu tư 290.000đ hôm nay <span class="ps-note-was">(Giá gốc 790.000đ)</span> — Hoàn tiền 100% trong 5 ngày.</p>
+        <p>Hãy xem 290.000đ như một khoản đặt cọc để bạn trải nghiệm. Sau 5 ngày đầu tiên, nếu bạn cảm thấy hệ thống tư duy này không xứng đáng với thời gian bạn bỏ ra, gửi ngay một email cho đội ngũ. Toàn bộ số tiền sẽ được hoàn về tài khoản của bạn mà không cần bất kỳ lý do nào.</p>
       </div>
     </div>
   </div>
@@ -2747,7 +2664,7 @@ section[id] { scroll-margin-top: 74px; }
 <script>
 (function () {
   var revealSelectors = [
-    'h2', '.testimonial-card', '.bubble', '.lesson-card', '.feature-card',
+    'h2', '.testimonial-card', '.lesson-card', '.feature-card',
     '.pricing-premium-card', '.choice-col', '.cycle-stepper', '.outcome-card',
     '.mistake', '.problem-col', '.concept-col', '.floating-card', '.bonus-card',
     '.faq-item', '.report-mock', '.protocol-panel-card', '.instructor-grid2', '.offer-box',
