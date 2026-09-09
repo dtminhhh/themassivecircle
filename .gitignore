@@ -1,5 +1,9 @@
 .DS_Store
 
+# Sepay backend setup — local working dir. Contains the Sepay API key
+# (user-context.md, Code.gs). Canonical Code.gs lives in Google Apps Script.
+sepay-setup/
+
 # Local video fallback cho các lesson đã chuyển sang Bunny Stream — không cần
 # push (156MB > giới hạn 100MB của GitHub); video-landing.mp4 vẫn giữ track
 # vì đang là nguồn thật cho hero video trang chủ + placeholder các lesson
