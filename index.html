@@ -277,6 +277,8 @@ p { color: var(--text-muted); }
 .report-mock-chart-caption { font-size: 12.5px; color: rgba(242,237,227,.75); line-height: 1.7; }
 .report-mock-caption-muted { margin-top: 10px; opacity: .8; }
 .report-mock-glow-gold { color: #C9A657; font-weight: 700; }
+.report-mock-glow-green { color: #8FBF8A; font-weight: 700; }
+.report-mock-glow-red { color: #D17A6E; font-weight: 700; }
 
 .report-mock-radar { position: relative; width: 128px; height: 128px; margin: 4px auto 14px; }
 .report-mock-radar-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(201,166,87,.18); }
@@ -305,7 +307,7 @@ p { color: var(--text-muted); }
 .report-mock-gauge-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #E0A070; }
 
 .report-mock-blur-fill { position: relative; margin-top: 20px; }
-.report-mock-blur-fill-tight { margin-top: 12px; }
+.report-mock-blur-fill-tight { margin-top: 26px; }
 .report-mock-blur-fill-tight .report-mock-blur-lines p { margin-bottom: 0; }
 .report-mock-blur-lines { filter: blur(4px); user-select: none; }
 .report-mock-blur-lines p { font-size: 12px; color: rgba(242,237,227,.55); line-height: 1.7; margin-bottom: 12px; }
@@ -1615,7 +1617,7 @@ section[id] { scroll-margin-top: 74px; }
 <section class="section theme-light" id="report-preview">
   <div class="container">
     <span class="eyebrow">Bằng&nbsp;Chứng Hữu&nbsp;Hình</span>
-    <h2><span class="h2-rule"></span>Report Của Bạn Sẽ Trông Như Thế Này</h2>
+    <h2><span class="h2-rule"></span>Report Của Bạn Sẽ Bao Gồm</h2>
     <p class="mt-6" style="max-width:900px;">Không phải bài test chung chung. Đây là report thật — tính toán thủ công riêng cho từng cá nhân.</p>
 
     <div class="report-preview-grid mt-12">
@@ -1657,7 +1659,6 @@ section[id] { scroll-margin-top: 74px; }
             <div class="report-mock-slide">
               <div class="report-mock-body">
                 <span class="report-mock-eyebrow">[Preview] Ma Trận Tư Duy &amp; Cơ Chế Ra Quyết Định</span>
-                <p class="report-mock-chart-caption report-mock-caption-muted" style="margin-bottom:8px;">Trục định vị: Chiến Lược · Vận Hành · Ảnh Hưởng · Sáng Tạo</p>
                 <div class="report-mock-radar">
                   <span class="report-mock-radar-ring r1"></span>
                   <span class="report-mock-radar-ring r2"></span>
@@ -1665,8 +1666,8 @@ section[id] { scroll-margin-top: 74px; }
                   <span class="report-mock-radar-sweep"></span>
                   <span class="report-mock-radar-core"></span>
                 </div>
-                <p class="report-mock-chart-caption">Cấu trúc vận hành gốc: <span class="report-mock-glow-gold">1 trong 10 hình thái tư duy chủ đạo</span></p>
-                <p class="report-mock-chart-caption" style="margin-top:6px;">Chế độ làm việc tối ưu: <span class="report-mock-glow-gold">Tác chiến độc lập / Điều phối đa nhiệm</span></p>
+                <p class="report-mock-chart-caption">Cấu trúc vận hành gốc: <span class="report-mock-glow-gold">1 trong 10 hình thái tư duy bẩm sinh</span></p>
+                <p class="report-mock-chart-caption" style="margin-top:6px;">Chế độ làm việc tối ưu: <span class="report-mock-glow-gold">Điểm rơi tạo 80% kết quả vượt trội</span></p>
               </div>
             </div>
 
@@ -1679,8 +1680,8 @@ section[id] { scroll-margin-top: 74px; }
                   <span class="report-mock-pulse-dot" style="left:68%; top:64%; animation-delay:.6s;"></span>
                 </div>
                 <p class="report-mock-chart-caption report-mock-caption-muted">Tắc Nghẽn — Hao Hụt — Cân Bằng — <span class="report-mock-glow-gold">Tối Ưu Hóa</span></p>
-                <p class="report-mock-chart-caption" style="margin-top:12px;">Cơ chế kiếm tiền tự nhiên: <span class="report-mock-glow-gold">1 trong 10 mô hình tạo dòng tiền phù hợp với bạn</span></p>
-                <p class="report-mock-chart-caption report-mock-caption-muted" style="margin-top:10px;">Tình trạng dòng tiền: Đi đúng quỹ đạo / Tiêu hao ngược sức / Tăng trưởng tối đa</p>
+                <p class="report-mock-chart-caption" style="margin-top:12px;">Cơ chế tạo dòng tiền tự nhiên: <span class="report-mock-glow-gold">1 trong 10 mô hình sinh lời bền vững</span></p>
+                <p class="report-mock-chart-caption report-mock-caption-muted" style="margin-top:10px;">Mục tiêu tối ưu hóa: Khai phóng dòng tiền sang trạng thái Tăng trưởng tối đa</p>
               </div>
             </div>
 
@@ -1690,16 +1691,16 @@ section[id] { scroll-margin-top: 74px; }
                 <div class="report-mock-gauge">
                   <div class="report-mock-gauge-fill"></div>
                 </div>
-                <span class="report-mock-gauge-label">Ổn Định — Đáng Ngại — Báo Động Đỏ</span>
-                <p class="report-mock-chart-caption" style="margin-top:16px;">Mẫu hình rủi ro thường trực: <span class="report-mock-laser alert">Quá Cầu Toàn Gây Chậm Trễ</span></p>
+                <span class="report-mock-gauge-label"><span class="report-mock-glow-green">Ổn Định</span> — <span class="report-mock-glow-gold">Đáng Ngại</span> — <span class="report-mock-glow-red">Báo Động Đỏ</span></span>
+                <p class="report-mock-chart-caption" style="margin-top:16px;">Điểm mù gây tổn thất lớn nhất:<br><span class="report-mock-laser alert">Cầu Toàn Thái Quá Gây Bỏ Lỡ Cơ Hội</span></p>
                 <div class="report-mock-blur-fill">
                   <div class="report-mock-blur-lines" aria-hidden="true">
                     <p>Tăng tốc thiếu neo an toàn — một mẫu hình rủi ro khác được EDD đối chiếu theo cấu trúc vận hành của bạn.</p>
                     <p>Phân tán nguồn lực khiến năng lượng bị chia nhỏ thay vì dồn vào đúng điểm bứt phá.</p>
                   </div>
-                  <div class="report-mock-blur-badge">
+                  <div class="report-mock-blur-badge" style="max-width:300px;">
                     <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/></svg>
-                    Mở khóa báo cáo đầy đủ để nhận diện chính xác tử huyệt đang kìm hãm bạn
+                    <span>Mở khóa phân tích chuyên sâu.<br>Nhận lộ trình bóc tách &amp; hóa giải rủi ro gốc rễ.</span>
                   </div>
                 </div>
               </div>
@@ -1730,9 +1731,9 @@ section[id] { scroll-margin-top: 74px; }
                   <div class="report-mock-blur-lines" aria-hidden="true">
                     <p>Mỗi pha được ánh xạ chính xác vào từng năm trong thập kỷ tới, dựa trên đúng cấu trúc vận hành của riêng bạn...</p>
                   </div>
-                  <div class="report-mock-blur-badge">
+                  <div class="report-mock-blur-badge" style="max-width:300px;">
                     <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/></svg>
-                    Mở khóa để xem lộ trình chi tiết từng năm và điểm rơi chiến lược của bạn
+                    <span>Mở khóa giải mã chi tiết từng năm.<br>Kích hoạt kịch bản hành động cho 10 năm tới.</span>
                   </div>
                 </div>
               </div>
@@ -1764,8 +1765,7 @@ section[id] { scroll-margin-top: 74px; }
       </div>
 
       <div>
-        <h3 class="mt-2">Bên Trong Bản Báo Cáo Gồm Những Gì?</h3>
-        <ul class="report-toc mt-6">
+        <ul class="report-toc mt-2">
           <li><span class="toc-badge">A</span><span class="toc-desc"><strong>Đọc Vị Cách Ra Quyết Định & Thế Mạnh Tự Nhiên</strong> — Chỉ rõ cách bạn phản ứng khi gặp áp lực lớn. Giúp bạn nhìn thấu thế mạnh bẩm sinh để tối ưu hóa công việc, đồng thời vạch trần các điểm mù tâm lý khiến bạn dễ đưa ra quyết định sai lầm.</span></li>
           <li><span class="toc-badge">B</span><span class="toc-desc"><strong>Cách Kiếm Tiền & Giữ Tiền Phù Hợp Nhất (Money Engine)</strong> — Chỉ ra công thức tạo ra dòng tiền bền vững và thảnh thơi nhất với con người bạn. Chấm dứt tình trạng cày ngày cày đêm, đánh đổi sức khỏe nhưng tiền vào cửa trước lại rò rỉ ra cửa sau.</span></li>
           <li><span class="toc-badge">C</span><span class="toc-desc"><strong>Bảng Dự Báo & Cảnh Báo Rủi Ro 10 Năm (Heatmap)</strong> — Chấm điểm cụ thể từng năm trong 10 năm tới. Báo trước chính xác năm nào thị trường có cạm bẫy để bạn phòng thủ giữ vốn, năm nào thuận lợi để bung sức tăng tốc bứt phá.</span></li>
@@ -2065,7 +2065,7 @@ section[id] { scroll-margin-top: 74px; }
       </div>
     </div>
 
-    <p class="mt-8" style="max-width:900px;">Thông tin quan trọng để tránh hiểu lầm:<br>Bạn được quyền <strong style="color:var(--text)">học thử miễn phí 5 ngày đầu tiên</strong> để hoàn toàn thẩm định hệ thống tư duy cốt lõi. Đúng đến ngày thứ 7, bạn mới chính thức nhận toàn bộ báo cáo phân tích cá nhân được tính toán thủ công.</p>
+    <p class="mt-8" style="max-width:900px;">Thông tin quan trọng để tránh hiểu lầm:<br>Bạn được quyền <strong style="color:var(--text)">học thử 5 ngày đầu tiên không rủi ro</strong> để hoàn toàn thẩm định hệ thống tư duy cốt lõi. Đúng đến ngày thứ 7, bạn mới chính thức nhận toàn bộ báo cáo phân tích cá nhân được tính toán thủ công.</p>
   </div>
 </section>
 
@@ -2338,48 +2338,48 @@ section[id] { scroll-margin-top: 74px; }
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Giá Trị</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ chất lượng mà thị trường sẵn sàng trả cao hơn mặt bằng chung.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Định vị rõ ràng ở phân khúc cao cấp và chất lượng được thị trường nhận diện đúng.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Chất Lượng · Premium</span></td>
                 </tr>
                 <tr>
-                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Chiếm Lĩnh (Xu Hướng)</td>
+                  <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Đột Phá</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ ý tưởng dẫn dắt xu hướng trước khi thị trường tự nhận ra.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Thị trường sẵn sàng đón nhận đổi mới và đủ nguồn lực chạy trước xu hướng.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Đổi Mới · Xu Hướng</span></td>
                 </tr>
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Vận Hành</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ hệ thống tạo ra kết quả đều đặn và có thể dự báo được.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Chuẩn hóa đủ quy trình và hệ thống đủ mạnh để vận hành tự động độc lập.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Hệ Thống · Dự Báo</span></td>
                 </tr>
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Vốn</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ khả năng nhìn thấy cơ hội tài chính và hành động trước khi thị trường định giá đầy đủ.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Có đủ nguồn vốn chớp thời cơ và thị trường xuất hiện nhiều cơ hội định giá sai.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Đầu Tư · Cơ Hội Tài Chính</span></td>
                 </tr>
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Quản Trị</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ uy tín được xây dựng qua sự nhất quán và tính chính danh theo thời gian.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Có đủ bề dày lịch sử thực chứng và uy tín thương hiệu là yếu tố quyết định.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Uy Tín · Dài Hạn</span></td>
                 </tr>
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Quyền Lực</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ khả năng tạo ra kết quả trong điều kiện mà người khác rút lui.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Nhu cầu cao trong nghịch cảnh, thị trường đòi hỏi giải quyết các bài toán khó.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Áp Lực · Kết Quả Khó</span></td>
                 </tr>
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Tri Thức</td>
                   <td data-label="Định Nghĩa">Dòng tiền đến từ chiều sâu chuyên môn tích lũy mà thị trường sẵn sàng trả giá cao để tiếp cận.</td>
-                  <td data-label="Hoạt Động Tốt Nhất Khi"></td>
+                  <td data-label="Hoạt Động Tốt Nhất Khi">Vận hành trong thị trường ngách đòi hỏi chuyên môn sâu không thể thay thế.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Chuyên Môn · Chiều Sâu</span></td>
                 </tr>
                 <tr>
                   <td data-label="Cơ Chế Dòng Tiền">Cơ Chế Trực Giác</td>
-                  <td data-label="Định Nghĩa">Chuyển hóa ý tưởng thành quy trình cụ thể - sức mạnh nằm ở kỷ luật thực thi và tính nhất quán.</td>
+                  <td data-label="Định Nghĩa">Dòng tiền đến từ giải pháp độc bản cho thị trường ngách hiểu đúng giá trị.</td>
                   <td data-label="Hoạt Động Tốt Nhất Khi">Được định vị rõ ràng với đúng thị trường ngách.</td>
                   <td data-label="Đặc Trưng"><span class="ops-tag">Giải Pháp Độc Bản · Ngách</span></td>
                 </tr>
