@@ -1116,7 +1116,7 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 .instructor-bio-panel p { color: rgba(36,53,42,.75); margin-top: 16px; }
 
 /* ── Final choice contrast ── */
-.choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.choice-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; margin-top: 48px; }
 @media (max-width: 760px) { .choice-grid { grid-template-columns: 1fr; } }
 .choice-col { border-radius: 18px; padding: 36px 32px; }
 .choice-col.yes { background: var(--surface); border: 1px solid var(--accent); }
@@ -1128,6 +1128,13 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 .choice-col.yes ul li { color: var(--text); }
 .choice-col.no ul li { color: var(--text-muted); }
 .choice-col ul li .icon { flex-shrink: 0; margin-top: 2px; }
+@media (min-width: 761px) {
+  .choice-grid { grid-template-rows: auto repeat(4, auto); }
+  .choice-col { display: grid; grid-template-rows: subgrid; grid-row: 1 / 6; }
+  .choice-col h3 { grid-row: 1; }
+  .choice-col ul { display: grid; grid-template-rows: subgrid; grid-row: 2 / 6; }
+  .choice-col ul li { align-self: start; }
+}
 
 /* ── Cinematic scroll reveal (fade-in + slide-up), à la Story Hero ── */
 .reveal {
@@ -1556,7 +1563,7 @@ section[id] { scroll-margin-top: 74px; }
 
     <div class="superpower-container">
       <div class="floating-card">
-        <h4>Bí Mật "Vùng Trũng Năng Lượng"</h4>
+        <h4 style="font-size:clamp(1.05rem,1.7vw,1.06rem);white-space:nowrap;">Bí Mật "Vùng Trũng Năng Lượng"</h4>
         <p>Dấu hiệu nhận biết chính xác thời điểm bạn tuyệt đối không được ký kết đầu tư lớn — bất kể cơ hội trông hấp dẫn đến mức nào.</p>
       </div>
       <div class="floating-card">
@@ -2600,8 +2607,8 @@ section[id] { scroll-margin-top: 74px; }
         <h3>Lựa chọn 1: Tiếp tục vận&nbsp;hành bằng cảm&nbsp;tính</h3>
         <ul>
           <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đốt nguồn lực, tiền bạc và thời gian vào các chiến lược sai chu kỳ.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Gồng mình làm việc kiệt sức nhưng dòng tiền vẫn rò rỉ thất thoát.</li>
-          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Loay hoay sao chép công thức của người khác mà thiếu hệ quy chiếu riêng.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Gồng mình kiệt sức nhưng dòng tiền vẫn rò rỉ thất thoát.</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Loay hoay sao chép công thức người khác mà thiếu hệ quy chiếu.</li>
           <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Đơn độc trên hành trình đưa ra những quyết định lớn.</li>
         </ul>
       </div>
