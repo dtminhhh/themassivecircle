@@ -900,17 +900,6 @@ footer { padding: 40px 0; background: #131F17; border-top: 1px solid rgba(242,23
 
 .intro-video-wrap { padding: 0; overflow: hidden; aspect-ratio: 16 / 9; }
 .intro-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
-.intro-video-play-btn {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 64px; height: 64px; border-radius: 50%;
-  background: rgba(27,44,32,.85); border: 1px solid rgba(201,166,87,.5);
-  display: flex; align-items: center; justify-content: center; padding: 0;
-  cursor: pointer; transition: all .25s ease; box-shadow: 0 15px 35px rgba(0,0,0,.4);
-}
-.intro-video-play-btn:hover { background: var(--accent); border-color: var(--accent); transform: translate(-50%, -50%) scale(1.08); }
-.intro-video-play-btn svg { width: 22px; height: 22px; color: #C9A657; margin-left: 3px; transition: color .25s ease; }
-.intro-video-play-btn:hover svg { color: #1B2C20; }
-.intro-video-play-btn.is-hidden { opacity: 0; pointer-events: none; }
 .intro-video-label {
   position: absolute; left: 16px; bottom: 14px; font-family: var(--font-h); font-size: 11px;
   color: #F2EDE3; letter-spacing: .1em; text-shadow: 0 2px 8px rgba(0,0,0,.6); pointer-events: none;
@@ -1799,12 +1788,7 @@ section[id] { scroll-margin-top: 74px; }
           <span class="ui-window-tag">EDD FOUNDATION™ CENTRAL SYSTEM</span>
         </div>
         <div class="ui-window-body core-brand-bg intro-video-wrap">
-          <video class="intro-video" poster="assets/video-landing-poster.png" preload="metadata" playsinline>
-            <source src="assets/video-landing.mp4" type="video/mp4">
-          </video>
-          <button type="button" class="intro-video-play-btn" aria-label="Phát video giới thiệu EDD Foundation">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
+          <iframe class="intro-video" src="https://iframe.mediadelivery.net/embed/730159/ff82c86a-4981-4b9a-b0f1-5666e8f6d454?autoplay=false&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen title="Video giới thiệu EDD Foundation"></iframe>
           <span class="intro-video-label">L.O.S™ · LIFE OPERATING SYSTEM</span>
         </div>
       </div>
@@ -2644,30 +2628,6 @@ section[id] { scroll-margin-top: 74px; }
   </div>
 </footer>
 
-<script>
-(function () {
-  var wrap = document.querySelector('.intro-video-wrap');
-  if (!wrap) return;
-  var video = wrap.querySelector('.intro-video');
-  var btn = wrap.querySelector('.intro-video-play-btn');
-  var label = wrap.querySelector('.intro-video-label');
-
-  btn.addEventListener('click', function () {
-    video.setAttribute('controls', '');
-    video.play();
-    btn.classList.add('is-hidden');
-    if (label) label.style.opacity = '0';
-  });
-  video.addEventListener('pause', function () {
-    btn.classList.remove('is-hidden');
-    if (label) label.style.opacity = '';
-  });
-  video.addEventListener('ended', function () {
-    btn.classList.remove('is-hidden');
-    if (label) label.style.opacity = '';
-  });
-})();
-</script>
 
 <script>
 (function () {
