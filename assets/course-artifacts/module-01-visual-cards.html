@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSI · Module 01</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f0e8;--cream:#eee8d5;--white:#faf8f4;
+  --ink:#17130c;--ink2:#2e2619;--ink3:#5a5043;--ink4:#9a8f7e;
+  --gold:#a87c3a;--gold2:#c49a52;--gold3:#e8c880;--gold-bg:rgba(168,124,58,.09);
+  --black:#0d0b08;--black2:#1a1712;--black3:#262218;
+  --red:#8c2a1c;--green:#2a5c35;
+  --sans:'Inter',sans-serif;--serif:'Playfair Display',serif;--mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--paper);}
+#deck{width:100vw;height:100vh;position:relative;}
+.card{position:absolute;inset:0;display:flex;opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(.4,0,.2,1);}
+.card.active{opacity:1;pointer-events:all;}
+.l-split{display:grid;grid-template-columns:40% 60%;}
+.l-left{background:var(--white);display:flex;flex-direction:column;justify-content:center;padding:48px 44px 48px 52px;border-right:1px solid rgba(168,124,58,.15);overflow:hidden;}
+.l-right{background:var(--cream);display:flex;align-items:center;justify-content:center;padding:28px 24px;overflow:hidden;position:relative;}
+.l-full{flex-direction:column;background:var(--white);}
+.l-full-center{flex-direction:column;align-items:center;justify-content:center;padding:40px 68px;gap:18px;}
+.eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:11px;}
+.eyebrow-lt{font-family:var(--mono);font-size:9px;letter-spacing:.35em;color:rgba(232,200,128,.7);text-transform:uppercase;margin-bottom:11px;}
+.h1{font-family:var(--serif);font-size:clamp(36px,4vw,54px);font-weight:400;line-height:1.12;color:var(--ink);letter-spacing:-.02em;}
+.h1 em,.h2 em{font-style:italic;color:var(--gold);}
+.h2{font-family:var(--serif);font-size:clamp(24px,2.8vw,38px);font-weight:400;line-height:1.18;color:var(--ink);letter-spacing:-.015em;}
+.h2-lt{color:var(--paper);}
+.h2-lt em{color:var(--gold3);}
+.rule{width:34px;height:1.5px;background:var(--gold);opacity:.45;margin:14px 0;}
+.rule-lt{background:var(--gold2);opacity:.5;}
+.sb{margin-top:14px;}
+.sb+.sb{border-top:1px solid rgba(168,124,58,.12);padding-top:14px;}
+.sb-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.sb-lbl-lt{color:rgba(232,200,128,.65);}
+.sb-body{font-family:var(--sans);font-size:13.5px;line-height:1.8;color:var(--ink2);}
+.sb-body strong{color:var(--ink);font-weight:600;}
+.sb-body em{font-style:italic;color:var(--gold);}
+.sb-body-lt{color:rgba(245,240,232,.6);}
+.sb-body-lt strong{color:rgba(245,240,232,.88);font-weight:500;}
+.sb-body-lt em{color:var(--gold3);}
+.note{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;line-height:1.72;color:var(--ink4);margin-top:14px;padding-top:12px;border-top:1px solid rgba(168,124,58,.14);}
+.note-lt{color:rgba(232,200,128,.42);border-top-color:rgba(168,124,58,.18);}
+.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(168,124,58,.2);border-radius:6px;overflow:hidden;margin-top:28px;}
+.meta-cell{padding:13px 17px;}
+.meta-cell+.meta-cell{border-left:1px solid rgba(168,124,58,.15);}
+.meta-k{font-family:var(--mono);font-size:8px;letter-spacing:.25em;color:var(--ink4);text-transform:uppercase;margin-bottom:4px;}
+.meta-v{font-family:var(--sans);font-size:12.5px;color:var(--ink2);line-height:1.55;}
+.ic{padding:13px 17px;border:1px solid rgba(168,124,58,.18);border-radius:6px;background:rgba(168,124,58,.05);}
+.ic-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.22em;color:var(--gold);margin-bottom:5px;}
+.ic-body{font-family:var(--sans);font-size:12.5px;color:var(--ink2);line-height:1.7;}
+.ic-body strong{color:var(--ink);font-weight:600;}
+#nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:300;display:flex;align-items:center;gap:11px;}
+.nb{width:29px;height:29px;border-radius:50%;border:1px solid rgba(168,124,58,.3);background:rgba(245,240,232,.9);color:var(--gold);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .17s;backdrop-filter:blur(8px);}
+.nb:hover{background:rgba(168,124,58,.14);border-color:var(--gold);}
+.nb:disabled{opacity:.2;cursor:default;}
+#nc{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--gold);min-width:44px;text-align:center;}
+#nd{display:flex;gap:5px;align-items:center;}
+.nd-dot{width:4px;height:4px;border-radius:50%;background:rgba(168,124,58,.22);transition:all .28s;cursor:pointer;}
+.nd-dot.on{background:var(--gold);transform:scale(1.65);}
+#badge{position:fixed;top:20px;left:32px;z-index:300;font-family:var(--mono);font-size:8px;letter-spacing:.3em;color:var(--ink4);text-transform:uppercase;}
+.su{opacity:0;transform:translateY(12px);transition:opacity .56s ease,transform .56s cubic-bezier(.16,1,.3,1);}
+.card.active .su{opacity:1;transform:translateY(0);}
+.su-1{transition-delay:.06s;}.su-2{transition-delay:.17s;}.su-3{transition-delay:.28s;}
+.su-4{transition-delay:.39s;}.su-5{transition-delay:.5s;}.su-6{transition-delay:.61s;}.su-7{transition-delay:.72s;}
+.sf{opacity:0;transition:opacity .46s ease;}
+.card.active .sf{opacity:1;}
+.sf-1{transition-delay:.09s;}.sf-2{transition-delay:.24s;}.sf-3{transition-delay:.39s;}
+.sf-4{transition-delay:.54s;}.sf-5{transition-delay:.69s;}.sf-6{transition-delay:.84s;}
+.sf-7{transition-delay:.99s;}.sf-8{transition-delay:1.14s;}.sf-9{transition-delay:1.29s;}
+.dp{stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1) .25s;}
+.card.active .dp{stroke-dashoffset:0;}
+
+/* Mobile: the deck was built as a fixed 100vw/100vh split-column presentation with no
+   narrow-viewport handling — below 700px the 40/60 grid crushes the left column into
+   unreadable single-word lines. Switch active slides to a normal stacked, scrollable
+   flow instead of the absolute-positioned crossfade layout used at desktop widths. */
+@media (max-width:700px){
+  html,body{overflow-y:auto;overflow-x:hidden;}
+  #deck{height:auto;min-height:100vh;}
+  .card{position:relative;inset:auto;display:none;opacity:1;pointer-events:none;transition:none;}
+  .card.active{display:flex;pointer-events:all;}
+  .card.l-split.active{display:grid;}
+  .l-split{grid-template-columns:1fr;}
+  .l-left{padding:56px 22px 28px;border-right:none;}
+  .l-right{padding:24px 18px 44px;min-height:240px;}
+  .l-full-center{padding:56px 26px 40px;}
+  #nav{bottom:14px;}
+  #badge{top:14px;left:18px;font-size:7px;}
+}
+</style>
+</head>
+<body>
+<div id="badge">LSI · Life Structural Intelligence · Module 01</div>
+<div id="deck">
+
+<!-- S01 -->
+<div class="card l-split" id="s1">
+  <div class="l-left" style="justify-content:center;gap:0;padding:52px 44px 52px 60px;">
+    <div class="eyebrow su su-1">Module 01 · Khai Mở Nền Tảng</div>
+    <h1 class="h1 su su-2" style="font-size:clamp(32px,3.8vw,52px);margin-bottom:10px;">Cuộc Đời<br>có <em>Cấu Trúc.</em></h1>
+    <p class="su su-2" style="font-family:var(--serif);font-size:clamp(14px,1.5vw,18px);color:var(--gold);font-style:italic;margin-bottom:18px;letter-spacing:-.01em;">LSI — Hệ thống giúp bạn tối ưu<br>cấu trúc cuộc đời sẵn có</p>
+    <div class="rule su su-3"></div>
+    <p class="su su-3" style="font-family:var(--sans);font-size:14px;color:var(--ink3);line-height:1.85;max-width:400px;margin-bottom:24px;">Mọi kết quả đều là biểu hiện bên ngoài của một <strong style="color:var(--ink);font-weight:600;">cấu trúc nội lực</strong> đang vận hành bên trong. Module này giúp người học nhìn thấy cấu trúc đó lần đầu tiên.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;" class="su su-4">
+      <span style="font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;padding:4px 11px;border:1px solid rgba(168,124,58,.25);border-radius:3px;color:var(--ink4);">12 slides · Module 01/07</span>
+      <span style="font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;padding:4px 11px;border:1px solid rgba(168,124,58,.25);border-radius:3px;color:var(--ink4);">Sequential · Bắt buộc theo thứ tự</span>
+    </div>
+  </div>
+  <div class="l-right" style="background:var(--black);flex-direction:column;align-items:stretch;justify-content:center;padding:52px 44px;">
+    <div class="sf sf-1" style="font-family:var(--mono);font-size:9px;letter-spacing:.32em;color:rgba(168,124,58,.65);text-transform:uppercase;margin-bottom:20px;">Thông tin module</div>
+    <div class="sf sf-2" style="border-top:1px solid rgba(168,124,58,.18);padding:18px 0;">
+      <div style="font-family:var(--mono);font-size:8.5px;letter-spacing:.26em;color:rgba(168,124,58,.55);text-transform:uppercase;margin-bottom:8px;">Chủ đề</div>
+      <div style="font-family:var(--sans);font-size:14px;color:rgba(245,240,232,.82);line-height:1.6;">Life Structural Intelligence — Kiến trúc tổng quan của cuộc đời</div>
+    </div>
+    <div class="sf sf-3" style="border-top:1px solid rgba(168,124,58,.18);padding:18px 0;">
+      <div style="font-family:var(--mono);font-size:8.5px;letter-spacing:.26em;color:rgba(168,124,58,.55);text-transform:uppercase;margin-bottom:8px;">Mục tiêu</div>
+      <div style="font-family:var(--sans);font-size:14px;color:rgba(245,240,232,.82);line-height:1.6;">Nhận diện ba lớp cấu trúc vận hành đằng sau mọi kết quả cuộc đời</div>
+    </div>
+    <div class="sf sf-4" style="border-top:1px solid rgba(168,124,58,.18);border-bottom:1px solid rgba(168,124,58,.18);padding:18px 0;">
+      <div style="font-family:var(--mono);font-size:8.5px;letter-spacing:.26em;color:rgba(168,124,58,.55);text-transform:uppercase;margin-bottom:8px;">Kết quả mong đợi</div>
+      <div style="font-family:var(--sans);font-size:14px;color:rgba(245,240,232,.82);line-height:1.6;">Nhận thức được cấu trúc hình thành cuộc đời và cách chúng vận hành — từ đó bước vào vai trò người quan sát cuộc đời của chính mình để điều chỉnh có chủ đích và ra mọi quyết định một cách có cơ sở</div>
+    </div>
+    <div class="sf sf-5" style="display:flex;align-items:center;gap:12px;margin-top:24px;">
+      <div style="width:32px;height:32px;border-radius:50%;background:rgba(168,124,58,.14);border:1.5px solid rgba(168,124,58,.45);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--gold2);">01</div>
+      <div style="font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:rgba(168,124,58,.45);">MODULE 01 / 07 · FOUNDATION</div>
+    </div>
+  </div>
+</div>
+
+<!-- S02 -->
+<div class="card l-split" id="s2">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Khái niệm nền tảng · 01</div>
+    <h2 class="h2 su su-2">Định nghĩa lại<br><em>Thành Công</em></h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Quan niệm phổ biến</div>
+      <div class="sb-body">Phần lớn định nghĩa thành công qua <strong>kết quả bên ngoài</strong> — thu nhập, địa vị, tài sản. Đây là cách nhìn từ ngọn thay vì từ rễ.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl">Định nghĩa LSI</div>
+      <div class="sb-body">Thành công là trạng thái một cá nhân vận hành <em>đúng với cấu trúc nội lực của mình</em>, trong đúng môi trường, tại đúng thời điểm — và từ đó tạo ra kết quả bền vững một cách tự nhiên.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Giá trị đúng của Nỗ Lực</div>
+      <div class="sb-body">Nỗ lực <strong>không phải</strong> nguyên nhân của thành công — nỗ lực là <em>hệ số khuếch đại</em>. Khi đặt vào đúng cấu trúc, một đơn vị nỗ lực tạo ra kết quả nhân bội. Khi đặt sai cấu trúc, nỗ lực chỉ tiêu hao mà không tích lũy.</div>
+    </div>
+    <div class="note su su-6">NGUYÊN LÝ · Tối ưu hoá nỗ lực mà không kiểm định cấu trúc là tối ưu hoá sai biến số</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 500 500" fill="none" width="100%" height="100%" style="max-height:500px;">
+      <defs>
+        <marker id="ag" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="rgba(168,124,58,.6)"/></marker>
+        <marker id="adn" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(168,124,58,.55)"/></marker>
+      </defs>
+      <!-- THÀNH CÔNG box -->
+      <g class="sf sf-1">
+        <rect x="126" y="10" width="248" height="54" rx="5" fill="rgba(168,124,58,.1)" stroke="rgba(168,124,58,.4)" stroke-width="1.5"/>
+        <text x="250" y="32" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="2">THÀNH CÔNG</text>
+        <text x="250" y="52" text-anchor="middle" font-size="15" fill="#17130c" font-family="Playfair Display" font-style="italic">Sustainable Result</text>
+      </g>
+      <text x="250" y="80" text-anchor="middle" font-size="13" fill="rgba(168,124,58,.5)" font-family="JetBrains Mono" class="sf sf-1">=</text>
+      <line x1="250" y1="84" x2="250" y2="102" stroke="rgba(168,124,58,.3)" stroke-width="1.5" class="sf sf-1"/>
+      <!-- 3 factor row -->
+      <g class="sf sf-2">
+        <rect x="12" y="108" width="138" height="62" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.22)" stroke-width="1"/>
+        <text x="81" y="129" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.62)" font-family="JetBrains Mono" letter-spacing="1.2">CẤU TRÚC</text>
+        <text x="81" y="149" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display">Nội Lực</text>
+        <text x="81" y="163" text-anchor="middle" font-size="9" fill="#5a5043" font-family="Inter" font-style="italic">Internal Structure</text>
+      </g>
+      <text x="168" y="145" text-anchor="middle" font-size="16" fill="rgba(168,124,58,.4)" font-family="JetBrains Mono" class="sf sf-2">×</text>
+      <g class="sf sf-2">
+        <rect x="181" y="108" width="138" height="62" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.22)" stroke-width="1"/>
+        <text x="250" y="129" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.62)" font-family="JetBrains Mono" letter-spacing="1.2">THỜI ĐIỂM</text>
+        <text x="250" y="149" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display">Chu kỳ</text>
+        <text x="250" y="163" text-anchor="middle" font-size="9" fill="#5a5043" font-family="Inter" font-style="italic">Timing &amp; Cycle</text>
+      </g>
+      <text x="337" y="145" text-anchor="middle" font-size="16" fill="rgba(168,124,58,.4)" font-family="JetBrains Mono" class="sf sf-2">×</text>
+      <g class="sf sf-2">
+        <rect x="350" y="108" width="138" height="62" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.22)" stroke-width="1"/>
+        <text x="419" y="129" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.62)" font-family="JetBrains Mono" letter-spacing="1.2">MÔI TRƯỜNG</text>
+        <text x="419" y="149" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display">Ngoại lực</text>
+        <text x="419" y="163" text-anchor="middle" font-size="9" fill="#5a5043" font-family="Inter" font-style="italic">External Context</text>
+      </g>
+      <line x1="250" y1="170" x2="250" y2="190" stroke="rgba(168,124,58,.28)" stroke-width="1.5" class="sf sf-3"/>
+      <!-- Effort box -->
+      <g class="sf sf-3">
+        <rect x="152" y="190" width="196" height="50" rx="5" fill="rgba(168,124,58,.08)" stroke="rgba(168,124,58,.32)" stroke-width="1.2"/>
+        <text x="250" y="210" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.65)" font-family="JetBrains Mono" letter-spacing="1.5">HỆ SỐ KHUẾCH ĐẠI</text>
+        <text x="250" y="230" text-anchor="middle" font-size="14" fill="#17130c" font-family="Playfair Display" font-style="italic">× Nỗ Lực</text>
+      </g>
+      <line x1="18" y1="258" x2="482" y2="258" stroke="rgba(168,124,58,.1)" stroke-width="1" class="sf sf-3"/>
+      <text x="250" y="274" text-anchor="middle" font-size="8.5" fill="rgba(90,80,67,.5)" font-family="JetBrains Mono" letter-spacing="2" class="sf sf-3">HAI KỊCH BẢN</text>
+      <!-- Scenario A -->
+      <g class="sf sf-4">
+        <rect x="12" y="286" width="224" height="88" rx="5" fill="rgba(42,92,53,.07)" stroke="rgba(42,92,53,.3)" stroke-width="1.5"/>
+        <text x="124" y="306" text-anchor="middle" font-size="8" fill="rgba(42,92,53,.8)" font-family="JetBrains Mono" letter-spacing="1.5">TƯƠNG THÍCH CẤU TRÚC</text>
+        <text x="124" y="328" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display">Nỗ Lực khuếch đại</text>
+        <text x="124" y="348" text-anchor="middle" font-size="11" fill="#2e2619" font-family="Inter">Kết quả tích lũy</text>
+        <text x="124" y="366" text-anchor="middle" font-size="10.5" fill="rgba(42,92,53,.75)" font-family="Inter" font-style="italic">Động Lực tự nhiên ↑</text>
+      </g>
+      <!-- Scenario B -->
+      <g class="sf sf-4">
+        <rect x="264" y="286" width="224" height="88" rx="5" fill="rgba(140,42,28,.07)" stroke="rgba(140,42,28,.28)" stroke-width="1.5"/>
+        <text x="376" y="306" text-anchor="middle" font-size="8" fill="rgba(140,42,28,.8)" font-family="JetBrains Mono" letter-spacing="1.5">SAI CẤU TRÚC</text>
+        <text x="376" y="328" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display">Nỗ Lực tiêu hao</text>
+        <text x="376" y="348" text-anchor="middle" font-size="11" fill="#2e2619" font-family="Inter">Không có điểm tích lũy</text>
+        <text x="376" y="366" text-anchor="middle" font-size="10.5" fill="rgba(140,42,28,.75)" font-family="Inter" font-style="italic">Stagnation · Plateau</text>
+      </g>
+      <!-- Bottom insight -->
+      <g class="sf sf-5">
+        <rect x="56" y="394" width="388" height="36" rx="5" fill="rgba(13,11,8,.92)" stroke="rgba(168,124,58,.35)" stroke-width="1"/>
+        <text x="250" y="409" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1.5">BIẾN SỐ QUYẾT ĐỊNH</text>
+        <text x="250" y="424" text-anchor="middle" font-size="12.5" fill="rgba(245,240,232,.85)" font-family="Playfair Display" font-style="italic">Cấu trúc Nội Lực — không phải Nỗ Lực</text>
+      </g>
+      <text x="250" y="480" text-anchor="middle" font-size="8" fill="rgba(90,80,67,.38)" font-family="JetBrains Mono" letter-spacing="1.8" class="sf sf-6">CÙNG NỖ LỰC · KHÁC CẤU TRÚC · KHÁC KẾT QUẢ</text>
+    </svg>
+  </div>
+</div>
+
+<!-- S03 -->
+<div class="card l-split" id="s3">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Mô hình tổng quan · LSI Architecture</div>
+    <h2 class="h2 su su-2">Cấu trúc cuộc đời<br>gồm <em>ba lớp</em><br>vận hành đồng thời</h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Lớp 1 · Cấu Trúc Nội Lực</div>
+      <div class="sb-body">Toàn bộ hệ thống nội tâm: <em>Energy Structure [Cấu Trúc Năng Lượng], Cognitive System [Hệ Thống Nhận Thức], Desire System (Hệ Thống Tham Vọng)</em>. Đây là lớp có thể <strong>tối ưu hoá</strong> — và là biến số quyết định nhiều nhất thành công phía bên ngoài.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl">Lớp 2 · Hệ Thống Tương Tác Trung Gian</div>
+      <div class="sb-body">Tập hợp các cơ chế tương tác với thế giới: quyết định, mẫu hình hành vi, hệ thống vận hành. Nơi <strong>Biến Động hoặc Động Lực</strong> được tạo ra.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Lớp 3 · Bối Cảnh Ngoại Lực</div>
+      <div class="sb-body">Bao gồm bối cảnh cuộc sống, hệ thống mối quan hệ, tập hợp các lĩnh vực thiết yếu như sự nghiệp, tài chính, mối quan hệ, v.v. <strong>Không thể kiểm soát</strong> — nhưng có thể định vị và tận dụng.</div>
+    </div>
+    <div class="note su su-6">NGUYÊN LÝ · Kết quả bền vững chỉ xuất hiện khi cả ba lớp được căn chỉnh với nhau</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 500 500" fill="none" width="100%" height="100%" style="max-height:500px;">
+      <defs>
+        <marker id="aln" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="rgba(168,124,58,.45)"/></marker>
+      </defs>
+      <ellipse cx="250" cy="258" rx="220" ry="212" fill="rgba(168,124,58,.025)" stroke="rgba(168,124,58,.2)" stroke-width="1.5" class="sf sf-1"/>
+      <ellipse cx="250" cy="258" rx="152" ry="148" fill="rgba(168,124,58,.05)" stroke="rgba(168,124,58,.38)" stroke-width="1.5" stroke-dasharray="6 4" class="sf sf-2"/>
+      <ellipse cx="250" cy="258" rx="84" ry="82" fill="rgba(168,124,58,.12)" stroke="rgba(168,124,58,.55)" stroke-width="2" class="sf sf-3"/>
+      <g class="sf sf-3">
+        <text x="250" y="244" text-anchor="middle" font-size="11" fill="#17130c" font-family="Inter" font-weight="600">CẤU TRÚC</text>
+        <text x="250" y="261" text-anchor="middle" font-size="11" fill="#17130c" font-family="Inter" font-weight="600">NỘI LỰC</text>
+        <text x="250" y="280" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1">TỐI ƯU HOÁ</text>
+        <text x="250" y="296" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter" font-style="italic">Energy · Cognitive</text>
+        <text x="250" y="311" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter" font-style="italic">Desire Systems</text>
+      </g>
+      <g class="sf sf-2">
+        <text x="250" y="120" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.75)" font-family="JetBrains Mono" letter-spacing="1.2">HỆ THỐNG TƯƠNG TÁC</text>
+        <text x="250" y="136" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.75)" font-family="JetBrains Mono" letter-spacing="1.2">TRUNG GIAN</text>
+        <text x="250" y="153" text-anchor="middle" font-size="10.5" fill="#5a5043" font-family="Inter">Quyết định · Hành vi · Hệ thống</text>
+        <circle cx="250" cy="110" r="4.5" fill="rgba(168,124,58,.42)" stroke="rgba(168,124,58,.62)" stroke-width="1"/>
+        <circle cx="401" cy="258" r="4.5" fill="rgba(168,124,58,.42)" stroke="rgba(168,124,58,.62)" stroke-width="1"/>
+        <circle cx="250" cy="406" r="4.5" fill="rgba(168,124,58,.42)" stroke="rgba(168,124,58,.62)" stroke-width="1"/>
+        <circle cx="98" cy="258" r="4.5" fill="rgba(168,124,58,.42)" stroke="rgba(168,124,58,.62)" stroke-width="1"/>
+      </g>
+      <g class="sf sf-1">
+        <text x="250" y="32" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.65)" font-family="JetBrains Mono" letter-spacing="1.5">BỐI CẢNH NGOẠI LỰC</text>
+        <text x="250" y="50" text-anchor="middle" font-size="10.5" fill="#5a5043" font-family="Inter">Cuộc sống · Quan hệ · Lĩnh vực thiết yếu</text>
+        <rect x="170" y="450" width="160" height="19" rx="3" fill="rgba(140,42,28,.08)" stroke="rgba(140,42,28,.22)" stroke-width="1"/>
+        <text x="250" y="463" text-anchor="middle" font-size="7.5" fill="rgba(140,42,28,.72)" font-family="JetBrains Mono" letter-spacing="1.2">ĐỊNH VỊ VÀ TẬN DỤNG</text>
+      </g>
+      <g class="sf sf-5">
+        <path d="M 166 258 L 101 258" stroke="rgba(168,124,58,.35)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#aln)"/>
+        <path d="M 334 258 L 397 258" stroke="rgba(168,124,58,.35)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#aln)"/>
+        <text x="52" y="254" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.46)" font-family="JetBrains Mono">ALIGN</text>
+        <text x="428" y="254" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.46)" font-family="JetBrains Mono">OUT</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- S04 -->
+<div class="card l-split" id="s4">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Phân tích chuyên sâu · Lớp 1</div>
+    <h2 class="h2 su su-2">Cấu Trúc Nội Lực<br>và <em>Energy Structure</em></h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Ba thành phần của Cấu Trúc Nội Lực</div>
+      <div class="sb-body"><strong>Energy Structure</strong> — bản đồ năng lượng bẩm sinh xác định nguồn lực tài nguyên gốc rễ.<br><strong>Cognitive System (Hệ Thống Nhận Thức)</strong> — hệ thống xử lý thông tin và tư duy.<br><strong>Desire System (Hệ Thống Tham Vọng)</strong> — tập hợp mong muốn và động lực sâu nhất.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl" style="color:var(--ink);font-size:9.5px;letter-spacing:.18em;">⟶ Trọng tâm: Energy Structure</div>
+      <div class="sb-body">Energy Structure là nền tảng của toàn bộ Cấu Trúc Nội Lực. Khi vận hành <em>ngược với Energy Structure</em>, toàn bộ hệ thống sẽ tiêu hao thay vì tích lũy — dù Cognitive System hay Desire System có được tối ưu đến đâu.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Vì sao Energy Structure là nền tảng</div>
+      <div class="sb-body">Energy là <strong>nguồn tài nguyên không thể vay mượn</strong>. Toàn bộ khả năng nhận thức, ra quyết định, và theo đuổi tham vọng đều phụ thuộc vào trạng thái năng lượng. Vận hành đúng Energy Structure giúp cá nhân tiếp cận toàn bộ năng lực một cách tự nhiên.</div>
+    </div>
+    <div class="note su su-6">LSI FRAMEWORK · Bát Tự là công cụ đọc Energy Structure với độ chính xác và chiều sâu cao nhất</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 500 520" fill="none" width="100%" height="100%" style="max-height:520px;">
+      <g class="sf sf-1">
+        <rect x="24" y="10" width="452" height="82" rx="7" fill="rgba(13,11,8,.92)" stroke="rgba(168,124,58,.5)" stroke-width="2"/>
+        <text x="250" y="34" text-anchor="middle" font-size="9" fill="rgba(232,200,128,.65)" font-family="JetBrains Mono" letter-spacing="2">TRỌNG TÂM · ENERGY STRUCTURE</text>
+        <text x="250" y="57" text-anchor="middle" font-size="17" fill="rgba(245,240,232,.92)" font-family="Playfair Display" font-style="italic">Bản đồ năng lượng bẩm sinh</text>
+        <text x="250" y="77" text-anchor="middle" font-size="10.5" fill="rgba(245,240,232,.4)" font-family="Inter">Xác định nguồn lực tài nguyên gốc rễ</text>
+      </g>
+      <g class="sf sf-2">
+        <rect x="24" y="108" width="138" height="140" rx="5" fill="rgba(168,124,58,.1)" stroke="rgba(168,124,58,.45)" stroke-width="2"/>
+        <text x="93" y="132" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.68)" font-family="JetBrains Mono" letter-spacing="1">PILLAR 01</text>
+        <text x="93" y="154" text-anchor="middle" font-size="14" fill="#17130c" font-family="Playfair Display">Energy</text>
+        <text x="93" y="172" text-anchor="middle" font-size="14" fill="#17130c" font-family="Playfair Display">Structure</text>
+        <line x1="38" y1="181" x2="148" y2="181" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="93" y="198" text-anchor="middle" font-size="10" fill="#5a5043" font-family="Inter">Tài nguyên</text>
+        <text x="93" y="214" text-anchor="middle" font-size="10" fill="#5a5043" font-family="Inter">gốc rễ</text>
+        <rect x="48" y="228" width="90" height="16" rx="3" fill="rgba(168,124,58,.15)" stroke="rgba(168,124,58,.3)" stroke-width="1"/>
+        <text x="93" y="240" text-anchor="middle" font-size="7.5" fill="rgba(168,124,58,.8)" font-family="JetBrains Mono" letter-spacing="1">NỀN TẢNG</text>
+      </g>
+      <g class="sf sf-2">
+        <rect x="181" y="108" width="138" height="140" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="250" y="130" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.52)" font-family="JetBrains Mono" letter-spacing="1">PILLAR 02</text>
+        <text x="250" y="152" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Cognitive System</text>
+        <line x1="195" y1="161" x2="305" y2="161" stroke="rgba(168,124,58,.14)" stroke-width="1"/>
+        <text x="250" y="178" text-anchor="middle" font-size="10" fill="#5a5043" font-family="Inter">Hệ Thống</text>
+        <text x="250" y="194" text-anchor="middle" font-size="10" fill="#5a5043" font-family="Inter">Nhận Thức</text>
+        <text x="250" y="213" text-anchor="middle" font-size="10" fill="#9a8f7e" font-family="Inter" font-style="italic">Xử lý thông tin</text>
+        <text x="250" y="230" text-anchor="middle" font-size="10" fill="#9a8f7e" font-family="Inter" font-style="italic">và tư duy</text>
+      </g>
+      <g class="sf sf-2">
+        <rect x="338" y="108" width="138" height="140" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="407" y="130" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.52)" font-family="JetBrains Mono" letter-spacing="1">PILLAR 03</text>
+        <text x="407" y="152" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Desire System</text>
+        <line x1="352" y1="161" x2="462" y2="161" stroke="rgba(168,124,58,.14)" stroke-width="1"/>
+        <text x="407" y="178" text-anchor="middle" font-size="10" fill="#5a5043" font-family="Inter">Hệ Thống</text>
+        <text x="407" y="194" text-anchor="middle" font-size="10" fill="#5a5043" font-family="Inter">Tham Vọng</text>
+        <text x="407" y="213" text-anchor="middle" font-size="10" fill="#9a8f7e" font-family="Inter" font-style="italic">Mong muốn và</text>
+        <text x="407" y="230" text-anchor="middle" font-size="10" fill="#9a8f7e" font-family="Inter" font-style="italic">động lực sâu nhất</text>
+      </g>
+      <g class="sf sf-3">
+        <line x1="250" y1="248" x2="250" y2="270" stroke="rgba(168,124,58,.25)" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <line x1="407" y1="248" x2="407" y2="270" stroke="rgba(168,124,58,.18)" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="328" y="264" text-anchor="middle" font-size="8.5" fill="rgba(90,80,67,.45)" font-family="JetBrains Mono" letter-spacing="1">PHỤ THUỘC VÀO ENERGY</text>
+      </g>
+      <g class="sf sf-4">
+        <rect x="24" y="276" width="452" height="54" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.14)" stroke-width="1"/>
+        <text x="250" y="298" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.58)" font-family="JetBrains Mono" letter-spacing="1.5">TRẠNG THÁI NĂNG LƯỢNG ẢNH HƯỞNG TOÀN BỘ HỆ THỐNG</text>
+        <text x="157" y="320" text-anchor="middle" font-size="11" fill="#2e2619" font-family="Inter">Khả năng nhận thức</text>
+        <text x="343" y="320" text-anchor="middle" font-size="11" fill="#2e2619" font-family="Inter">Năng lực ra quyết định</text>
+      </g>
+      <g class="sf sf-5">
+        <rect x="24" y="348" width="452" height="44" rx="5" fill="rgba(168,124,58,.08)" stroke="rgba(168,124,58,.28)" stroke-width="1"/>
+        <text x="250" y="368" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.65)" font-family="JetBrains Mono" letter-spacing="1.5">CÔNG CỤ ĐỌC ENERGY STRUCTURE</text>
+        <text x="250" y="384" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display" font-style="italic">Bát Tự — EDD Digital Report</text>
+      </g>
+      <text x="250" y="460" text-anchor="middle" font-size="8" fill="rgba(90,80,67,.36)" font-family="JetBrains Mono" letter-spacing="1.8" class="sf sf-6">ENERGY STRUCTURE · NỀN TẢNG CỦA CẤU TRÚC NỘI LỰC</text>
+    </svg>
+  </div>
+</div>
+
+<!-- S05 -->
+<div class="card l-split" id="s5">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Phân tích chuyên sâu · Lớp 2</div>
+    <h2 class="h2 su su-2">Hệ Thống<br>Tương Tác<br><em>Trung Gian</em></h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Định nghĩa</div>
+      <div class="sb-body">Toàn bộ cơ chế mà cá nhân dùng để chuyển hóa Cấu Trúc Nội Lực thành kết quả thực. Bao gồm: <strong>Quyết định, Mẫu Hình Hành Vi, Quan hệ, Hệ thống vận hành</strong>.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl">Nguyên lý bắc cầu kết nối</div>
+      <div class="sb-body">Hệ Thống Tương Tác Trung Gian chỉ hoạt động hiệu quả khi chủ thể <strong>hiểu rõ Cấu Trúc Nội Lực bên trong</strong> và <strong>Bối Cảnh Ngoại Lực bên ngoài</strong> — từ đó xác định được <em>"ở thời điểm nào đưa ra dạng quyết định nào"</em> để đảm bảo sự Tương Thích tối ưu giữa bên trong và bên ngoài.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Vai trò trong kiến trúc tổng thể</div>
+      <div class="sb-body">Hệ Thống Tương Tác Trung Gian không tự tạo ra Động Lực. Nó khuếch đại hoặc suy giảm những gì có sẵn từ Nội Lực. Can thiệp chỉ ở lớp này mà không thay đổi lớp gốc rễ sẽ tạo ra kết quả <em>ngắn hạn và không bền vững</em>.</div>
+    </div>
+    <div class="note su su-6">ĐIỂM CHÚ Ý · Phần lớn phương pháp coaching truyền thống chỉ tác động đến lớp Tương Tác — không đến lớp Nội Lực</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 500 530" fill="none" width="100%" height="100%" style="max-height:530px;">
+      <defs>
+        <marker id="adn2" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(168,124,58,.55)"/></marker>
+      </defs>
+      <g class="sf sf-1">
+        <rect x="126" y="10" width="248" height="52" rx="5" fill="rgba(168,124,58,.1)" stroke="rgba(168,124,58,.4)" stroke-width="1.5"/>
+        <text x="250" y="30" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1.5">CẤU TRÚC NỘI LỰC</text>
+        <text x="250" y="50" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display" font-style="italic">Energy · Cognitive · Desire</text>
+      </g>
+      <line x1="250" y1="62" x2="250" y2="84" stroke="rgba(168,124,58,.35)" stroke-width="1.5" marker-end="url(#adn2)" class="dp"/>
+      <g class="sf sf-2">
+        <rect x="24" y="90" width="452" height="56" rx="6" fill="rgba(13,11,8,.06)" stroke="rgba(168,124,58,.35)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="250" y="112" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="2">HỆ THỐNG TƯƠNG TÁC TRUNG GIAN</text>
+        <text x="250" y="134" text-anchor="middle" font-size="12" fill="#2e2619" font-family="Inter">Bắc cầu kết nối Nội Lực với Ngoại Lực</text>
+      </g>
+      <g class="sf sf-3">
+        <line x1="250" y1="146" x2="250" y2="168" stroke="rgba(168,124,58,.22)" stroke-width="1.5"/>
+        <line x1="93" y1="168" x2="407" y2="168" stroke="rgba(168,124,58,.22)" stroke-width="1.5"/>
+        <line x1="93" y1="168" x2="93" y2="190" stroke="rgba(168,124,58,.22)" stroke-width="1.5"/>
+        <line x1="220" y1="168" x2="220" y2="190" stroke="rgba(168,124,58,.22)" stroke-width="1.5"/>
+        <line x1="348" y1="168" x2="348" y2="190" stroke="rgba(168,124,58,.22)" stroke-width="1.5"/>
+        <line x1="407" y1="168" x2="407" y2="190" stroke="rgba(168,124,58,.22)" stroke-width="1.5"/>
+      </g>
+      <g class="sf sf-3">
+        <rect x="24" y="190" width="136" height="60" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="92" y="210" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.58)" font-family="JetBrains Mono" letter-spacing="1">QUYẾT ĐỊNH</text>
+        <text x="92" y="230" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Decision</text>
+        <text x="92" y="244" text-anchor="middle" font-size="9" fill="#9a8f7e" font-family="Inter" font-style="italic">Lựa chọn chiến lược</text>
+        <rect x="172" y="190" width="136" height="60" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="240" y="208" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.58)" font-family="JetBrains Mono" letter-spacing="1">MẪU HÌNH HÀNH VI</text>
+        <text x="240" y="228" text-anchor="middle" font-size="11" fill="#17130c" font-family="Playfair Display">Behavior</text>
+        <text x="240" y="244" text-anchor="middle" font-size="9" fill="#9a8f7e" font-family="Inter" font-style="italic">Pattern</text>
+      </g>
+      <g class="sf sf-4">
+        <rect x="320" y="190" width="136" height="60" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="388" y="210" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.58)" font-family="JetBrains Mono" letter-spacing="1">QUAN HỆ</text>
+        <text x="388" y="230" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Relation</text>
+        <text x="388" y="244" text-anchor="middle" font-size="9" fill="#9a8f7e" font-family="Inter" font-style="italic">Kết nối &amp; tương tác</text>
+        <rect x="24" y="264" width="452" height="48" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.18)" stroke-width="1"/>
+        <text x="250" y="284" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.58)" font-family="JetBrains Mono" letter-spacing="1.5">HỆ THỐNG VẬN HÀNH</text>
+        <text x="250" y="303" text-anchor="middle" font-size="11.5" fill="#2e2619" font-family="Inter">Cấu trúc công việc · Quy trình · Nhịp vận hành</text>
+      </g>
+      <line x1="250" y1="312" x2="250" y2="334" stroke="rgba(168,124,58,.28)" stroke-width="1.5" marker-end="url(#adn2)" class="dp"/>
+      <g class="sf sf-5">
+        <rect x="126" y="340" width="248" height="52" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="250" y="360" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.52)" font-family="JetBrains Mono" letter-spacing="1.5">BỐI CẢNH NGOẠI LỰC</text>
+        <text x="250" y="380" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display" font-style="italic">Kết quả hiển thị ra ngoài</text>
+      </g>
+      <g class="sf sf-6">
+        <rect x="24" y="412" width="212" height="34" rx="4" fill="rgba(42,92,53,.08)" stroke="rgba(42,92,53,.28)" stroke-width="1"/>
+        <text x="130" y="433" text-anchor="middle" font-size="11" fill="rgba(42,92,53,.9)" font-family="Inter">Tương Thích → Động Lực ↑</text>
+        <rect x="264" y="412" width="212" height="34" rx="4" fill="rgba(140,42,28,.07)" stroke="rgba(140,42,28,.26)" stroke-width="1"/>
+        <text x="370" y="433" text-anchor="middle" font-size="11" fill="rgba(140,42,28,.88)" font-family="Inter">Lệch hướng → Biến Động ↑</text>
+      </g>
+      <text x="250" y="490" text-anchor="middle" font-size="8" fill="rgba(90,80,67,.36)" font-family="JetBrains Mono" letter-spacing="1.8" class="sf sf-6">TRUNG GIAN BẮC CẦU — NỘI LỰC GẶP NGOẠI LỰC</text>
+    </svg>
+  </div>
+</div>
+
+<!-- S06 -->
+<div class="card l-split" id="s6">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Phân tích chuyên sâu · Lớp 3</div>
+    <h2 class="h2 su su-2">Bối Cảnh<br><em>Ngoại Lực</em></h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Phạm vi và định nghĩa</div>
+      <div class="sb-body">Bao gồm bối cảnh cuộc sống, hệ thống mối quan hệ, và tập hợp các lĩnh vực thiết yếu như <strong>sự nghiệp, tài chính, mối quan hệ, sức khỏe, v.v.</strong> — toàn bộ môi trường mà cá nhân đang vận hành bên trong.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl">Đặc tính quan trọng</div>
+      <div class="sb-body">Bối Cảnh Ngoại Lực là <em>hằng số chung</em> — tất cả cá nhân trong cùng hoàn cảnh đều chia sẻ cùng Ngoại Lực. Đây là lý do tại sao Ngoại Lực <strong>không giải thích được sự khác biệt</strong> về kết quả giữa các cá nhân.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Lý do và chiến lược</div>
+      <div class="sb-body">Thay vì cố gắng thay đổi Ngoại Lực, cá nhân cần <strong>nhận diện chính xác</strong> bối cảnh mình đang ở, <em>định vị</em> bản thân trong các điểm có lợi thế tự nhiên, và <strong>tận dụng</strong> những nguồn lực sẵn có trong môi trường đó.</div>
+    </div>
+    <div class="note su su-6">NGUYÊN LÝ · Người vận hành hiệu quả không chiến đấu với Ngoại Lực — họ định vị và tận dụng nó</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 500 500" fill="none" width="100%" height="100%" style="max-height:500px;">
+      <text x="250" y="18" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.65)" font-family="JetBrains Mono" letter-spacing="2" class="sf sf-1">BỐI CẢNH NGOẠI LỰC · CÁC LĨNH VỰC THIẾT YẾU</text>
+      <g class="sf sf-2">
+        <rect x="14" y="28" width="142" height="70" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="85" y="51" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">SỰ NGHIỆP</text>
+        <text x="85" y="70" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Career</text>
+        <text x="85" y="88" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Vai trò · Đóng góp</text>
+        <rect x="179" y="28" width="142" height="70" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="250" y="51" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">TÀI CHÍNH</text>
+        <text x="250" y="70" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Finance</text>
+        <text x="250" y="88" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Nguồn lực · Tích lũy</text>
+        <rect x="344" y="28" width="142" height="70" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="415" y="51" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">MỐI QUAN HỆ</text>
+        <text x="415" y="70" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Relation</text>
+        <text x="415" y="88" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Kết nối · Hệ sinh thái</text>
+      </g>
+      <g class="sf sf-3">
+        <rect x="14" y="112" width="142" height="70" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/>
+        <text x="85" y="135" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">SỨC KHOẺ</text>
+        <text x="85" y="154" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Health</text>
+        <text x="85" y="172" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Thể chất · Tinh thần</text>
+        <rect x="179" y="112" width="142" height="70" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.18)" stroke-width="1"/>
+        <text x="250" y="135" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">BỐI CẢNH SỐNG</text>
+        <text x="250" y="154" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Life Context</text>
+        <text x="250" y="172" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Môi trường · Giai đoạn</text>
+        <rect x="344" y="112" width="142" height="70" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.18)" stroke-width="1"/>
+        <text x="415" y="133" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">HỆ SINH THÁI</text>
+        <text x="415" y="152" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Ecosystem</text>
+        <text x="415" y="170" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Cộng đồng · Mạng lưới</text>
+      </g>
+      <g class="sf sf-4">
+        <rect x="14" y="202" width="472" height="54" rx="6" fill="rgba(13,11,8,.92)" stroke="rgba(168,124,58,.4)" stroke-width="1.5"/>
+        <text x="250" y="224" text-anchor="middle" font-size="8.5" fill="rgba(232,200,128,.6)" font-family="JetBrains Mono" letter-spacing="2">ĐẶC TÍNH QUAN TRỌNG NHẤT</text>
+        <text x="250" y="245" text-anchor="middle" font-size="14" fill="rgba(245,240,232,.88)" font-family="Playfair Display" font-style="italic">Hằng số chung — không giải thích sự khác biệt</text>
+      </g>
+      <g class="sf sf-5">
+        <rect x="14" y="276" width="146" height="74" rx="5" fill="rgba(168,124,58,.07)" stroke="rgba(168,124,58,.25)" stroke-width="1"/>
+        <text x="87" y="298" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.68)" font-family="JetBrains Mono" letter-spacing="1">NHẬN DIỆN</text>
+        <text x="87" y="318" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Observe</text>
+        <text x="87" y="337" text-anchor="middle" font-size="9.5" fill="#5a5043" font-family="Inter">Đọc bối cảnh chính xác</text>
+        <rect x="177" y="276" width="146" height="74" rx="5" fill="rgba(168,124,58,.07)" stroke="rgba(168,124,58,.25)" stroke-width="1"/>
+        <text x="250" y="298" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.68)" font-family="JetBrains Mono" letter-spacing="1">ĐỊNH VỊ</text>
+        <text x="250" y="318" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Position</text>
+        <text x="250" y="337" text-anchor="middle" font-size="9.5" fill="#5a5043" font-family="Inter">Khai thác lợi thế tự nhiên</text>
+        <rect x="340" y="276" width="146" height="74" rx="5" fill="rgba(168,124,58,.07)" stroke="rgba(168,124,58,.25)" stroke-width="1"/>
+        <text x="413" y="298" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.68)" font-family="JetBrains Mono" letter-spacing="1">TẬN DỤNG</text>
+        <text x="413" y="318" text-anchor="middle" font-size="12.5" fill="#17130c" font-family="Playfair Display">Leverage</text>
+        <text x="413" y="337" text-anchor="middle" font-size="9.5" fill="#5a5043" font-family="Inter">Dùng nguồn lực sẵn có</text>
+      </g>
+      <text x="250" y="430" text-anchor="middle" font-size="8" fill="rgba(90,80,67,.36)" font-family="JetBrains Mono" letter-spacing="1.8" class="sf sf-6">NGOẠI LỰC · ĐỊNH VỊ VÀ TẬN DỤNG — KHÔNG THỂ KIỂM SOÁT</text>
+    </svg>
+  </div>
+</div>
+
+<!-- S07 -->
+<div class="card l-split" id="s7">
+  <div class="l-left" style="background:var(--black);">
+    <div class="eyebrow-lt su su-1">Cơ chế hình thành · Khái niệm trọng tâm</div>
+    <h2 class="h2 su su-2 h2-lt">Tại sao <em>Bản Sắc<br>Vay Mượn</em><br>xuất hiện?</h2>
+    <div class="rule rule-lt su su-2"></div>
+    <div class="sb su su-3" style="border-top:none;margin-top:0;padding-top:0;">
+      <div class="sb-lbl sb-lbl-lt">Điểm mù căn bản</div>
+      <div class="sb-body sb-body-lt">Cá nhân <strong>không nhận thức được Cấu Trúc Nội Lực</strong> bên trong — trong khi đây mới là phần gốc rễ thật sự quyết định bản sắc và mọi kết quả cuộc đời.</div>
+    </div>
+    <div class="sb su su-4" style="border-top-color:rgba(168,124,58,.15);">
+      <div class="sb-lbl sb-lbl-lt">Lấp đầy bằng yếu tố bên ngoài</div>
+      <div class="sb-body sb-body-lt">Khi không có nhận thức về Nội Lực gốc rễ, cá nhân tự nhiên <em>hướng ra bên ngoài</em> — tiếp nhận bối cảnh xã hội, kỳ vọng của người thân, chuẩn mực của cộng đồng — và dùng chúng để <strong>lấp đầy câu hỏi "Tôi là ai?"</strong></div>
+    </div>
+    <div class="sb su su-5" style="border-top-color:rgba(168,124,58,.15);">
+      <div class="sb-lbl sb-lbl-lt">Hệ quả với Desire System</div>
+      <div class="sb-body sb-body-lt">Khi bản sắc được xây dựng từ yếu tố bên ngoài, <strong>Desire System (Hệ Thống Tham Vọng)</strong> cũng bị định hình theo — tạo ra mong muốn <em>không xuất phát từ gốc rễ Energy Structure thực</em> của cá nhân đó.</div>
+    </div>
+    <div class="note note-lt su su-6">GỐC RỄ VẤN ĐỀ · Không phải thiếu nỗ lực hay sai strategy — mà là đang sống theo bản sắc của người khác</div>
+  </div>
+  <div class="l-right" style="background:var(--black2);">
+    <svg viewBox="0 0 500 500" fill="none" width="100%" height="100%" style="max-height:500px;">
+      <defs>
+        <marker id="adn3" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(168,124,58,.55)"/></marker>
+        <marker id="ard" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(140,42,28,.5)"/></marker>
+      </defs>
+      <g class="sf sf-1">
+        <circle cx="250" cy="220" r="52" fill="rgba(168,124,58,.1)" stroke="rgba(168,124,58,.45)" stroke-width="2"/>
+        <text x="250" y="212" text-anchor="middle" font-size="11" fill="rgba(245,240,232,.88)" font-family="Inter" font-weight="500">CÁ NHÂN</text>
+        <text x="250" y="230" text-anchor="middle" font-size="9.5" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1">ĐIỂM MÙ</text>
+        <text x="250" y="248" text-anchor="middle" font-size="9" fill="rgba(245,240,232,.38)" font-family="Inter" font-style="italic">Không thấy Nội Lực</text>
+      </g>
+      <g class="sf sf-2">
+        <rect x="172" y="286" width="156" height="36" rx="4" fill="rgba(245,240,232,.04)" stroke="rgba(245,240,232,.1)" stroke-width="1"/>
+        <text x="250" y="303" text-anchor="middle" font-size="9" fill="rgba(245,240,232,.3)" font-family="JetBrains Mono" letter-spacing="1">CẤU TRÚC NỘI LỰC</text>
+        <text x="250" y="318" text-anchor="middle" font-size="9" fill="rgba(245,240,232,.22)" font-family="Inter" font-style="italic">Bị che khuất · Chưa được nhìn thấy</text>
+        <line x1="176" y1="290" x2="324" y2="318" stroke="rgba(140,42,28,.35)" stroke-width="1.5"/>
+        <line x1="324" y1="290" x2="176" y2="318" stroke="rgba(140,42,28,.35)" stroke-width="1.5"/>
+      </g>
+      <g class="sf sf-3">
+        <rect x="172" y="20" width="156" height="46" rx="5" fill="rgba(245,240,232,.04)" stroke="rgba(245,240,232,.12)" stroke-width="1"/>
+        <text x="250" y="40" text-anchor="middle" font-size="9" fill="rgba(245,240,232,.38)" font-family="JetBrains Mono" letter-spacing="1">GIA ĐÌNH · GIÁO DỤC</text>
+        <text x="250" y="57" text-anchor="middle" font-size="10" fill="rgba(245,240,232,.28)" font-family="Inter" font-style="italic">Kỳ vọng được truyền đạt</text>
+        <line x1="250" y1="66" x2="250" y2="165" stroke="rgba(168,124,58,.32)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#adn3)" class="dp"/>
+        <rect x="14" y="196" width="132" height="46" rx="5" fill="rgba(245,240,232,.04)" stroke="rgba(245,240,232,.12)" stroke-width="1"/>
+        <text x="80" y="216" text-anchor="middle" font-size="9" fill="rgba(245,240,232,.38)" font-family="JetBrains Mono" letter-spacing="1">XÃ HỘI</text>
+        <text x="80" y="233" text-anchor="middle" font-size="10" fill="rgba(245,240,232,.28)" font-family="Inter" font-style="italic">Chuẩn mực chung</text>
+        <line x1="146" y1="219" x2="196" y2="219" stroke="rgba(168,124,58,.32)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#adn3)" class="dp"/>
+        <rect x="354" y="196" width="132" height="46" rx="5" fill="rgba(245,240,232,.04)" stroke="rgba(245,240,232,.12)" stroke-width="1"/>
+        <text x="420" y="216" text-anchor="middle" font-size="9" fill="rgba(245,240,232,.38)" font-family="JetBrains Mono" letter-spacing="1">CỘNG ĐỒNG</text>
+        <text x="420" y="233" text-anchor="middle" font-size="10" fill="rgba(245,240,232,.28)" font-family="Inter" font-style="italic">Hình mẫu thành công</text>
+        <line x1="354" y1="219" x2="304" y2="219" stroke="rgba(168,124,58,.32)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#adn3)" class="dp"/>
+      </g>
+      <g class="sf sf-4">
+        <rect x="88" y="360" width="324" height="54" rx="6" fill="rgba(168,124,58,.12)" stroke="rgba(168,124,58,.45)" stroke-width="1.5"/>
+        <text x="250" y="381" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.72)" font-family="JetBrains Mono" letter-spacing="1.5">KẾT QUẢ</text>
+        <text x="250" y="401" text-anchor="middle" font-size="15" fill="rgba(245,240,232,.9)" font-family="Playfair Display" font-style="italic">Bản Sắc Vay Mượn</text>
+      </g>
+      <line x1="250" y1="272" x2="250" y2="356" stroke="rgba(168,124,58,.35)" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#adn3)" class="dp"/>
+      <g class="sf sf-5">
+        <rect x="88" y="432" width="324" height="36" rx="4" fill="rgba(140,42,28,.08)" stroke="rgba(140,42,28,.25)" stroke-width="1"/>
+        <text x="250" y="450" text-anchor="middle" font-size="9" fill="rgba(200,70,50,.78)" font-family="JetBrains Mono" letter-spacing="1.2">DESIRE SYSTEM KHÔNG TỪ GỐC RỄ</text>
+        <text x="250" y="462" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.42)" font-family="Inter" font-style="italic">Tham vọng hình thành từ bên ngoài, không từ Energy thực</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- S08 -->
+<div class="card l-split" id="s8">
+  <div class="l-left" style="background:var(--black);">
+    <div class="eyebrow-lt su su-1">Hệ quả hệ thống · Root Mechanism</div>
+    <h2 class="h2 su su-2 h2-lt"><em>Bản Sắc Vay Mượn</em><br>tạo ra cuộc đời<br>lệch hướng như thế nào</h2>
+    <div class="rule rule-lt su su-2"></div>
+    <div class="sb su su-3" style="border-top:none;margin-top:0;padding-top:0;">
+      <div class="sb-lbl sb-lbl-lt">Lệch hướng từ tầng gốc rễ</div>
+      <div class="sb-body sb-body-lt">Khi Bản Sắc được xây dựng từ yếu tố bên ngoài, <strong>Desire System bị định hình lệch</strong> — cá nhân theo đuổi những mục tiêu không xuất phát từ Energy Structure thực của mình, tạo ra mâu thuẫn nội tâm sâu sắc.</div>
+    </div>
+    <div class="sb su su-4" style="border-top-color:rgba(168,124,58,.15);">
+      <div class="sb-lbl sb-lbl-lt">Biến động vô hình tích lũy</div>
+      <div class="sb-body sb-body-lt">Cá nhân hoạt động liên tục nhưng cảm thấy <em>mệt mỏi không giải thích được</em>. Năng lượng tiêu hao nhiều hơn tái tạo. Kết quả không tỷ lệ với nỗ lực. <strong>Không nhận ra đây là dấu hiệu của sự lệch hướng cấu trúc</strong>.</div>
+    </div>
+    <div class="sb su su-5" style="border-top-color:rgba(168,124,58,.15);">
+      <div class="sb-lbl sb-lbl-lt">Chẩn đoán sai hệ thống</div>
+      <div class="sb-body sb-body-lt">Cá nhân nhận ra vấn đề nhưng <strong>can thiệp sai tầng</strong>: thay đổi chiến lược, tăng nỗ lực, tìm mentor mới — trong khi vấn đề nằm ở tầng Bản Sắc. Mỗi vòng can thiệp sai càng <em>tiêu hao thêm nguồn lực</em>.</div>
+    </div>
+    <div class="note note-lt su su-6">VÒNG THOÁT DUY NHẤT · Quay về nhận thức Cấu Trúc Nội Lực thực — đây là cách duy nhất phá vỡ vòng lặp</div>
+  </div>
+  <div class="l-right" style="background:var(--black2);">
+    <svg viewBox="0 0 480 570" fill="none" width="100%" height="100%" style="max-height:570px;">
+      <defs>
+        <marker id="adn4" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(168,124,58,.55)"/></marker>
+        <marker id="ard2" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(140,42,28,.5)"/></marker>
+        <marker id="agr2" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(42,92,53,.65)"/></marker>
+      </defs>
+      <g class="sf sf-1"><rect x="90" y="8" width="300" height="62" rx="6" fill="rgba(168,124,58,.12)" stroke="rgba(168,124,58,.45)" stroke-width="1.5"/><text x="240" y="28" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1.5">TẦNG GỐC RỄ</text><text x="240" y="50" text-anchor="middle" font-size="15" fill="rgba(245,240,232,.9)" font-family="Playfair Display" font-style="italic">Bản Sắc Vay Mượn</text><text x="240" y="63" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.38)" font-family="Inter">Hình thành thụ động · Không có sự lựa chọn</text></g>
+      <line x1="240" y1="70" x2="240" y2="96" stroke="rgba(168,124,58,.4)" stroke-width="1.5" marker-end="url(#adn4)" class="dp"/>
+      <g class="sf sf-2"><rect x="90" y="102" width="300" height="58" rx="5" fill="rgba(245,240,232,.04)" stroke="rgba(168,124,58,.2)" stroke-width="1"/><text x="240" y="122" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.55)" font-family="JetBrains Mono" letter-spacing="1">HỆ THỐNG THAM VỌNG</text><text x="240" y="143" text-anchor="middle" font-size="13" fill="rgba(245,240,232,.78)" font-family="Playfair Display" font-style="italic">Tham vọng lệch hướng</text><text x="240" y="155" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.38)" font-family="Inter">Không xuất phát từ Energy Structure thực</text></g>
+      <line x1="240" y1="160" x2="240" y2="186" stroke="rgba(168,124,58,.3)" stroke-width="1.5" marker-end="url(#adn4)" class="dp"/>
+      <g class="sf sf-3"><rect x="90" y="192" width="300" height="58" rx="5" fill="rgba(245,240,232,.03)" stroke="rgba(168,124,58,.14)" stroke-width="1"/><text x="240" y="212" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.45)" font-family="JetBrains Mono" letter-spacing="1">TẦNG QUYẾT ĐỊNH</text><text x="240" y="232" text-anchor="middle" font-size="13" fill="rgba(245,240,232,.7)" font-family="Playfair Display" font-style="italic">Quyết định lệch hướng</text><text x="240" y="244" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.35)" font-family="Inter">Hướng đến mục tiêu không phải của mình</text></g>
+      <line x1="240" y1="250" x2="240" y2="276" stroke="rgba(140,42,28,.38)" stroke-width="1.5" marker-end="url(#ard2)" class="dp"/>
+      <g class="sf sf-4"><rect x="60" y="282" width="360" height="70" rx="6" fill="rgba(140,42,28,.08)" stroke="rgba(140,42,28,.42)" stroke-width="1.5"/><text x="240" y="304" text-anchor="middle" font-size="9" fill="rgba(200,70,50,.78)" font-family="JetBrains Mono" letter-spacing="1.5">⚠ CHẨN ĐOÁN SAI</text><text x="240" y="326" text-anchor="middle" font-size="13.5" fill="rgba(245,240,232,.82)" font-family="Playfair Display">Can thiệp sai tầng</text><text x="240" y="344" text-anchor="middle" font-size="10.5" fill="rgba(140,42,28,.7)" font-family="Inter">"Thay chiến lược · Tăng nỗ lực · Tìm mentor mới"</text></g>
+      <line x1="240" y1="352" x2="240" y2="378" stroke="rgba(140,42,28,.35)" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ard2)" class="dp"/>
+      <g class="sf sf-5"><rect x="90" y="384" width="300" height="58" rx="5" fill="rgba(140,42,28,.06)" stroke="rgba(140,42,28,.25)" stroke-width="1"/><text x="240" y="404" text-anchor="middle" font-size="9" fill="rgba(140,42,28,.62)" font-family="JetBrains Mono" letter-spacing="1">KẾT QUẢ HỆ THỐNG</text><text x="240" y="424" text-anchor="middle" font-size="13" fill="rgba(245,240,232,.75)" font-family="Playfair Display">Kiệt sức · Biến Động · Trì trệ</text><text x="240" y="438" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.35)" font-family="Inter">Vòng lặp tái diễn ở cấp độ cao hơn</text></g>
+      <g class="sf sf-6"><path d="M 390 411 Q 432 411 432 39 Q 432 8 390 8" stroke="rgba(140,42,28,.18)" stroke-width="1" stroke-dasharray="3 4" fill="none"/><text x="446" y="210" text-anchor="middle" font-size="7.5" fill="rgba(140,42,28,.32)" font-family="JetBrains Mono" transform="rotate(90,446,210)">VÒNG LẶP</text></g>
+      <g class="sf sf-7">
+        <line x1="240" y1="442" x2="240" y2="468" stroke="rgba(42,92,53,.4)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#agr2)"/>
+        <rect x="90" y="474" width="300" height="44" rx="5" fill="rgba(42,92,53,.1)" stroke="rgba(42,92,53,.3)" stroke-width="1.5"/>
+        <text x="240" y="492" text-anchor="middle" font-size="9" fill="rgba(42,92,53,.85)" font-family="JetBrains Mono" letter-spacing="1.5">ĐIỂM PHÁ VỠ VÒNG LẶP</text>
+        <text x="240" y="511" text-anchor="middle" font-size="12.5" fill="rgba(245,240,232,.75)" font-family="Playfair Display" font-style="italic">Nhận thức Cấu Trúc Nội Lực thực</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- S09 -->
+<div class="card l-split" id="s9">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Phân tích chuỗi · Causal Chain</div>
+    <h2 class="h2 su su-2">Chuỗi vận hành<br>từ <em>Bản Sắc Vay Mượn</em></h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Bước 1 · Hình thành</div>
+      <div class="sb-body">Bản Sắc Vay Mượn được hình thành và củng cố trong giai đoạn sớm của cuộc đời. Cá nhân không nhận ra vì <strong>đó là toàn bộ thực tại đã biết</strong> — không có điểm tham chiếu khác để so sánh.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl">Bước 2 · Lan truyền xuống các tầng</div>
+      <div class="sb-body">Bản Sắc Vay Mượn định hình <em>Hệ Thống Tham Vọng</em> — mong muốn không xuất phát từ Energy Structure thực. Từ đó tạo ra các quyết định sai hướng và <strong>mẫu hình hành vi mâu thuẫn</strong> với cấu trúc năng lượng bẩm sinh.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Bước 3 · Điểm chẩn đoán sai</div>
+      <div class="sb-body">Cá nhân cảm nhận được biến động và kết quả không như kỳ vọng. Nhưng <strong>can thiệp sai tầng</strong>: thay đổi chiến lược, tăng nỗ lực — trong khi vấn đề nằm ở tầng Bản Sắc, không phải tầng hành vi hay chiến lược.</div>
+    </div>
+    <div class="sb su su-6">
+      <div class="sb-lbl">Bước 4 · Vòng lặp tái diễn</div>
+      <div class="sb-body">Mỗi lần thay đổi chiến lược mà không thay đổi ở tầng bản sắc, vòng lặp tái diễn ở cấp độ cao hơn — với nhiều nguồn lực hơn bị tiêu hao.</div>
+    </div>
+    <div class="note su su-7">ĐIỂM PHÁ VỠ · Nhận thức về Cấu Trúc Nội Lực thực là điều kiện duy nhất để thoát khỏi vòng lặp</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 460 560" fill="none" width="100%" height="100%" style="max-height:560px;">
+      <defs>
+        <marker id="adn5" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(168,124,58,.55)"/></marker>
+        <marker id="ard3" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(140,42,28,.5)"/></marker>
+        <marker id="agr3" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(42,92,53,.65)"/></marker>
+      </defs>
+      <g class="sf sf-1"><rect x="80" y="8" width="300" height="62" rx="6" fill="rgba(168,124,58,.1)" stroke="rgba(168,124,58,.45)" stroke-width="1.5"/><text x="230" y="29" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1.5">GIAI ĐOẠN HÌNH THÀNH</text><text x="230" y="50" text-anchor="middle" font-size="14.5" fill="#17130c" font-family="Playfair Display" font-style="italic">Bản Sắc Vay Mượn</text><text x="230" y="64" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Thụ động · Không có sự lựa chọn</text></g>
+      <line x1="230" y1="70" x2="230" y2="96" stroke="rgba(168,124,58,.4)" stroke-width="1.5" marker-end="url(#adn5)" class="dp"/>
+      <g class="sf sf-2"><rect x="80" y="102" width="300" height="56" rx="5" fill="rgba(23,19,12,.05)" stroke="rgba(168,124,58,.2)" stroke-width="1"/><text x="230" y="122" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.55)" font-family="JetBrains Mono" letter-spacing="1">HỆ THỐNG THAM VỌNG</text><text x="230" y="143" text-anchor="middle" font-size="13.5" fill="#17130c" font-family="Playfair Display" font-style="italic">Tham vọng lệch hướng</text><text x="230" y="153" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Không từ Energy Structure thực</text></g>
+      <line x1="230" y1="158" x2="230" y2="184" stroke="rgba(168,124,58,.32)" stroke-width="1.5" marker-end="url(#adn5)" class="dp"/>
+      <g class="sf sf-3"><rect x="80" y="190" width="300" height="56" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.14)" stroke-width="1"/><text x="230" y="210" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.45)" font-family="JetBrains Mono" letter-spacing="1">MẪU HÌNH HÀNH VI</text><text x="230" y="230" text-anchor="middle" font-size="13.5" fill="#17130c" font-family="Playfair Display" font-style="italic">Hành vi mâu thuẫn nội tâm</text><text x="230" y="241" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Xung đột với cấu trúc năng lượng bẩm sinh</text></g>
+      <line x1="230" y1="246" x2="230" y2="272" stroke="rgba(140,42,28,.38)" stroke-width="1.5" marker-end="url(#ard3)" class="dp"/>
+      <g class="sf sf-4"><rect x="52" y="278" width="356" height="68" rx="6" fill="rgba(140,42,28,.08)" stroke="rgba(140,42,28,.42)" stroke-width="1.5"/><text x="230" y="299" text-anchor="middle" font-size="9" fill="rgba(200,70,50,.78)" font-family="JetBrains Mono" letter-spacing="1.5">⚠ CHẨN ĐOÁN SAI</text><text x="230" y="321" text-anchor="middle" font-size="13.5" fill="rgba(140,42,28,.92)" font-family="Playfair Display">Can thiệp sai tầng</text><text x="230" y="339" text-anchor="middle" font-size="10.5" fill="rgba(140,42,28,.68)" font-family="Inter">"Thay chiến lược · Tăng nỗ lực · Tìm giải pháp mới"</text></g>
+      <line x1="230" y1="346" x2="230" y2="372" stroke="rgba(140,42,28,.35)" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ard3)" class="dp"/>
+      <g class="sf sf-5"><rect x="80" y="378" width="300" height="56" rx="5" fill="rgba(140,42,28,.06)" stroke="rgba(140,42,28,.25)" stroke-width="1"/><text x="230" y="398" text-anchor="middle" font-size="9" fill="rgba(140,42,28,.62)" font-family="JetBrains Mono" letter-spacing="1">KẾT QUẢ HỆ THỐNG</text><text x="230" y="418" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display">Kiệt sức · Biến Động · Trì trệ</text><text x="230" y="429" text-anchor="middle" font-size="9.5" fill="#9a8f7e" font-family="Inter">Vòng lặp tái diễn ở cấp độ cao hơn</text></g>
+      <g class="sf sf-6"><path d="M 380 405 Q 422 405 422 39 Q 422 8 380 8" stroke="rgba(140,42,28,.18)" stroke-width="1" stroke-dasharray="3 4" fill="none"/><text x="436" y="207" text-anchor="middle" font-size="7.5" fill="rgba(140,42,28,.32)" font-family="JetBrains Mono" transform="rotate(90,436,207)">VÒNG LẶP</text></g>
+      <g class="sf sf-7">
+        <line x1="230" y1="434" x2="230" y2="460" stroke="rgba(42,92,53,.4)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#agr3)"/>
+        <rect x="80" y="466" width="300" height="44" rx="5" fill="rgba(42,92,53,.1)" stroke="rgba(42,92,53,.3)" stroke-width="1.5"/>
+        <text x="230" y="484" text-anchor="middle" font-size="9" fill="rgba(42,92,53,.85)" font-family="JetBrains Mono" letter-spacing="1.5">ĐIỂM PHÁ VỠ</text>
+        <text x="230" y="502" text-anchor="middle" font-size="12.5" fill="#2e2619" font-family="Playfair Display" font-style="italic">Awareness → Tái thiết kế Nội Lực</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="card l-split" id="s10">
+  <div class="l-left" style="background:var(--black);">
+    <div class="eyebrow-lt su su-1">Nguyên lý triết học · LSI</div>
+    <h2 class="h2 su su-2 h2-lt">Nguyên lý<br><em>Người Quan Sát</em></h2>
+    <div class="rule rule-lt su su-2"></div>
+    <div class="sb su su-3" style="border-top:none;margin-top:0;padding-top:0;">
+      <div class="sb-lbl sb-lbl-lt">Định nghĩa bản thể</div>
+      <div class="sb-body sb-body-lt">Cá nhân <strong>không đồng nhất</strong> với cơ thể, Hệ Thống Nhận Thức, trạng thái cảm xúc, hay các Mẫu Hình Hành Vi. Tất cả hệ thống đó là công cụ — không phải bản thể.</div>
+    </div>
+    <div class="sb su su-4" style="border-top-color:rgba(168,124,58,.15);">
+      <div class="sb-lbl sb-lbl-lt">Năng lực quan sát</div>
+      <div class="sb-body sb-body-lt">Mỗi cá nhân là một bản thể có khả năng đứng ngoài và quan sát toàn bộ các hệ thống đó vận hành từ góc nhìn trung lập, không phán xét và không bị cuốn vào.</div>
+    </div>
+    <div class="sb su su-5" style="border-top-color:rgba(168,124,58,.15);">
+      <div class="sb-lbl sb-lbl-lt">Điều kiện tái thiết kế</div>
+      <div class="sb-body sb-body-lt">Khi có thể <strong>quan sát Bản Sắc</strong> từ bên ngoài thay vì bị đồng nhất với nó, cá nhân lần đầu tiên có <em>năng lực thực sự</em> để nhận diện Bản Sắc Vay Mượn và tái thiết kế Cấu Trúc Nội Lực theo đúng bản chất thực.</div>
+    </div>
+    <div class="note note-lt su su-6">NGUYÊN LÝ CỐT LÕI · Bạn không thể thay đổi điều bạn không thể quan sát — Awareness là năng lực nền tảng</div>
+  </div>
+  <div class="l-right" style="background:var(--black2);">
+    <svg viewBox="0 0 500 510" fill="none" width="100%" height="100%" style="max-height:510px;">
+      <circle cx="250" cy="220" r="208" stroke="rgba(168,124,58,.04)" stroke-width="1" class="sf sf-1"/>
+      <circle cx="250" cy="220" r="170" stroke="rgba(168,124,58,.06)" stroke-width="1" class="sf sf-1"/>
+      <circle cx="250" cy="220" r="132" stroke="rgba(168,124,58,.09)" stroke-width="1" class="sf sf-1"/>
+      <circle cx="250" cy="220" r="95" stroke="rgba(168,124,58,.12)" stroke-width="1" class="sf sf-1"/>
+      <g class="sf sf-2" opacity=".5">
+        <text x="82" y="148" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.25)" font-family="JetBrains Mono">≠ Suy nghĩ</text>
+        <text x="418" y="148" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.25)" font-family="JetBrains Mono">≠ Cảm xúc</text>
+        <text x="68" y="300" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.25)" font-family="JetBrains Mono">≠ Cơ thể</text>
+        <text x="432" y="300" text-anchor="middle" font-size="9.5" fill="rgba(245,240,232,.25)" font-family="JetBrains Mono">≠ Hành vi</text>
+      </g>
+      <g class="sf sf-4">
+        <circle cx="250" cy="220" r="66" fill="rgba(168,124,58,.14)" stroke="rgba(168,124,58,.55)" stroke-width="2"/>
+        <text x="250" y="208" text-anchor="middle" font-size="13" fill="rgba(245,240,232,.92)" font-family="Playfair Display">Observing</text>
+        <text x="250" y="228" text-anchor="middle" font-size="13" fill="rgba(245,240,232,.92)" font-family="Playfair Display">Awareness</text>
+        <text x="250" y="250" text-anchor="middle" font-size="9" fill="rgba(232,200,128,.75)" font-family="JetBrains Mono" letter-spacing="1.5">BẢN THỂ THỰC</text>
+      </g>
+      <g class="sf sf-3">
+        <rect x="40" y="354" width="420" height="96" rx="7" fill="rgba(245,240,232,.04)" stroke="rgba(245,240,232,.1)" stroke-width="1.5"/>
+        <text x="250" y="376" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1.5">BẢN SẮC · CÓ THỂ TỐI ƯU HOÁ</text>
+        <line x1="56" y1="382" x2="444" y2="382" stroke="rgba(245,240,232,.07)" stroke-width="1"/>
+        <text x="250" y="402" text-anchor="middle" font-size="12" fill="rgba(245,240,232,.5)" font-family="Inter">Cơ thể · Hệ Thống Nhận Thức · Hệ Thống Tham Vọng</text>
+        <text x="250" y="420" text-anchor="middle" font-size="10.5" fill="rgba(245,240,232,.3)" font-family="Inter" font-style="italic">Được hình thành qua thời gian · Có thể quan sát từ bên ngoài</text>
+        <text x="250" y="438" text-anchor="middle" font-size="10.5" fill="rgba(245,240,232,.22)" font-family="Inter" font-style="italic">Có thể tái thiết kế khi có đủ Awareness</text>
+      </g>
+      <g class="sf sf-5">
+        <line x1="196" y1="292" x2="148" y2="347" stroke="rgba(168,124,58,.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <line x1="304" y1="292" x2="354" y2="347" stroke="rgba(168,124,58,.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="250" y="334" text-anchor="middle" font-size="9.5" fill="rgba(168,124,58,.5)" font-family="JetBrains Mono" letter-spacing="1">QUAN SÁT</text>
+      </g>
+      <g class="sf sf-6">
+        <text x="250" y="26" text-anchor="middle" font-size="9.5" fill="rgba(168,124,58,.65)" font-family="JetBrains Mono" letter-spacing="1.5">AWARENESS SETTLEMENT</text>
+        <text x="250" y="44" text-anchor="middle" font-size="11.5" fill="rgba(245,240,232,.32)" font-family="Inter">Điểm khởi đầu của mọi transformation thật sự</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="card l-split" id="s11">
+  <div class="l-left">
+    <div class="eyebrow su su-1">Ứng dụng thực tiễn · Synthesis</div>
+    <h2 class="h2 su su-2">Trong vai trò<br><em>Người Quan Sát</em> —<br>hành động có chủ đích</h2>
+    <div class="rule su su-2"></div>
+    <div class="sb su su-3">
+      <div class="sb-lbl">Bước 1 · Quan sát ba lớp cấu trúc</div>
+      <div class="sb-body">Đứng ở vị trí Người Quan Sát để nhìn nhận toàn bộ Cấu Trúc Cuộc Đời theo ba lớp: <strong>Cấu Trúc Nội Lực</strong> đang ở trạng thái nào, <em>Hệ Thống Tương Tác Trung Gian</em> đang vận hành như thế nào, và <strong>Bối Cảnh Ngoại Lực</strong> đang cung cấp cơ hội hay tạo ra giới hạn gì.</div>
+    </div>
+    <div class="sb su su-4">
+      <div class="sb-lbl">Bước 2 · Định hình Bản Sắc từ gốc rễ</div>
+      <div class="sb-body">Thay vì tiếp nhận Bản Sắc từ bên ngoài, chủ động <em>xây dựng Bản Sắc Cá Nhân</em> từ Cấu Trúc Nội Lực thực: <strong>Energy Structure bẩm sinh, Cognitive System, và Desire System</strong> — ba thành phần phản ánh đúng bản chất của cá nhân.</div>
+    </div>
+    <div class="sb su su-5">
+      <div class="sb-lbl">Bước 3 · Hành động và quyết định có cơ sở</div>
+      <div class="sb-body">Khi Bản Sắc được định hình từ gốc rễ, mọi quyết định đều có thể được đưa ra dựa trên <strong>sự tương thích tối ưu</strong> giữa Nội Lực và Ngoại Lực — đây chính là điều kiện để công thức Thành Công vận hành đúng: <em>Cấu Trúc × Thời Điểm × Môi Trường × Nỗ Lực</em>.</div>
+    </div>
+    <div class="note su su-6">KẾT NỐI MODULE · Awareness → Bản Sắc từ gốc rễ → Quyết định có cơ sở → Thành Công bền vững</div>
+  </div>
+  <div class="l-right">
+    <svg viewBox="0 0 500 530" fill="none" width="100%" height="100%" style="max-height:530px;">
+      <defs>
+        <marker id="adn6" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(168,124,58,.55)"/></marker>
+        <marker id="agr4" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto"><polygon points="0 0,7 0,3.5 7" fill="rgba(42,92,53,.65)"/></marker>
+      </defs>
+      <g class="sf sf-1">
+        <circle cx="250" cy="58" r="48" fill="rgba(168,124,58,.12)" stroke="rgba(168,124,58,.52)" stroke-width="2"/>
+        <text x="250" y="48" text-anchor="middle" font-size="11" fill="rgba(245,240,232,.88)" font-family="Playfair Display">Observing</text>
+        <text x="250" y="66" text-anchor="middle" font-size="11" fill="rgba(245,240,232,.88)" font-family="Playfair Display">Awareness</text>
+        <text x="250" y="85" text-anchor="middle" font-size="8.5" fill="rgba(168,124,58,.68)" font-family="JetBrains Mono" letter-spacing="1.2">NGƯỜI QUAN SÁT</text>
+      </g>
+      <g class="sf sf-2">
+        <line x1="210" y1="104" x2="130" y2="170" stroke="rgba(168,124,58,.32)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#adn6)" class="dp"/>
+        <line x1="250" y1="106" x2="250" y2="170" stroke="rgba(168,124,58,.32)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#adn6)" class="dp"/>
+        <line x1="290" y1="104" x2="370" y2="170" stroke="rgba(168,124,58,.32)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#adn6)" class="dp"/>
+        <text x="95" y="162" text-anchor="middle" font-size="7.5" fill="rgba(168,124,58,.42)" font-family="JetBrains Mono">QUAN SÁT</text>
+      </g>
+      <g class="sf sf-2">
+        <rect x="14" y="176" width="134" height="64" rx="5" fill="rgba(168,124,58,.1)" stroke="rgba(168,124,58,.4)" stroke-width="1.5"/>
+        <text x="81" y="197" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1">CẤU TRÚC NỘI LỰC</text>
+        <text x="81" y="217" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Lớp 1</text>
+        <text x="81" y="233" text-anchor="middle" font-size="9.5" fill="#5a5043" font-family="Inter" font-style="italic">Energy · Cognitive · Desire</text>
+        <rect x="183" y="176" width="134" height="64" rx="5" fill="rgba(23,19,12,.05)" stroke="rgba(168,124,58,.3)" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <text x="250" y="197" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.6)" font-family="JetBrains Mono" letter-spacing="1">TƯƠNG TÁC TRUNG GIAN</text>
+        <text x="250" y="217" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Lớp 2</text>
+        <text x="250" y="233" text-anchor="middle" font-size="9.5" fill="#5a5043" font-family="Inter" font-style="italic">Quyết định · Hành vi</text>
+        <rect x="352" y="176" width="134" height="64" rx="5" fill="rgba(23,19,12,.04)" stroke="rgba(168,124,58,.22)" stroke-width="1"/>
+        <text x="419" y="197" text-anchor="middle" font-size="8" fill="rgba(168,124,58,.52)" font-family="JetBrains Mono" letter-spacing="1">BỐI CẢNH NGOẠI LỰC</text>
+        <text x="419" y="217" text-anchor="middle" font-size="12" fill="#17130c" font-family="Playfair Display">Lớp 3</text>
+        <text x="419" y="233" text-anchor="middle" font-size="9.5" fill="#5a5043" font-family="Inter" font-style="italic">Môi trường · Cơ hội</text>
+      </g>
+      <line x1="81" y1="240" x2="81" y2="272" stroke="rgba(168,124,58,.3)" stroke-width="1.5" stroke-dasharray="3 3" class="sf sf-3"/>
+      <line x1="81" y1="272" x2="250" y2="272" stroke="rgba(168,124,58,.3)" stroke-width="1.5" class="sf sf-3"/>
+      <line x1="250" y1="272" x2="250" y2="296" stroke="rgba(168,124,58,.3)" stroke-width="1.5" marker-end="url(#adn6)" class="dp"/>
+      <g class="sf sf-3">
+        <rect x="96" y="302" width="308" height="58" rx="6" fill="rgba(168,124,58,.08)" stroke="rgba(168,124,58,.38)" stroke-width="1.5"/>
+        <text x="250" y="323" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.7)" font-family="JetBrains Mono" letter-spacing="1.5">ĐỊNH HÌNH BẢN SẮC TỪ GỐC RỄ</text>
+        <text x="250" y="345" text-anchor="middle" font-size="13.5" fill="#17130c" font-family="Playfair Display" font-style="italic">Bản Sắc từ Cấu Trúc Nội Lực thực</text>
+      </g>
+      <line x1="250" y1="360" x2="250" y2="386" stroke="rgba(168,124,58,.3)" stroke-width="1.5" marker-end="url(#adn6)" class="dp"/>
+      <g class="sf sf-4">
+        <rect x="96" y="392" width="308" height="52" rx="5" fill="rgba(23,19,12,.05)" stroke="rgba(168,124,58,.25)" stroke-width="1"/>
+        <text x="250" y="413" text-anchor="middle" font-size="9" fill="rgba(168,124,58,.58)" font-family="JetBrains Mono" letter-spacing="1.5">QUYẾT ĐỊNH CÓ CƠ SỞ</text>
+        <text x="250" y="433" text-anchor="middle" font-size="13" fill="#17130c" font-family="Playfair Display" font-style="italic">Tương Thích Nội Lực ↔ Ngoại Lực</text>
+      </g>
+      <line x1="250" y1="444" x2="250" y2="466" stroke="rgba(42,92,53,.4)" stroke-width="1.5" marker-end="url(#agr4)" class="dp"/>
+      <g class="sf sf-5">
+        <rect x="96" y="472" width="308" height="44" rx="5" fill="rgba(42,92,53,.1)" stroke="rgba(42,92,53,.32)" stroke-width="1.5"/>
+        <text x="250" y="492" text-anchor="middle" font-size="9" fill="rgba(42,92,53,.8)" font-family="JetBrains Mono" letter-spacing="1.5">THÀNH CÔNG BỀN VỮNG</text>
+        <text x="250" y="508" text-anchor="middle" font-size="12" fill="#2e2619" font-family="Playfair Display" font-style="italic">Cấu Trúc × Thời Điểm × Môi Trường × Nỗ Lực</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- S12 -->
+<div class="card l-full l-full-center" id="s12">
+  <div style="position:absolute;right:36px;top:50%;transform:translateY(-50%);font-family:var(--serif);font-size:min(18vw,200px);font-weight:700;color:rgba(168,124,58,.04);line-height:1;letter-spacing:-.04em;pointer-events:none;user-select:none;">01</div>
+  <div style="position:relative;z-index:1;width:100%;max-width:900px;">
+    <div class="eyebrow su su-1">Tổng kết · Module 01 — Khai Mở Nền Tảng</div>
+    <div class="rule su su-1"></div>
+    <h2 class="h2 su su-2" style="margin-bottom:20px;">Cuộc đời có cấu trúc — và cấu trúc đó <em>có thể thiết kế lại.</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;" class="su su-3">
+      <div class="ic"><div class="ic-lbl">01 · Định nghĩa thành công</div><div class="ic-body">Thành công = Cấu Trúc Nội Lực × Thời Điểm × Môi Trường × Nỗ Lực <strong>[khuếch đại]</strong>. Biến số quyết định là cấu trúc — không phải nỗ lực.</div></div>
+      <div class="ic"><div class="ic-lbl">02 · Ba lớp kiến trúc cuộc đời</div><div class="ic-body"><strong>Nội Lực</strong> — lớp gốc rễ có thể tối ưu hoá. <strong>Tương Tác Trung Gian</strong> — lớp bắc cầu. <strong>Ngoại Lực</strong> — hằng số cần định vị và tận dụng.</div></div>
+      <div class="ic"><div class="ic-lbl">03 · Energy Structure là nền tảng</div><div class="ic-body"><strong>Energy Structure</strong> là nền tảng mà Cognitive System và Desire System đều phụ thuộc vào. Vận hành đúng Energy Structure là điều kiện đầu tiên.</div></div>
+      <div class="ic"><div class="ic-lbl">04 · Bản Sắc Vay Mượn</div><div class="ic-body">Nguồn gốc của mọi lệch hướng. Hình thành thụ động và lan truyền qua toàn bộ hệ thống. Chỉ phá vỡ được thông qua <strong>Awareness</strong> về Cấu Trúc Nội Lực thực.</div></div>
+      <div class="ic"><div class="ic-lbl">05 · Nguyên lý người quan sát</div><div class="ic-body">Mỗi cá nhân là một bản thể — không đồng nhất với Bản Sắc. Năng lực quan sát từ bên ngoài là điều kiện tiên quyết để tái thiết kế Cấu Trúc Nội Lực.</div></div>
+      <div style="padding:13px 17px;background:rgba(13,11,8,.92);border:1px solid rgba(168,124,58,.35);border-radius:6px;">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:.22em;color:rgba(232,200,128,.65);margin-bottom:5px;">MODULE TIẾP THEO</div>
+        <div style="font-family:var(--serif);font-size:13.5px;font-style:italic;color:rgba(245,240,232,.82);line-height:1.6;margin-bottom:6px;">Module 02 · Energy Structure — Bản đồ năng lượng bẩm sinh và cách đọc Energy Blueprint cá nhân</div>
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:.15em;color:rgba(168,124,58,.45);">LSI · SEQUENTIAL · MODULE 02/07</div>
+      </div>
+    </div>
+    <div class="su su-4" style="padding:13px 18px;background:rgba(23,19,12,.04);border:1px solid rgba(168,124,58,.14);border-radius:6px;">
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:.22em;color:var(--ink4);margin-bottom:10px;">LỘ TRÌNH 7 MODULES · LSI FOUNDATION</div>
+      <div style="display:flex;align-items:center;gap:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;">
+          <div style="width:27px;height:27px;border-radius:50%;background:var(--black);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--gold);">01</div>
+          <div style="font-family:var(--sans);font-size:9.5px;color:var(--gold);text-align:center;line-height:1.4;">Life<br>Structure</div>
+        </div>
+        <div style="flex:1;height:1px;background:rgba(168,124,58,.2);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;"><div style="width:23px;height:23px;border-radius:50%;background:rgba(23,19,12,.05);border:1px solid rgba(168,124,58,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--ink4);">02</div><div style="font-family:var(--sans);font-size:9.5px;color:var(--ink4);text-align:center;line-height:1.4;">Energy<br>Structure</div></div>
+        <div style="flex:1;height:1px;background:rgba(168,124,58,.1);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;"><div style="width:23px;height:23px;border-radius:50%;background:rgba(23,19,12,.05);border:1px solid rgba(168,124,58,.15);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--ink4);">03</div><div style="font-family:var(--sans);font-size:9.5px;color:var(--ink4);text-align:center;line-height:1.4;">Cấu Trúc<br>Tham Vọng</div></div>
+        <div style="flex:1;height:1px;background:rgba(168,124,58,.1);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;"><div style="width:23px;height:23px;border-radius:50%;background:rgba(23,19,12,.05);border:1px solid rgba(168,124,58,.12);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--ink4);">04</div><div style="font-family:var(--sans);font-size:9.5px;color:var(--ink4);text-align:center;line-height:1.4;">Timing &amp;<br>Cycles</div></div>
+        <div style="flex:1;height:1px;background:rgba(168,124,58,.1);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;"><div style="width:23px;height:23px;border-radius:50%;background:rgba(23,19,12,.05);border:1px solid rgba(168,124,58,.1);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--ink4);">05</div><div style="font-family:var(--sans);font-size:9.5px;color:var(--ink4);text-align:center;line-height:1.4;">Money<br>Engine</div></div>
+        <div style="flex:1;height:1px;background:rgba(168,124,58,.1);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;"><div style="width:23px;height:23px;border-radius:50%;background:rgba(23,19,12,.05);border:1px solid rgba(168,124,58,.08);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--ink4);">06</div><div style="font-family:var(--sans);font-size:9.5px;color:var(--ink4);text-align:center;line-height:1.4;">Life<br>Trajectory</div></div>
+        <div style="flex:1;height:1px;background:rgba(168,124,58,.08);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;"><div style="width:23px;height:23px;border-radius:50%;border:1px dashed rgba(168,124,58,.18);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;color:var(--ink4);">07</div><div style="font-family:var(--sans);font-size:9.5px;color:var(--ink4);text-align:center;line-height:1.4;">EDD<br>Digital</div></div>
+      </div>
+      <div style="height:5px;background:rgba(23,19,12,.06);border-radius:3px;margin-top:10px;overflow:hidden;">
+        <div style="width:14%;height:100%;background:rgba(168,124,58,.4);border-radius:3px;"></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--ink4);margin-top:5px;text-align:right;">TIẾN ĐỘ: MODULE 01/11 HOÀN THÀNH</div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div id="nav">
+  <button class="nb" id="bp" disabled onclick="nav(-1)">&#8592;</button>
+  <div id="nd"></div>
+  <span id="nc">1 / 12</span>
+  <button class="nb" id="bn" onclick="nav(1)">&#8594;</button>
+</div>
+<script>
+const T=12;let c=0;
+const cards=document.querySelectorAll('.card');
+const nd=document.getElementById('nd');
+const nc=document.getElementById('nc');
+const bp=document.getElementById('bp');
+const bn=document.getElementById('bn');
+for(let i=0;i<T;i++){const d=document.createElement('div');d.className='nd-dot'+(i===0?' on':'');d.onclick=()=>go(i);nd.appendChild(d);}
+function go(i){
+  cards[c].classList.remove('active');nd.children[c].classList.remove('on');
+  c=Math.max(0,Math.min(T-1,i));
+  cards[c].classList.add('active');nd.children[c].classList.add('on');
+  nc.textContent=`${c+1} / ${T}`;bp.disabled=c===0;bn.disabled=c===T-1;
+}
+function nav(d){go(c+d);}
+cards[0].classList.add('active');nd.children[0].classList.add('on');bp.disabled=true;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nav(1);}if(e.key==='ArrowLeft'){e.preventDefault();nav(-1);}});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.changedTouches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)nav(dx<0?1:-1);});
+</script>
+</body>
+</html>

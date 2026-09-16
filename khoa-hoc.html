@@ -89,6 +89,26 @@
           <p id="module-closing" class="mt-4 pt-4 border-t border-gold/15 text-[13.5px] italic text-moss/60">—</p>
         </div>
 
+        <!-- ============ Tài Liệu Trực Quan (chỉ hiện với Module 01) ============ -->
+        <section id="module-artifact-section" class="hidden mt-6">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep">Tài Liệu Trực Quan · Module 01</span>
+            <button type="button" onclick="var f=document.getElementById('edd-deck-m1');if(f&&f.requestFullscreen)f.requestFullscreen();" class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-moss/60 hover:text-moss transition-colors">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m11-5v3a2 2 0 0 1-2 2h-3"/></svg>
+              Toàn màn hình
+            </button>
+          </div>
+          <div class="relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-moss/10 aspect-video max-[560px]:aspect-[3/4]">
+            <iframe
+              id="edd-deck-m1"
+              src="assets/course-artifacts/module-01-visual-cards.html"
+              title="LSI · Module 01 — Tài liệu trực quan"
+              loading="lazy"
+              class="absolute inset-0 w-full h-full border-0"
+            ></iframe>
+          </div>
+        </section>
+
         <div class="flex items-center justify-between gap-4 mt-8 pt-6 border-t border-moss/10">
           <button id="prev-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-moss/15 text-moss/70 text-sm font-semibold hover:bg-moss/5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -243,6 +263,7 @@
     summary: document.getElementById('module-summary'),
     points: document.getElementById('module-points'),
     closing: document.getElementById('module-closing'),
+    artifactSection: document.getElementById('module-artifact-section'),
     list: document.getElementById('module-list'),
     prevBtn: document.getElementById('prev-btn'),
     nextBtn: document.getElementById('next-btn'),
@@ -388,6 +409,8 @@
     currentModuleId = mid;
     currentLessonId = lid;
     openModuleId = mid;
+
+    els.artifactSection.classList.toggle('hidden', mid !== 1);
 
     if (les.bunny) {
       els.video.pause();
