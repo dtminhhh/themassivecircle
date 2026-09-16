@@ -38,12 +38,14 @@
     html { scroll-behavior: auto !important; }
   }
 
-  /* Artifact deck frame: below 560px the iframe's own content stacks vertically and its
-     height varies per slide (see the resize script), so it can't use a fixed aspect box —
-     doing so either crops content or forces a nested scroll area, which is unreliable on
-     iOS Safari (no Fullscreen API support for arbitrary elements to compensate). */
+  /* Artifact deck frame: below 700px the decks switch their own internal layout to a
+     stacked, variable-height flow (matches the @media(max-width:700px) breakpoint baked
+     into each assets/course-artifacts/module-0N-visual-cards.html), so the outer frame
+     can't use a fixed aspect box in that range — doing so either crops content or forces
+     a nested scroll area, which is unreliable on iOS Safari (no Fullscreen API support
+     for arbitrary elements to compensate). Keep this breakpoint in sync with the decks'. */
   #edd-deck-frame iframe { min-height: 340px; }
-  @media (min-width: 560px) {
+  @media (min-width: 700px) {
     #edd-deck-frame { aspect-ratio: 16 / 9; }
     #edd-deck-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; }
   }
@@ -99,11 +101,11 @@
           <p id="module-closing" class="mt-4 pt-4 border-t border-gold/15 text-[13.5px] italic text-moss/60">—</p>
         </div>
 
-        <!-- ============ Tài Liệu Trực Quan (chỉ hiện với Module 01) ============ -->
+        <!-- ============ Tài Liệu Trực Quan (đổi theo module đang xem) ============ -->
         <section id="module-artifact-section" class="hidden mt-6">
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep">Tài Liệu Trực Quan · Module 01</span>
-            <button type="button" onclick="var f=document.getElementById('edd-deck-m1');if(f&&f.requestFullscreen)f.requestFullscreen();" class="hidden min-[560px]:inline-flex items-center gap-1.5 text-[11px] font-semibold text-moss/60 hover:text-moss transition-colors">
+            <span id="artifact-label" class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep">—</span>
+            <button type="button" onclick="var f=document.getElementById('edd-deck-m1');if(f&&f.requestFullscreen)f.requestFullscreen();" class="hidden min-[700px]:inline-flex items-center gap-1.5 text-[11px] font-semibold text-moss/60 hover:text-moss transition-colors">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m11-5v3a2 2 0 0 1-2 2h-3"/></svg>
               Toàn màn hình
             </button>
@@ -111,8 +113,8 @@
           <div id="edd-deck-frame" class="relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-moss/10">
             <iframe
               id="edd-deck-m1"
-              src="assets/course-artifacts/module-01-visual-cards.html"
-              title="LSI · Module 01 — Tài liệu trực quan"
+              src=""
+              title="Tài liệu trực quan"
               loading="lazy"
               class="block w-full border-0"
             ></iframe>
@@ -173,6 +175,15 @@
   // Lưu ý: video/duration bên dưới là placeholder demo — thay bằng file video thật + thời lượng thật của từng bài khi có.
   var VIDEO_PLACEHOLDER = 'assets/video-landing.mp4';
   var POSTER_PLACEHOLDER = 'assets/video-landing-poster.png';
+
+  var ARTIFACT_DECKS = {
+    1: 'assets/course-artifacts/module-01-visual-cards.html',
+    2: 'assets/course-artifacts/module-02-visual-cards.html',
+    3: 'assets/course-artifacts/module-03-visual-cards.html',
+    4: 'assets/course-artifacts/module-04-visual-cards.html',
+    5: 'assets/course-artifacts/module-05-visual-cards.html',
+    6: 'assets/course-artifacts/module-06-visual-cards.html'
+  };
 
   var MODULES = [
     {
@@ -274,6 +285,8 @@
     points: document.getElementById('module-points'),
     closing: document.getElementById('module-closing'),
     artifactSection: document.getElementById('module-artifact-section'),
+    artifactLabel: document.getElementById('artifact-label'),
+    artifactFrame: document.getElementById('edd-deck-m1'),
     list: document.getElementById('module-list'),
     prevBtn: document.getElementById('prev-btn'),
     nextBtn: document.getElementById('next-btn'),
@@ -420,7 +433,17 @@
     currentLessonId = lid;
     openModuleId = mid;
 
-    els.artifactSection.classList.toggle('hidden', mid !== 1);
+    var deckSrc = ARTIFACT_DECKS[mid];
+    if (deckSrc) {
+      els.artifactSection.classList.remove('hidden');
+      els.artifactLabel.textContent = 'Tài Liệu Trực Quan · Module 0' + mid;
+      if (els.artifactFrame.getAttribute('data-loaded-src') !== deckSrc) {
+        els.artifactFrame.src = deckSrc;
+        els.artifactFrame.setAttribute('data-loaded-src', deckSrc);
+      }
+    } else {
+      els.artifactSection.classList.add('hidden');
+    }
 
     if (les.bunny) {
       els.video.pause();
@@ -492,7 +515,7 @@
   var frame = document.getElementById('edd-deck-m1');
   if (!frame) return;
 
-  function isNarrow() { return window.matchMedia('(max-width:559px)').matches; }
+  function isNarrow() { return window.matchMedia('(max-width:699px)').matches; }
 
   function syncHeight() {
     if (!isNarrow()) { frame.style.height = ''; return; }
