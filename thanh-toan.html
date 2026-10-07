@@ -98,13 +98,8 @@
           class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
       </div>
 
-      <div class="flex items-center justify-between mt-5 mb-1.5">
-        <label class="block text-[13px] font-semibold">Giờ sinh <span class="text-red-700/70">*</span></label>
-        <label class="inline-flex items-center gap-1.5 text-[12.5px] text-moss/60 cursor-pointer">
-          <input type="checkbox" id="unknownTime" class="rounded"> Không rõ giờ sinh
-        </label>
-      </div>
-      <select name="birthTimeSlot" id="birthTimeSlot" required class="w-full px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold disabled:opacity-40 disabled:bg-moss/5">
+      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Giờ sinh <span class="text-red-700/70">*</span></label>
+      <select name="birthTimeSlot" id="birthTimeSlot" required class="w-full px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold">
         <option value="">Chọn khung giờ sinh (Canh giờ Bát tự)</option>
         <option value="ty">Giờ Tý (23:00 – 00:59)</option>
         <option value="suu">Giờ Sửu (01:00 – 02:59)</option>
@@ -118,7 +113,6 @@
         <option value="dau">Giờ Dậu (17:00 – 18:59)</option>
         <option value="tuat">Giờ Tuất (19:00 – 20:59)</option>
         <option value="hoi">Giờ Hợi (21:00 – 22:59)</option>
-        <option value="unknown" hidden>Không rõ giờ sinh</option>
       </select>
 
       <label class="block text-[13px] font-semibold mb-1.5 mt-5">Email nhận báo cáo <span class="text-red-700/70">*</span></label>
@@ -142,13 +136,15 @@
           <div class="flex items-start justify-between gap-4">
             <div class="flex-1 min-w-0">
               <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Đặc Quyền Chỉ Có Tại Trang Thanh Toán · Tiết Kiệm 67%</span>
-              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Architecture Type Playbook™ (51 Trang)</div>
-              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Báo cáo EDD chỉ giải mã một mình bạn — Cẩm nang này giúp bạn đọc vị và nhìn thấu cấu trúc vận hành của mọi người xung quanh."</p>
+              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Architecture Type Playbook™</div>
+              <div class="font-heading font-semibold text-[12.5px] text-gold-deep mt-0.5">(Cẩm Nang Vận Hành Cá Nhân &amp; Ra Quyết Định)</div>
+              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Tại sao cùng một cơ hội, có người làm rất nhàn mà tài sản bứt phá, còn bạn lại tiêu hao gấp ba năng lượng và thường xuyên kiệt sức? Báo cáo chính cho bạn biết Chu kỳ thời gian &amp; Dòng tiền — Cẩm nang này bóc tách toàn bộ mã nguồn vận hành và đưa ra quyết định."</p>
               <ul class="mt-3 space-y-2 text-[13px] leading-relaxed text-moss/70">
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bộ công cụ test nhanh 16 câu:</strong> Tự chẩn đoán và bóc tách cấu trúc tư duy của đối tác, nhân sự chủ chốt hoặc sếp để biết chính xác cách họ ra quyết định.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Giải mã 10 kiểu vận hành &amp; 8 tổ hợp Hybrid:</strong> Biết trước điểm gãy, điểm ma sát và cách giao việc/đàm phán khớp với bản năng của từng người.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Cẩm nang xử lý kiệt sức:</strong> Bộ chỉ dẫn độc bản để tự tháo gỡ khi công việc rơi vào bế tắc hoặc lệch pha năng lượng.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bài tự thẩm định 16 tình huống bản năng:</strong> Tự định vị chính xác cấu trúc gốc của bản thân và soi chiếu cho cả đối tác/cộng sự đi cùng bạn.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bản đồ 8 Cặp Giao Thoa (Hybrid Profiles):</strong> Giải mã những xung đột nội tâm khiến bạn hay chần chừ, bồn chồn hoặc tự phá hỏng kế hoạch tài chính đã vạch sẵn.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bản chẩn đoán "Vùng kiệt sức":</strong> Nhận diện điểm mù tâm lý khiến năng lượng và tiền bạc bốc hơi trước khi bạn kịp nhận ra.</span></li>
               </ul>
+              <p class="mt-4 text-[13px] leading-relaxed text-moss font-semibold">Đừng để một chiến lược tài chính đúng bị phá hỏng bởi một cơ chế vận hành sai.</p>
             </div>
             <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell1Box">
               <svg class="w-4 h-4 text-white hidden" id="upsell1Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
@@ -157,26 +153,28 @@
           <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
             <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng ngay</span>
             <span class="text-right leading-tight">
-              <span class="block text-[11px] text-moss/40 line-through">450.000đ</span>
-              <span class="font-heading font-extrabold text-gold text-[16px]">+149.000đ</span>
+              <span class="block text-[11px] text-moss/40 line-through">890.000đ</span>
+              <span class="font-heading font-extrabold text-gold text-[16px]">+290.000đ</span>
             </span>
           </div>
         </div>
       </label>
 
-      <label class="block cursor-pointer">
+      <label class="block cursor-pointer mb-3">
         <input type="checkbox" id="upsell2" class="peer sr-only">
         <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
           <div class="flex items-start justify-between gap-4">
             <div class="flex-1 min-w-0">
               <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Đặc Quyền Chỉ Có Tại Trang Thanh Toán · Tiết Kiệm 67%</span>
-              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Money Engine Field Guide™ (54 Trang)</div>
-              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"90% thất bại tài chính là do áp dụng chiến lược của người khác vào cỗ máy của mình — Đây là bộ giải mã 10 cơ chế tạo dòng tiền thực tế."</p>
+              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Money Engine Field Guide™ (50 Trang)</div>
+              <div class="font-heading font-semibold text-[12.5px] text-gold-deep mt-0.5">(Cẩm Nang Giải Mã Cơ Chế Tài Chính &amp; Dòng Tiền Tự Nhiên)</div>
+              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Tại sao cùng thị trường và nỗ lực, có người tiền về đều đặn còn bạn dòng tiền luôn bất ổn? Báo cáo chính cho biết chu kỳ thời gian — Cẩm nang này bóc tách cơ chế bên trong giúp dòng tiền tự động chảy mà không cần gồng ép."</p>
               <ul class="mt-3 space-y-2 text-[13px] leading-relaxed text-moss/70">
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Thấu suốt 10 cơ chế tài chính gốc &amp; 8 cỗ máy Hybrid:</strong> Nhận diện ngay đối tác hay người đi cùng kiếm tiền bằng cơ chế nào để bắt tay kinh doanh không bị "hớ".</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bẻ khóa dòng tiền tắc nghẽn:</strong> Chỉ rõ nguyên nhân vì sao chiến lược đúng, nỗ lực cao nhưng dòng tiền vẫn bị nghẽn và cách mở khóa ngay lập tức.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bộ lọc thẩm định cơ hội:</strong> Bảng đối chiếu nhanh giúp bạn biết đâu là cơ hội sinh lời thật sự, đâu là cái bẫy tiêu hao nguồn lực.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bài tự thẩm định 15 tình huống thực tế:</strong> Định vị chính xác cơ chế tạo tiền tự nhiên của bạn trong 10 Money Engines (Vốn, Chiếm lĩnh, Giá trị, Đột phá, Vận hành...).</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Giải mã 8 Cặp Hybrid Engine:</strong> Nhận diện điểm xung đột nội tại khi vừa muốn bứt phá tốc độ vừa muốn an toàn, mở khóa đòn bẩy tài chính cá nhân.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bản chẩn đoán "Điểm Khoá Dòng Tiền":</strong> Chỉ rõ lý do vì sao bạn bận rộn hơn bao giờ hết nhưng số dư tài khoản vẫn đi ngang, và điều kiện tối ưu để tiền tự sinh sôi.</span></li>
               </ul>
+              <p class="mt-4 text-[13px] leading-relaxed text-moss font-semibold">Đừng áp dụng một chiến lược tài chính đúng vào một cơ chế tạo tiền sai.</p>
             </div>
             <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell2Box">
               <svg class="w-4 h-4 text-white hidden" id="upsell2Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
@@ -185,8 +183,39 @@
           <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
             <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng ngay</span>
             <span class="text-right leading-tight">
-              <span class="block text-[11px] text-moss/40 line-through">450.000đ</span>
-              <span class="font-heading font-extrabold text-gold text-[16px]">+149.000đ</span>
+              <span class="block text-[11px] text-moss/40 line-through">890.000đ</span>
+              <span class="font-heading font-extrabold text-gold text-[16px]">+290.000đ</span>
+            </span>
+          </div>
+        </div>
+      </label>
+
+      <label class="block cursor-pointer">
+        <input type="checkbox" id="upsell3" class="peer sr-only">
+        <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Đặc Quyền Chỉ Có Tại Trang Thanh Toán · Giới Hạn 5 Suất/Tuần</span>
+              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">1-on-1 Strategy Debrief (60 Phút Trực Tiếp Online)</div>
+              <div class="font-heading font-semibold text-[12.5px] text-gold-deep mt-0.5">(Phiên Thẩm Định Bản Đồ &amp; Giải Bài Toán Tài Chính Cùng Chuyên Gia)</div>
+              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Báo cáo 20+ trang cho bạn dữ liệu — nhưng 60 phút này giúp bạn trả lời chính xác: 'Với bài toán công việc và dòng tiền hiện tại của riêng bạn, NÊN LÀM GÌ và TUYỆT ĐỐI NÉ ĐIỀU GÌ'."</p>
+              <ul class="mt-3 space-y-2 text-[13px] leading-relaxed text-moss/70">
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Ráp nối báo cáo vào đúng bài toán hiện tại:</strong> Mang trực tiếp quyết định bạn đang trăn trở (chuẩn bị rót vốn, đổi mô hình, xử lý dòng tiền nghẽn, hay chuyển hướng sự nghiệp) để chuyên gia soi chiếu trực tiếp qua hệ thống chu kỳ của bạn.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Chốt Kế Hoạch Hành Động 90 Ngày Rõ Như Ban Ngày:</strong> Chuyển hóa toàn bộ số liệu trừu tượng thành 3 việc ưu tiên tuyệt đối cần thực thi ngay trong quý tới, loại bỏ hoàn toàn cảm giác mơ hồ hay phỏng đoán.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Chỉ điểm "Bẫy Mất Tiền" sắp tới của bạn:</strong> Nhận diện trước điểm rơi rủi ro tài chính của riêng bạn trong 12 tháng tới để kịp thời lập thế phòng thủ, bảo toàn dòng vốn tích lũy.</span></li>
+                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Nhận bản tóm tắt chiến lược (Executive Summary):</strong> Sau phiên làm việc, bạn nhận lại bản ghi âm cùng file note đúc kết các bước đi chiến lược cụ thể để tra cứu và bám sát thực thi.</span></li>
+              </ul>
+              <p class="mt-4 text-[13px] leading-relaxed text-moss font-semibold">Tự đọc có thể mất hàng tuần suy ngẫm; 60 phút đối thoại trực tiếp giúp bạn thấu suốt toàn bộ nước đi tiếp theo.</p>
+            </div>
+            <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell3Box">
+              <svg class="w-4 h-4 text-white hidden" id="upsell3Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
+            <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng ngay</span>
+            <span class="text-right leading-tight">
+              <span class="block text-[11px] text-moss/40 line-through">1.800.000đ</span>
+              <span class="font-heading font-extrabold text-gold text-[16px]">+590.000đ</span>
             </span>
           </div>
         </div>
@@ -198,8 +227,9 @@
       <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold mb-4">03 · Tóm Tắt Đơn Hàng</div>
       <div class="space-y-2 text-[14px]">
         <div class="flex justify-between"><span class="text-cream/70">EDD Foundation™</span><span id="baseAmountLabel">—</span></div>
-        <div class="flex justify-between hidden" id="upsell1Row"><span class="text-cream/70">Architecture Type Playbook™</span><span>+149.000đ</span></div>
-        <div class="flex justify-between hidden" id="upsell2Row"><span class="text-cream/70">Money Engine Field Guide™</span><span>+149.000đ</span></div>
+        <div class="flex justify-between hidden" id="upsell1Row"><span class="text-cream/70">Architecture Type Playbook™</span><span>+290.000đ</span></div>
+        <div class="flex justify-between hidden" id="upsell2Row"><span class="text-cream/70">Money Engine Field Guide™</span><span>+290.000đ</span></div>
+        <div class="flex justify-between hidden" id="upsell3Row"><span class="text-cream/70">1-on-1 Strategy Debrief</span><span>+590.000đ</span></div>
       </div>
       <div class="flex justify-between items-baseline mt-4 pt-4 border-t border-cream/15">
         <span class="font-heading font-bold text-[15px]">Tổng Thanh Toán</span>
@@ -304,8 +334,9 @@
 (function () {
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbzsyYmvOSnLOIhzgkKYEP4CkqasY22p1ENPM41Q7wSU_3ySEQnEjhPemzLAdNi0EZt-/exec';
   var BASE_PRICE   = 290000;
-  var UPSELL1_PRICE = 149000;   // Architecture Type Playbook™
-  var UPSELL2_PRICE = 149000;   // Money Engine Field Guide™
+  var UPSELL1_PRICE = 290000;   // Architecture Type Playbook™
+  var UPSELL2_PRICE = 290000;   // Money Engine Field Guide™
+  var UPSELL3_PRICE = 590000;   // 1-on-1 Strategy Debrief (dịch vụ, không phải PDF)
 
   var BANK   = 'BIDV';
   var VA_ACC = '962471X7IN';
@@ -316,6 +347,7 @@
   var BUMP2_URL = 'https://www.themassivecircle.com/tai-lieu/money-engine-field-guide.pdf';
   var BUMP1_NAME = 'Architecture Type Playbook™';
   var BUMP2_NAME = 'Money Engine Field Guide™';
+  var BUMP3_NAME = '1-on-1 Strategy Debrief';
 
   var STORE_KEY = 'edd_order';
   var POLL_MS = 5000;
@@ -341,31 +373,30 @@
   clampDigits('birthDay', 2); clampDigits('birthMonth', 2); clampDigits('birthYear', 4);
 
   var timeSlotSel = $('birthTimeSlot');
-  $('unknownTime').addEventListener('change', function (e) {
-    var off = e.target.checked;
-    timeSlotSel.disabled = off;
-    timeSlotSel.required = !off;
-    timeSlotSel.value = off ? 'unknown' : '';
-  });
 
   // ── step 1: live total ──
   function calc() {
-    var u1 = $('upsell1').checked, u2 = $('upsell2').checked;
-    var total = BASE_PRICE + (u1 ? UPSELL1_PRICE : 0) + (u2 ? UPSELL2_PRICE : 0);
+    var u1 = $('upsell1').checked, u2 = $('upsell2').checked, u3 = $('upsell3').checked;
+    var total = BASE_PRICE + (u1 ? UPSELL1_PRICE : 0) + (u2 ? UPSELL2_PRICE : 0) + (u3 ? UPSELL3_PRICE : 0);
     $('baseAmountLabel').textContent = fmt(BASE_PRICE);
     $('upsell1Row').classList.toggle('hidden', !u1);
     $('upsell2Row').classList.toggle('hidden', !u2);
+    $('upsell3Row').classList.toggle('hidden', !u3);
     $('upsell1Check').classList.toggle('hidden', !u1);
     $('upsell2Check').classList.toggle('hidden', !u2);
+    $('upsell3Check').classList.toggle('hidden', !u3);
     $('upsell1Box').classList.toggle('bg-gold', u1);
     $('upsell1Box').classList.toggle('border-gold', u1);
     $('upsell2Box').classList.toggle('bg-gold', u2);
     $('upsell2Box').classList.toggle('border-gold', u2);
+    $('upsell3Box').classList.toggle('bg-gold', u3);
+    $('upsell3Box').classList.toggle('border-gold', u3);
     $('totalLabel').textContent = fmt(total);
-    return { total: total, u1: u1, u2: u2 };
+    return { total: total, u1: u1, u2: u2, u3: u3 };
   }
   $('upsell1').addEventListener('change', calc);
   $('upsell2').addEventListener('change', calc);
+  $('upsell3').addEventListener('change', calc);
   calc();
 
   // ── copy buttons ──
@@ -400,6 +431,7 @@
     var items = ['EDD Foundation™'];
     if (o.bump1) items.push(BUMP1_NAME);
     if (o.bump2) items.push(BUMP2_NAME);
+    if (o.bump3) items.push(BUMP3_NAME);
     $('s2Items').textContent = items.join('  ·  ');
     var img = $('qrImg');
     img.style.display = ''; $('qrFallback').classList.add('hidden');
@@ -424,11 +456,12 @@
 
   function renderStep3(o) {
     $('s3Email').textContent = o.email || 'email của bạn';
-    if (o.bump1 || o.bump2) {
+    if (o.bump1 || o.bump2 || o.bump3) {
       $('s3Bumps').classList.remove('hidden');
       var h = '';
       if (o.bump1) h += '<div>• <a href="' + BUMP1_URL + '" class="text-gold-deep underline">' + BUMP1_NAME + ' — tải PDF</a></div>';
       if (o.bump2) h += '<div>• <a href="' + BUMP2_URL + '" class="text-gold-deep underline">' + BUMP2_NAME + ' — tải PDF</a></div>';
+      if (o.bump3) h += '<div>• ' + BUMP3_NAME + ' (60 phút online) — chúng tôi sẽ liên hệ qua email hoặc Zalo/SĐT bạn đã cung cấp để sắp xếp lịch.</div>';
       $('s3BumpList').innerHTML = h;
     }
   }
@@ -498,7 +531,6 @@
 
     var st = calc();
     var fd = new FormData(form);
-    var unknownT = $('unknownTime').checked;
     var payload = {
       action: 'createOrder',
       data: {
@@ -507,9 +539,10 @@
         email: fd.get('email'),
         gender: fd.get('gender'),
         birthDate: fd.get('birthYear') + '-' + String(fd.get('birthMonth')).padStart(2, '0') + '-' + String(fd.get('birthDay')).padStart(2, '0'),
-        birthTime: unknownT ? 'Không rõ giờ' : (timeSlotSel.selectedOptions[0] ? timeSlotSel.selectedOptions[0].textContent : ''),
+        birthTime: timeSlotSel.selectedOptions[0] ? timeSlotSel.selectedOptions[0].textContent : '',
         bump1: st.u1,
         bump2: st.u2,
+        bump3: st.u3,
         totalAmount: st.total
       }
     };
@@ -523,7 +556,7 @@
         orderId: j.orderId,
         ckContent: j.ckContent,
         amount: j.totalAmount || st.total,
-        bump1: st.u1, bump2: st.u2,
+        bump1: st.u1, bump2: st.u2, bump3: st.u3,
         email: payload.data.email,
         paid: false
       };
