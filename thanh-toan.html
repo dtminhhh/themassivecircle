@@ -41,6 +41,23 @@
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
   .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1579575970863354');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body class="bg-cream text-moss font-body antialiased">
 
@@ -363,6 +380,21 @@
       + '&store=' + encodeURIComponent(STORE);
   }
 
+  // ── Meta Pixel events (once per order per event; eventID = orderId for future CAPI dedup) ──
+  function track(event, o) {
+    if (!window.fbq) return;
+    var key = 'edd_px_' + event + '_' + o.orderId;
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) {}
+    var ids = ['edd-foundation'];
+    if (o.bump1) ids.push('architecture-type-playbook');
+    if (o.bump2) ids.push('money-engine-field-guide');
+    if (o.bump3) ids.push('strategy-debrief-1on1');
+    fbq('track', event, {
+      value: Number(o.amount), currency: 'VND',
+      content_ids: ids, content_type: 'product', num_items: ids.length
+    }, { eventID: o.orderId });
+  }
+
   // ── digit clamps ──
   function clampDigits(id, maxLen) {
     var el = $(id);
@@ -480,6 +512,7 @@
         setStatus('paid');
         order.paid = true;
         sessionStorage.setItem(STORE_KEY, JSON.stringify(order));
+        track('Purchase', order);
         renderStep3(order);
         setTimeout(function () { show(3); }, 1400);
         return true;
@@ -561,6 +594,7 @@
         paid: false
       };
       sessionStorage.setItem(STORE_KEY, JSON.stringify(order));
+      track('InitiateCheckout', order);
       renderStep2(order);
       show(2);
       startPoll(order);
