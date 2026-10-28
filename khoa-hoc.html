@@ -60,6 +60,8 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+// Multi-page site: don't let the pixel add a PageView on every in-page anchor/hash change (menu clicks).
+fbq.disablePushState = true;
 // Only fire the events we send explicitly: opt out of Meta's automatic button-click / metadata event detection.
 fbq('set', 'autoConfig', false, '1579575970863354');
 fbq('init', '1579575970863354');
