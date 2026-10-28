@@ -51,6 +51,8 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+// Only fire the events we send explicitly: opt out of Meta's automatic button-click / metadata event detection.
+fbq('set', 'autoConfig', false, '1579575970863354');
 fbq('init', '1579575970863354');
 fbq('track', 'PageView');
 </script>
@@ -380,20 +382,46 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
       + '&store=' + encodeURIComponent(STORE);
   }
 
-  // ── Meta Pixel events (once per order per event; eventID = orderId for future CAPI dedup) ──
-  function track(event, o) {
+  // ── Meta Pixel events ──
+  // Funnel: ViewContent (index) → InitiateCheckout (enter checkout) → AddToCart (tick a bump)
+  //   → AddPaymentInfo (order created, QR shown) → Purchase (status PAID).
+  // Every event fires at most once per browser session per key. Order-level events use
+  // eventID = orderId so a future server-side (Conversions API) Purchase dedups against them.
+  function pxSession() {
+    try {
+      var s = sessionStorage.getItem('edd_px_sid');
+      if (!s) { s = 'sid-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('edd_px_sid', s); }
+      return s;
+    } catch (e) { return 'sid-' + Date.now().toString(36); }
+  }
+  function px(event, params, eventId, onceKey) {
     if (!window.fbq) return;
-    var key = 'edd_px_' + event + '_' + o.orderId;
-    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) {}
+    try {
+      var k = 'edd_px_' + onceKey;
+      if (sessionStorage.getItem(k)) return;
+      sessionStorage.setItem(k, '1');
+    } catch (e) {}
+    fbq('track', event, params, { eventID: eventId });
+  }
+  function orderIds(o) {
     var ids = ['edd-foundation'];
     if (o.bump1) ids.push('architecture-type-playbook');
     if (o.bump2) ids.push('money-engine-field-guide');
     if (o.bump3) ids.push('strategy-debrief-1on1');
-    fbq('track', event, {
+    return ids;
+  }
+  function track(event, o) {   // AddPaymentInfo + Purchase (need a created order)
+    var ids = orderIds(o);
+    px(event, {
       value: Number(o.amount), currency: 'VND',
       content_ids: ids, content_type: 'product', num_items: ids.length
-    }, { eventID: o.orderId });
+    }, o.orderId, event + '_' + o.orderId);
   }
+  var BUMP_PX = {
+    upsell1: { id: 'architecture-type-playbook', name: 'Architecture Type Playbook', price: UPSELL1_PRICE },
+    upsell2: { id: 'money-engine-field-guide',   name: 'Money Engine Field Guide',   price: UPSELL2_PRICE },
+    upsell3: { id: 'strategy-debrief-1on1',      name: '1-on-1 Strategy Debrief',    price: UPSELL3_PRICE }
+  };
 
   // ── digit clamps ──
   function clampDigits(id, maxLen) {
@@ -426,10 +454,29 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
     $('totalLabel').textContent = fmt(total);
     return { total: total, u1: u1, u2: u2, u3: u3 };
   }
-  $('upsell1').addEventListener('change', calc);
-  $('upsell2').addEventListener('change', calc);
-  $('upsell3').addEventListener('change', calc);
+  ['upsell1', 'upsell2', 'upsell3'].forEach(function (id) {
+    $(id).addEventListener('change', function (e) {
+      calc();
+      if (!e.target.checked) return;
+      var b = BUMP_PX[id];
+      px('AddToCart', {
+        value: b.price, currency: 'VND',
+        content_ids: [b.id], content_name: b.name, content_type: 'product', num_items: 1
+      }, pxSession() + '-' + id, 'AddToCart_' + id);
+    });
+  });
   calc();
+
+  // Entering the checkout page (not when restoring an existing order on reload).
+  (function () {
+    var existing = null;
+    try { existing = JSON.parse(sessionStorage.getItem('edd_order') || 'null'); } catch (e) {}
+    if (existing && existing.orderId) return;
+    px('InitiateCheckout', {
+      value: BASE_PRICE, currency: 'VND',
+      content_ids: ['edd-foundation'], content_name: 'EDD Foundation', content_type: 'product', num_items: 1
+    }, pxSession() + '-ic', 'InitiateCheckout_session');
+  })();
 
   // ── copy buttons ──
   document.addEventListener('click', function (e) {
@@ -594,7 +641,7 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
         paid: false
       };
       sessionStorage.setItem(STORE_KEY, JSON.stringify(order));
-      track('InitiateCheckout', order);
+      track('AddPaymentInfo', order);
       renderStep2(order);
       show(2);
       startPoll(order);
