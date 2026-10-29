@@ -385,8 +385,8 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
   }
 
   // ── Meta Pixel events ──
-  // Funnel: ViewContent (index) → InitiateCheckout (enter checkout) → AddToCart (tick a bump)
-  //   → AddPaymentInfo (order created, QR shown) → Purchase (status PAID).
+  // Funnel: ViewContent (index) → InitiateCheckout (enter checkout) → AddToCart (customer starts
+  //   entering their details) → AddPaymentInfo (order created, QR shown) → Purchase (status PAID).
   // Every event fires at most once per browser session per key. Order-level events use
   // eventID = orderId so a future server-side (Conversions API) Purchase dedups against them.
   function pxSession() {
@@ -419,12 +419,6 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
       content_ids: ids, content_type: 'product', num_items: ids.length
     }, o.orderId, event + '_' + o.orderId);
   }
-  var BUMP_PX = {
-    upsell1: { id: 'architecture-type-playbook', name: 'Architecture Type Playbook', price: UPSELL1_PRICE },
-    upsell2: { id: 'money-engine-field-guide',   name: 'Money Engine Field Guide',   price: UPSELL2_PRICE },
-    upsell3: { id: 'strategy-debrief-1on1',      name: '1-on-1 Strategy Debrief',    price: UPSELL3_PRICE }
-  };
-
   // ── digit clamps ──
   function clampDigits(id, maxLen) {
     var el = $(id);
@@ -457,17 +451,22 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
     return { total: total, u1: u1, u2: u2, u3: u3 };
   }
   ['upsell1', 'upsell2', 'upsell3'].forEach(function (id) {
-    $(id).addEventListener('change', function (e) {
-      calc();
-      if (!e.target.checked) return;
-      var b = BUMP_PX[id];
-      px('AddToCart', {
-        value: b.price, currency: 'VND',
-        content_ids: [b.id], content_name: b.name, content_type: 'product', num_items: 1
-      }, pxSession() + '-' + id, 'AddToCart_' + id);
-    });
+    $(id).addEventListener('change', calc);
   });
   calc();
+
+  // AddToCart: the first time the customer enters any detail in the form (not when ticking a bump).
+  // The cart is whatever is selected at that moment; later bump changes show up in AddPaymentInfo/Purchase.
+  function onFirstEntry(e) {
+    if (e.target.type === 'checkbox') return;
+    var c = calc(), ids = orderIds({ bump1: c.u1, bump2: c.u2, bump3: c.u3 });
+    px('AddToCart', {
+      value: c.total, currency: 'VND',
+      content_ids: ids, content_name: 'EDD Foundation', content_type: 'product', num_items: ids.length
+    }, pxSession() + '-atc', 'AddToCart_session');
+  }
+  $('checkoutForm').addEventListener('input', onFirstEntry);
+  $('checkoutForm').addEventListener('change', onFirstEntry);   // radios / select
 
   // Entering the checkout page (not when restoring an existing order on reload).
   (function () {
