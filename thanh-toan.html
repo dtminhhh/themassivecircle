@@ -139,6 +139,7 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
       <label class="block text-[13px] font-semibold mb-1.5 mt-5">Email nhận báo cáo <span class="text-red-700/70">*</span></label>
       <input type="email" name="email" required placeholder="abc@gmail.com"
         class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
+      <div id="emailHint" class="hidden mt-2 rounded-lg border border-amber-300/70 bg-amber-50 px-3 py-2 text-[12.5px] text-amber-900"></div>
       <p class="mt-1.5 text-[12px] text-moss/45 italic">Bản báo cáo EDD &amp; Khoá học sẽ được gửi về email này.</p>
 
       <label class="block text-[13px] font-semibold mb-1.5 mt-5">Số điện thoại / Zalo <span class="text-red-700/70">*</span></label>
@@ -297,6 +298,16 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
           </div>
         </div>
         <p class="mt-3 text-[12.5px] text-moss/50 text-center max-w-xs">Quét mã bằng app ngân hàng bất kỳ — nội dung chuyển khoản đã điền sẵn, giữ nguyên.</p>
+        <!-- Phone only: the QR is on the same screen as the bank app, so it has to be saved first. -->
+        <div class="md:hidden mt-4 w-full max-w-xs rounded-xl border border-gold/30 bg-gold/5 px-4 py-3 text-[12.5px] text-moss/70 leading-relaxed">
+          <div class="font-semibold text-moss mb-1">Đang dùng điện thoại?</div>
+          <ol class="list-decimal pl-4 space-y-0.5">
+            <li>Chụp màn hình mã QR, hoặc bấm nút bên dưới rồi nhấn giữ ảnh để lưu.</li>
+            <li>Mở app ngân hàng → chọn <strong>Quét QR</strong> → chọn ảnh vừa lưu trong thư viện.</li>
+            <li>Kiểm tra số tiền và nội dung, rồi xác nhận chuyển.</li>
+          </ol>
+          <a id="qrSaveLink" href="#" target="_blank" rel="noopener" class="mt-3 block w-full py-2.5 rounded-full border border-gold-deep/40 text-center text-[13px] font-semibold text-gold-deep">Mở ảnh mã QR để lưu</a>
+        </div>
       </div>
 
       <div class="space-y-2.5 text-[14px] mt-6 pt-6 border-t border-moss/10">
@@ -479,6 +490,56 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
     }, pxSession() + '-ic', 'InitiateCheckout_session');
   })();
 
+  // ── email typo guard ──
+  // A mistyped domain (e.g. "gmell.com") means the confirmation and report never arrive, so ask once before creating the order.
+  var EMAIL_TYPOS = {
+    'gmail.com': ['gmial.com', 'gmai.com', 'gmal.com', 'gamil.com', 'gmail.co', 'gmail.con', 'gmail.cm', 'gmaill.com', 'gmil.com', 'gnail.com',
+      'gmell.com', 'gmeil.com', 'gmali.com', 'gmail.comm', 'gmail.vom', 'gmail.om', 'gmaiil.com', 'gmale.com', 'gemail.com', 'ggmail.com',
+      'gmail.cim', 'gmail.xom', 'gmail.coom', 'gmailcom', 'gmail.com.vn', 'gmail.vn'],
+    'yahoo.com': ['yaho.com', 'yahoo.con', 'yahoo.co', 'yahooo.com', 'yhoo.com', 'yahou.com', 'yahoo.cm', 'yahoo.comm'],
+    'hotmail.com': ['hotmai.com', 'hotmial.com', 'hotmail.con', 'hotmal.com', 'hotmil.com', 'hotmail.co', 'hotmaill.com', 'homail.com'],
+    'outlook.com': ['outlok.com', 'outlook.con', 'outllook.com', 'outook.com', 'outlook.co'],
+    'icloud.com': ['iclould.com', 'icloud.con', 'icoud.com', 'iclod.com', 'icloud.co']
+  };
+  var EMAIL_FIX = {};
+  Object.keys(EMAIL_TYPOS).forEach(function (good) {
+    EMAIL_TYPOS[good].forEach(function (bad) { EMAIL_FIX[bad] = good; });
+  });
+  var emailEl = document.querySelector('#checkoutForm input[name="email"]');
+  var emailHint = $('emailHint');
+  var emailKept = '';   // the address the customer chose to keep as typed
+  function emailSuggestion(v) {
+    var m = String(v || '').trim().toLowerCase().match(/^([^@\s]+)@([^@\s]+)$/);
+    return m && EMAIL_FIX[m[2]] ? m[1] + '@' + EMAIL_FIX[m[2]] : null;
+  }
+  function showEmailHint() {
+    var s = emailSuggestion(emailEl.value);
+    if (!s || emailKept === emailEl.value.trim().toLowerCase()) { emailHint.classList.add('hidden'); return false; }
+    emailHint.innerHTML = 'Có phải bạn muốn gõ <strong></strong>? ' +
+      '<button type="button" data-act="fix" class="underline font-semibold">Dùng địa chỉ này</button> · ' +
+      '<button type="button" data-act="keep" class="underline">Giữ nguyên</button>';
+    emailHint.querySelector('strong').textContent = s;
+    emailHint.classList.remove('hidden');
+    return true;
+  }
+  emailEl.addEventListener('blur', showEmailHint);
+  emailEl.addEventListener('input', function () { emailHint.classList.add('hidden'); });
+  emailHint.addEventListener('click', function (e) {
+    var act = e.target.getAttribute('data-act');
+    if (!act) return;
+    if (act === 'fix') emailEl.value = emailSuggestion(emailEl.value);
+    else emailKept = emailEl.value.trim().toLowerCase();
+    emailHint.classList.add('hidden');
+  });
+
+  // Back from the bank app: check the order now instead of waiting for the next poll (timers pause in the background).
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') return;
+    var o = current();
+    if (!o || o.paid || $('step2').classList.contains('hidden')) return;
+    checkStatus(o, { once: true });
+  });
+
   // ── copy buttons ──
   document.addEventListener('click', function (e) {
     var b = e.target.closest('.copyBtn'); if (!b) return;
@@ -516,6 +577,7 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
     var img = $('qrImg');
     img.style.display = ''; $('qrFallback').classList.add('hidden');
     img.src = qrUrl(o.amount, o.ckContent);
+    $('qrSaveLink').href = img.src;
     setStatus('pending');
   }
 
@@ -606,6 +668,7 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
     var form = e.target, errEl = $('formError');
     if (!form.checkValidity()) { errEl.classList.remove('hidden'); form.reportValidity(); return; }
     errEl.classList.add('hidden');
+    if (showEmailHint()) { emailEl.scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
 
     var btn = $('submitBtn');
     btn.disabled = true; btn.textContent = 'Đang tạo đơn…';
