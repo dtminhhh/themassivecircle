@@ -396,9 +396,9 @@ footer a{color:var(--muted)}
     <!-- ========== ĐÃ THANH TOÁN ========== -->
     <div id="v-paid" hidden>
       <div class="card key" id="birth-card">
-        <div class="task"><i>Việc 1</i> 2 phút · làm ngay hôm nay</div>
-        <h2>Gửi ngày giờ sinh để đội ngũ lập bản đồ của bạn</h2>
-        <p class="hint">Bản đồ được lập từ 4 trụ: năm, tháng, ngày, giờ sinh. Gửi trong hôm nay để đội ngũ kịp tính tay và gửi vào Ngày 7.</p>
+        <div class="task" id="birth-task"><i>Việc 1</i> 2 phút · làm ngay hôm nay</div>
+        <h2 id="birth-title">Gửi ngày giờ sinh để đội ngũ lập bản đồ của bạn</h2>
+        <p class="hint" id="birth-hint">Bản đồ được lập từ 4 trụ: năm, tháng, ngày, giờ sinh. Gửi trong hôm nay để đội ngũ kịp tính tay và gửi vào Ngày 7.</p>
 
         <div id="birth-done" hidden>
           <div class="done"><b>Đã nhận ngày giờ sinh.</b><p id="birth-sum"></p></div>
@@ -427,7 +427,7 @@ footer a{color:var(--muted)}
           <div class="field" id="f-hour">
             <label for="hour">Giờ sinh (canh giờ, khung 2 tiếng)</label>
             <select name="hour" id="hour"><option value="">Chọn khung giờ sinh</option></select>
-            <small class="err">Bạn chọn khung giờ sinh nhé. Chưa rõ thì chọn dòng cuối.</small>
+            <small class="err">Bạn chọn khung giờ sinh nhé.</small>
           </div>
           <div class="field">
             <label for="note">Ghi chú cho đội ngũ (không bắt buộc)</label>
@@ -439,7 +439,7 @@ footer a{color:var(--muted)}
       </div>
 
       <div class="card">
-        <div class="task"><i>Việc 2</i> dưới 30 phút</div>
+        <div class="task" id="course-task"><i>Việc 2</i> dưới 30 phút</div>
         <h2>Học bài 1 ngay hôm nay</h2>
         <p class="hint">Mỗi ngày mở thêm 1 bài, từ Ngày 1 đến Ngày 6. 6 bài này giúp bạn đọc hiểu và tự dùng được bản đồ.</p>
         <a class="btn-gold" id="course-link" href="/khoa-hoc">Vào học bài 1 →</a>
@@ -521,7 +521,7 @@ footer a{color:var(--muted)}
   /* ---------- Đã thanh toán ---------- */
   function renderPaid(o) {
     order = o;
-    hero('Đơn ' + o.code, 'Chào mừng ' + (o.firstName || 'bạn') + ' vào EDD Foundation™.', 'Còn 2 việc trong hôm nay, mất khoảng 5 phút. Ngày 7 bạn nhận tấm bản đồ của mình.', { t: '✓ Đã nhận thanh toán ' + E.vnd(o.total) });
+    hero('Đơn ' + o.code, 'Chào mừng ' + (o.firstName || 'bạn') + ' vào EDD Foundation™.', (o.birth && o.birth.done ? 'Còn 1 việc trong hôm nay: vào học bài 1. Ngày 7 bạn nhận tấm bản đồ của mình.' : 'Còn 2 việc trong hôm nay, mất khoảng 5 phút. Ngày 7 bạn nhận tấm bản đồ của mình.'), { t: '✓ Đã nhận thanh toán ' + E.vnd(o.total) });
     only('v-paid');
     $('mail').textContent = o.emailMasked || 'email bạn đăng ký';
 
@@ -539,6 +539,14 @@ footer a{color:var(--muted)}
     }).join('');
 
     renderBirth(o.birth || {});
+    // Ngày giờ sinh khách đã điền lúc đặt hàng nhưng máy chủ chưa lưu: gửi lại một lần cho khỏi mất
+    var pb = E.store('edd_birth_pending');
+    if (o.birth && o.birth.done) { if (pb && pb.code === o.code) E.store('edd_birth_pending', null); }
+    else if (pb && pb.code === o.code && pb.birth) {
+      E.api('birth', { code: o.code, token: o.token, gender: pb.birth.gender, day: pb.birth.day, month: pb.birth.month, year: pb.birth.year, hour: pb.birth.hour, hourLabel: hourLabel(pb.birth.hour), note: '' })
+        .then(function () { renderBirth({ done: true, gender: pb.birth.gender, day: pb.birth.day, month: pb.birth.month, year: pb.birth.year, hour: pb.birth.hour, hourLabel: hourLabel(pb.birth.hour), note: '' }); E.store('edd_birth_pending', null); })
+        .catch(function () { });
+    }
 
     // Purchase: chỉ bắn khi server xác nhận PAID, mỗi đơn 1 lần
     var flag = 'edd_px_' + o.code;
@@ -557,16 +565,22 @@ footer a{color:var(--muted)}
     for (i = 1; i <= 31; i++) d.add(new Option(i, i));
     for (i = 1; i <= 12; i++) m.add(new Option('Tháng ' + i, i));
     for (i = yr - 15; i >= 1930; i--) y.add(new Option(i, i));
-    E.HOURS.forEach(function (x) { h.add(new Option(x[1], x[0])); });
+    E.HOURS.forEach(function (x) { if (x[0] !== 'unknown') h.add(new Option(x[1], x[0])); });
   })();
   function hourLabel(v) { for (var i = 0; i < E.HOURS.length; i++) if (E.HOURS[i][0] === v) return E.HOURS[i][1]; return v; }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function renderBirth(b) {
+    var got = !!(b && b.done);
+    $('birth-task').innerHTML = got ? '<i>Đã xong</i> đã nhận ngày giờ sinh' : '<i>Việc 1</i> 2 phút · làm ngay hôm nay';
+    $('birth-title').textContent = got ? 'Ngày giờ sinh của bạn' : 'Gửi ngày giờ sinh để đội ngũ lập bản đồ của bạn';
+    $('birth-hint').hidden = got;
+    $('course-task').innerHTML = got ? '<i>Việc 1</i> dưới 30 phút' : '<i>Việc 2</i> dưới 30 phút';
     if (b && b.done) {
       $('birth-done').hidden = false; bf.hidden = true;
       $('birth-sum').textContent = b.gender + ' · ' + pad(+b.day) + '/' + pad(+b.month) + '/' + b.year + ' · ' + (b.hourLabel || hourLabel(b.hour));
       $('birth-unknown').hidden = b.hour !== 'unknown';
       Array.prototype.forEach.call(be.gender, function (r) { r.checked = r.value === b.gender; });
+      if (b.hour === 'unknown' && !be.hour.querySelector('option[value=unknown]')) be.hour.add(new Option(hourLabel('unknown'), 'unknown'));
       be.day.value = b.day; be.month.value = b.month; be.year.value = b.year; be.hour.value = b.hour; be.note.value = b.note || '';
     } else { $('birth-done').hidden = true; bf.hidden = false; }
   }
