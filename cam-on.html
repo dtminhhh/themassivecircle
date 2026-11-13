@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhận khóa học · EDD Foundation™</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#17251d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%2317251d%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2745%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2736%27%20font-weight%3D%27700%27%20fill%3D%27%23c9a75c%27%20text-anchor%3D%27middle%27%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<script>
+/* =====================================================================
+   EDD Foundation™ · edd.js
+   PHẦN 1: CẤU HÌNH. Chỉ sửa trong khối này.
+   PHẦN 2: Pixel, lưu tạm, gọi Apps Script. Không cần sửa.
+   ===================================================================== */
+
+window.EDD_CONFIG = {
+  // URL Web App của Apps Script (Deploy > Web app), dạng:
+  // https://script.google.com/macros/s/XXXXXXXX/exec
+  // Để trống: mở file trên máy (file://, localhost) sẽ chạy chế độ xem thử, không tạo đơn thật.
+  API_URL: 'https://script.google.com/macros/s/AKfycbzsyYmvOSnLOIhzgkKYEP4CkqasY22p1ENPM41Q7wSU_3ySEQnEjhPemzLAdNi0EZt-/exec',
+
+  // Meta Pixel: GIỮ NGUYÊN, không đổi ID
+  PIXEL_ID: '1579575970863354',
+
+  // Giá hiển thị. Giá tính tiền thật nằm trong Apps Script (Code.gs), hai nơi phải khớp nhau.
+  PRODUCT: { key: 'core', id: 'edd-foundation', name: 'EDD Foundation™', price: 290000, listPrice: 790000 },
+  BUMPS: [
+    { key: 'fieldguide', id: 'money-engine-field-guide', name: 'Money Engine Field Guide™', short: 'Money Engine Field Guide™ (PDF)', price: 290000, listPrice: 890000,
+      file: 'https://www.themassivecircle.com/tai-lieu/money-engine-field-guide.pdf' },
+    { key: 'playbook', id: 'architecture-type-playbook', name: 'Architecture Type Playbook™', short: 'Architecture Type Playbook™ (PDF)', price: 290000, listPrice: 890000,
+      file: 'https://www.themassivecircle.com/tai-lieu/architecture-type-playbook.pdf' },
+    { key: 'debrief', id: 'strategy-debrief-60', name: '1-on-1 Strategy Debrief (60 phút online)', short: '1-on-1 Strategy Debrief', price: 590000, listPrice: 1800000 }
+  ],
+
+  // Chuyển khoản qua Sepay (giữ đúng tài khoản đang chạy)
+  BANK: { name: 'BIDV', code: 'BIDV', account: '962471X7IN', holder: 'DAO TUAN MINH', store: 'The Massive Circle' },
+  QR_TEMPLATE: 'https://qr.sepay.vn/img?acc={acc}&bank={bank}&amount={amount}&des={des}&template=compact',
+
+  HOTLINE: '0986150101',
+  ZALO: 'https://zalo.me/0986150101',
+  EMAIL: 'duyen@themassivecircle.com',
+  COURSE_URL: '/khoa-hoc',
+
+  POLL_MS: 5000,          // bao lâu kiểm tra trạng thái đơn một lần
+  POLL_STOP_MIN: 20       // ngừng tự kiểm tra sau bấy nhiêu phút
+};
+
+/* ===================== PHẦN 2: KHÔNG CẦN SỬA ===================== */
+(function () {
+  'use strict';
+  var C = window.EDD_CONFIG;
+  var host = location.hostname;
+  var qs = new URLSearchParams(location.search);
+  var isLocal = location.protocol === 'file:' || host === '' || host === 'localhost' || host === '127.0.0.1';
+  var DEMO = !C.API_URL && (isLocal || qs.get('demo') === '1');
+  var NO_API = !C.API_URL && !DEMO;
+
+  function store(key, val) {
+    try {
+      if (val === undefined) { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
+      if (val === null) { localStorage.removeItem(key); return null; }
+      localStorage.setItem(key, JSON.stringify(val));
+      return val;
+    } catch (e) { return null; }
+  }
+
+  function uid(prefix) { return (prefix || '') + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  function vnd(n) { return Number(n || 0).toLocaleString('vi-VN') + 'đ'; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  function normPhone(p) {
+    var s = String(p || '').replace(/[^\d+]/g, '');
+    if (s.indexOf('+84') === 0) s = '0' + s.slice(3);
+    else if (s.indexOf('84') === 0 && s.length === 11) s = '0' + s.slice(2);
+    return /^0(3|5|7|8|9)\d{8}$/.test(s) ? s : '';
+  }
+  function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(e || '').trim()); }
+  function firstName(name) { var p = String(name || '').trim().split(/\s+/); return p[p.length - 1] || ''; }
+
+  function bump(key) { for (var i = 0; i < C.BUMPS.length; i++) if (C.BUMPS[i].key === key) return C.BUMPS[i]; return null; }
+  function priceOf(key) { if (key === 'core') return C.PRODUCT.price; var b = bump(key); return b ? b.price : 0; }
+  function idOf(key) { if (key === 'core') return C.PRODUCT.id; var b = bump(key); return b ? b.id : key; }
+  function nameOf(key) { if (key === 'core') return C.PRODUCT.name; var b = bump(key); return b ? b.name : key; }
+
+  function qrUrl(amount, des) {
+    return C.QR_TEMPLATE.replace('{acc}', encodeURIComponent(C.BANK.account))
+      .replace('{bank}', encodeURIComponent(C.BANK.code))
+      .replace('{amount}', encodeURIComponent(amount))
+      .replace('{des}', encodeURIComponent(des));
+  }
+
+  /* ---------- Meta Pixel ---------- */
+  var pixelOn = !DEMO && !!C.PIXEL_ID;
+  function matchData(lead) {
+    var d = {};
+    if (!lead) return d;
+    if (lead.email) d.em = String(lead.email).trim().toLowerCase();
+    var ph = normPhone(lead.phone);
+    if (ph) d.ph = '84' + ph.slice(1);
+    var parts = String(lead.name || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (parts.length) { d.fn = parts[parts.length - 1]; if (parts.length > 1) d.ln = parts[0]; }
+    if (lead.leadId) d.external_id = lead.leadId;
+    d.country = 'vn';
+    return d;
+  }
+  function loadPixel(userData) {
+    if (!pixelOn) { log('Pixel tắt ở chế độ xem thử'); return; }
+    /* eslint-disable */
+    !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    /* eslint-enable */
+    window.fbq.disablePushState = true; // site nhiều trang + menu neo: không để Pixel tự thêm PageView mỗi lần đổi URL/hash
+    window.fbq('set', 'autoConfig', false, C.PIXEL_ID); // tắt sự kiện tự suy đoán (lỗi Purchase cũ)
+    window.fbq('init', C.PIXEL_ID, userData || {});
+    window.fbq('track', 'PageView');
+  }
+  function track(name, params, eventID) {
+    if (!pixelOn || !window.fbq) { log('Pixel ' + name, params || {}, eventID || ''); return; }
+    if (eventID) window.fbq('track', name, params || {}, { eventID: String(eventID) });
+    else window.fbq('track', name, params || {});
+  }
+  function log() { if (window.console && console.log) console.log.apply(console, ['[EDD]'].concat([].slice.call(arguments))); }
+
+  /* ---------- Nguồn quảng cáo (UTM, fbclid) ---------- */
+  function captureAttribution() {
+    var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+    var a = store('edd_attr') || {}; var got = false;
+    keys.forEach(function (k) { var v = qs.get(k); if (v) { a[k] = v.slice(0, 200); got = true; } });
+    if (got) { a.at = Date.now(); store('edd_attr', a); }
+    return a;
+  }
+  function cookie(n) { var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  function context() {
+    var a = store('edd_attr') || {};
+    var fbc = cookie('_fbc');
+    if (!fbc && a.fbclid) fbc = 'fb.1.' + (a.at || Date.now()) + '.' + a.fbclid;
+    return { utm: a, fbp: cookie('_fbp'), fbc: fbc, ua: navigator.userAgent.slice(0, 300), url: location.origin + location.pathname };
+  }
+
+  /* ---------- Gọi Apps Script ---------- */
+  function api(action, data) {
+    if (DEMO) return demoApi(action, data || {});
+    if (!C.API_URL) return Promise.reject(new Error('NO_API'));
+    var body = JSON.stringify(Object.assign({ action: action }, data || {}));
+    return fetch(C.API_URL, { method: 'POST', body: body, redirect: 'follow' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok) { var e = new Error((j && j.error) || 'API_ERROR'); e.data = j; throw e; }
+        return j;
+      });
+  }
+  // Gửi không chờ trả lời (dùng khi chuyển trang ngay sau đó)
+  function beacon(action, data) {
+    if (DEMO) { demoApi(action, data || {}); return; }
+    if (!C.API_URL) return;
+    var body = JSON.stringify(Object.assign({ action: action }, data || {}));
+    try { if (navigator.sendBeacon && navigator.sendBeacon(C.API_URL, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return; } catch (e) { }
+    try { fetch(C.API_URL, { method: 'POST', body: body, keepalive: true, mode: 'no-cors' }); } catch (e) { }
+  }
+
+  /* ---------- Chế độ xem thử (chỉ chạy trên máy, khi chưa có API_URL) ---------- */
+  function demoApi(action, d) {
+    var db = store('edd_demo') || { seq: 100000, orders: {}, leads: [] };
+    var out = { ok: false, error: 'NOT_FOUND' };
+    function view(o) {
+      return { ok: true, code: o.code, token: o.token, status: o.status, firstName: firstName(o.name), emailMasked: maskEmail(o.email),
+        total: o.total, content: o.code, items: o.items.map(function (k) { return { key: k, name: nameOf(k), price: priceOf(k), file: (bump(k) || {}).file || '' }; }),
+        createdAt: o.createdAt, paidAt: o.paidAt || '', birth: o.birth || { done: false } };
+    }
+    if (action === 'lead') { db.leads.push(d); out = { ok: true }; }
+    if (action === 'create') {
+      db.seq += 1;
+      var items = ['core'].concat((d.items || []).filter(function (k) { return !!bump(k); }));
+      var o = { code: 'EDD' + db.seq, token: uid('t'), status: 'PENDING', name: d.name, phone: d.phone, email: d.email, items: items,
+        total: items.reduce(function (s, k) { return s + priceOf(k); }, 0), createdAt: new Date().toISOString() };
+      db.orders[o.code] = o; out = view(o);
+    }
+    var ord = d.code && db.orders[d.code] && db.orders[d.code].token === d.token ? db.orders[d.code] : null;
+    if (action === 'status' && ord) out = view(ord);
+    if (action === 'demoPay' && ord) { ord.status = 'PAID'; ord.paidAt = new Date().toISOString(); out = view(ord); }
+    if (action === 'birth' && ord) {
+      ord.birth = { done: true, gender: d.gender, day: d.day, month: d.month, year: d.year, hour: d.hour, hourLabel: d.hourLabel, note: d.note || '' };
+      out = view(ord);
+    }
+    if (action === 'lookup') {
+      var ph = normPhone(d.phone), em = String(d.email || '').trim().toLowerCase();
+      var list = Object.keys(db.orders).map(function (k) { return db.orders[k]; })
+        .filter(function (o) { return o.phone === ph && String(o.email).toLowerCase() === em; })
+        .map(function (o) { return { code: o.code, token: o.token, status: o.status, total: o.total, createdAt: o.createdAt }; });
+      out = { ok: true, orders: list };
+    }
+    store('edd_demo', db);
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () { if (out.ok) resolve(out); else { var e = new Error(out.error); e.data = out; reject(e); } }, 400);
+    });
+  }
+  function maskEmail(e) {
+    var s = String(e || ''); var at = s.indexOf('@'); if (at < 1) return s;
+    return s.slice(0, Math.min(2, at)) + '***' + s.slice(at);
+  }
+
+  /* ---------- Canh giờ Bát Tự ---------- */
+  var HOURS = [
+    ['ty', 'Giờ Tý (23:00-00:59)'], ['suu', 'Giờ Sửu (01:00-02:59)'], ['dan', 'Giờ Dần (03:00-04:59)'], ['mao', 'Giờ Mão (05:00-06:59)'],
+    ['thin', 'Giờ Thìn (07:00-08:59)'], ['ti', 'Giờ Tị (09:00-10:59)'], ['ngo', 'Giờ Ngọ (11:00-12:59)'], ['mui', 'Giờ Mùi (13:00-14:59)'],
+    ['than', 'Giờ Thân (15:00-16:59)'], ['dau', 'Giờ Dậu (17:00-18:59)'], ['tuat', 'Giờ Tuất (19:00-20:59)'], ['hoi', 'Giờ Hợi (21:00-22:59)'],
+    ['unknown', 'Chưa rõ giờ sinh, tôi sẽ bổ sung sau']
+  ];
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve) {
+      var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', '');
+      t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); } catch (e) { }
+      document.body.removeChild(t); resolve();
+    });
+  }
+
+  /* ---------- Cảnh báo email gõ sai tên miền (gmell.com, gmial.com…): hỏi 1 lần trước khi nhận ---------- */
+  var EMAIL_TYPOS = {
+    'gmail.com': ['gmial.com', 'gmai.com', 'gmal.com', 'gamil.com', 'gmail.co', 'gmail.con', 'gmail.cm', 'gmaill.com', 'gmil.com', 'gnail.com',
+      'gmell.com', 'gmeil.com', 'gmali.com', 'gmail.comm', 'gmail.vom', 'gmail.om', 'gmaiil.com', 'gmale.com', 'gemail.com', 'ggmail.com',
+      'gmail.cim', 'gmail.xom', 'gmail.coom', 'gmailcom', 'gmail.com.vn', 'gmail.vn'],
+    'yahoo.com': ['yaho.com', 'yahoo.con', 'yahoo.co', 'yahooo.com', 'yhoo.com', 'yahou.com', 'yahoo.cm', 'yahoo.comm'],
+    'hotmail.com': ['hotmai.com', 'hotmial.com', 'hotmail.con', 'hotmal.com', 'hotmil.com', 'hotmail.co', 'hotmaill.com', 'homail.com'],
+    'outlook.com': ['outlok.com', 'outlook.con', 'outllook.com', 'outook.com', 'outlook.co'],
+    'icloud.com': ['iclould.com', 'icloud.con', 'icoud.com', 'iclod.com', 'icloud.co']
+  };
+  var EMAIL_FIX = {};
+  Object.keys(EMAIL_TYPOS).forEach(function (good) { EMAIL_TYPOS[good].forEach(function (bad) { EMAIL_FIX[bad] = good; }); });
+  function emailSuggestion(v) {
+    var m = String(v || '').trim().toLowerCase().match(/^([^@\s]+)@([^@\s]+)$/);
+    return m && EMAIL_FIX[m[2]] ? m[1] + '@' + EMAIL_FIX[m[2]] : null;
+  }
+  // true = blocked (a suggestion is on screen). The customer taps "Dùng địa chỉ này" or "Giữ nguyên"; typing again clears it.
+  function emailGuard(input) {
+    var s = emailSuggestion(input.value), kept = input.getAttribute('data-kept');
+    if (!s || kept === input.value.trim().toLowerCase()) return false;
+    var field = input.closest('.field'), err = field.querySelector('.err');
+    function link(text, fn) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = text;
+      b.style.cssText = 'background:none;border:0;padding:0;margin-left:8px;font:inherit;font-weight:600;text-decoration:underline;cursor:pointer;color:inherit';
+      b.addEventListener('click', fn); return b;
+    }
+    err.textContent = 'Có phải bạn muốn gõ ';
+    var strong = document.createElement('b'); strong.textContent = s; err.appendChild(strong); err.appendChild(document.createTextNode('?'));
+    err.appendChild(link('Dùng địa chỉ này', function () { input.value = s; field.classList.remove('bad'); }));
+    err.appendChild(link('Giữ nguyên', function () { input.setAttribute('data-kept', input.value.trim().toLowerCase()); field.classList.remove('bad'); }));
+    field.classList.add('bad');
+    return true;
+  }
+  // Chạy fn một lần mỗi phiên trình duyệt (tránh đếm đôi sự kiện Pixel khi tải lại trang)
+  function once(key, fn) {
+    try { var k = 'edd_px_' + key; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { }
+    fn();
+  }
+
+  window.EDD = {
+    C: C, DEMO: DEMO, NO_API: NO_API, qs: qs,
+    store: store, uid: uid, vnd: vnd, esc: esc, normPhone: normPhone, validEmail: validEmail, firstName: firstName,
+    bump: bump, priceOf: priceOf, idOf: idOf, nameOf: nameOf, qrUrl: qrUrl,
+    matchData: matchData, loadPixel: loadPixel, track: track, log: log,
+    captureAttribution: captureAttribution, context: context,
+    api: api, beacon: beacon, HOURS: HOURS, copyText: copyText,
+    emailGuard: emailGuard, once: once
+  };
+})();
+
+</script>
+<script>
+  EDD.loadPixel(EDD.matchData(EDD.store('edd_lead')));
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"></noscript>
+<style>
+:root{
+  --ink:#0f1712; --forest:#17251d; --forest-2:#1e3026;
+  --gold:#c9a75c; --gold-2:#e4cd92; --gold-ink:#7d6328;
+  --paper:#f8f5ee; --cream:#f1ebdf; --line:#e0d6c2;
+  --text:#1c2520; --muted:#5b665f; --soft:#89928c; --white:#fffdf8;
+  --ok:#2e7149; --no:#9b4a3a; --warn:#8a5a14;
+  --serif:'Noto Serif', Georgia, 'Times New Roman', serif;
+  --sans:'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.25;margin:0}
+p{margin:0 0 12px}
+[hidden]{display:none!important}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.top{background:var(--forest);border-bottom:1px solid rgba(201,167,92,.2)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:1000px}
+.brand{text-decoration:none;color:#f5efe2;line-height:1.1}
+.brand b{font-family:var(--serif);font-size:18px}
+.brand b span{color:var(--gold)}
+.brand small{display:block;font-size:11px;color:#aab3ac;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.top a.z{color:var(--gold-2);font-size:14px;text-underline-offset:3px}
+.demo{background:#fff4d6;color:#6b4a0a;border-bottom:1px solid #ecd9a4;font-size:13.5px;text-align:center;padding:8px 16px}
+
+.hero{background:radial-gradient(700px 400px at 10% -20%,rgba(201,167,92,.2),transparent 60%),var(--forest);color:#ece6d8;padding:40px 0 70px}
+.kicker{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hero h1{font-size:clamp(27px,4vw,38px);color:#f7f1e4}
+.hero p{color:#cfd5ce;font-size:17px;margin:12px 0 0}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(46,113,73,.18);color:#bfe3cb;border:1px solid rgba(110,180,135,.35);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;margin-bottom:14px}
+.badge.wait{background:rgba(201,167,92,.15);color:var(--gold-2);border-color:rgba(201,167,92,.4)}
+
+main{margin-top:-44px;padding-bottom:60px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px;box-shadow:0 20px 50px -36px rgba(23,37,29,.45)}
+.card.key{border:2px solid var(--gold)}
+.task{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:6px}
+.task i{font-style:normal;background:var(--forest);color:var(--gold-2);border-radius:999px;padding:2px 9px;letter-spacing:.06em}
+.card h2{font-size:22px;color:var(--forest);margin-bottom:6px}
+.hint{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+.field{margin-bottom:14px}
+.field>label,.lbl{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
+select,textarea,.field input{width:100%;min-height:50px;border:1px solid #d8cdb6;border-radius:11px;padding:0 12px;font:inherit;font-size:16px;background:#fff;color:var(--text)}
+textarea{padding:10px 12px;min-height:76px;resize:vertical}
+select:focus,textarea:focus,.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,167,92,.25)}
+.three{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px}
+.pills{display:flex;gap:10px}
+.pill{flex:1;position:relative}
+.pill input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.pill span{display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid #d8cdb6;border-radius:11px;background:#fff;font-weight:600}
+.pill input:checked+span{border-color:var(--forest);background:var(--forest);color:var(--gold-2)}
+.pill input:focus-visible+span{box-shadow:0 0 0 3px rgba(201,167,92,.35)}
+.err{display:none;color:var(--no);font-size:13px;margin-top:5px}
+.field.bad .err{display:block}
+.field.bad select,.field.bad .pill span{border-color:var(--no)}
+.btn-gold{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;border:0;border-radius:12px;cursor:pointer;font:inherit;font-weight:700;font-size:16.5px;color:#17251d;background:linear-gradient(180deg,#e2c681,#c29d4f);box-shadow:0 10px 24px -10px rgba(194,157,79,.8);text-decoration:none;padding:0 16px}
+.btn-gold[disabled]{opacity:.7;cursor:wait}
+.btn-line{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:11px;border:1px solid var(--forest);background:transparent;color:var(--forest);font:inherit;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none}
+.done{background:#eef6f0;border:1px solid #cfe5d6;border-radius:12px;padding:14px 16px}
+.done b{color:var(--ok)}
+.done p{margin:6px 0 0;font-size:15px}
+.warn{background:#fff6e2;border:1px solid #ecd9a4;color:#6b4a0a;border-radius:12px;padding:12px 14px;font-size:14.5px;margin-top:12px}
+.form-err{display:none;background:#fbe9e4;color:#7a2e1f;border-radius:10px;padding:10px 12px;font-size:14px;margin-top:12px}
+.form-err.show{display:block}
+.files{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.files li{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.files b{font-size:15px}
+.files span{display:block;font-size:13px;color:var(--muted)}
+.line{display:flex;justify-content:space-between;gap:10px;font-size:15px;padding:6px 0}
+.line.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-weight:700}
+.small{font-size:14px;color:var(--muted)}
+.prep{margin:0 0 12px;padding-left:20px;display:grid;gap:6px;font-size:15.5px}
+.prep b{color:var(--forest)}
+.rows{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:15px;background:#fff}
+.row:last-child{border-bottom:0}
+.row b{word-break:break-all;text-align:right}
+.orders{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.orders li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.st{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:6px}
+.st.paid{background:#e3f1e8;color:var(--ok)}
+.st.pend{background:#fbf0d6;color:var(--warn)}
+.loading{text-align:center;padding:40px 0;color:var(--muted)}
+footer{text-align:center;font-size:13px;color:var(--soft);padding:10px 16px 40px}
+footer a{color:var(--muted)}
+@media (max-width:600px){
+  .card{padding:20px 16px}
+  .three{grid-template-columns:1fr 1fr;}
+  .three .y{grid-column:1/-1}
+  .files li{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>EDD <span>Foundation™</span></b><small>Trang nhận khóa học</small></a>
+    <a class="z" href="https://zalo.me/0986150101">Zalo hỗ trợ</a>
+  </div>
+</header>
+<div class="demo" id="demo-bar" hidden>Chế độ xem thử trên máy: chưa nối Apps Script, không có đơn thật, Pixel tắt.</div>
+
+<section class="hero">
+  <div class="wrap" id="hero">
+    <div class="kicker">EDD Foundation™</div>
+    <h1>Đang mở đơn của bạn...</h1>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <div class="card loading" id="loading">Đang kiểm tra đơn...</div>
+
+    <!-- ========== ĐÃ THANH TOÁN ========== -->
+    <div id="v-paid" hidden>
+      <div class="card key" id="birth-card">
+        <div class="task"><i>Việc 1</i> 2 phút · làm ngay hôm nay</div>
+        <h2>Gửi ngày giờ sinh để đội ngũ lập bản đồ của bạn</h2>
+        <p class="hint">Bản đồ được lập từ 4 trụ: năm, tháng, ngày, giờ sinh. Gửi trong hôm nay để đội ngũ kịp tính tay và gửi vào Ngày 7.</p>
+
+        <div id="birth-done" hidden>
+          <div class="done"><b>Đã nhận ngày giờ sinh.</b><p id="birth-sum"></p></div>
+          <div class="warn" id="birth-unknown" hidden>Bạn chọn chưa rõ giờ sinh. Bổ sung sớm để kịp bàn giao Ngày 7: có giờ sinh thì quay lại trang này bấm "Sửa lại", hoặc nhắn Zalo 0986150101.</div>
+          <p style="margin:12px 0 0"><button class="btn-line" type="button" id="birth-edit">Sửa lại</button></p>
+        </div>
+
+        <form id="birth-form" novalidate>
+          <div class="field" id="f-gender">
+            <span class="lbl">Giới tính</span>
+            <div class="pills">
+              <label class="pill"><input type="radio" name="gender" value="Nữ"><span>Nữ</span></label>
+              <label class="pill"><input type="radio" name="gender" value="Nam"><span>Nam</span></label>
+            </div>
+            <small class="err">Bạn chọn giới tính nhé.</small>
+          </div>
+          <div class="field" id="f-date">
+            <span class="lbl">Ngày sinh (dương lịch)</span>
+            <div class="three">
+              <select name="day" aria-label="Ngày"><option value="">Ngày</option></select>
+              <select name="month" aria-label="Tháng"><option value="">Tháng</option></select>
+              <select name="year" class="y" aria-label="Năm"><option value="">Năm</option></select>
+            </div>
+            <small class="err">Ngày sinh chưa đúng, kiểm tra lại giúp mình.</small>
+          </div>
+          <div class="field" id="f-hour">
+            <label for="hour">Giờ sinh (canh giờ, khung 2 tiếng)</label>
+            <select name="hour" id="hour"><option value="">Chọn khung giờ sinh</option></select>
+            <small class="err">Bạn chọn khung giờ sinh nhé. Chưa rõ thì chọn dòng cuối.</small>
+          </div>
+          <div class="field">
+            <label for="note">Ghi chú cho đội ngũ (không bắt buộc)</label>
+            <textarea name="note" id="note" maxlength="300" placeholder="Ví dụ: giấy khai sinh ghi 7 giờ 45 sáng, sinh tại Huế."></textarea>
+          </div>
+          <button class="btn-gold" type="submit" id="birth-btn">Gửi ngày giờ sinh</button>
+          <div class="form-err" id="birth-err"></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="task"><i>Việc 2</i> dưới 30 phút</div>
+        <h2>Học bài 1 ngay hôm nay</h2>
+        <p class="hint">Mỗi ngày mở thêm 1 bài, từ Ngày 1 đến Ngày 6. 6 bài này giúp bạn đọc hiểu và tự dùng được bản đồ.</p>
+        <a class="btn-gold" id="course-link" href="/khoa-hoc">Vào học bài 1 →</a>
+      </div>
+
+      <div class="card">
+        <div class="task"><i>Trước Ngày 7</i> 5 phút</div>
+        <h2>Chuẩn bị để đối chiếu bản đồ</h2>
+        <p class="hint" style="margin-bottom:10px">Ghi ra giấy 2 thứ:</p>
+        <ol class="prep">
+          <li><b>3 năm đáng nhớ nhất của bạn:</b> năm bắt đầu việc đang làm, năm thuận nhất, năm khó nhất.</li>
+          <li><b>1 quyết định tiền bạc lớn</b> bạn đang cân nhắc.</li>
+        </ol>
+        <p class="small" style="margin:0">Ngày 7, đặt cả hai lên bản đồ. 3 năm cũ cho bạn biết bản đồ khớp với bạn đến đâu. Quyết định mới thì chạy qua 3 câu kiểm tra: đúng người, đúng lúc, đúng số.</p>
+      </div>
+
+      <div class="card" id="files-card" hidden>
+        <h2 style="font-size:20px;margin-bottom:12px">Tài liệu bạn đã mua thêm</h2>
+        <ul class="files" id="files"></ul>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size:20px;margin-bottom:10px">Đơn của bạn</h2>
+        <div id="items"></div>
+        <p class="small" style="margin-top:14px">Email xác nhận đã gửi tới <b id="mail"></b>. Không thấy trong Hộp thư đến thì xem mục Quảng cáo hoặc Spam, tìm từ khóa "EDD".</p>
+        <p class="small">Lưu lại trang này. Lỡ mất đường dẫn thì tra cứu bằng số điện thoại và email ở <a href="cam-on.html?tra-cuu=1">trang tra cứu</a>. Hoàn 100% trong 5 ngày: gửi email tới <a href="mailto:duyen@themassivecircle.com">duyen@themassivecircle.com</a>.</p>
+        <p class="small" style="margin:0">Cần hỗ trợ: Zalo/hotline <a href="https://zalo.me/0986150101">0986150101</a>.</p>
+      </div>
+    </div>
+
+    <!-- ========== CHƯA THANH TOÁN ========== -->
+    <div id="v-pending" class="card" hidden>
+      <h2>Đơn này chưa nhận được tiền</h2>
+      <p class="hint">Nếu bạn vừa chuyển khoản, đợi 1 đến 2 phút. Trang này tự cập nhật.</p>
+      <div class="rows">
+        <div class="row"><span>Ngân hàng</span><b id="pd-bank"></b></div>
+        <div class="row"><span>Số tài khoản</span><b id="pd-acc"></b></div>
+        <div class="row"><span>Chủ tài khoản</span><b id="pd-holder"></b></div>
+        <div class="row"><span>Số tiền</span><b id="pd-amount"></b></div>
+        <div class="row"><span>Nội dung chuyển khoản</span><b id="pd-content"></b></div>
+      </div>
+      <a class="btn-gold" id="pd-back" href="thanh-toan.html">Mở lại mã QR để thanh toán →</a>
+      <p class="small" style="margin-top:12px">Đã chuyển mà vẫn chưa thấy? Nhắn Zalo <a href="https://zalo.me/0986150101">0986150101</a> kèm ảnh giao dịch.</p>
+    </div>
+
+    <!-- ========== TRA CỨU ========== -->
+    <div id="v-lookup" class="card" hidden>
+      <h2 id="lk-title">Tra cứu đơn EDD Foundation™</h2>
+      <p class="hint">Nhập số điện thoại và email bạn đã dùng khi đăng ký.</p>
+      <form id="lk-form" novalidate>
+        <div class="field"><label for="lk-phone">Số điện thoại</label><input id="lk-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"></div>
+        <div class="field"><label for="lk-email">Email</label><input id="lk-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="ban@gmail.com"></div>
+        <button class="btn-gold" type="submit" id="lk-btn">Tìm đơn của tôi</button>
+        <div class="form-err" id="lk-err"></div>
+      </form>
+      <ul class="orders" id="lk-list"></ul>
+    </div>
+  </div>
+</main>
+
+<footer>EDD Foundation™ · The Massive Circle · <a href="https://www.themassivecircle.com/chinh-sach-bao-mat">Chính sách bảo mật</a> · <a href="https://www.themassivecircle.com/chinh-sach-hoan-tien">Chính sách hoàn tiền</a></footer>
+
+<script>
+(function () {
+  'use strict';
+  var E = window.EDD, C = E.C;
+  var $ = function (id) { return document.getElementById(id); };
+  var order = null, poll = null;
+
+  if (E.DEMO) $('demo-bar').hidden = false;
+  $('course-link').href = C.COURSE_URL;
+
+  function hero(kicker, title, text, badge) {
+    $('hero').innerHTML = (badge ? '<span class="badge ' + (badge.cls || '') + '">' + E.esc(badge.t) + '</span>' : '') +
+      '<div class="kicker">' + E.esc(kicker) + '</div><h1>' + E.esc(title) + '</h1>' + (text ? '<p>' + E.esc(text) + '</p>' : '');
+  }
+  function only(id) { ['loading', 'v-paid', 'v-pending', 'v-lookup'].forEach(function (v) { $(v).hidden = v !== id; }); }
+
+  /* ---------- Đã thanh toán ---------- */
+  function renderPaid(o) {
+    order = o;
+    hero('Đơn ' + o.code, 'Chào mừng ' + (o.firstName || 'bạn') + ' vào EDD Foundation™.', 'Còn 2 việc trong hôm nay, mất khoảng 5 phút. Ngày 7 bạn nhận tấm bản đồ của mình.', { t: '✓ Đã nhận thanh toán ' + E.vnd(o.total) });
+    only('v-paid');
+    $('mail').textContent = o.emailMasked || 'email bạn đăng ký';
+
+    var html = '';
+    o.items.forEach(function (i) { html += '<div class="line"><span>' + E.esc(E.nameOf(i.key)) + '</span><span>' + E.vnd(i.price) + '</span></div>'; });
+    html += '<div class="line tot"><span>Đã thanh toán</span><span>' + E.vnd(o.total) + '</span></div>';
+    $('items').innerHTML = html;
+
+    var files = o.items.filter(function (i) { return i.key !== 'core'; });
+    $('files-card').hidden = !files.length;
+    $('files').innerHTML = files.map(function (i) {
+      var b = E.bump(i.key) || {}; var url = i.file || b.file;
+      if (url) return '<li><div><b>' + E.esc(E.nameOf(i.key)) + '</b><span>PDF, tải về máy để đọc</span></div><a class="btn-line" href="' + E.esc(url) + '" target="_blank" rel="noopener">Tải PDF</a></li>';
+      return '<li><div><b>' + E.esc(E.nameOf(i.key)) + '</b><span>Đội ngũ nhắn Zalo để hẹn lịch phiên 60 phút.</span></div></li>';
+    }).join('');
+
+    renderBirth(o.birth || {});
+
+    // Purchase: chỉ bắn khi server xác nhận PAID, mỗi đơn 1 lần
+    var flag = 'edd_px_' + o.code;
+    if (!E.store(flag)) {
+      E.track('Purchase', { content_ids: o.items.map(function (i) { return E.idOf(i.key); }), content_type: 'product', value: o.total, currency: 'VND', num_items: o.items.length, order_id: o.code }, o.code);
+      E.store(flag, Date.now());
+    }
+    E.store('edd_order', null);
+    E.store('edd_last', { code: o.code, token: o.token });
+  }
+
+  /* ---------- Ngày giờ sinh ---------- */
+  var bf = $('birth-form'), be = bf.elements;
+  (function fillSelects() {
+    var d = be.day, m = be.month, y = be.year, h = be.hour, i, yr = new Date().getFullYear();
+    for (i = 1; i <= 31; i++) d.add(new Option(i, i));
+    for (i = 1; i <= 12; i++) m.add(new Option('Tháng ' + i, i));
+    for (i = yr - 15; i >= 1930; i--) y.add(new Option(i, i));
+    E.HOURS.forEach(function (x) { h.add(new Option(x[1], x[0])); });
+  })();
+  function hourLabel(v) { for (var i = 0; i < E.HOURS.length; i++) if (E.HOURS[i][0] === v) return E.HOURS[i][1]; return v; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function renderBirth(b) {
+    if (b && b.done) {
+      $('birth-done').hidden = false; bf.hidden = true;
+      $('birth-sum').textContent = b.gender + ' · ' + pad(+b.day) + '/' + pad(+b.month) + '/' + b.year + ' · ' + (b.hourLabel || hourLabel(b.hour));
+      $('birth-unknown').hidden = b.hour !== 'unknown';
+      Array.prototype.forEach.call(be.gender, function (r) { r.checked = r.value === b.gender; });
+      be.day.value = b.day; be.month.value = b.month; be.year.value = b.year; be.hour.value = b.hour; be.note.value = b.note || '';
+    } else { $('birth-done').hidden = true; bf.hidden = false; }
+  }
+  $('birth-edit').addEventListener('click', function () { $('birth-done').hidden = true; bf.hidden = false; });
+  function bad(id, on) { $(id).classList.toggle('bad', on); }
+  bf.addEventListener('change', function (ev) {
+    if (ev.target.name === 'gender') bad('f-gender', false);
+    if (['day', 'month', 'year'].indexOf(ev.target.name) > -1) bad('f-date', false);
+    if (ev.target.name === 'hour') bad('f-hour', false);
+  });
+  bf.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var g = (bf.querySelector('input[name=gender]:checked') || {}).value;
+    var d = +be.day.value, m = +be.month.value, y = +be.year.value, h = be.hour.value;
+    var dt = new Date(y, m - 1, d);
+    var okDate = d && m && y && dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
+    bad('f-gender', !g); bad('f-date', !okDate); bad('f-hour', !h);
+    if (!g || !okDate || !h) return;
+    var btn = $('birth-btn'); btn.disabled = true; btn.textContent = 'Đang gửi...';
+    $('birth-err').classList.remove('show');
+    E.api('birth', { code: order.code, token: order.token, gender: g, day: d, month: m, year: y, hour: h, hourLabel: hourLabel(h), note: be.note.value.trim().slice(0, 300) })
+      .then(function () {
+        btn.disabled = false; btn.textContent = 'Gửi ngày giờ sinh';
+        renderBirth({ done: true, gender: g, day: d, month: m, year: y, hour: h, hourLabel: hourLabel(h), note: be.note.value.trim() });
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = 'Gửi ngày giờ sinh';
+        var e = $('birth-err'); e.textContent = 'Chưa gửi được. Kiểm tra mạng rồi bấm lại, hoặc nhắn Zalo ' + C.HOTLINE + '.'; e.classList.add('show');
+      });
+  });
+
+  /* ---------- Chưa thanh toán ---------- */
+  function renderPending(o, t) {
+    hero('Đơn ' + o.code, 'Chờ thanh toán', 'Đơn được giữ, chưa ghi nhận tiền về.', { t: 'Chờ thanh toán', cls: 'wait' });
+    only('v-pending');
+    $('pd-bank').textContent = C.BANK.name; $('pd-acc').textContent = C.BANK.account; $('pd-holder').textContent = C.BANK.holder;
+    $('pd-amount').textContent = E.vnd(o.total); $('pd-content').textContent = o.content || o.code;
+    $('pd-back').href = 'thanh-toan.html?o=' + encodeURIComponent(o.code) + '&t=' + encodeURIComponent(t);
+    clearInterval(poll);
+    poll = setInterval(function () {
+      E.api('status', { code: o.code, token: t }).then(function (s) { if (s.status === 'PAID') { clearInterval(poll); s.token = t; renderPaid(s); } }).catch(function () { });
+    }, C.POLL_MS);
+  }
+
+  /* ---------- Tra cứu ---------- */
+  function renderLookup(title) {
+    hero('Tra cứu đơn', title || 'Mở lại đơn của bạn', 'Dùng số điện thoại và email lúc đăng ký.');
+    only('v-lookup');
+    var lead = E.store('edd_lead');
+    if (lead) { $('lk-phone').value = lead.phone || ''; $('lk-email').value = lead.email || ''; }
+  }
+  $('lk-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var phone = E.normPhone($('lk-phone').value), email = $('lk-email').value.trim().toLowerCase();
+    var err = $('lk-err'); err.classList.remove('show');
+    if (!phone || !E.validEmail(email)) { err.textContent = 'Kiểm tra lại số điện thoại và email giúp mình.'; err.classList.add('show'); return; }
+    var btn = $('lk-btn'); btn.disabled = true; btn.textContent = 'Đang tìm...';
+    E.api('lookup', { phone: phone, email: email }).then(function (r) {
+      btn.disabled = false; btn.textContent = 'Tìm đơn của tôi';
+      var list = r.orders || [];
+      if (!list.length) { $('lk-list').innerHTML = ''; err.textContent = 'Không tìm thấy đơn với số điện thoại và email này. Kiểm tra lại, hoặc nhắn Zalo ' + C.HOTLINE + '.'; err.classList.add('show'); return; }
+      $('lk-list').innerHTML = list.map(function (o) {
+        var q = '?o=' + encodeURIComponent(o.code) + '&t=' + encodeURIComponent(o.token);
+        var paid = o.status === 'PAID';
+        var day = o.createdAt ? new Date(o.createdAt).toLocaleDateString('vi-VN') : '';
+        return '<li><div><b>' + E.esc(o.code) + '</b><span class="st ' + (paid ? 'paid' : 'pend') + '">' + (paid ? 'Đã thanh toán' : 'Chờ thanh toán') + '</span><div class="small">' + E.esc(day) + ' · ' + E.vnd(o.total) + '</div></div>' +
+          (paid ? '<a class="btn-line" href="cam-on.html' + q + '">Mở trang nhận khóa học</a>' : '<a class="btn-line" href="thanh-toan.html' + q + '">Tiếp tục thanh toán</a>') + '</li>';
+      }).join('');
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Tìm đơn của tôi';
+      err.textContent = 'Chưa tra cứu được. Kiểm tra mạng rồi bấm lại.'; err.classList.add('show');
+    });
+  });
+
+  /* ---------- Mở trang ---------- */
+  var code = E.qs.get('o'), token = E.qs.get('t');
+  if (E.qs.get('tra-cuu')) { renderLookup(); return; }
+  if (!code || !token) {
+    var saved = E.store('edd_last') || E.store('edd_order');
+    if (saved && saved.code && saved.token) { code = saved.code; token = saved.token; }
+    else { renderLookup(); return; }
+  }
+  if (E.NO_API) { renderLookup('Hệ thống đang bảo trì'); var er = $('lk-err'); er.textContent = 'Nhắn Zalo ' + C.HOTLINE + ' để được hỗ trợ ngay.'; er.classList.add('show'); return; }
+  E.api('status', { code: code, token: token }).then(function (s) {
+    s.token = token;
+    if (s.status === 'PAID') renderPaid(s); else renderPending(s, token);
+  }).catch(function () { renderLookup('Không tìm thấy đơn này'); });
+})();
+</script>
+</body>
+</html>

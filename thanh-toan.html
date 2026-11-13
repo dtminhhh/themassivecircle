@@ -1,497 +1,226 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>Hoàn Tất Đăng Ký — EDD Foundation™</title>
-<meta name="description" content="Điền thông tin và thanh toán để kích hoạt EDD Foundation™.">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoàn tất đăng ký · EDD Foundation™</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#17251d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%2317251d%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2745%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2736%27%20font-weight%3D%27700%27%20fill%3D%27%23c9a75c%27%20text-anchor%3D%27middle%27%3EE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          cream: '#F4EFEA',
-          moss: { DEFAULT: '#1B2C20', surface: '#22352A', surface2: '#263D30' },
-          gold: { DEFAULT: '#C9A657', deep: '#8B7355' },
-        },
-        fontFamily: {
-          heading: ['Montserrat', 'sans-serif'],
-          body: ['Inter', 'sans-serif'],
-        },
-      },
-    },
-  };
-</script>
+/* =====================================================================
+   EDD Foundation™ · edd.js
+   PHẦN 1: CẤU HÌNH. Chỉ sửa trong khối này.
+   PHẦN 2: Pixel, lưu tạm, gọi Apps Script. Không cần sửa.
+   ===================================================================== */
 
-<style>
-  input[type="radio"], input[type="checkbox"] { accent-color: #C9A657; }
-  select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B7355' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .fade-up { animation: fadeUp .3s cubic-bezier(.16,.84,.44,1); }
-  @media (prefers-reduced-motion: reduce) { .fade-up { animation: none; } }
-  input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  input[type="number"] { -moz-appearance: textfield; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-  .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
-</style>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-// Multi-page site: don't let the pixel add a PageView on every in-page anchor/hash change (menu clicks).
-fbq.disablePushState = true;
-// Only fire the events we send explicitly: opt out of Meta's automatic button-click / metadata event detection.
-fbq('set', 'autoConfig', false, '1579575970863354');
-fbq('init', '1579575970863354');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-</head>
-<body class="bg-cream text-moss font-body antialiased">
+window.EDD_CONFIG = {
+  // URL Web App của Apps Script (Deploy > Web app), dạng:
+  // https://script.google.com/macros/s/XXXXXXXX/exec
+  // Để trống: mở file trên máy (file://, localhost) sẽ chạy chế độ xem thử, không tạo đơn thật.
+  API_URL: 'https://script.google.com/macros/s/AKfycbzsyYmvOSnLOIhzgkKYEP4CkqasY22p1ENPM41Q7wSU_3ySEQnEjhPemzLAdNi0EZt-/exec',
 
-<!-- ===================== TOP BAR ===================== -->
-<header class="bg-moss text-cream sticky top-0 z-30 border-b border-gold-deep/20">
-  <div class="max-w-2xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-    <div class="font-heading font-extrabold text-lg tracking-tight">EDD <span class="text-gold">Foundation™</span></div>
-    <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-gold/15 text-gold border border-gold/30">
-      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Thanh Toán An Toàn
-    </div>
-  </div>
-</header>
+  // Meta Pixel: GIỮ NGUYÊN, không đổi ID
+  PIXEL_ID: '1579575970863354',
 
-<main class="max-w-2xl mx-auto px-4 md:px-8 py-10 md:py-16">
+  // Giá hiển thị. Giá tính tiền thật nằm trong Apps Script (Code.gs), hai nơi phải khớp nhau.
+  PRODUCT: { key: 'core', id: 'edd-foundation', name: 'EDD Foundation™', price: 290000, listPrice: 790000 },
+  BUMPS: [
+    { key: 'fieldguide', id: 'money-engine-field-guide', name: 'Money Engine Field Guide™', short: 'Money Engine Field Guide™ (PDF)', price: 290000, listPrice: 890000,
+      file: 'https://www.themassivecircle.com/tai-lieu/money-engine-field-guide.pdf' },
+    { key: 'playbook', id: 'architecture-type-playbook', name: 'Architecture Type Playbook™', short: 'Architecture Type Playbook™ (PDF)', price: 290000, listPrice: 890000,
+      file: 'https://www.themassivecircle.com/tai-lieu/architecture-type-playbook.pdf' },
+    { key: 'debrief', id: 'strategy-debrief-60', name: '1-on-1 Strategy Debrief (60 phút online)', short: '1-on-1 Strategy Debrief', price: 590000, listPrice: 1800000 }
+  ],
 
-  <div class="text-center mb-10">
-    <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gold-deep">
-      <span class="w-4 h-px bg-gold-deep"></span> EDD Foundation™ <span class="w-4 h-px bg-gold-deep"></span>
-    </span>
-    <h1 class="font-heading text-2xl md:text-3xl font-extrabold text-moss mt-3" id="pageTitle">Hoàn Tất Đăng Ký</h1>
-    <p class="mt-2 text-[15px] text-moss/65 max-w-md mx-auto" id="pageLead">Điền chính xác thông tin bên dưới để chúng tôi tính toán đúng Hồ Sơ Phân Tích EDD dành riêng cho bạn.</p>
-  </div>
+  // Chuyển khoản qua Sepay (giữ đúng tài khoản đang chạy)
+  BANK: { name: 'BIDV', code: 'BIDV', account: '962471X7IN', holder: 'DAO TUAN MINH', store: 'The Massive Circle' },
+  QR_TEMPLATE: 'https://qr.sepay.vn/img?acc={acc}&bank={bank}&amount={amount}&des={des}&template=compact',
 
-  <!-- ===================== STEP 1 — FORM ===================== -->
-  <form id="checkoutForm" novalidate>
+  HOTLINE: '0986150101',
+  ZALO: 'https://zalo.me/0986150101',
+  EMAIL: 'duyen@themassivecircle.com',
+  COURSE_URL: '/khoa-hoc',
 
-    <!-- 1. THÔNG TIN CÁ NHÂN -->
-    <section class="bg-white rounded-2xl border border-gold/20 p-6 md:p-8">
-      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-5">01 · Thông Tin Cá Nhân</div>
+  POLL_MS: 5000,          // bao lâu kiểm tra trạng thái đơn một lần
+  POLL_STOP_MIN: 20       // ngừng tự kiểm tra sau bấy nhiêu phút
+};
 
-      <label class="block text-[13px] font-semibold mb-1.5">Họ và tên <span class="text-red-700/70">*</span></label>
-      <input type="text" name="fullName" required placeholder="Ví dụ: Nguyễn Văn A"
-        class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
-
-      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Giới tính <span class="text-red-700/70">*</span></label>
-      <div class="grid grid-cols-2 gap-3">
-        <label class="cursor-pointer">
-          <input type="radio" name="gender" value="Nam" required class="peer sr-only">
-          <div class="text-center py-3 rounded-full border border-moss/15 text-[14px] font-semibold text-moss/60 peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-moss transition-colors">Nam</div>
-        </label>
-        <label class="cursor-pointer">
-          <input type="radio" name="gender" value="Nữ" required class="peer sr-only">
-          <div class="text-center py-3 rounded-full border border-moss/15 text-[14px] font-semibold text-moss/60 peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-moss transition-colors">Nữ</div>
-        </label>
-      </div>
-
-      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Ngày sinh (Dương lịch) <span class="text-red-700/70">*</span></label>
-      <div class="grid grid-cols-3 gap-3">
-        <input type="number" name="birthDay" id="birthDay" required placeholder="Ngày" min="1" max="31" inputmode="numeric"
-          class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
-        <input type="number" name="birthMonth" id="birthMonth" required placeholder="Tháng" min="1" max="12" inputmode="numeric"
-          class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
-        <input type="number" name="birthYear" id="birthYear" required placeholder="Năm" min="1940" max="2026" inputmode="numeric"
-          class="px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
-      </div>
-
-      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Giờ sinh <span class="text-red-700/70">*</span></label>
-      <select name="birthTimeSlot" id="birthTimeSlot" required class="w-full px-3 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold">
-        <option value="">Chọn khung giờ sinh (Canh giờ Bát tự)</option>
-        <option value="ty">Giờ Tý (23:00 – 00:59)</option>
-        <option value="suu">Giờ Sửu (01:00 – 02:59)</option>
-        <option value="dan">Giờ Dần (03:00 – 04:59)</option>
-        <option value="mao">Giờ Mão (05:00 – 06:59)</option>
-        <option value="thin">Giờ Thìn (07:00 – 08:59)</option>
-        <option value="ti">Giờ Tị (09:00 – 10:59)</option>
-        <option value="ngo">Giờ Ngọ (11:00 – 12:59)</option>
-        <option value="mui">Giờ Mùi (13:00 – 14:59)</option>
-        <option value="than">Giờ Thân (15:00 – 16:59)</option>
-        <option value="dau">Giờ Dậu (17:00 – 18:59)</option>
-        <option value="tuat">Giờ Tuất (19:00 – 20:59)</option>
-        <option value="hoi">Giờ Hợi (21:00 – 22:59)</option>
-      </select>
-
-      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Email nhận báo cáo <span class="text-red-700/70">*</span></label>
-      <input type="email" name="email" required placeholder="abc@gmail.com"
-        class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
-      <div id="emailHint" class="hidden mt-2 rounded-lg border border-amber-300/70 bg-amber-50 px-3 py-2 text-[12.5px] text-amber-900"></div>
-      <p class="mt-1.5 text-[12px] text-moss/45 italic">Bản báo cáo EDD &amp; Khoá học sẽ được gửi về email này.</p>
-
-      <label class="block text-[13px] font-semibold mb-1.5 mt-5">Số điện thoại / Zalo <span class="text-red-700/70">*</span></label>
-      <input type="tel" name="phone" id="phoneInput" required placeholder="09xxxxxxxx" inputmode="numeric"
-        class="w-full px-4 py-3 rounded-xl border border-moss/15 bg-cream/40 text-[15px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20">
-      <p class="mt-1.5 text-[12px] text-moss/45 italic">Dùng để hỗ trợ kích hoạt nhanh và xác nhận giao dịch.</p>
-    </section>
-
-    <!-- 2. UPSELL -->
-    <section class="mt-6">
-      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-3 px-1">02 · Nâng Cấp Trải Nghiệm (Tùy Chọn)</div>
-
-      <label class="block cursor-pointer mb-3">
-        <input type="checkbox" id="upsell1" class="peer sr-only">
-        <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex-1 min-w-0">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Đặc Quyền Chỉ Có Tại Trang Thanh Toán · Tiết Kiệm 67%</span>
-              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Architecture Type Playbook™</div>
-              <div class="font-heading font-semibold text-[12.5px] text-gold-deep mt-0.5">(Cẩm Nang Vận Hành Cá Nhân &amp; Ra Quyết Định)</div>
-              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Tại sao cùng một cơ hội, có người làm rất nhàn mà tài sản bứt phá, còn bạn lại tiêu hao gấp ba năng lượng và thường xuyên kiệt sức? Báo cáo chính cho bạn biết Chu kỳ thời gian &amp; Dòng tiền — Cẩm nang này bóc tách toàn bộ mã nguồn vận hành và đưa ra quyết định."</p>
-              <ul class="mt-3 space-y-2 text-[13px] leading-relaxed text-moss/70">
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bài tự thẩm định 16 tình huống bản năng:</strong> Tự định vị chính xác cấu trúc gốc của bản thân và soi chiếu cho cả đối tác/cộng sự đi cùng bạn.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bản đồ 8 Cặp Giao Thoa (Hybrid Profiles):</strong> Giải mã những xung đột nội tâm khiến bạn hay chần chừ, bồn chồn hoặc tự phá hỏng kế hoạch tài chính đã vạch sẵn.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bản chẩn đoán "Vùng kiệt sức":</strong> Nhận diện điểm mù tâm lý khiến năng lượng và tiền bạc bốc hơi trước khi bạn kịp nhận ra.</span></li>
-              </ul>
-              <p class="mt-4 text-[13px] leading-relaxed text-moss font-semibold">Đừng để một chiến lược tài chính đúng bị phá hỏng bởi một cơ chế vận hành sai.</p>
-            </div>
-            <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell1Box">
-              <svg class="w-4 h-4 text-white hidden" id="upsell1Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
-            <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng ngay</span>
-            <span class="text-right leading-tight">
-              <span class="block text-[11px] text-moss/40 line-through">890.000đ</span>
-              <span class="font-heading font-extrabold text-gold text-[16px]">+290.000đ</span>
-            </span>
-          </div>
-        </div>
-      </label>
-
-      <label class="block cursor-pointer mb-3">
-        <input type="checkbox" id="upsell2" class="peer sr-only">
-        <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex-1 min-w-0">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Đặc Quyền Chỉ Có Tại Trang Thanh Toán · Tiết Kiệm 67%</span>
-              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">Money Engine Field Guide™ (50 Trang)</div>
-              <div class="font-heading font-semibold text-[12.5px] text-gold-deep mt-0.5">(Cẩm Nang Giải Mã Cơ Chế Tài Chính &amp; Dòng Tiền Tự Nhiên)</div>
-              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Tại sao cùng thị trường và nỗ lực, có người tiền về đều đặn còn bạn dòng tiền luôn bất ổn? Báo cáo chính cho biết chu kỳ thời gian — Cẩm nang này bóc tách cơ chế bên trong giúp dòng tiền tự động chảy mà không cần gồng ép."</p>
-              <ul class="mt-3 space-y-2 text-[13px] leading-relaxed text-moss/70">
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bài tự thẩm định 15 tình huống thực tế:</strong> Định vị chính xác cơ chế tạo tiền tự nhiên của bạn trong 10 Money Engines (Vốn, Chiếm lĩnh, Giá trị, Đột phá, Vận hành...).</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Giải mã 8 Cặp Hybrid Engine:</strong> Nhận diện điểm xung đột nội tại khi vừa muốn bứt phá tốc độ vừa muốn an toàn, mở khóa đòn bẩy tài chính cá nhân.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Bản chẩn đoán "Điểm Khoá Dòng Tiền":</strong> Chỉ rõ lý do vì sao bạn bận rộn hơn bao giờ hết nhưng số dư tài khoản vẫn đi ngang, và điều kiện tối ưu để tiền tự sinh sôi.</span></li>
-              </ul>
-              <p class="mt-4 text-[13px] leading-relaxed text-moss font-semibold">Đừng áp dụng một chiến lược tài chính đúng vào một cơ chế tạo tiền sai.</p>
-            </div>
-            <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell2Box">
-              <svg class="w-4 h-4 text-white hidden" id="upsell2Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
-            <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng ngay</span>
-            <span class="text-right leading-tight">
-              <span class="block text-[11px] text-moss/40 line-through">890.000đ</span>
-              <span class="font-heading font-extrabold text-gold text-[16px]">+290.000đ</span>
-            </span>
-          </div>
-        </div>
-      </label>
-
-      <label class="block cursor-pointer">
-        <input type="checkbox" id="upsell3" class="peer sr-only">
-        <div class="rounded-2xl border-2 border-moss/12 bg-white p-5 transition-all peer-checked:border-gold peer-checked:shadow-[0_0_0_3px_rgba(201,166,87,.15)]">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex-1 min-w-0">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-gold-deep">Đặc Quyền Chỉ Có Tại Trang Thanh Toán · Giới Hạn 5 Suất/Tuần</span>
-              <div class="font-heading font-extrabold text-[16px] text-moss mt-1">1-on-1 Strategy Debrief (60 Phút Trực Tiếp Online)</div>
-              <div class="font-heading font-semibold text-[12.5px] text-gold-deep mt-0.5">(Phiên Thẩm Định Bản Đồ &amp; Giải Bài Toán Tài Chính Cùng Chuyên Gia)</div>
-              <p class="mt-2 text-[13px] leading-relaxed text-moss/80 italic">"Báo cáo 20+ trang cho bạn dữ liệu — nhưng 60 phút này giúp bạn trả lời chính xác: 'Với bài toán công việc và dòng tiền hiện tại của riêng bạn, NÊN LÀM GÌ và TUYỆT ĐỐI NÉ ĐIỀU GÌ'."</p>
-              <ul class="mt-3 space-y-2 text-[13px] leading-relaxed text-moss/70">
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Ráp nối báo cáo vào đúng bài toán hiện tại:</strong> Mang trực tiếp quyết định bạn đang trăn trở (chuẩn bị rót vốn, đổi mô hình, xử lý dòng tiền nghẽn, hay chuyển hướng sự nghiệp) để chuyên gia soi chiếu trực tiếp qua hệ thống chu kỳ của bạn.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Chốt Kế Hoạch Hành Động 90 Ngày Rõ Như Ban Ngày:</strong> Chuyển hóa toàn bộ số liệu trừu tượng thành 3 việc ưu tiên tuyệt đối cần thực thi ngay trong quý tới, loại bỏ hoàn toàn cảm giác mơ hồ hay phỏng đoán.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Chỉ điểm "Bẫy Mất Tiền" sắp tới của bạn:</strong> Nhận diện trước điểm rơi rủi ro tài chính của riêng bạn trong 12 tháng tới để kịp thời lập thế phòng thủ, bảo toàn dòng vốn tích lũy.</span></li>
-                <li class="flex gap-2"><span class="text-gold-deep font-bold">•</span><span><strong class="text-moss font-semibold">Nhận bản tóm tắt chiến lược (Executive Summary):</strong> Sau phiên làm việc, bạn nhận lại bản ghi âm cùng file note đúc kết các bước đi chiến lược cụ thể để tra cứu và bám sát thực thi.</span></li>
-              </ul>
-              <p class="mt-4 text-[13px] leading-relaxed text-moss font-semibold">Tự đọc có thể mất hàng tuần suy ngẫm; 60 phút đối thoại trực tiếp giúp bạn thấu suốt toàn bộ nước đi tiếp theo.</p>
-            </div>
-            <div class="flex-shrink-0 w-6 h-6 rounded-md border-2 border-moss/20 flex items-center justify-center transition-colors" id="upsell3Box">
-              <svg class="w-4 h-4 text-white hidden" id="upsell3Check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-moss/10">
-            <span class="text-[13px] font-semibold text-moss/60">+ Thêm vào đơn hàng ngay</span>
-            <span class="text-right leading-tight">
-              <span class="block text-[11px] text-moss/40 line-through">1.800.000đ</span>
-              <span class="font-heading font-extrabold text-gold text-[16px]">+590.000đ</span>
-            </span>
-          </div>
-        </div>
-      </label>
-    </section>
-
-    <!-- 3. ORDER SUMMARY -->
-    <section class="mt-6 bg-moss rounded-2xl p-6 md:p-8 text-cream">
-      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold mb-4">03 · Tóm Tắt Đơn Hàng</div>
-      <div class="space-y-2 text-[14px]">
-        <div class="flex justify-between"><span class="text-cream/70">EDD Foundation™</span><span id="baseAmountLabel">—</span></div>
-        <div class="flex justify-between hidden" id="upsell1Row"><span class="text-cream/70">Architecture Type Playbook™</span><span>+290.000đ</span></div>
-        <div class="flex justify-between hidden" id="upsell2Row"><span class="text-cream/70">Money Engine Field Guide™</span><span>+290.000đ</span></div>
-        <div class="flex justify-between hidden" id="upsell3Row"><span class="text-cream/70">1-on-1 Strategy Debrief</span><span>+590.000đ</span></div>
-      </div>
-      <div class="flex justify-between items-baseline mt-4 pt-4 border-t border-cream/15">
-        <span class="font-heading font-bold text-[15px]">Tổng Thanh Toán</span>
-        <span class="font-heading font-extrabold text-gold text-[26px]" id="totalLabel">—</span>
-      </div>
-    </section>
-
-    <button type="submit" id="submitBtn" class="w-full mt-8 py-4 rounded-full bg-gradient-to-br from-[#D9BB70] via-[#C9A657] to-[#8B7355] text-[#1B2C20] font-heading font-extrabold text-[15px] shadow-lg hover:shadow-xl transition-shadow disabled:opacity-50 disabled:cursor-not-allowed">
-      Tạo Đơn &amp; Lấy Mã Thanh Toán →
-    </button>
-    <p class="mt-4 text-[11px] text-moss/50 text-center leading-relaxed flex items-center justify-center gap-1.5 md:whitespace-nowrap">
-      <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Toàn bộ thông tin cá nhân được bảo mật tuyệt đối, chỉ dùng để tính toán Hồ Sơ Phân Tích EDD của riêng bạn.
-    </p>
-    <p class="mt-2 text-[12px] text-red-700/70 text-center hidden" id="formError">Vui lòng điền đầy đủ các trường bắt buộc (*).</p>
-  </form>
-
-  <!-- ===================== STEP 2 — CHUYỂN KHOẢN + ĐỐI SOÁT ===================== -->
-  <div id="step2" class="hidden fade-up">
-
-    <div class="bg-moss rounded-2xl p-6 md:p-8 text-cream">
-      <div class="flex justify-between items-baseline">
-        <div>
-          <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold">Đơn hàng</div>
-          <div class="font-mono text-[13px] text-cream/60 mt-1" id="s2OrderId">—</div>
-        </div>
-        <div class="text-right">
-          <div class="text-[11px] text-cream/60">Tổng thanh toán</div>
-          <div class="font-heading font-extrabold text-gold text-[24px]" id="s2Total">—</div>
-        </div>
-      </div>
-      <div class="mt-3 pt-3 border-t border-cream/15 text-[13px] text-cream/70" id="s2Items">EDD Foundation™</div>
-    </div>
-
-    <section class="mt-6 bg-white rounded-2xl border border-gold/20 p-6 md:p-8">
-      <div class="text-[11px] font-bold uppercase tracking-[0.16em] text-gold-deep mb-5">Chuyển Khoản Thanh Toán</div>
-
-      <div class="flex flex-col items-center">
-        <div class="p-3 bg-cream rounded-2xl border border-gold/20">
-          <img id="qrImg" alt="Mã VietQR thanh toán" class="w-60 h-auto object-contain"
-            onerror="this.style.display='none'; document.getElementById('qrFallback').classList.remove('hidden');">
-          <div id="qrFallback" class="hidden w-60 py-10 text-center text-[12px] text-moss/50 px-4">
-            Không tải được mã QR — chuyển khoản thủ công theo thông tin bên dưới.
-          </div>
-        </div>
-        <p class="mt-3 text-[12.5px] text-moss/50 text-center max-w-xs">Quét mã bằng app ngân hàng bất kỳ — nội dung chuyển khoản đã điền sẵn, giữ nguyên.</p>
-        <!-- Phone only: the QR is on the same screen as the bank app, so it has to be saved first. -->
-        <div class="md:hidden mt-4 w-full max-w-xs rounded-xl border border-gold/30 bg-gold/5 px-4 py-3 text-[12.5px] text-moss/70 leading-relaxed">
-          <div class="font-semibold text-moss mb-1">Đang dùng điện thoại?</div>
-          <ol class="list-decimal pl-4 space-y-0.5">
-            <li>Chụp màn hình mã QR, hoặc bấm nút bên dưới rồi nhấn giữ ảnh để lưu.</li>
-            <li>Mở app ngân hàng → chọn <strong>Quét QR</strong> → chọn ảnh vừa lưu trong thư viện.</li>
-            <li>Kiểm tra số tiền và nội dung, rồi xác nhận chuyển.</li>
-          </ol>
-          <a id="qrSaveLink" href="#" target="_blank" rel="noopener" class="mt-3 block w-full py-2.5 rounded-full border border-gold-deep/40 text-center text-[13px] font-semibold text-gold-deep">Mở ảnh mã QR để lưu</a>
-        </div>
-      </div>
-
-      <div class="space-y-2.5 text-[14px] mt-6 pt-6 border-t border-moss/10">
-        <div class="flex justify-between"><span class="text-moss/55">Ngân hàng</span><strong>BIDV</strong></div>
-        <div class="flex justify-between"><span class="text-moss/55">Số tài khoản</span>
-          <span class="text-right"><strong class="font-mono" id="s2Acc">962471X7IN</strong>
-            <button type="button" data-copy="962471X7IN" class="copyBtn ml-1.5 text-[11px] text-gold-deep underline">chép</button></span></div>
-        <div class="flex justify-between"><span class="text-moss/55">Chủ tài khoản</span><strong>DAO TUAN MINH</strong></div>
-        <div class="flex justify-between"><span class="text-moss/55">Số tiền</span><strong id="s2Amount">—</strong></div>
-        <div class="flex justify-between items-start"><span class="text-moss/55">Nội dung CK</span>
-          <span class="text-right"><strong class="font-mono text-gold-deep" id="s2Ck">—</strong>
-            <button type="button" id="ckCopyBtn" class="copyBtn ml-1.5 text-[11px] text-gold-deep underline">chép</button></span></div>
-      </div>
-
-      <div class="mt-6 rounded-xl px-4 py-3.5 text-center text-[14px] font-semibold" id="statusBox">
-        <span class="pulse-dot inline-block w-2.5 h-2.5 rounded-full align-middle mr-2" id="statusDot"></span>
-        <span id="statusText">Đang chờ giao dịch…</span>
-      </div>
-      <p class="mt-3 text-[12px] text-moss/45 text-center">Giữ trang này mở — đơn tự xác nhận trong ~10–30 giây sau khi bạn chuyển khoản. Không cần bấm gì thêm.</p>
-      <button type="button" id="checkNowBtn" class="w-full mt-3 py-2.5 rounded-full border border-moss/20 text-[13px] font-semibold text-moss/70 hover:bg-moss/5 transition-colors">Tôi đã chuyển khoản — kiểm tra ngay</button>
-    </section>
-  </div>
-
-  <!-- ===================== STEP 3 — THÀNH CÔNG ===================== -->
-  <div id="step3" class="hidden fade-up">
-    <div class="bg-white rounded-2xl border border-gold/30 p-6 md:p-10 text-center">
-      <div class="w-16 h-16 mx-auto rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold-deep">
-        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-      </div>
-      <h2 class="font-heading text-xl md:text-2xl font-extrabold text-moss mt-4">Đã Nhận Thanh Toán!</h2>
-      <p class="mt-2 text-[14px] text-moss/65 max-w-md mx-auto">Email xác nhận vừa được gửi tới <strong id="s3Email">bạn</strong>. Nếu chưa thấy trong Hộp thư đến, vui lòng kiểm tra mục Quảng cáo / Spam hoặc tìm kiếm từ khóa "EDD".</p>
-
-      <div class="mt-8 text-left max-w-md mx-auto space-y-5">
-        <div class="rounded-xl border border-moss/12 p-5">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-gold-deep">1 · Truy cập khoá học</div>
-          <p class="mt-1.5 text-[13.5px] text-moss/70">6 module nền tảng, mở dần theo từng ngày.</p>
-          <a href="https://www.themassivecircle.com/khoa-hoc" class="inline-block mt-3 px-5 py-2.5 rounded-full bg-moss text-cream font-heading font-bold text-[13px]">Vào học ngay →</a>
-        </div>
-        <div class="rounded-xl border border-moss/12 p-5">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-gold-deep">2 · Báo cáo Phân tích EDD</div>
-          <p class="mt-1.5 text-[13.5px] text-moss/70">Đội ngũ đang luận giải thủ công theo ngày–giờ sinh bạn cung cấp. Bản hoàn chỉnh sẽ gửi về email trên trong vòng <strong>7 ngày</strong>.</p>
-        </div>
-        <div class="rounded-xl border border-moss/12 p-5 hidden" id="s3Bumps">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-gold-deep">Tài liệu đi kèm đơn hàng</div>
-          <div class="mt-2 space-y-1.5 text-[13.5px]" id="s3BumpList"></div>
-        </div>
-      </div>
-
-      <p class="mt-8 text-[12.5px] text-moss/45">Cần hỗ trợ? Nhắn Zalo / gọi <a href="tel:0986150101" class="text-gold-deep underline">0986150101</a>.</p>
-    </div>
-  </div>
-
-</main>
-
-<script>
+/* ===================== PHẦN 2: KHÔNG CẦN SỬA ===================== */
 (function () {
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzsyYmvOSnLOIhzgkKYEP4CkqasY22p1ENPM41Q7wSU_3ySEQnEjhPemzLAdNi0EZt-/exec';
-  var BASE_PRICE   = 290000;
-  var UPSELL1_PRICE = 290000;   // Architecture Type Playbook™
-  var UPSELL2_PRICE = 290000;   // Money Engine Field Guide™
-  var UPSELL3_PRICE = 590000;   // 1-on-1 Strategy Debrief (dịch vụ, không phải PDF)
+  'use strict';
+  var C = window.EDD_CONFIG;
+  var host = location.hostname;
+  var qs = new URLSearchParams(location.search);
+  var isLocal = location.protocol === 'file:' || host === '' || host === 'localhost' || host === '127.0.0.1';
+  var DEMO = !C.API_URL && (isLocal || qs.get('demo') === '1');
+  var NO_API = !C.API_URL && !DEMO;
 
-  var BANK   = 'BIDV';
-  var VA_ACC = '962471X7IN';
-  var HOLDER = 'DAO TUAN MINH';
-  var STORE  = 'The Massive Circle';
-
-  var BUMP1_URL = 'https://www.themassivecircle.com/tai-lieu/architecture-type-playbook.pdf';
-  var BUMP2_URL = 'https://www.themassivecircle.com/tai-lieu/money-engine-field-guide.pdf';
-  var BUMP1_NAME = 'Architecture Type Playbook™';
-  var BUMP2_NAME = 'Money Engine Field Guide™';
-  var BUMP3_NAME = '1-on-1 Strategy Debrief';
-
-  var STORE_KEY = 'edd_order';
-  var POLL_MS = 5000;
-
-  function fmt(n) { return Number(n).toLocaleString('en-US').replace(/,/g, '.') + 'đ'; }
-  function $(id) { return document.getElementById(id); }
-
-  function qrUrl(amount, ck) {
-    return 'https://vietqr.app/img?bank=' + BANK + '&acc=' + VA_ACC
-      + '&template=compact&amount=' + amount
-      + '&des=' + encodeURIComponent(ck)
-      + '&showinfo=true&holder=' + encodeURIComponent(HOLDER)
-      + '&store=' + encodeURIComponent(STORE);
-  }
-
-  // ── Meta Pixel events ──
-  // Funnel: ViewContent (index) → InitiateCheckout (enter checkout) → AddToCart (customer starts
-  //   entering their details) → AddPaymentInfo (order created, QR shown) → Purchase (status PAID).
-  // Every event fires at most once per browser session per key. Order-level events use
-  // eventID = orderId so a future server-side (Conversions API) Purchase dedups against them.
-  function pxSession() {
+  function store(key, val) {
     try {
-      var s = sessionStorage.getItem('edd_px_sid');
-      if (!s) { s = 'sid-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('edd_px_sid', s); }
-      return s;
-    } catch (e) { return 'sid-' + Date.now().toString(36); }
+      if (val === undefined) { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
+      if (val === null) { localStorage.removeItem(key); return null; }
+      localStorage.setItem(key, JSON.stringify(val));
+      return val;
+    } catch (e) { return null; }
   }
-  function px(event, params, eventId, onceKey) {
-    if (!window.fbq) return;
-    try {
-      var k = 'edd_px_' + onceKey;
-      if (sessionStorage.getItem(k)) return;
-      sessionStorage.setItem(k, '1');
-    } catch (e) {}
-    fbq('track', event, params, { eventID: eventId });
+
+  function uid(prefix) { return (prefix || '') + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  function vnd(n) { return Number(n || 0).toLocaleString('vi-VN') + 'đ'; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  function normPhone(p) {
+    var s = String(p || '').replace(/[^\d+]/g, '');
+    if (s.indexOf('+84') === 0) s = '0' + s.slice(3);
+    else if (s.indexOf('84') === 0 && s.length === 11) s = '0' + s.slice(2);
+    return /^0(3|5|7|8|9)\d{8}$/.test(s) ? s : '';
   }
-  function orderIds(o) {
-    var ids = ['edd-foundation'];
-    if (o.bump1) ids.push('architecture-type-playbook');
-    if (o.bump2) ids.push('money-engine-field-guide');
-    if (o.bump3) ids.push('strategy-debrief-1on1');
-    return ids;
+  function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(e || '').trim()); }
+  function firstName(name) { var p = String(name || '').trim().split(/\s+/); return p[p.length - 1] || ''; }
+
+  function bump(key) { for (var i = 0; i < C.BUMPS.length; i++) if (C.BUMPS[i].key === key) return C.BUMPS[i]; return null; }
+  function priceOf(key) { if (key === 'core') return C.PRODUCT.price; var b = bump(key); return b ? b.price : 0; }
+  function idOf(key) { if (key === 'core') return C.PRODUCT.id; var b = bump(key); return b ? b.id : key; }
+  function nameOf(key) { if (key === 'core') return C.PRODUCT.name; var b = bump(key); return b ? b.name : key; }
+
+  function qrUrl(amount, des) {
+    return C.QR_TEMPLATE.replace('{acc}', encodeURIComponent(C.BANK.account))
+      .replace('{bank}', encodeURIComponent(C.BANK.code))
+      .replace('{amount}', encodeURIComponent(amount))
+      .replace('{des}', encodeURIComponent(des));
   }
-  function track(event, o) {   // AddPaymentInfo + Purchase (need a created order)
-    var ids = orderIds(o);
-    px(event, {
-      value: Number(o.amount), currency: 'VND',
-      content_ids: ids, content_type: 'product', num_items: ids.length
-    }, o.orderId, event + '_' + o.orderId);
+
+  /* ---------- Meta Pixel ---------- */
+  var pixelOn = !DEMO && !!C.PIXEL_ID;
+  function matchData(lead) {
+    var d = {};
+    if (!lead) return d;
+    if (lead.email) d.em = String(lead.email).trim().toLowerCase();
+    var ph = normPhone(lead.phone);
+    if (ph) d.ph = '84' + ph.slice(1);
+    var parts = String(lead.name || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (parts.length) { d.fn = parts[parts.length - 1]; if (parts.length > 1) d.ln = parts[0]; }
+    if (lead.leadId) d.external_id = lead.leadId;
+    d.country = 'vn';
+    return d;
   }
-  // ── digit clamps ──
-  function clampDigits(id, maxLen) {
-    var el = $(id);
-    el.addEventListener('input', function () {
-      if (el.value.length > maxLen) el.value = el.value.slice(0, maxLen);
+  function loadPixel(userData) {
+    if (!pixelOn) { log('Pixel tắt ở chế độ xem thử'); return; }
+    /* eslint-disable */
+    !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    /* eslint-enable */
+    window.fbq.disablePushState = true; // site nhiều trang + menu neo: không để Pixel tự thêm PageView mỗi lần đổi URL/hash
+    window.fbq('set', 'autoConfig', false, C.PIXEL_ID); // tắt sự kiện tự suy đoán (lỗi Purchase cũ)
+    window.fbq('init', C.PIXEL_ID, userData || {});
+    window.fbq('track', 'PageView');
+  }
+  function track(name, params, eventID) {
+    if (!pixelOn || !window.fbq) { log('Pixel ' + name, params || {}, eventID || ''); return; }
+    if (eventID) window.fbq('track', name, params || {}, { eventID: String(eventID) });
+    else window.fbq('track', name, params || {});
+  }
+  function log() { if (window.console && console.log) console.log.apply(console, ['[EDD]'].concat([].slice.call(arguments))); }
+
+  /* ---------- Nguồn quảng cáo (UTM, fbclid) ---------- */
+  function captureAttribution() {
+    var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+    var a = store('edd_attr') || {}; var got = false;
+    keys.forEach(function (k) { var v = qs.get(k); if (v) { a[k] = v.slice(0, 200); got = true; } });
+    if (got) { a.at = Date.now(); store('edd_attr', a); }
+    return a;
+  }
+  function cookie(n) { var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  function context() {
+    var a = store('edd_attr') || {};
+    var fbc = cookie('_fbc');
+    if (!fbc && a.fbclid) fbc = 'fb.1.' + (a.at || Date.now()) + '.' + a.fbclid;
+    return { utm: a, fbp: cookie('_fbp'), fbc: fbc, ua: navigator.userAgent.slice(0, 300), url: location.origin + location.pathname };
+  }
+
+  /* ---------- Gọi Apps Script ---------- */
+  function api(action, data) {
+    if (DEMO) return demoApi(action, data || {});
+    if (!C.API_URL) return Promise.reject(new Error('NO_API'));
+    var body = JSON.stringify(Object.assign({ action: action }, data || {}));
+    return fetch(C.API_URL, { method: 'POST', body: body, redirect: 'follow' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok) { var e = new Error((j && j.error) || 'API_ERROR'); e.data = j; throw e; }
+        return j;
+      });
+  }
+  // Gửi không chờ trả lời (dùng khi chuyển trang ngay sau đó)
+  function beacon(action, data) {
+    if (DEMO) { demoApi(action, data || {}); return; }
+    if (!C.API_URL) return;
+    var body = JSON.stringify(Object.assign({ action: action }, data || {}));
+    try { if (navigator.sendBeacon && navigator.sendBeacon(C.API_URL, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return; } catch (e) { }
+    try { fetch(C.API_URL, { method: 'POST', body: body, keepalive: true, mode: 'no-cors' }); } catch (e) { }
+  }
+
+  /* ---------- Chế độ xem thử (chỉ chạy trên máy, khi chưa có API_URL) ---------- */
+  function demoApi(action, d) {
+    var db = store('edd_demo') || { seq: 100000, orders: {}, leads: [] };
+    var out = { ok: false, error: 'NOT_FOUND' };
+    function view(o) {
+      return { ok: true, code: o.code, token: o.token, status: o.status, firstName: firstName(o.name), emailMasked: maskEmail(o.email),
+        total: o.total, content: o.code, items: o.items.map(function (k) { return { key: k, name: nameOf(k), price: priceOf(k), file: (bump(k) || {}).file || '' }; }),
+        createdAt: o.createdAt, paidAt: o.paidAt || '', birth: o.birth || { done: false } };
+    }
+    if (action === 'lead') { db.leads.push(d); out = { ok: true }; }
+    if (action === 'create') {
+      db.seq += 1;
+      var items = ['core'].concat((d.items || []).filter(function (k) { return !!bump(k); }));
+      var o = { code: 'EDD' + db.seq, token: uid('t'), status: 'PENDING', name: d.name, phone: d.phone, email: d.email, items: items,
+        total: items.reduce(function (s, k) { return s + priceOf(k); }, 0), createdAt: new Date().toISOString() };
+      db.orders[o.code] = o; out = view(o);
+    }
+    var ord = d.code && db.orders[d.code] && db.orders[d.code].token === d.token ? db.orders[d.code] : null;
+    if (action === 'status' && ord) out = view(ord);
+    if (action === 'demoPay' && ord) { ord.status = 'PAID'; ord.paidAt = new Date().toISOString(); out = view(ord); }
+    if (action === 'birth' && ord) {
+      ord.birth = { done: true, gender: d.gender, day: d.day, month: d.month, year: d.year, hour: d.hour, hourLabel: d.hourLabel, note: d.note || '' };
+      out = view(ord);
+    }
+    if (action === 'lookup') {
+      var ph = normPhone(d.phone), em = String(d.email || '').trim().toLowerCase();
+      var list = Object.keys(db.orders).map(function (k) { return db.orders[k]; })
+        .filter(function (o) { return o.phone === ph && String(o.email).toLowerCase() === em; })
+        .map(function (o) { return { code: o.code, token: o.token, status: o.status, total: o.total, createdAt: o.createdAt }; });
+      out = { ok: true, orders: list };
+    }
+    store('edd_demo', db);
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () { if (out.ok) resolve(out); else { var e = new Error(out.error); e.data = out; reject(e); } }, 400);
     });
   }
-  clampDigits('birthDay', 2); clampDigits('birthMonth', 2); clampDigits('birthYear', 4);
-
-  var timeSlotSel = $('birthTimeSlot');
-
-  // ── step 1: live total ──
-  function calc() {
-    var u1 = $('upsell1').checked, u2 = $('upsell2').checked, u3 = $('upsell3').checked;
-    var total = BASE_PRICE + (u1 ? UPSELL1_PRICE : 0) + (u2 ? UPSELL2_PRICE : 0) + (u3 ? UPSELL3_PRICE : 0);
-    $('baseAmountLabel').textContent = fmt(BASE_PRICE);
-    $('upsell1Row').classList.toggle('hidden', !u1);
-    $('upsell2Row').classList.toggle('hidden', !u2);
-    $('upsell3Row').classList.toggle('hidden', !u3);
-    $('upsell1Check').classList.toggle('hidden', !u1);
-    $('upsell2Check').classList.toggle('hidden', !u2);
-    $('upsell3Check').classList.toggle('hidden', !u3);
-    $('upsell1Box').classList.toggle('bg-gold', u1);
-    $('upsell1Box').classList.toggle('border-gold', u1);
-    $('upsell2Box').classList.toggle('bg-gold', u2);
-    $('upsell2Box').classList.toggle('border-gold', u2);
-    $('upsell3Box').classList.toggle('bg-gold', u3);
-    $('upsell3Box').classList.toggle('border-gold', u3);
-    $('totalLabel').textContent = fmt(total);
-    return { total: total, u1: u1, u2: u2, u3: u3 };
+  function maskEmail(e) {
+    var s = String(e || ''); var at = s.indexOf('@'); if (at < 1) return s;
+    return s.slice(0, Math.min(2, at)) + '***' + s.slice(at);
   }
-  ['upsell1', 'upsell2', 'upsell3'].forEach(function (id) {
-    $(id).addEventListener('change', calc);
-  });
-  calc();
 
-  // AddToCart: the first time the customer enters any detail in the form (not when ticking a bump).
-  // The cart is whatever is selected at that moment; later bump changes show up in AddPaymentInfo/Purchase.
-  function onFirstEntry(e) {
-    if (e.target.type === 'checkbox') return;
-    var c = calc(), ids = orderIds({ bump1: c.u1, bump2: c.u2, bump3: c.u3 });
-    px('AddToCart', {
-      value: c.total, currency: 'VND',
-      content_ids: ids, content_name: 'EDD Foundation', content_type: 'product', num_items: ids.length
-    }, pxSession() + '-atc', 'AddToCart_session');
+  /* ---------- Canh giờ Bát Tự ---------- */
+  var HOURS = [
+    ['ty', 'Giờ Tý (23:00-00:59)'], ['suu', 'Giờ Sửu (01:00-02:59)'], ['dan', 'Giờ Dần (03:00-04:59)'], ['mao', 'Giờ Mão (05:00-06:59)'],
+    ['thin', 'Giờ Thìn (07:00-08:59)'], ['ti', 'Giờ Tị (09:00-10:59)'], ['ngo', 'Giờ Ngọ (11:00-12:59)'], ['mui', 'Giờ Mùi (13:00-14:59)'],
+    ['than', 'Giờ Thân (15:00-16:59)'], ['dau', 'Giờ Dậu (17:00-18:59)'], ['tuat', 'Giờ Tuất (19:00-20:59)'], ['hoi', 'Giờ Hợi (21:00-22:59)'],
+    ['unknown', 'Chưa rõ giờ sinh, tôi sẽ bổ sung sau']
+  ];
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve) {
+      var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', '');
+      t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); } catch (e) { }
+      document.body.removeChild(t); resolve();
+    });
   }
-  $('checkoutForm').addEventListener('input', onFirstEntry);
-  $('checkoutForm').addEventListener('change', onFirstEntry);   // radios / select
 
-  // Entering the checkout page (not when restoring an existing order on reload).
-  (function () {
-    var existing = null;
-    try { existing = JSON.parse(sessionStorage.getItem('edd_order') || 'null'); } catch (e) {}
-    if (existing && existing.orderId) return;
-    px('InitiateCheckout', {
-      value: BASE_PRICE, currency: 'VND',
-      content_ids: ['edd-foundation'], content_name: 'EDD Foundation', content_type: 'product', num_items: 1
-    }, pxSession() + '-ic', 'InitiateCheckout_session');
-  })();
-
-  // ── email typo guard ──
-  // A mistyped domain (e.g. "gmell.com") means the confirmation and report never arrive, so ask once before creating the order.
+  /* ---------- Cảnh báo email gõ sai tên miền (gmell.com, gmial.com…): hỏi 1 lần trước khi nhận ---------- */
   var EMAIL_TYPOS = {
     'gmail.com': ['gmial.com', 'gmai.com', 'gmal.com', 'gamil.com', 'gmail.co', 'gmail.con', 'gmail.cm', 'gmaill.com', 'gmil.com', 'gnail.com',
       'gmell.com', 'gmeil.com', 'gmali.com', 'gmail.comm', 'gmail.vom', 'gmail.om', 'gmaiil.com', 'gmale.com', 'gemail.com', 'ggmail.com',
@@ -502,220 +231,551 @@ src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"
     'icloud.com': ['iclould.com', 'icloud.con', 'icoud.com', 'iclod.com', 'icloud.co']
   };
   var EMAIL_FIX = {};
-  Object.keys(EMAIL_TYPOS).forEach(function (good) {
-    EMAIL_TYPOS[good].forEach(function (bad) { EMAIL_FIX[bad] = good; });
-  });
-  var emailEl = document.querySelector('#checkoutForm input[name="email"]');
-  var emailHint = $('emailHint');
-  var emailKept = '';   // the address the customer chose to keep as typed
+  Object.keys(EMAIL_TYPOS).forEach(function (good) { EMAIL_TYPOS[good].forEach(function (bad) { EMAIL_FIX[bad] = good; }); });
   function emailSuggestion(v) {
     var m = String(v || '').trim().toLowerCase().match(/^([^@\s]+)@([^@\s]+)$/);
     return m && EMAIL_FIX[m[2]] ? m[1] + '@' + EMAIL_FIX[m[2]] : null;
   }
-  function showEmailHint() {
-    var s = emailSuggestion(emailEl.value);
-    if (!s || emailKept === emailEl.value.trim().toLowerCase()) { emailHint.classList.add('hidden'); return false; }
-    emailHint.innerHTML = 'Có phải bạn muốn gõ <strong></strong>? ' +
-      '<button type="button" data-act="fix" class="underline font-semibold">Dùng địa chỉ này</button> · ' +
-      '<button type="button" data-act="keep" class="underline">Giữ nguyên</button>';
-    emailHint.querySelector('strong').textContent = s;
-    emailHint.classList.remove('hidden');
+  // true = blocked (a suggestion is on screen). The customer taps "Dùng địa chỉ này" or "Giữ nguyên"; typing again clears it.
+  function emailGuard(input) {
+    var s = emailSuggestion(input.value), kept = input.getAttribute('data-kept');
+    if (!s || kept === input.value.trim().toLowerCase()) return false;
+    var field = input.closest('.field'), err = field.querySelector('.err');
+    function link(text, fn) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = text;
+      b.style.cssText = 'background:none;border:0;padding:0;margin-left:8px;font:inherit;font-weight:600;text-decoration:underline;cursor:pointer;color:inherit';
+      b.addEventListener('click', fn); return b;
+    }
+    err.textContent = 'Có phải bạn muốn gõ ';
+    var strong = document.createElement('b'); strong.textContent = s; err.appendChild(strong); err.appendChild(document.createTextNode('?'));
+    err.appendChild(link('Dùng địa chỉ này', function () { input.value = s; field.classList.remove('bad'); }));
+    err.appendChild(link('Giữ nguyên', function () { input.setAttribute('data-kept', input.value.trim().toLowerCase()); field.classList.remove('bad'); }));
+    field.classList.add('bad');
     return true;
   }
-  emailEl.addEventListener('blur', showEmailHint);
-  emailEl.addEventListener('input', function () { emailHint.classList.add('hidden'); });
-  emailHint.addEventListener('click', function (e) {
-    var act = e.target.getAttribute('data-act');
-    if (!act) return;
-    if (act === 'fix') emailEl.value = emailSuggestion(emailEl.value);
-    else emailKept = emailEl.value.trim().toLowerCase();
-    emailHint.classList.add('hidden');
+  // Chạy fn một lần mỗi phiên trình duyệt (tránh đếm đôi sự kiện Pixel khi tải lại trang)
+  function once(key, fn) {
+    try { var k = 'edd_px_' + key; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { }
+    fn();
+  }
+
+  window.EDD = {
+    C: C, DEMO: DEMO, NO_API: NO_API, qs: qs,
+    store: store, uid: uid, vnd: vnd, esc: esc, normPhone: normPhone, validEmail: validEmail, firstName: firstName,
+    bump: bump, priceOf: priceOf, idOf: idOf, nameOf: nameOf, qrUrl: qrUrl,
+    matchData: matchData, loadPixel: loadPixel, track: track, log: log,
+    captureAttribution: captureAttribution, context: context,
+    api: api, beacon: beacon, HOURS: HOURS, copyText: copyText,
+    emailGuard: emailGuard, once: once
+  };
+})();
+
+</script>
+<script>
+  EDD.captureAttribution();
+  EDD.loadPixel(EDD.matchData(EDD.store('edd_lead')));
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1579575970863354&ev=PageView&noscript=1"></noscript>
+<style>
+:root{
+  --ink:#0f1712; --forest:#17251d; --forest-2:#1e3026;
+  --gold:#c9a75c; --gold-2:#e4cd92; --gold-ink:#7d6328;
+  --paper:#f8f5ee; --cream:#f1ebdf; --line:#e0d6c2;
+  --text:#1c2520; --muted:#5b665f; --soft:#89928c; --white:#fffdf8;
+  --ok:#2e7149; --no:#9b4a3a; --warn:#8a5a14;
+  --serif:'Noto Serif', Georgia, 'Times New Roman', serif;
+  --sans:'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.25;margin:0}
+p{margin:0 0 12px}
+[hidden]{display:none!important}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.banner{background:var(--ink);color:#e9e2d2;font-size:13.5px;text-align:center;padding:9px 16px}
+.banner del{opacity:.6}.banner b{color:var(--gold-2)}
+.top{background:var(--forest);border-bottom:1px solid rgba(201,167,92,.2)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.brand{text-decoration:none;color:#f5efe2;line-height:1.1}
+.brand b{font-family:var(--serif);font-size:18px}
+.brand b span{color:var(--gold)}
+.brand small{display:block;font-size:11px;color:#aab3ac;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.back{color:var(--gold-2);font-size:14px;text-underline-offset:3px}
+.demo{background:#fff4d6;color:#6b4a0a;border-bottom:1px solid #ecd9a4;font-size:13.5px;text-align:center;padding:8px 16px}
+
+main{padding:28px 0 120px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{font-size:13px;padding:6px 13px;border-radius:999px;background:#ece5d6;color:var(--muted)}
+.chip.on{background:var(--forest);color:var(--gold-2);font-weight:600}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:26px;align-items:start}
+.card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px}
+.step{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:6px}
+.card h2{font-size:24px;color:var(--forest);margin-bottom:6px}
+.hint{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px}
+.field input{width:100%;height:50px;border:1px solid #d8cdb6;border-radius:11px;padding:0 14px;font:inherit;font-size:16px;background:#fff;color:var(--text)}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,167,92,.25)}
+.field.bad input{border-color:var(--no)}
+.err{display:none;color:var(--no);font-size:13px;margin-top:4px}
+.field.bad .err{display:block}
+.prod{display:flex;gap:14px;align-items:center;background:var(--cream);border-radius:14px;padding:14px;margin-top:16px}
+.cover{flex:0 0 54px;height:70px;border-radius:7px;background:linear-gradient(160deg,#1e3026,#0f1712);color:var(--gold-2);font-family:var(--serif);font-size:10px;font-weight:700;display:grid;place-items:center;text-align:center;line-height:1.15;box-shadow:0 6px 14px -6px rgba(0,0,0,.5)}
+.prod-t{flex:1;min-width:0}
+.prod-t b{display:block;font-size:15.5px}
+.prod-t span{font-size:13px;color:var(--muted)}
+.prod-p{text-align:right;white-space:nowrap;line-height:1.2}
+.prod-p del{display:block;font-size:13px;color:var(--soft)}
+.prod-p strong{font-family:var(--serif);font-size:20px;color:var(--forest)}
+
+.bump{display:block;border:1.5px dashed #d9c79d;border-radius:14px;margin-bottom:14px;background:#fffefa;cursor:pointer;transition:border-color .15s,background .15s}
+.bump.on{border-style:solid;border-color:var(--gold);background:#fbf5e6}
+.bump-h{display:flex;justify-content:space-between;gap:10px;background:#f4ecda;border-radius:12px 12px 0 0;padding:8px 14px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)}
+.bump-b{display:grid;grid-template-columns:26px 1fr;gap:12px;padding:14px}
+.bump input{width:22px;height:22px;margin:2px 0 0;accent-color:#17251d;cursor:pointer}
+.bump-t{font-weight:700;font-size:16px;color:var(--forest)}
+.bump-t .arr{color:var(--no)}
+.bump-price{margin:4px 0 8px;font-size:14.5px}
+.bump-price strong{font-family:var(--serif);font-size:20px;color:var(--forest)}
+.bump-price del{color:var(--soft);font-size:13.5px;margin-left:6px}
+.bump-lead{font-weight:600;font-size:15px;margin-bottom:6px}
+.bump ul{margin:0 0 8px;padding-left:18px;font-size:14px;color:var(--muted)}
+.bump li{margin-bottom:3px}
+.bump-note{font-size:12.5px;color:var(--no);font-weight:600}
+
+.pay-opt{display:flex;gap:12px;border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;background:#fffefa}
+.pay-opt .dot{flex:0 0 18px;height:18px;border-radius:50%;border:5px solid var(--forest);margin-top:3px}
+.pay-opt b{display:block}
+.pay-opt span{font-size:14px;color:var(--muted)}
+
+.sum{position:sticky;top:18px}
+.sum h3{font-size:21px;color:var(--forest);margin-bottom:12px}
+.line{display:flex;justify-content:space-between;gap:10px;font-size:14.5px;padding:7px 0}
+.line span:last-child{white-space:nowrap}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:8px;padding-top:14px}
+.total strong{font-family:var(--serif);font-size:30px;color:var(--forest)}
+.btn-gold{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;border:0;border-radius:12px;cursor:pointer;font:inherit;font-weight:700;font-size:16.5px;color:#17251d;background:linear-gradient(180deg,#e2c681,#c29d4f);box-shadow:0 10px 24px -10px rgba(194,157,79,.8);margin-top:16px;padding:0 16px;text-decoration:none}
+.btn-gold[disabled]{opacity:.7;cursor:wait}
+.btn-line{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:11px;border:1px solid var(--forest);background:transparent;color:var(--forest);font:inherit;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none}
+.ticks{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:7px;font-size:13.5px;color:var(--muted)}
+.ticks li{display:flex;gap:8px}
+.ticks li:before{content:"✓";color:var(--ok);font-weight:700}
+.form-err{display:none;background:#fbe9e4;color:#7a2e1f;border-radius:10px;padding:10px 12px;font-size:14px;margin-top:12px}
+.form-err.show{display:block}
+.resume{background:#fff;border:1px solid var(--gold);border-radius:14px;padding:12px 16px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:14.5px}
+
+/* Pay view */
+.pay{max-width:880px;margin:0 auto}
+.pay h1{font-size:clamp(24px,3vw,32px);color:var(--forest);margin-bottom:6px}
+.pay-grid{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start;margin-top:20px}
+.qr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center}
+.qr img{width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;background:#fafafa;border-radius:8px}
+.qr .qr-fail{display:none;font-size:14px;color:var(--warn);padding:30px 10px}
+.qr.fail img{display:none}.qr.fail .qr-fail{display:block}
+.qr a{display:inline-block;margin-top:10px;font-size:13.5px;color:var(--gold-ink)}
+.rows{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:15px}
+.row:last-child{border-bottom:0}
+.row small{display:block;font-size:12px;color:var(--soft);letter-spacing:.04em}
+.row b{font-size:16px;word-break:break-all}
+.row.hl{background:#fbf5e6}
+.row.hl b{font-family:var(--serif);font-size:20px;color:var(--forest)}
+.copy{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;color:var(--forest)}
+.holder-note{font-size:13px;color:var(--muted);margin:10px 2px 0}
+.wait{display:flex;gap:14px;align-items:flex-start;background:var(--forest);color:#ece6d8;border-radius:16px;padding:16px 18px;margin-top:18px}
+.wait b{color:var(--gold-2)}
+.wait p{margin:2px 0 0;font-size:14.5px;color:#cfd5ce}
+.spin{flex:0 0 22px;width:22px;height:22px;border-radius:50%;border:3px solid rgba(228,205,146,.25);border-top-color:var(--gold-2);animation:sp 1s linear infinite;margin-top:2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.wait.done{background:#e8f3ec;color:var(--ok)}
+.wait.done b{color:var(--ok)}
+.wait.done .spin{border-color:var(--ok);animation:none;background:var(--ok)}
+.pay-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.msg{font-size:14px;color:var(--warn);margin-top:10px}
+.tips{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 16px}
+.tips summary{cursor:pointer;padding:10px 0;font-weight:600;font-size:14.5px}
+.tips ol{margin:0 0 12px;padding-left:20px;font-size:14px;color:var(--muted)}
+.pay-foot{font-size:14px;color:var(--muted);margin-top:18px}
+.demo-btn{background:#fff4d6;border:1px dashed #c99a2e;color:#6b4a0a}
+.loading{text-align:center;padding:80px 0;color:var(--muted)}
+
+.mbar{display:none}
+footer{text-align:center;font-size:13px;color:var(--soft);padding:24px 16px 40px}
+footer a{color:var(--muted)}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .sum{position:static}
+  .pay-grid{grid-template-columns:1fr}
+  .qr{max-width:320px;margin:0 auto;width:100%}
+}
+@media (max-width:640px){
+  main{padding:18px 0 130px}
+  .card{padding:18px 16px;border-radius:16px}
+  .card h2{font-size:21px}
+  .chips{gap:6px}.chip{font-size:12px;padding:5px 10px}
+  .bump-h{flex-direction:column;gap:2px}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(15,23,18,.97);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:12px;align-items:center;border-top:1px solid rgba(201,167,92,.3)}
+  .mbar div{color:#cfd5ce;font-size:12.5px;line-height:1.25}
+  .mbar div b{display:block;font-family:var(--serif);font-size:19px;color:var(--gold-2)}
+  .mbar .btn-gold{margin:0;min-height:48px;flex:1;font-size:15px}
+  .back{font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div class="banner"><del>790.000đ</del> còn <b>290.000đ</b> · hoàn 100% trong 5 ngày · tự xác nhận sau khi chuyển khoản</div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>EDD <span>Foundation™</span></b><small>Hoàn tất đăng ký</small></a>
+    <a class="back" href="index.html">← Quay lại trang EDD</a>
+  </div>
+</header>
+<div class="demo" id="demo-bar" hidden>Chế độ xem thử trên máy: chưa nối Apps Script, không tạo đơn thật, Pixel tắt.</div>
+
+<main>
+  <div class="wrap">
+    <div class="loading" id="loading" hidden>Đang mở đơn của bạn...</div>
+
+    <!-- ========== CHECKOUT ========== -->
+    <section id="checkout" hidden>
+      <div class="resume" id="resume" hidden>
+        <span>Bạn có đơn <b id="resume-code"></b> chưa thanh toán.</span>
+        <a class="btn-line" id="resume-link" href="#">Mở lại mã QR</a>
+      </div>
+
+      <div class="chips"><span class="chip on">1. Thông tin</span><span class="chip">2. Tài liệu chỉ có ở trang này</span><span class="chip">3. Quét mã QR</span></div>
+
+      <form id="co-form" class="grid" novalidate>
+        <div>
+          <div class="card">
+            <div class="step">Bước 1</div>
+            <h2>Bạn nhận khóa học ở đâu?</h2>
+            <p class="hint">Khóa học, tài liệu và báo cáo gửi về email này. Số điện thoại để đội ngũ hỗ trợ qua Zalo.</p>
+            <div class="field"><label for="c-name">Họ và tên</label><input id="c-name" name="fullname" autocomplete="name" placeholder="Nguyễn Thị Hoa"><small class="err">Bạn nhập họ và tên nhé.</small></div>
+            <div class="field"><label for="c-phone">Số điện thoại có Zalo</label><input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"><small class="err">Số điện thoại chưa đúng, kiểm tra lại giúp mình.</small></div>
+            <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="ban@gmail.com"><small class="err">Email chưa đúng, kiểm tra lại giúp mình.</small></div>
+            <div class="prod">
+              <div class="cover">EDD<br>Foundation™</div>
+              <div class="prod-t"><b>EDD Foundation™</b><span>6 bài học · Tấm bản đồ tài chính (báo cáo EDD) tính tay theo ngày giờ sinh, gửi Ngày 7</span></div>
+              <div class="prod-p"><del>790.000đ</del><strong>290.000đ</strong></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="step">Bước 2</div>
+            <h2>Khoan đã. 3 phần thêm này chỉ có ở trang này.</h2>
+            <p class="hint">Rời trang hoặc thanh toán xong là không thêm được với giá này. Tick vào phần bạn muốn.</p>
+
+            <label class="bump" data-key="fieldguide">
+              <div class="bump-h"><span>Thêm 1/3 · Để thiết kế dòng tiền</span><span>Chỉ có ở trang này</span></div>
+              <div class="bump-b">
+                <input type="checkbox" value="fieldguide" aria-label="Thêm Money Engine Field Guide">
+                <div>
+                  <div class="bump-t"><span class="arr">→</span> CÓ, thêm Money Engine Field Guide™ (PDF 50 trang)</div>
+                  <div class="bump-price">Thêm <strong>290.000đ</strong><del>890.000đ</del></div>
+                  <div class="bump-lead">Bản đồ cho bạn biết lúc nào nên dồn, lúc nào nên giữ. Cuốn này giúp bạn thiết kế cách tiền đi vào, đúng với cơ chế của mình.</div>
+                  <ul>
+                    <li>15 tình huống thực tế để tự định vị cơ chế tạo tiền của bạn trong 10 Money Engine.</li>
+                    <li>Giải mã 8 cặp kết hợp (Hybrid Engine), khi bạn vừa muốn bứt tốc vừa muốn an toàn.</li>
+                    <li>Chẩn đoán "điểm khóa dòng tiền": vì sao bận hơn mà số dư vẫn đi ngang.</li>
+                  </ul>
+                  <div class="bump-note">Giao ngay sau khi thanh toán. Chỉ thêm được ở trang này.</div>
+                </div>
+              </div>
+            </label>
+
+            <label class="bump" data-key="playbook">
+              <div class="bump-h"><span>Thêm 2/3 · Cho người hay chần chừ</span><span>Chỉ có ở trang này</span></div>
+              <div class="bump-b">
+                <input type="checkbox" value="playbook" aria-label="Thêm Architecture Type Playbook">
+                <div>
+                  <div class="bump-t"><span class="arr">→</span> CÓ, thêm Architecture Type Playbook™ (PDF 56 trang)</div>
+                  <div class="bump-price">Thêm <strong>290.000đ</strong><del>890.000đ</del></div>
+                  <div class="bump-lead">Cùng một cơ hội, vì sao người khác làm nhàn còn bạn mệt gấp ba?</div>
+                  <ul>
+                    <li>16 tình huống để tự định vị cấu trúc vận hành gốc, dùng được cho cả cộng sự.</li>
+                    <li>8 cặp giao thoa (Hybrid Profiles): vì sao bạn hay chần chừ hoặc tự phá kế hoạch.</li>
+                    <li>Chẩn đoán "vùng kiệt sức": nơi năng lượng và tiền bốc hơi trước khi bạn kịp thấy.</li>
+                  </ul>
+                  <div class="bump-note">Giao ngay sau khi thanh toán. Chỉ thêm được ở trang này.</div>
+                </div>
+              </div>
+            </label>
+
+            <label class="bump" data-key="debrief">
+              <div class="bump-h"><span>Thêm 3/3 · Mỗi tuần tối đa 5 phiên</span><span>Chỉ có ở trang này</span></div>
+              <div class="bump-b">
+                <input type="checkbox" value="debrief" aria-label="Thêm phiên 1-on-1 Strategy Debrief">
+                <div>
+                  <div class="bump-t"><span class="arr">→</span> CÓ, đặt 1 phiên 1-on-1 Strategy Debrief (60 phút online)</div>
+                  <div class="bump-price">Thêm <strong>590.000đ</strong><del>1.800.000đ</del></div>
+                  <div class="bump-lead">Mang 1 quyết định đang treo vào phiên. Cùng chuyên gia chạy nó qua 3 câu kiểm tra: đúng người, đúng lúc, đúng số.</div>
+                  <ul>
+                    <li>Quyết định nào cũng được: rót vốn, đổi mô hình, dòng tiền nghẽn, chuyển hướng.</li>
+                    <li>Chốt 3 việc ưu tiên cho 90 ngày tới.</li>
+                    <li>Nhận bản ghi âm và file tóm tắt chiến lược sau phiên.</li>
+                  </ul>
+                  <div class="bump-note">Đội ngũ nhắn Zalo để hẹn lịch. Chỉ thêm được ở trang này.</div>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="card">
+            <div class="step">Bước 3</div>
+            <h2>Thanh toán</h2>
+            <div class="pay-opt"><span class="dot"></span><div><b>Chuyển khoản, quét mã QR</b><span>Mã QR hiện ra sau khi bấm nút. Hệ thống tự xác nhận, thường dưới 1 phút, rồi mở trang nhận khóa học.</span></div></div>
+          </div>
+        </div>
+
+        <aside class="card sum">
+          <h3>Đơn hàng của bạn</h3>
+          <div id="sum-lines"></div>
+          <div class="total"><span>Tổng cộng</span><strong id="sum-total">290.000đ</strong></div>
+          <button class="btn-gold" type="submit" id="btn-order">Đặt hàng và hiện mã QR →</button>
+          <div class="form-err" id="form-err"></div>
+          <ul class="ticks">
+            <li>Ngày giờ sinh điền sau khi thanh toán</li>
+            <li>Bản đồ tính tay, gửi qua email Ngày 7</li>
+            <li>Hoàn 100% trong 5 ngày (khóa học và báo cáo)</li>
+            <li>Tự xác nhận, mở trang nhận khóa học ngay</li>
+          </ul>
+        </aside>
+      </form>
+    </section>
+
+    <!-- ========== QUÉT MÃ QR ========== -->
+    <section id="pay" class="pay" hidden>
+      <div class="chips"><span class="chip">1. Thông tin</span><span class="chip">2. Tài liệu thêm</span><span class="chip on">3. Quét mã QR</span></div>
+      <h1>Quét mã để thanh toán đơn <span id="p-code"></span></h1>
+      <p class="hint" style="margin:0">Mở app ngân hàng, quét mã. Số tiền và nội dung đã điền sẵn, giữ nguyên nội dung chuyển khoản.</p>
+
+      <div class="pay-grid">
+        <div class="qr" id="qr-box">
+          <img id="qr-img" alt="Mã QR chuyển khoản" width="300" height="300">
+          <div class="qr-fail">Không tải được mã QR. Chuyển khoản theo thông tin bên cạnh, giữ đúng nội dung.</div>
+          <a id="qr-open" href="#" target="_blank" rel="noopener">Mở ảnh mã QR để lưu</a>
+        </div>
+        <div>
+          <div class="rows">
+            <div class="row"><div><small>Ngân hàng</small><b id="p-bank"></b></div></div>
+            <div class="row"><div><small>Số tài khoản</small><b id="p-acc"></b></div><button class="copy" type="button" data-copy="acc">Chép</button></div>
+            <div class="row"><div><small>Chủ tài khoản</small><b id="p-holder"></b></div></div>
+            <div class="row hl"><div><small>Số tiền</small><b id="p-amount"></b></div><button class="copy" type="button" data-copy="amount">Chép</button></div>
+            <div class="row hl"><div><small>Nội dung chuyển khoản</small><b id="p-content"></b></div><button class="copy" type="button" data-copy="content">Chép</button></div>
+          </div>
+          <p class="holder-note">Tài khoản nhận tiền của <span id="p-store"></span>, chủ tài khoản <span id="p-holder2"></span>.</p>
+        </div>
+      </div>
+
+      <div class="wait" id="wait">
+        <span class="spin"></span>
+        <div><b id="wait-t">Đang chờ giao dịch...</b><p id="wait-p">Giữ trang này mở. Chuyển khoản xong, trang tự mở trang nhận khóa học.</p></div>
+      </div>
+      <div class="pay-actions">
+        <button class="btn-line" type="button" id="btn-check">Tôi đã chuyển khoản, kiểm tra ngay</button>
+        <button class="btn-line demo-btn" type="button" id="btn-demo" hidden>Xem thử: giả lập đã nhận tiền</button>
+      </div>
+      <div class="msg" id="pay-msg"></div>
+
+      <details class="tips">
+        <summary>Đang dùng điện thoại? Cách quét mã trên cùng máy</summary>
+        <ol>
+          <li>Bấm "Mở ảnh mã QR để lưu", nhấn giữ ảnh rồi lưu vào máy. Hoặc chụp màn hình.</li>
+          <li>Mở app ngân hàng, chọn Quét QR, chọn ảnh vừa lưu.</li>
+          <li>Kiểm tra số tiền và nội dung, rồi xác nhận chuyển.</li>
+        </ol>
+      </details>
+
+      <p class="pay-foot">Lỡ đóng trang? Mở lại tại <a href="cam-on.html">trang tra cứu đơn</a> bằng số điện thoại và email. Cần hỗ trợ: Zalo <a href="https://zalo.me/0986150101">0986150101</a>.<br>
+      <a href="#" id="edit-order">Sửa thông tin hoặc tài liệu thêm</a></p>
+    </section>
+  </div>
+</main>
+
+<div class="mbar" id="mbar" hidden>
+  <div>Tổng cộng<b id="mbar-total">290.000đ</b></div>
+  <button class="btn-gold" type="submit" form="co-form">Đặt hàng và hiện mã QR</button>
+</div>
+
+<footer>EDD Foundation™ · The Massive Circle · <a href="https://www.themassivecircle.com/chinh-sach-bao-mat">Chính sách bảo mật</a> · <a href="https://www.themassivecircle.com/chinh-sach-hoan-tien">Chính sách hoàn tiền</a></footer>
+
+<script>
+(function () {
+  'use strict';
+  var E = window.EDD, C = E.C, P = C.PRODUCT;
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('co-form'), el = form.elements;
+  var current = null, pollTimer = null, pollStart = 0, slowTimer = null;
+
+  if (E.DEMO) { $('demo-bar').hidden = false; $('btn-demo').hidden = false; }
+
+  /* ---------- Bước 1: điền sẵn ---------- */
+  var lead = E.store('edd_lead') || {};
+  el.fullname.value = lead.name || ''; el.phone.value = lead.phone || ''; el.email.value = lead.email || '';
+  ['fullname', 'phone', 'email'].forEach(function (n) { el[n].addEventListener('input', function () { setErr(el[n], ''); }); });
+  function setErr(input, msg) { var f = input.closest('.field'); f.classList.toggle('bad', !!msg); if (msg) f.querySelector('.err').textContent = msg; }
+
+  /* ---------- Bước 2: tài liệu thêm ---------- */
+  function picked() { return Array.prototype.map.call(form.querySelectorAll('.bump input:checked'), function (i) { return i.value; }); }
+  function totalNow() { return picked().reduce(function (s, k) { return s + E.priceOf(k); }, P.price); }
+  function renderSum() {
+    var html = '<div class="line"><span>' + E.esc(P.name) + '</span><span>' + E.vnd(P.price) + '</span></div>';
+    picked().forEach(function (k) { var b = E.bump(k); html += '<div class="line"><span>' + E.esc(b.short) + '</span><span>+' + E.vnd(b.price) + '</span></div>'; });
+    $('sum-lines').innerHTML = html;
+    $('sum-total').textContent = E.vnd(totalNow());
+    $('mbar-total').textContent = E.vnd(totalNow());
+  }
+  Array.prototype.forEach.call(form.querySelectorAll('.bump input'), function (box) {
+    box.addEventListener('change', function () {
+      box.closest('.bump').classList.toggle('on', box.checked);
+      renderSum();
+    });
+  });
+  renderSum();
+
+  // AddToCart: lần đầu khách sửa thông tin của mình trên trang này (không bắn khi tick tài liệu thêm).
+  ['fullname', 'phone', 'email'].forEach(function (n) {
+    el[n].addEventListener('input', function () {
+      E.once('AddToCart', function () {
+        E.track('AddToCart', { content_ids: [P.id].concat(picked().map(E.idOf)), content_name: P.name, content_type: 'product', value: totalNow(), currency: 'VND', num_items: picked().length + 1 });
+      });
+    });
   });
 
-  // Back from the bank app: check the order now instead of waiting for the next poll (timers pause in the background).
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState !== 'visible') return;
-    var o = current();
-    if (!o || o.paid || $('step2').classList.contains('hidden')) return;
-    checkStatus(o, { once: true });
+  /* ---------- Đặt hàng ---------- */
+  function formErr(msg) { var b = $('form-err'); b.textContent = msg || ''; b.classList.toggle('show', !!msg); }
+  function busy(on) {
+    var bt = form.ownerDocument.querySelectorAll('button[type=submit]');
+    Array.prototype.forEach.call(bt, function (b) { b.disabled = on; });
+    $('btn-order').textContent = on ? 'Đang tạo đơn...' : 'Đặt hàng và hiện mã QR →';
+  }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault(); formErr('');
+    var name = el.fullname.value.trim().replace(/\s+/g, ' ');
+    var phone = E.normPhone(el.phone.value);
+    var email = el.email.value.trim().toLowerCase();
+    var ok = true;
+    if (name.length < 2) { setErr(el.fullname, 'Bạn nhập họ và tên nhé.'); ok = false; }
+    if (!phone) { setErr(el.phone, 'Số điện thoại chưa đúng, kiểm tra lại giúp mình.'); ok = false; }
+    if (!E.validEmail(email)) { setErr(el.email, 'Email chưa đúng, kiểm tra lại giúp mình.'); ok = false; }
+    if (!ok) { var bad = form.querySelector('.field.bad input'); if (bad) { bad.focus(); bad.scrollIntoView({ block: 'center' }); } return; }
+    if (E.emailGuard(el.email)) { el.email.focus(); el.email.scrollIntoView({ block: 'center' }); return; }
+    if (E.NO_API) { formErr('Cổng thanh toán đang bảo trì vài phút. Nhắn Zalo ' + C.HOTLINE + ' để đội ngũ giữ chỗ cho bạn.'); console.error('[EDD] Chưa điền API_URL trong cấu hình.'); return; }
+
+    var prev = E.store('edd_lead') || {};
+    var lead = { name: name, phone: phone, email: email, leadId: (prev.phone === phone && prev.leadId) || E.uid('L') };
+    E.store('edd_lead', lead);
+    var ctx = E.context();
+    busy(true);
+    E.api('create', { name: name, phone: phone, email: email, items: picked(), leadId: lead.leadId,
+      utm: ctx.utm, fbp: ctx.fbp, fbc: ctx.fbc, ua: ctx.ua, url: ctx.url })
+      .then(function (o) {
+        remember(o);
+        E.track('AddPaymentInfo', { content_ids: o.items.map(function (i) { return E.idOf(i.key); }), content_type: 'product', value: o.total, currency: 'VND', num_items: o.items.length }, o.code);
+        showPay(o);
+      })
+      .catch(function () { busy(false); formErr('Chưa tạo được đơn. Kiểm tra mạng rồi bấm lại, hoặc nhắn Zalo ' + C.HOTLINE + '.'); });
   });
 
-  // ── copy buttons ──
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('.copyBtn'); if (!b) return;
-    var txt = b.getAttribute('data-copy') || (b.id === 'ckCopyBtn' ? $('s2Ck').textContent : '');
-    if (!txt) return;
-    navigator.clipboard && navigator.clipboard.writeText(txt.trim());
-    var old = b.textContent; b.textContent = 'đã chép'; setTimeout(function(){ b.textContent = old; }, 1500);
+  function remember(o) {
+    E.store('edd_order', { code: o.code, token: o.token, at: Date.now() });
+    try { history.replaceState(null, '', location.pathname + '?o=' + encodeURIComponent(o.code) + '&t=' + encodeURIComponent(o.token)); } catch (e) { }
+  }
+
+  /* ---------- Màn QR ---------- */
+  function showPay(o) {
+    current = o;
+    $('checkout').hidden = true; $('loading').hidden = true; $('mbar').hidden = true; $('pay').hidden = false;
+    window.scrollTo(0, 0);
+    var qr = E.qrUrl(o.total, o.content || o.code);
+    $('qr-box').classList.remove('fail');
+    $('qr-img').onerror = function () { $('qr-box').classList.add('fail'); };
+    $('qr-img').src = qr; $('qr-open').href = qr;
+    $('p-code').textContent = o.code;
+    $('p-bank').textContent = C.BANK.name;
+    $('p-acc').textContent = C.BANK.account;
+    $('p-holder').textContent = C.BANK.holder; $('p-holder2').textContent = C.BANK.holder;
+    $('p-store').textContent = C.BANK.store;
+    $('p-amount').textContent = E.vnd(o.total);
+    $('p-content').textContent = o.content || o.code;
+    startPoll();
+  }
+  var copyMap = { acc: function () { return C.BANK.account; }, amount: function () { return String(current.total); }, content: function () { return current.content || current.code; } };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (b) {
+    b.addEventListener('click', function () {
+      E.copyText(copyMap[b.getAttribute('data-copy')]()).then(function () { b.textContent = 'Đã chép'; setTimeout(function () { b.textContent = 'Chép'; }, 1600); });
+    });
   });
 
-  // ── views ──
-  function show(step) {
-    $('checkoutForm').classList.toggle('hidden', step !== 1);
-    $('step2').classList.toggle('hidden', step !== 2);
-    $('step3').classList.toggle('hidden', step !== 3);
-    if (step === 2) {
-      $('pageTitle').textContent = 'Quét Mã Để Thanh Toán';
-      $('pageLead').textContent = 'Chuyển khoản đúng nội dung bên dưới — hệ thống tự xác nhận trong ít giây.';
-    } else if (step === 3) {
-      $('pageTitle').textContent = 'Hoàn Tất!';
-      $('pageLead').textContent = 'Cảm ơn bạn đã tin tưởng EDD Foundation™.';
+  function startPoll() {
+    clearInterval(pollTimer); clearTimeout(slowTimer);
+    pollStart = Date.now();
+    pollTimer = setInterval(function () { check(false); }, C.POLL_MS);
+    slowTimer = setTimeout(function () {
+      $('pay-msg').textContent = 'Đã chuyển mà chưa thấy xác nhận? Kiểm tra nội dung chuyển khoản có đúng ' + (current.content || current.code) + ' không. Vẫn chưa được thì nhắn Zalo ' + C.HOTLINE + ' kèm ảnh giao dịch.';
+    }, 3 * 60 * 1000);
+  }
+  function check(manual) {
+    if (!current) return Promise.resolve();
+    if (!manual && Date.now() - pollStart > C.POLL_STOP_MIN * 60000) {
+      clearInterval(pollTimer);
+      $('wait-t').textContent = 'Trang đã ngừng tự kiểm tra.';
+      $('wait-p').textContent = 'Chuyển khoản xong thì bấm "Tôi đã chuyển khoản, kiểm tra ngay".';
+      return Promise.resolve();
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return E.api('status', { code: current.code, token: current.token }).then(function (s) {
+      if (s.status === 'PAID') return paid();
+      if (manual) $('pay-msg').textContent = 'Chưa thấy tiền về. Ngân hàng đôi khi chậm 1 đến 2 phút, trang vẫn đang tự kiểm tra.';
+    }).catch(function () { if (manual) $('pay-msg').textContent = 'Chưa kiểm tra được. Kiểm tra mạng rồi bấm lại.'; });
   }
-
-  function renderStep2(o) {
-    $('s2OrderId').textContent = 'Mã: ' + o.ckContent;
-    $('s2Total').textContent   = fmt(o.amount);
-    $('s2Amount').textContent  = fmt(o.amount);
-    $('s2Ck').textContent      = o.ckContent;
-    var items = ['EDD Foundation™'];
-    if (o.bump1) items.push(BUMP1_NAME);
-    if (o.bump2) items.push(BUMP2_NAME);
-    if (o.bump3) items.push(BUMP3_NAME);
-    $('s2Items').textContent = items.join('  ·  ');
-    var img = $('qrImg');
-    img.style.display = ''; $('qrFallback').classList.add('hidden');
-    img.src = qrUrl(o.amount, o.ckContent);
-    $('qrSaveLink').href = img.src;
-    setStatus('pending');
+  function paid() {
+    clearInterval(pollTimer); clearTimeout(slowTimer);
+    $('wait').classList.add('done');
+    $('wait-t').textContent = 'Đã nhận thanh toán.';
+    $('wait-p').textContent = 'Đang mở trang nhận khóa học...';
+    $('pay-msg').textContent = '';
+    setTimeout(function () { location.href = 'cam-on.html?o=' + encodeURIComponent(current.code) + '&t=' + encodeURIComponent(current.token); }, 900);
   }
-
-  function setStatus(s) {
-    var box = $('statusBox'), dot = $('statusDot'), txt = $('statusText');
-    if (s === 'paid') {
-      box.className = 'mt-6 rounded-xl px-4 py-3.5 text-center text-[14px] font-semibold bg-green-100 text-green-800';
-      dot.style.background = '#166534'; dot.classList.remove('pulse-dot');
-      txt.textContent = '✓ Đã nhận giao dịch · đang chuyển trang…';
-    } else if (s === 'checking') {
-      txt.textContent = 'Đang kiểm tra…';
-    } else {
-      box.className = 'mt-6 rounded-xl px-4 py-3.5 text-center text-[14px] font-semibold bg-red-50 text-red-700';
-      dot.style.background = '#b91c1c'; dot.classList.add('pulse-dot');
-      txt.textContent = 'Đang chờ giao dịch…';
-    }
-  }
-
-  function renderStep3(o) {
-    $('s3Email').textContent = o.email || 'email của bạn';
-    if (o.bump1 || o.bump2 || o.bump3) {
-      $('s3Bumps').classList.remove('hidden');
-      var h = '';
-      if (o.bump1) h += '<div>• <a href="' + BUMP1_URL + '" class="text-gold-deep underline">' + BUMP1_NAME + ' — tải PDF</a></div>';
-      if (o.bump2) h += '<div>• <a href="' + BUMP2_URL + '" class="text-gold-deep underline">' + BUMP2_NAME + ' — tải PDF</a></div>';
-      if (o.bump3) h += '<div>• ' + BUMP3_NAME + ' (60 phút online) — chúng tôi sẽ liên hệ qua email hoặc Zalo/SĐT bạn đã cung cấp để sắp xếp lịch.</div>';
-      $('s3BumpList').innerHTML = h;
-    }
-  }
-
-  // ── polling ──
-  var pollTimer = null;
-  function stopPoll() { if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; } }
-
-  async function checkStatus(order, opts) {
-    opts = opts || {};
-    try {
-      var r = await fetch(GAS_URL + '?action=getStatus&orderId=' + encodeURIComponent(order.orderId));
-      var j = await r.json();
-      if (j && j.status === 'PAID') {
-        stopPoll();
-        setStatus('paid');
-        order.paid = true;
-        sessionStorage.setItem(STORE_KEY, JSON.stringify(order));
-        track('Purchase', order);
-        renderStep3(order);
-        setTimeout(function () { show(3); }, 1400);
-        return true;
-      }
-    } catch (err) { /* keep waiting */ }
-    if (opts.once) setStatus('pending');
-    return false;
-  }
-
-  function startPoll(order) {
-    stopPoll();
-    (function loop() {
-      pollTimer = setTimeout(async function () {
-        var done = await checkStatus(order);
-        if (!done) loop();
-      }, POLL_MS);
-    })();
-  }
-
-  $('checkNowBtn').addEventListener('click', async function () {
-    var o = current(); if (!o) return;
-    setStatus('checking');
-    var done = await checkStatus(o, { once: true });
-    if (!done) setTimeout(function () { setStatus('pending'); }, 900);
+  $('btn-check').addEventListener('click', function () { $('pay-msg').textContent = 'Đang kiểm tra...'; check(true); });
+  $('btn-demo').addEventListener('click', function () { E.api('demoPay', { code: current.code, token: current.token }).then(function () { check(true); }); });
+  $('edit-order').addEventListener('click', function (ev) {
+    ev.preventDefault(); clearInterval(pollTimer); clearTimeout(slowTimer);
+    E.store('edd_order', null); current = null;
+    try { history.replaceState(null, '', location.pathname); } catch (e) { }
+    showCheckout(false);
   });
 
-  function current() {
-    try { return JSON.parse(sessionStorage.getItem(STORE_KEY) || 'null'); } catch (e) { return null; }
+  /* ---------- Mở trang ---------- */
+  function showCheckout(fireEvent) {
+    $('pay').hidden = true; $('loading').hidden = true; $('checkout').hidden = false; $('mbar').hidden = false;
+    busy(false);
+    if (fireEvent) E.once('InitiateCheckout', function () { E.track('InitiateCheckout', { content_ids: [P.id], content_name: P.name, content_type: 'product', value: P.price, currency: 'VND', num_items: 1 }); });
+    var pend = E.store('edd_order');
+    if (pend && pend.code && Date.now() - (pend.at || 0) < 24 * 3600 * 1000) {
+      $('resume').hidden = false; $('resume-code').textContent = pend.code;
+      $('resume-link').href = location.pathname + '?o=' + encodeURIComponent(pend.code) + '&t=' + encodeURIComponent(pend.token);
+    }
   }
 
-  // ── restore on reload ──
-  (function restore() {
-    var o = current();
-    if (!o || !o.orderId) return;
-    if (o.paid) { renderStep3(o); show(3); return; }
-    renderStep2(o); show(2);
-    startPoll(o);
-  })();
-
-  // ── submit → createOrder ──
-  $('checkoutForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    var form = e.target, errEl = $('formError');
-    if (!form.checkValidity()) { errEl.classList.remove('hidden'); form.reportValidity(); return; }
-    errEl.classList.add('hidden');
-    if (showEmailHint()) { emailEl.scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
-
-    var btn = $('submitBtn');
-    btn.disabled = true; btn.textContent = 'Đang tạo đơn…';
-
-    var st = calc();
-    var fd = new FormData(form);
-    var payload = {
-      action: 'createOrder',
-      data: {
-        name: fd.get('fullName'),
-        phone: fd.get('phone'),
-        email: fd.get('email'),
-        gender: fd.get('gender'),
-        birthDate: fd.get('birthYear') + '-' + String(fd.get('birthMonth')).padStart(2, '0') + '-' + String(fd.get('birthDay')).padStart(2, '0'),
-        birthTime: timeSlotSel.selectedOptions[0] ? timeSlotSel.selectedOptions[0].textContent : '',
-        bump1: st.u1,
-        bump2: st.u2,
-        bump3: st.u3,
-        totalAmount: st.total
-      }
-    };
-
-    try {
-      var r = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
-      var j = await r.json();
-      if (!j || !j.success || !j.orderId) throw new Error(j && j.error || 'no order');
-
-      var order = {
-        orderId: j.orderId,
-        ckContent: j.ckContent,
-        amount: j.totalAmount || st.total,
-        bump1: st.u1, bump2: st.u2, bump3: st.u3,
-        email: payload.data.email,
-        paid: false
-      };
-      sessionStorage.setItem(STORE_KEY, JSON.stringify(order));
-      track('AddPaymentInfo', order);
-      renderStep2(order);
-      show(2);
-      startPoll(order);
-    } catch (err) {
-      btn.disabled = false;
-      btn.textContent = 'Tạo Đơn & Lấy Mã Thanh Toán →';
-      errEl.textContent = 'Không kết nối được máy chủ. Kiểm tra mạng và thử lại.';
-      errEl.classList.remove('hidden');
-    }
-  });
+  var qo = E.qs.get('o'), qt = E.qs.get('t');
+  if (qo && qt) {
+    $('loading').hidden = false;
+    E.api('status', { code: qo, token: qt }).then(function (s) {
+      if (s.status === 'PAID') { location.replace('cam-on.html?o=' + encodeURIComponent(qo) + '&t=' + encodeURIComponent(qt)); return; }
+      s.token = qt; remember(s); showPay(s);
+    }).catch(function () {
+      try { history.replaceState(null, '', location.pathname); } catch (e) { }
+      showCheckout(true);
+    });
+  } else {
+    showCheckout(true);
+  }
 })();
 </script>
 </body>
