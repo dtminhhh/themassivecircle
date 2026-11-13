@@ -104,7 +104,10 @@ window.EDD_CONFIG = {
   }
 
   /* ---------- Meta Pixel ---------- */
-  var pixelOn = !DEMO && !!C.PIXEL_ID;
+  // Thử nghiệm không làm bẩn dữ liệu quảng cáo: mở trang với ?nopixel=1 để tắt Pixel (nhớ cho các trang sau); ?nopixel=0 để bật lại.
+  if (qs.get('nopixel') === '1') store('edd_nopixel', 1);
+  if (qs.get('nopixel') === '0') store('edd_nopixel', null);
+  var pixelOn = !DEMO && !!C.PIXEL_ID && !store('edd_nopixel');
   function matchData(lead) {
     var d = {};
     if (!lead) return d;
