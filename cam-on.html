@@ -657,7 +657,7 @@ footer a{color:var(--muted)}
 
   /* ---------- Mở trang ---------- */
   var code = E.qs.get('o'), token = E.qs.get('t');
-  if (E.qs.get('tra-cuu')) { renderLookup(); return; }
+  if (E.qs.get('tra-cuu') || /\/tra-cuu\/?$/.test(location.pathname)) { renderLookup(); return; }   // /tra-cuu is a rewrite to this page
   if (!code || !token) {
     var saved = E.store('edd_last') || E.store('edd_order');
     if (saved && saved.code && saved.token) { code = saved.code; token = saved.token; }
