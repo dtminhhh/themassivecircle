@@ -490,7 +490,7 @@ mark.todo{background:#ffe58a;color:#4a3800;padding:2px 7px;border-radius:5px;fon
 .chart-card{margin-top:26px;background:linear-gradient(180deg,#14221a,#0f1712);border:1px solid rgba(201,167,92,.25);border-radius:20px;padding:16px 16px 8px}
 .readout{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:4px 6px 8px;font-size:14px;color:#aab3ac}
 .readout b{font-family:var(--serif);font-size:21px;color:#f7f1e4;margin-right:10px}
-.readout .ph{border-radius:999px;padding:3px 10px;font-weight:700;font-size:12.5px;background:rgba(255,255,255,.08)}
+.readout .ph{border-radius:999px;padding:3px 10px;font-weight:700;font-size:12.5px;background:rgba(255,255,255,.08);white-space:nowrap;display:inline-block}
 .readout .hint{font-size:12.5px;color:#89928c}
 .demo-chart{width:100%;height:auto;display:block}
 .chart-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -1205,13 +1205,13 @@ footer b{color:#e9e2d2}
   <div class="wrap">
     <div data-r>
       <span class="badge-demo">Ví dụ minh họa</span>
-      <div class="kicker">Bản đồ mẫu</div>
-      <h2 style="font-size:clamp(26px,3vw,38px);max-width:880px">Một tấm bản đồ trông thế nào khi được dùng cho quyết định thật</h2>
-      <div class="persona"><span><b>Chị A.</b></span><span>Sinh 15/03/1988, 10 giờ sáng</span><span>Chủ 2 cửa hàng đồ gia dụng</span><span>Money Engine: <b>Cơ chế Vận hành</b></span></div>
+      <div class="kicker">Bản đồ mẫu · Ứng dụng thực tế</div>
+      <h2 style="font-size:clamp(26px,3vw,38px);max-width:880px">Cách Tấm Bản Đồ Dẫn Đường Cho Bạn Trước Những Ngã Rẽ Tiền Bạc Thực Tế</h2>
+      <div class="persona"><span><b>Hồ sơ chị A.</b></span><span>Sinh 10h00 ngày 15/03/1988</span><span>Kinh doanh &amp; Đầu tư cá nhân</span><span>Thế mạnh gốc: <b>Quản trị &amp; Vận hành thực thi</b></span></div>
     </div>
 
     <div class="chart-card" id="demo" data-r>
-      <div class="readout"><div><b id="ro-age">Tuổi 38</b><span class="ph" id="ro-ph">Tích lũy</span></div><span class="hint">Chạm vào từng năm để xem</span></div>
+      <div class="readout"><div><b id="ro-age">Tuổi 38</b><span class="ph" id="ro-ph">Tích lũy</span></div><span class="hint">Chạm vào từng mốc tuổi để xem chi tiết</span></div>
       <div class="chart-scroll" id="chart-scroll"><svg class="demo-chart" viewBox="0 0 1000 430" role="img" aria-label="Heatmap 10 năm của nhân vật minh họa, từ 38 đến 47 tuổi">
 <line x1="40" y1="350.0" x2="960" y2="350.0" stroke="#ffffff" stroke-opacity=".07"/>
 <line x1="40" y1="292.5" x2="960" y2="292.5" stroke="#ffffff" stroke-opacity=".07"/>
@@ -1219,9 +1219,9 @@ footer b{color:#e9e2d2}
 <line x1="40" y1="177.5" x2="960" y2="177.5" stroke="#ffffff" stroke-opacity=".07"/>
 <line x1="40" y1="120.0" x2="960" y2="120.0" stroke="#ffffff" stroke-opacity=".07"/>
 <g class="band b-acc"><rect x="44" y="44" width="176" height="40" rx="8"/><text x="132.0" y="64" text-anchor="middle" dominant-baseline="central" font-size="24">Tích lũy</text></g>
-<g class="band b-exp"><rect x="228" y="44" width="268" height="40" rx="8"/><text x="362.0" y="64" text-anchor="middle" dominant-baseline="central" font-size="24">Mở rộng</text></g>
-<g class="band b-hold"><rect x="504" y="44" width="176" height="40" rx="8"/><text x="592.0" y="64" text-anchor="middle" dominant-baseline="central" font-size="24">Giữ tiền</text></g>
-<g class="band b-pivot"><rect x="688" y="44" width="84" height="40" rx="8"/><text x="730.0" y="64" text-anchor="middle" font-size="17"><tspan x="730.0" dy="-3">Chuyển</tspan><tspan x="730.0" dy="17">hướng</tspan></text></g>
+<g class="band b-exp"><rect x="228" y="44" width="268" height="40" rx="8"/><text x="362.0" y="64" text-anchor="middle" dominant-baseline="central" font-size="24">Tăng tốc</text></g>
+<g class="band b-hold"><rect x="504" y="44" width="176" height="40" rx="8"/><text x="592.0" y="64" text-anchor="middle" dominant-baseline="central" font-size="24">Phòng thủ</text></g>
+<g class="band b-pivot"><rect x="688" y="44" width="84" height="40" rx="8"/><text x="730.0" y="64" text-anchor="middle" font-size="17"><tspan x="730.0" dy="-3">Chuyển</tspan><tspan x="730.0" dy="17">tiếp</tspan></text></g>
 <g class="band b-acc"><rect x="780" y="44" width="176" height="40" rx="8"/><text x="868.0" y="64" text-anchor="middle" dominant-baseline="central" font-size="24">Tích lũy</text></g>
 <rect class="bar p-acc" style="--i:0" x="58.0" y="253.4" width="56" height="96.6" rx="7"/>
 <text class="age" x="86.0" y="388" text-anchor="middle" font-size="26">38</text>
@@ -1270,27 +1270,27 @@ footer b{color:#e9e2d2}
     </div>
 
     <div class="phases" id="phases">
-      <div class="phc acc" data-ph="acc" data-r><div class="t"><span>Tích lũy</span><span>38 đến 39</span></div><p>Chuẩn hóa quy trình 2 cửa hàng. Chưa mở thêm. Gom quỹ dự phòng đủ 6 tháng chi phí.</p><div class="alloc"><i class="g" style="width:30%"></i><i class="r" style="width:70%"></i></div><div class="alloc-l"><span>Tăng trưởng 30%</span><span>Dự phòng 70%</span></div></div>
-      <div class="phc exp" data-ph="exp" data-r style="--d:80ms"><div class="t"><span>Mở rộng</span><span>40 đến 42</span></div><p>Tuổi 40 mở cửa hàng thứ 3. Tuổi 42 mở kênh bán online. Dồn phần lớn lợi nhuận cho tăng trưởng.</p><div class="alloc"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></div><div class="alloc-l"><span>Tăng trưởng 70%</span><span>Dự phòng 30%</span></div></div>
-      <div class="phc hold" data-ph="hold" data-r style="--d:160ms"><div class="t"><span>Giữ tiền</span><span>43 đến 44</span></div><p>Không ký thuê dài hạn mới. Đóng điểm bán lỗ kéo dài. Nâng quỹ dự phòng.</p><div class="alloc"><i class="g" style="width:20%"></i><i class="r" style="width:80%"></i></div><div class="alloc-l"><span>Tăng trưởng 20%</span><span>Dự phòng 80%</span></div></div>
-      <div class="phc pivot" data-ph="pivot" data-r style="--d:240ms"><div class="t"><span>Chuyển hướng</span><span>45</span></div><p>Đánh giá lại mô hình. Thử nhượng quyền ở quy mô nhỏ thay cho tự mở thêm.</p><div class="alloc"><i class="g" style="width:40%"></i><i class="r" style="width:60%"></i></div><div class="alloc-l"><span>Tăng trưởng 40%</span><span>Dự phòng 60%</span></div></div>
-      <div class="phc acc" data-ph="acc2" data-r style="--d:320ms"><div class="t"><span>Tích lũy</span><span>46 đến 47</span></div><p>Nhân rộng phần đã chạy được. Giữ nguyên quy tắc dự phòng.</p><div class="alloc"><i class="g" style="width:50%"></i><i class="r" style="width:50%"></i></div><div class="alloc-l"><span>Tăng trưởng 50%</span><span>Dự phòng 50%</span></div></div>
+      <div class="phc acc" data-ph="acc" data-r><div class="t"><span>Tích lũy</span><span>38 đến 39</span></div><p>Tập trung tối ưu công việc và nguồn thu hiện tại. Chưa vội bung vốn mở rộng hay nhảy việc mạo hiểm. Ưu tiên gom tiền mặt, khóa chặt quỹ dự phòng đủ 6 tháng chi tiêu.</p><div class="alloc"><i class="g" style="width:30%"></i><i class="r" style="width:70%"></i></div><div class="alloc-l"><span>Đầu tư/Mở rộng 30%</span><span>Giữ tiền an toàn 70%</span></div></div>
+      <div class="phc exp" data-ph="exp" data-r style="--d:80ms"><div class="t"><span>Tăng tốc</span><span>40 đến 42</span></div><p>Chu kỳ mở sáng (điểm rơi thuận lợi nhất trong 10 năm). Mạnh dạn triển khai dự án mới, mở thêm kênh thu nhập thứ 2 hoặc mua tích sản. Dồn phần lớn lợi nhuận để bứt phá quy mô.</p><div class="alloc"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></div><div class="alloc-l"><span>Đầu tư/Mở rộng 70%</span><span>Giữ tiền an toàn 30%</span></div></div>
+      <div class="phc hold" data-ph="hold" data-r style="--d:160ms"><div class="t"><span>Phòng thủ</span><span>43 đến 44</span></div><p>Chu kỳ chững lại, dễ phát sinh hao hụt ngoài dự tính. Tuyệt đối không vay mượn đánh lớn, không ôm thêm mặt bằng hay dự án dài hạn. Cắt bỏ ngay các khoản đầu tư đang rò rỉ vốn để bảo toàn thành quả.</p><div class="alloc"><i class="g" style="width:20%"></i><i class="r" style="width:80%"></i></div><div class="alloc-l"><span>Đầu tư/Mở rộng 20%</span><span>Giữ tiền an toàn 80%</span></div></div>
+      <div class="phc pivot" data-ph="pivot" data-r style="--d:240ms"><div class="t"><span>Chuyển tiếp</span><span>45</span></div><p>Rà soát lại toàn bộ danh mục công việc và tài sản. Thử nghiệm hướng đi mới hoặc hợp tác ở quy mô vốn nhỏ (thăm dò thị trường) thay vì tự mình dốc toàn lực ôm đồm.</p><div class="alloc"><i class="g" style="width:40%"></i><i class="r" style="width:60%"></i></div><div class="alloc-l"><span>Đầu tư/Mở rộng 40%</span><span>Giữ tiền an toàn 60%</span></div></div>
+      <div class="phc acc" data-ph="acc2" data-r style="--d:320ms"><div class="t"><span>Tích lũy</span><span>46 đến 47</span></div><p>Nhân rộng những mảng đã thử nghiệm thành công ở tuổi 45. Dòng tiền đi vào quỹ đạo ổn định mới, tiếp tục duy trì kỷ luật bảo vệ quỹ dự phòng.</p><div class="alloc"><i class="g" style="width:50%"></i><i class="r" style="width:50%"></i></div><div class="alloc-l"><span>Đầu tư/Mở rộng 50%</span><span>Giữ tiền an toàn 50%</span></div></div>
     </div>
 
     <div class="ck" id="ck43">
       <div>
-        <div class="k2">3 câu kiểm tra · tuổi 43</div>
-        <h3>Đối tác rủ góp vốn mở cửa hàng thứ 4</h3>
-        <p class="sit">Cơ hội trông tốt, đối tác quen, mặt bằng đẹp. Chị A. chạy nó qua 3 câu trước khi trả lời.</p>
+        <div class="k2">Tình huống mẫu · tuổi 43</div>
+        <h3>Người quen rủ góp 300 triệu mở rộng kinh doanh</h3>
+        <p class="sit">Kèo làm ăn trông rất sáng, người rủ là chỗ quen biết uy tín, vị trí đẹp. Thay vì quyết định theo cảm xúc hay sự cả nể, chị A. soi chiếu ngay qua Bộ lọc 3 bước trên bản đồ:</p>
       </div>
       <div class="ck-rows">
-        <div class="ck-row"><span class="ic ok">✓</span><div><b>Đúng người</b><span>Hợp Cơ chế Vận hành: mở rộng bằng quy trình đã chuẩn hóa.</span></div></div>
-        <div class="ck-row"><span class="ic no">✕</span><div><b>Đúng lúc</b><span>Tuổi 43 nằm trong pha Giữ tiền.</span></div></div>
-        <div class="ck-row"><span class="ic warn">!</span><div><b>Đúng con số</b><span>Góp xong, quỹ dự phòng còn dưới mức 6 tháng chị A. tự đặt.</span></div></div>
-        <div class="ck-end">Kết luận: chưa góp. Hẹn đối tác xem lại ở tuổi 46, hoặc góp phần nhỏ không đụng quỹ dự phòng.</div>
+        <div class="ck-row"><span class="ic ok">✓</span><div><b>Đúng người (Hợp thế mạnh)</b><span>Khớp với năng lực Quản trị &amp; Vận hành của chị A. (Mô hình kinh doanh quen thuộc, bản thân hiểu rõ cách làm, không phải lĩnh vực mù mờ).</span></div></div>
+        <div class="ck-row"><span class="ic no">✕</span><div><b>Đúng lúc (Sai thời điểm)</b><span>Báo động đỏ: Tuổi 43 đang rơi vào giai đoạn Phòng thủ (Điểm thuận lợi chỉ 38/100). Đây là năm dễ kẹt vốn và phát sinh rắc rối khách quan nếu cố tình bung tiền lớn.</span></div></div>
+        <div class="ck-row"><span class="ic warn">!</span><div><b>Đúng con số (Vượt ngưỡng an toàn)</b><span>Nếu rút 300 triệu góp vào đây, quỹ tiền mặt dự phòng của chị A. sẽ tụt xuống dưới mức an toàn 6 tháng đã đặt ra.</span></div></div>
+        <div class="ck-end">Quyết định từ Bản đồ: Từ chối góp vốn lớn lúc này để bảo vệ quỹ dự phòng. Nếu vẫn muốn giữ mối quan hệ và thử nghiệm, chỉ tham gia một cổ phần thật nhỏ (trong ngưỡng 20% vốn cho phép của năm Phòng thủ) — tuyệt đối không tất tay.</div>
       </div>
     </div>
-    <p class="demo-note">Nhân vật, các pha, điểm số, tỷ lệ và quyết định trong ví dụ được dựng để minh họa cách dùng bản đồ, chưa qua luận giải. Bản đồ của bạn được tính riêng theo ngày giờ sinh của bạn.</p>
+    <p class="demo-note">Chị A. là nhân vật minh họa: các pha, điểm số, tỷ lệ và quyết định được dựng để bạn thấy cách dùng bản đồ. Hồ sơ EDD của bạn sẽ được tính toán thủ công và luận giải chi tiết dựa trên đúng ngày, giờ sinh của riêng bạn.</p>
   </div>
 </section>
 
@@ -1726,7 +1726,7 @@ HET-TODO-DUYEN -->
 
   /* ---------- Bản đồ mẫu ---------- */
   var YEARS = [[38, 'acc', 42], [39, 'acc', 55], [40, 'exp', 78], [41, 'exp', 95], [42, 'exp', 86], [43, 'hold', 38], [44, 'hold', 30], [45, 'pivot', 50], [46, 'acc2', 62], [47, 'acc2', 74]];
-  var PH = { acc: 'Tích lũy', exp: 'Mở rộng', hold: 'Giữ tiền', pivot: 'Chuyển hướng', acc2: 'Tích lũy' };
+  var PH = { acc: 'Tích lũy', exp: 'Tăng tốc', hold: 'Phòng thủ', pivot: 'Chuyển tiếp', acc2: 'Tích lũy' };
   var PHC = { acc: '#c3d3c3', exp: '#e4cd92', hold: '#a7c2b1', pivot: '#e6b08b', acc2: '#c3d3c3' };
   var demo = document.getElementById('demo');
   var bars = demo.querySelectorAll('.bar'), dots = demo.querySelectorAll('.dot'), ages = demo.querySelectorAll('.age');
@@ -1736,7 +1736,7 @@ HET-TODO-DUYEN -->
     for (var j = 0; j < bars.length; j++) { bars[j].classList.toggle('sel', j === i); dots[j].classList.toggle('sel', j === i); ages[j].classList.toggle('sel', j === i); }
     var y = YEARS[i];
     document.getElementById('ro-age').textContent = 'Tuổi ' + y[0];
-    var ph = document.getElementById('ro-ph'); ph.textContent = PH[y[1]] + ' · ' + y[2] + '/100'; ph.style.color = PHC[y[1]];
+    var ph = document.getElementById('ro-ph'); ph.textContent = PH[y[1]] + ' · Điểm thuận lợi: ' + y[2] + '/100'; ph.style.color = PHC[y[1]];
     Array.prototype.forEach.call(cards, function (c) { c.classList.toggle('on', c.getAttribute('data-ph') === y[1]); });
     var sc = document.getElementById('chart-scroll');
     if (sc && sc.scrollWidth > sc.clientWidth + 4) { var bw = sc.scrollWidth; sc.scrollTo({ left: Math.max(0, bw * (0.04 + 0.092 * i + 0.046) - sc.clientWidth / 2), behavior: RM ? 'auto' : 'smooth' }); }
