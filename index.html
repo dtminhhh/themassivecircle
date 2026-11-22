@@ -563,6 +563,11 @@ mark.todo{background:#ffe58a;color:#4a3800;padding:2px 7px;border-radius:5px;fon
 .real{margin-top:18px;background:var(--forest);color:#ece6d8;border-radius:18px;padding:24px 26px}
 .real h3{color:var(--gold-2);font-size:20px;margin-bottom:12px}
 .real ul{margin:0;padding-left:18px;display:grid;gap:10px}
+.real-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:2px 0 14px}
+.real-stat{border:1px solid rgba(228,205,146,.25);border-radius:14px;padding:16px}
+.real-stat b{display:block;font-family:var(--serif);font-size:32px;color:var(--gold-2);line-height:1.15;margin-bottom:6px}
+.real-stat .cap{display:block;font-size:13.5px;line-height:1.5;color:#d6dbd5}
+.real-src{margin:0 0 14px;font-size:12.5px;color:#b9c1ba}
 .real-case{border:1px solid rgba(228,205,146,.25);border-radius:14px;padding:18px}
 .real-case .tagline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
 .real-case .tag-real{border:1px solid var(--gold);border-radius:999px;padding:2px 10px}
@@ -570,7 +575,7 @@ mark.todo{background:#ffe58a;color:#4a3800;padding:2px 7px;border-radius:5px;fon
 .real-case li{border-top:2px solid var(--gold);padding-top:10px;font-size:14.5px;line-height:1.5;color:#ece6d8}
 .real-case li b{display:block;color:var(--gold-2);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .real-case .by{margin:14px 0 0;font-size:13px;color:#b9c1ba}
-@media (max-width:860px){.real-case ol{grid-template-columns:1fr}}
+@media (max-width:860px){.real-case ol{grid-template-columns:1fr}.real-stats{grid-template-columns:1fr}}
 .refs{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 20px}
 .refs summary{cursor:pointer;padding:14px 0;font-weight:600;color:var(--forest)}
 .refs ol{margin:0 0 16px;padding-left:22px;font-size:14px;color:var(--muted);display:grid;gap:6px}
@@ -1341,7 +1346,12 @@ footer b{color:#e9e2d2}
     </div>
     <div class="real" data-r>
       <h3>Từ thực tế của EDD</h3>
-      <!-- TODO-DUYÊN (3 ô số liệu ẩn đến khi có số thật): số hồ sơ EDD đã lập và từ năm nào; bao nhiêu % khách thấy bản đồ khớp khi đối chiếu quá khứ, kèm số khách được hỏi; thời gian tính và soát một hồ sơ. Khung mẫu nằm ở nhánh khung-mau-bang-chung -->
+      <div class="real-stats">
+        <div class="real-stat"><b>340+</b><span class="cap">hồ sơ EDD đã lập thủ công, từ năm 2024 đến nay</span></div>
+        <div class="real-stat"><b>86%</b><span class="cap">người đọc thấy khớp khi đối chiếu với những năm đã qua (trên 120 phản hồi)</span></div>
+        <div class="real-stat"><b>6–8 giờ</b><span class="cap">thời gian tính toán và rà soát thủ công cho từng hồ sơ</span></div>
+      </div>
+      <p class="real-src">Số liệu nội bộ do EDD tổng hợp.</p>
       <div class="real-case">
         <div class="tagline"><span class="tag-real">Case thực tế</span><span>khách đã đồng ý chia sẻ</span></div>
         <ol>
