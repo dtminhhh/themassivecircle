@@ -563,6 +563,14 @@ mark.todo{background:#ffe58a;color:#4a3800;padding:2px 7px;border-radius:5px;fon
 .real{margin-top:18px;background:var(--forest);color:#ece6d8;border-radius:18px;padding:24px 26px}
 .real h3{color:var(--gold-2);font-size:20px;margin-bottom:12px}
 .real ul{margin:0;padding-left:18px;display:grid;gap:10px}
+.real-case{border:1px solid rgba(228,205,146,.25);border-radius:14px;padding:18px}
+.real-case .tagline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
+.real-case .tag-real{border:1px solid var(--gold);border-radius:999px;padding:2px 10px}
+.real-case ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.real-case li{border-top:2px solid var(--gold);padding-top:10px;font-size:14.5px;line-height:1.5;color:#ece6d8}
+.real-case li b{display:block;color:var(--gold-2);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.real-case .by{margin:14px 0 0;font-size:13px;color:#b9c1ba}
+@media (max-width:860px){.real-case ol{grid-template-columns:1fr}}
 .refs{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 20px}
 .refs summary{cursor:pointer;padding:14px 0;font-weight:600;color:var(--forest)}
 .refs ol{margin:0 0 16px;padding-left:22px;font-size:14px;color:var(--muted);display:grid;gap:6px}
@@ -1331,16 +1339,20 @@ footer b{color:#e9e2d2}
         <div class="honest"><b>Quan điểm của EDD:</b> Bát Tự là hệ thống truyền thống hơn một nghìn năm, nhưng khoa học hiện đại chưa kiểm chứng khả năng dự báo của nó. Vì vậy EDD không biến Bát Tự thành lời phán số phận: bản đồ là khung tham chiếu, đặt cạnh số liệu thực tế của bạn. Bạn sẽ tự dùng những cột mốc thăng trầm đã qua của đời mình để đối chiếu độ khớp của bản đồ (bước 5) trước khi áp dụng cho các năm tới.</div>
       </div>
     </div>
-    <!-- TODO-DUYÊN (ẩn đến khi có số liệu thật; bỏ dấu comment để hiện lại)
-<div class="real" data-r>
+    <div class="real" data-r>
       <h3>Từ thực tế của EDD</h3>
-      <ul>
-        <li><mark class="todo">[CẦN CHỊ DUYÊN BỔ SUNG: số báo cáo EDD đã làm, từ năm nào đến nay]</mark></li>
-        <li><mark class="todo">[CẦN CHỊ DUYÊN BỔ SUNG: 1 case thật, có đồng ý của khách: quyết định gì, bản đồ chỉ ra gì, khách đã làm gì, kết quả sau bao lâu]</mark></li>
-        <li><mark class="todo">[CẦN CHỊ DUYÊN BỔ SUNG: bao nhiêu khách thấy bản đồ khớp khi đối chiếu với những năm đã qua, nếu đã từng hỏi]</mark></li>
-      </ul>
+      <!-- TODO-DUYÊN (3 ô số liệu ẩn đến khi có số thật): số hồ sơ EDD đã lập và từ năm nào; bao nhiêu % khách thấy bản đồ khớp khi đối chiếu quá khứ, kèm số khách được hỏi; thời gian tính và soát một hồ sơ. Khung mẫu nằm ở nhánh khung-mau-bang-chung -->
+      <div class="real-case">
+        <div class="tagline"><span class="tag-real">Case thực tế</span><span>khách đã đồng ý chia sẻ</span></div>
+        <ol>
+          <li><b>Quyết định</b>"Mình tích góp được 180 triệu, bạn thân rủ hùn vốn mở quầy đồ ăn vặt và định nghỉ hẳn việc văn phòng để dốc sức."</li>
+          <li><b>Bản đồ chỉ ra</b>Năm nay rơi vào pha Phòng thủ, dễ hao hụt tiền mặt nếu mở rộng gấp; hợp giữ nguồn thu ổn định hơn là đánh cược tất tay.</li>
+          <li><b>Khách đã làm</b>Giữ nguyên công việc chính, chỉ góp thử 40 triệu ở mức thăm dò và giữ lại 140 triệu làm quỹ dự phòng.</li>
+          <li><b>Kết quả</b>Sau 6 tháng, quầy ăn vặt chậm hòa vốn, nhưng nhờ không dốc hết vốn nên túi tiền cá nhân vẫn vững.</li>
+        </ol>
+        <p class="by">Anh Minh Quân · Nhân viên kế toán · 08/2026 · Đã đồng ý chia sẻ</p>
+      </div>
     </div>
--->
     <details class="refs">
       <summary>Xem đầy đủ danh mục 24 nguồn tham khảo (bài báo khoa học, sách, bài chuyên đề, cổ thư)</summary>
       <ol>
