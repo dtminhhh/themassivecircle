@@ -27,7 +27,7 @@ window.EDD_CONFIG = {
   PIXEL_ID: '1579575970863354',
 
   // Giá hiển thị. Giá tính tiền thật nằm trong Apps Script (Code.gs), hai nơi phải khớp nhau.
-  PRODUCT: { key: 'core', id: 'edd-foundation', name: 'EDD Foundation™', price: 290000, listPrice: 790000 },
+  PRODUCT: { key: 'core', id: 'edd-foundation', name: 'EDD Foundation™', label: 'Lộ trình & Hồ sơ EDD Foundation™', price: 290000, listPrice: 790000 },
   BUMPS: [
     { key: 'fieldguide', id: 'money-engine-field-guide', name: 'Money Engine Field Guide™', short: 'Money Engine Field Guide™ (PDF)', price: 290000, listPrice: 890000,
       file: 'https://www.themassivecircle.com/tai-lieu/money-engine-field-guide.pdf' },
@@ -470,82 +470,82 @@ footer a{color:var(--muted)}
           <div class="card">
             <div class="step">Bước 1</div>
             <h2>Thông tin của bạn</h2>
-            <p class="hint">Khóa học, tài liệu và báo cáo gửi về email. Số điện thoại để đội ngũ hỗ trợ qua Zalo. Ngày giờ sinh dùng để lập bản đồ của bạn.</p>
+            <p class="hint">Bài học và Hồ sơ EDD sẽ gửi về email bạn đăng ký. Số điện thoại dùng để hỗ trợ qua Zalo khi cần, còn ngày giờ sinh là căn cứ lập tấm bản đồ riêng cho bạn.</p>
             <div class="field"><label for="c-name">Họ và tên</label><input id="c-name" name="fullname" autocomplete="name" placeholder="Nguyễn Thị Hoa"><small class="err">Bạn nhập họ và tên nhé.</small></div>
             <div class="field"><label for="c-phone">Số điện thoại có Zalo</label><input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"><small class="err">Số điện thoại chưa đúng, kiểm tra lại giúp mình.</small></div>
-            <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="ban@gmail.com"><small class="err">Email chưa đúng, kiểm tra lại giúp mình.</small></div>
+            <div class="field"><label for="c-email">Email nhận bài học và Hồ sơ EDD</label><input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="ban@gmail.com"><small class="err">Email chưa đúng, kiểm tra lại giúp mình.</small></div>
             <div class="field" id="f-gender"><span class="lbl">Giới tính</span>
               <div class="pills"><label class="pill"><input type="radio" name="gender" value="Nữ"><span>Nữ</span></label><label class="pill"><input type="radio" name="gender" value="Nam"><span>Nam</span></label></div>
               <small class="err">Bạn chọn giới tính nhé.</small></div>
             <div class="field" id="f-date"><span class="lbl">Ngày sinh (dương lịch)</span>
               <div class="three"><select name="day" aria-label="Ngày"><option value="">Ngày</option></select><select name="month" aria-label="Tháng"><option value="">Tháng</option></select><select name="year" class="y" aria-label="Năm"><option value="">Năm</option></select></div>
               <small class="err">Ngày sinh chưa đúng, kiểm tra lại giúp mình.</small></div>
-            <div class="field" id="f-hour"><label for="c-hour">Giờ sinh (canh giờ, khung 2 tiếng)</label>
+            <div class="field" id="f-hour"><label for="c-hour">Giờ sinh (khung 2 tiếng)</label>
               <select name="hour" id="c-hour"><option value="">Chọn khung giờ sinh</option></select>
               <small class="err">Bạn chọn khung giờ sinh nhé.</small>
-              <p class="fine">Không nhớ giờ sinh? Hỏi người nhà hoặc xem giấy khai sinh. Cần hỗ trợ: Zalo 0986150101.</p></div>
+              <p class="fine">Chưa chắc chắn giờ sinh? Bạn có thể xem lại giấy khai sinh hoặc hỏi người thân để chọn khung 2 tiếng gần nhất. Nếu cần tư vấn thêm, nhắn Zalo 0986150101.</p></div>
             <div class="prod">
               <div class="cover">EDD<br>Foundation™</div>
-              <div class="prod-t"><b>EDD Foundation™</b><span>6 bài học · Tấm bản đồ tài chính (báo cáo EDD) tính tay theo ngày giờ sinh, gửi Ngày 7</span></div>
+              <div class="prod-t"><b>EDD Foundation™</b><span>6 bài giải mã · Hồ sơ EDD tính tay (&gt;20 trang) theo ngày giờ sinh, gửi qua email vào Ngày 7</span></div>
               <div class="prod-p"><del>790.000đ</del><strong>290.000đ</strong></div>
             </div>
           </div>
 
           <div class="card">
-            <div class="step">Bước 2</div>
-            <h2>Khoan đã. 3 phần thêm này chỉ có ở trang này.</h2>
-            <p class="hint">Rời trang hoặc thanh toán xong là không thêm được với giá này. Tick vào phần bạn muốn.</p>
+            <div class="step">Bước 2 · Tùy chọn bổ sung</div>
+            <h2>Tùy chọn thêm nếu bạn muốn đi sâu hơn</h2>
+            <p class="hint">Các mục dưới đây chỉ áp dụng kèm đơn này với mức ưu đãi hiện tại. Nếu chưa cần ngay, bạn có thể để trống và bấm tiếp tục thanh toán gói 290.000đ.</p>
 
             <label class="bump" data-key="fieldguide">
-              <div class="bump-h"><span>Thêm 1/3 · Để thiết kế dòng tiền</span><span>Chỉ có ở trang này</span></div>
+              <div class="bump-h"><span>Chọn thêm 1/3 · Dành cho người muốn tự đối chiếu sâu</span><span>Tùy chọn thêm</span></div>
               <div class="bump-b">
                 <input type="checkbox" value="fieldguide" aria-label="Thêm Money Engine Field Guide">
                 <div>
-                  <div class="bump-t"><span class="arr">→</span> CÓ, thêm Money Engine Field Guide™ (PDF 50 trang)</div>
+                  <div class="bump-t"><span class="arr">→</span> CÓ, thêm cẩm nang Money Engine Field Guide™ (PDF 50 trang)</div>
                   <div class="bump-price">Thêm <strong>290.000đ</strong><del>890.000đ</del></div>
-                  <div class="bump-lead">Bản đồ cho bạn biết lúc nào nên dồn, lúc nào nên giữ. Cuốn này giúp bạn thiết kế cách tiền đi vào, đúng với cơ chế của mình.</div>
+                  <div class="bump-lead">Giúp bạn tự nhận diện lúc nào nên đẩy mạnh, lúc nào nên giữ tiền và cách làm việc khớp nhất với năng lực tự nhiên của mình.</div>
                   <ul>
-                    <li>15 tình huống thực tế để tự định vị cơ chế tạo tiền của bạn trong 10 Money Engine.</li>
-                    <li>Giải mã 8 cặp kết hợp (Hybrid Engine), khi bạn vừa muốn bứt tốc vừa muốn an toàn.</li>
-                    <li>Chẩn đoán "điểm khóa dòng tiền": vì sao bận hơn mà số dư vẫn đi ngang.</li>
+                    <li>15 tình huống thực tế giúp bạn tự đối chiếu 10 kiểu cơ chế kiếm tiền (Money Engine).</li>
+                    <li>8 cặp kết hợp (Hybrid Engine): khi bạn vừa muốn tăng tốc, vừa muốn giữ an toàn.</li>
+                    <li>Chẩn đoán "điểm khóa dòng tiền": vì sao làm hoài, bận rộn suốt ngày mà tiền vẫn khó tích lũy.</li>
                   </ul>
-                  <div class="bump-note">Giao ngay sau khi thanh toán. Chỉ thêm được ở trang này.</div>
+                  <div class="bump-note">Gửi ngay sau khi thanh toán thành công. Tài liệu số nên không thuộc diện hoàn tiền.</div>
                 </div>
               </div>
             </label>
 
             <label class="bump" data-key="playbook">
-              <div class="bump-h"><span>Thêm 2/3 · Cho người hay chần chừ</span><span>Chỉ có ở trang này</span></div>
+              <div class="bump-h"><span>Chọn thêm 2/3 · Dành cho người hay do dự hoặc quá tải</span><span>Tùy chọn thêm</span></div>
               <div class="bump-b">
                 <input type="checkbox" value="playbook" aria-label="Thêm Architecture Type Playbook">
                 <div>
-                  <div class="bump-t"><span class="arr">→</span> CÓ, thêm Architecture Type Playbook™ (PDF 56 trang)</div>
+                  <div class="bump-t"><span class="arr">→</span> CÓ, thêm tài liệu Architecture Type Playbook™ (PDF 56 trang)</div>
                   <div class="bump-price">Thêm <strong>290.000đ</strong><del>890.000đ</del></div>
-                  <div class="bump-lead">Cùng một cơ hội, vì sao người khác làm nhàn còn bạn mệt gấp ba?</div>
+                  <div class="bump-lead">Cùng một cơ hội làm ăn hay công việc, vì sao có người làm nhẹ nhàng vẫn ra kết quả còn bạn thì mệt mỏi và dễ chùn bước?</div>
                   <ul>
-                    <li>16 tình huống để tự định vị cấu trúc vận hành gốc, dùng được cho cả cộng sự.</li>
-                    <li>8 cặp giao thoa (Hybrid Profiles): vì sao bạn hay chần chừ hoặc tự phá kế hoạch.</li>
-                    <li>Chẩn đoán "vùng kiệt sức": nơi năng lượng và tiền bốc hơi trước khi bạn kịp thấy.</li>
+                    <li>16 tình huống để tự định vị kiểu vận hành gốc của bản thân, dùng được cho cả cộng sự.</li>
+                    <li>8 cặp giao thoa (Hybrid Profiles): vì sao bạn hay chần chừ, trì hoãn hoặc tự phá kế hoạch.</li>
+                    <li>Chẩn đoán "vùng kiệt sức": nơi sức lực và tiền bạc hao hụt trước khi bạn kịp nhận ra.</li>
                   </ul>
-                  <div class="bump-note">Giao ngay sau khi thanh toán. Chỉ thêm được ở trang này.</div>
+                  <div class="bump-note">Gửi ngay sau khi thanh toán thành công. Tài liệu số nên không thuộc diện hoàn tiền.</div>
                 </div>
               </div>
             </label>
 
             <label class="bump" data-key="debrief">
-              <div class="bump-h"><span>Thêm 3/3 · Mỗi tuần tối đa 5 phiên</span><span>Chỉ có ở trang này</span></div>
+              <div class="bump-h"><span>Chọn thêm 3/3 · Dành cho quyết định đang cần gỡ rối gấp</span><span>Giới hạn 5 suất/tuần</span></div>
               <div class="bump-b">
                 <input type="checkbox" value="debrief" aria-label="Thêm phiên 1-on-1 Strategy Debrief">
                 <div>
-                  <div class="bump-t"><span class="arr">→</span> CÓ, đặt 1 phiên 1-on-1 Strategy Debrief (60 phút online)</div>
+                  <div class="bump-t"><span class="arr">→</span> CÓ, đặt 1 buổi trao đổi 1-1 (Strategy Debrief, 60 phút trực tuyến)</div>
                   <div class="bump-price">Thêm <strong>590.000đ</strong><del>1.800.000đ</del></div>
-                  <div class="bump-lead">Mang 1 quyết định đang treo vào phiên. Cùng chuyên gia chạy nó qua 3 câu kiểm tra: đúng người, đúng lúc, đúng số.</div>
+                  <div class="bump-lead">Mang thẳng một khoản tiền hoặc một ngã rẽ đang phân vân vào buổi trao đổi, cùng soi qua Bộ lọc 3 bước: Đúng người – Đúng lúc – Đúng con số.</div>
                   <ul>
-                    <li>Quyết định nào cũng được: rót vốn, đổi mô hình, dòng tiền nghẽn, chuyển hướng.</li>
-                    <li>Chốt 3 việc ưu tiên cho 90 ngày tới.</li>
-                    <li>Nhận bản ghi âm và file tóm tắt chiến lược sau phiên.</li>
+                    <li>Áp dụng cho nhiều tình huống thực tế: góp vốn, đầu tư, đổi việc, mở rộng hay giữ tiền mặt.</li>
+                    <li>Chốt 3 việc ưu tiên rõ ràng cho 90 ngày tới.</li>
+                    <li>Nhận bản ghi âm và file tóm tắt hướng đi sau buổi trao đổi.</li>
                   </ul>
-                  <div class="bump-note">Đội ngũ nhắn Zalo để hẹn lịch. Chỉ thêm được ở trang này.</div>
+                  <div class="bump-note">Đội ngũ liên hệ qua Zalo để sắp lịch phù hợp với bạn.</div>
                 </div>
               </div>
             </label>
@@ -562,13 +562,13 @@ footer a{color:var(--muted)}
           <h3>Đơn hàng của bạn</h3>
           <div id="sum-lines"></div>
           <div class="total"><span>Tổng cộng</span><strong id="sum-total">290.000đ</strong></div>
-          <button class="btn-gold" type="submit" id="btn-order">Đặt hàng và hiện mã QR →</button>
+          <button class="btn-gold" type="submit" id="btn-order">Tiếp tục và hiện mã QR thanh toán →</button>
           <div class="form-err" id="form-err"></div>
           <ul class="ticks">
-            <li>Ngày giờ sinh chỉ dùng để lập bản đồ của bạn</li>
-            <li>Bản đồ tính tay, gửi qua email Ngày 7</li>
-            <li>Hoàn 100% trong 5 ngày (khóa học và báo cáo)</li>
-            <li>Tự xác nhận, mở trang nhận khóa học ngay</li>
+            <li>Ngày giờ sinh dùng để lập Hồ sơ cá nhân của bạn</li>
+            <li>Hồ sơ tính tay (&gt;20 trang), gửi qua email vào Ngày 7</li>
+            <li>Hoàn tiền 100% trong 5 ngày, không cần lý do (khóa học và Hồ sơ)</li>
+            <li>Tự động xác nhận và mở trang vào học ngay sau khi chuyển khoản</li>
           </ul>
         </aside>
       </form>
@@ -625,7 +625,7 @@ footer a{color:var(--muted)}
 
 <div class="mbar" id="mbar" hidden>
   <div>Tổng cộng<b id="mbar-total">290.000đ</b></div>
-  <button class="btn-gold" type="submit" form="co-form">Đặt hàng và hiện mã QR</button>
+  <button class="btn-gold" type="submit" form="co-form">Tiếp tục và hiện mã QR</button>
 </div>
 
 <footer>EDD Foundation™ · The Massive Circle · <a href="https://www.themassivecircle.com/chinh-sach-bao-mat">Chính sách bảo mật</a> · <a href="https://www.themassivecircle.com/chinh-sach-hoan-tien">Chính sách hoàn tiền</a></footer>
@@ -675,7 +675,7 @@ footer a{color:var(--muted)}
   function picked() { return Array.prototype.map.call(form.querySelectorAll('.bump input:checked'), function (i) { return i.value; }); }
   function totalNow() { return picked().reduce(function (s, k) { return s + E.priceOf(k); }, P.price); }
   function renderSum() {
-    var html = '<div class="line"><span>' + E.esc(P.name) + '</span><span>' + E.vnd(P.price) + '</span></div>';
+    var html = '<div class="line"><span>' + E.esc(P.label || P.name) + '</span><span>' + E.vnd(P.price) + '</span></div>';
     picked().forEach(function (k) { var b = E.bump(k); html += '<div class="line"><span>' + E.esc(b.short) + '</span><span>+' + E.vnd(b.price) + '</span></div>'; });
     $('sum-lines').innerHTML = html;
     $('sum-total').textContent = E.vnd(totalNow());
@@ -705,7 +705,7 @@ footer a{color:var(--muted)}
   function busy(on) {
     var bt = form.ownerDocument.querySelectorAll('button[type=submit]');
     Array.prototype.forEach.call(bt, function (b) { b.disabled = on; });
-    $('btn-order').textContent = on ? 'Đang tạo đơn...' : 'Đặt hàng và hiện mã QR →';
+    $('btn-order').textContent = on ? 'Đang tạo đơn...' : 'Tiếp tục và hiện mã QR thanh toán →';
   }
   form.addEventListener('submit', function (ev) {
     ev.preventDefault(); formErr('');
